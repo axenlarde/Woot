@@ -30,7 +30,7 @@ public class Main
 		//Set the software name
 		Variables.setSoftwareName("WOOT");
 		//Set the software version
-		Variables.setSoftwareVersion("1.0");
+		Variables.setSoftwareVersion("1.1");
 		
 		/****************
 		 * Initialization of the logging
