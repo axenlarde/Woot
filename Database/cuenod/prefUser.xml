@@ -1,0 +1,9 @@
+<pattern>
+<options>
+<SOAPHost>10.33.5.38</SOAPHost>
+<SOAPUnityHost>10.33.5.8</SOAPUnityHost>
+<SOAPPort>8443</SOAPPort>
+<SOAPUsername>AXLUser</SOAPUsername>
+<SOAPPassword>CCMCisco92</SOAPPassword>
+</options>
+</pattern>

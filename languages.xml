@@ -1,0 +1,78 @@
+﻿<!--
+Language configuration file
+-->
+
+<languages>
+	<language>
+		<misc>
+			<name>english</name>
+		</misc>
+		<values>
+			<!--Misc-->
+			<selectbutton>Select</selectbutton>
+			<submitbutton>Submit</submitbutton>
+			<cancelbutton>Cancel</cancelbutton>
+			<yes>Yes</yes>
+			<no>No</no>
+			<error>Error</error>
+			<selectButton>Select</selectButton>
+			<pleasewait>Please wait</pleasewait>
+			<invitMainDirectoryPhrase>Please select the main directory</invitMainDirectoryPhrase>
+			<databasefilefetch>Please select the database file</databasefilefetch>
+			<collectionfilefetch>Please select the collection file</collectionfilefetch>
+			<errordirectory>A directory need to be choosen</errordirectory>
+			<invitofficeselection>Please select the current office</invitofficeselection>
+			<injectionquestion>Would you like to proceed with injection ?</injectionquestion>
+			<deletionquestion>Would you like to proceed with the deletion ?</deletionquestion>
+			<!--GUI-->
+			<mainmenutitle>Menu</mainmenutitle>
+			<userinjection>User provisioning</userinjection>
+			<injectuser>Inject</injectuser>
+			<updateuser>Update</updateuser>
+			<deleteuser>Delete</deleteuser>
+			<cucminjection>CUCM provisioning</cucminjection>
+			<exit>Exit</exit>
+			<tools>Tools</tools>
+			<option>Options</option>
+			<gencollectionfile>Generate the collection file</gencollectionfile>
+			<gentemplatefile>Generate the template files</gentemplatefile>
+			<help>Help</help>
+			<about>About </about>
+			<softwarename>Software name : </softwarename>
+			<softwareversion>Version : </softwareversion>
+			<author>Author : </author>
+			<contact>Email : </contact>
+			<injectiontitle>User Injection</injectiontitle>
+			<deletiontitle>User Deletion</deletiontitle>
+			<start>Start</start>
+			<stop>Stop</stop>
+			<pause>Pause</pause>
+			<play>Play</play>
+			<selectall>Select all</selectall>
+			<expandall>Expand all</expandall>
+			<!--Status-->
+			<injected>Injected</injected>
+			<error>Error</error>
+			<processing>Processing</processing>
+			<waiting>Waiting</waiting>
+			<disabled>Disabled</disabled>
+			<init>Init</init>
+			<deleted>Deleted</deleted>
+			<updated>Updated</updated>
+			<terminated>Terminated</terminated>
+			<errorlist>Error list</errorlist>
+			<noerror>No error to report</noerror>
+		</values>
+	</language>
+	<language>
+		<misc>
+			<name>french</name>
+		</misc>
+		<values>
+			<!--Misc-->
+			<selectbutton>Select</selectbutton>
+			<submitbutton>Submit</submitbutton>
+			<cancelbutton>Cancel</cancelbutton>
+		</values>
+	</language>
+</languages>

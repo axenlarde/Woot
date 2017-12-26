@@ -1,0 +1,42 @@
+<!--
+XML file containing all the offices and their settings
+
+To access one of this setting, use the following syntax : office.name, office.mohnumber, etc.
+-->
+
+<xml>
+	<offices>
+		<office>
+			<name>LYON</name><!--Office name-->
+			<fullname>Lyon</fullname><!--Office full name-->
+			<audiobandwidth>100</audiobandwidth><!--(Kbps)-->
+			<videobandwidth>384</videobandwidth><!--(Kbps)-->
+			<userlocal>English United States</userlocal><!--French France, Italian Italy, English United States, etc.-->
+			<softkeytemplate>Standard User</softkeytemplate><!--Softkey template name-->
+			<callmanagergroup>MAIN_CMG</callmanagergroup><!--Call Manager group name-->
+			<datetimegroup>Paris</datetimegroup><!--Date time group name-->
+			<mohnumber>1</mohnumber><!--Moh number-->
+			<country>France</country><!--France, Italy, United Kingdom, etc.-->
+			<internalprefix>21</internalprefix><!--Office internal prefix-->
+			<didranges>
+				<did>01414641XX</did><!--one or more--><!--CUCM like pattern for one did range-->
+				<did>01414741XX</did><!--one or more--><!--CUCM like pattern for one did range-->
+			</didranges>
+			<e164>33</e164><!--Country E.164 prefix-->
+			<receptionnumber>21345</receptionnumber><!--Reception number-->
+			<aargroup>GLOBAL_AAR</aargroup><!--AAR Group name-->
+			<voicemailtemplate>voicemailusertemplate</voicemailtemplate><!--Voice mail template name-->
+			<voicemailprofile>UnityConnection1</voicemailprofile><!--CUCM Voice mail profile name-->
+			<voicenetwork>192.168.1.0/24</voicenetwork><!--VoIP network-->
+			<setting><!--One or more-->
+				<targetname>1</targetname><!--Name to target this setting-->
+				<value>0141464146</value><!--Value of this setting-->
+			</setting>
+			<setting><!--One or more-->
+				<targetname>2</targetname><!--Name to target this setting-->
+				<value>Setting 2</value><!--Value of this setting-->
+			</setting>
+		</office>
+	</offices>
+</xml>
+			

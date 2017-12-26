@@ -1,0 +1,175 @@
+
+package com.cisco.axl.api._10;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for XCommonMembersExtension complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="XCommonMembersExtension">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "XCommonMembersExtension")
+@XmlSeeAlso({
+    com.cisco.axl.api._10.UpdateCcdRequestingServiceReq.RemoveAssociatedTrunks.class,
+    com.cisco.axl.api._10.UpdateCcdRequestingServiceReq.AddAssociatedTrunks.class,
+    com.cisco.axl.api._10.UpdateCcdRequestingServiceReq.AssociatedTrunks.class,
+    com.cisco.axl.api._10.UpdateApplicationServerReq.RemoveAppUsers.class,
+    com.cisco.axl.api._10.UpdateApplicationServerReq.AddAppUsers.class,
+    com.cisco.axl.api._10.UpdateApplicationServerReq.AppUsers.class,
+    com.cisco.axl.api._10.UpdateApplicationServerReq.RemoveEndUsers.class,
+    com.cisco.axl.api._10.UpdateApplicationServerReq.AddEndUsers.class,
+    com.cisco.axl.api._10.UpdateApplicationServerReq.EndUsers.class,
+    com.cisco.axl.api._10.UpdateSafForwarderReq.RemoveAssociatedCucms.class,
+    com.cisco.axl.api._10.UpdateSafForwarderReq.AddAssociatedCucms.class,
+    com.cisco.axl.api._10.UpdateSafForwarderReq.AssociatedCucms.class,
+    com.cisco.axl.api._10.UpdateHuntListReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateHuntListReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateHuntListReq.Members.class,
+    com.cisco.axl.api._10.UpdateGeoLocationPolicyReq.RemoveRelatedPolicies.class,
+    com.cisco.axl.api._10.UpdateGeoLocationPolicyReq.AddRelatedPolicies.class,
+    com.cisco.axl.api._10.UpdateGeoLocationPolicyReq.RelatedPolicies.class,
+    com.cisco.axl.api._10.UpdateImeClientReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateImeClientReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateImeClientReq.Members.class,
+    com.cisco.axl.api._10.UpdateImeClientReq.RemoveCcmExternalIpMaps.class,
+    com.cisco.axl.api._10.UpdateImeClientReq.AddCcmExternalIpMaps.class,
+    com.cisco.axl.api._10.UpdateImeClientReq.CcmExternalIpMaps.class,
+    com.cisco.axl.api._10.UpdateCallPickupGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateCallPickupGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateCallPickupGroupReq.Members.class,
+    com.cisco.axl.api._10.UpdateSelfProvisioningReq.RemoveLanguages.class,
+    com.cisco.axl.api._10.UpdateSelfProvisioningReq.AddLanguages.class,
+    com.cisco.axl.api._10.UpdateSelfProvisioningReq.Languages.class,
+    com.cisco.axl.api._10.UpdateMediaResourceListReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateMediaResourceListReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateMediaResourceListReq.Members.class,
+    com.cisco.axl.api._10.UpdateRouteFilterReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateRouteFilterReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateRouteFilterReq.Members.class,
+    com.cisco.axl.api._10.UpdateLbmHubGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateLbmHubGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateLbmHubGroupReq.Members.class,
+    com.cisco.axl.api._10.UpdateRouteGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateRouteGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateRouteGroupReq.Members.class,
+    com.cisco.axl.api._10.UpdateCallManagerGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateCallManagerGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateCallManagerGroupReq.Members.class,
+    com.cisco.axl.api._10.UpdateSipDialRulesReq.RemovePatterns.class,
+    com.cisco.axl.api._10.UpdateSipDialRulesReq.AddPatterns.class,
+    com.cisco.axl.api._10.UpdateSipDialRulesReq.Patterns.class,
+    com.cisco.axl.api._10.UpdateSipDialRulesReq.RemovePlars.class,
+    com.cisco.axl.api._10.UpdateSipDialRulesReq.AddPlars.class,
+    com.cisco.axl.api._10.UpdateSipDialRulesReq.Plars.class,
+    com.cisco.axl.api._10.UpdateDeviceMobilityReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateDeviceMobilityReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateDeviceMobilityReq.Members.class,
+    com.cisco.axl.api._10.UpdateSipTrunkReq.RemoveDestinations.class,
+    com.cisco.axl.api._10.UpdateSipTrunkReq.AddDestinations.class,
+    com.cisco.axl.api._10.UpdateSipTrunkReq.Destinations.class,
+    com.cisco.axl.api._10.UpdateDateTimeGroupReq.RemovePhoneNtpReferences.class,
+    com.cisco.axl.api._10.UpdateDateTimeGroupReq.AddPhoneNtpReferences.class,
+    com.cisco.axl.api._10.UpdateDateTimeGroupReq.PhoneNtpReferences.class,
+    com.cisco.axl.api._10.UpdateH323TrunkReq.RemoveDestinations.class,
+    com.cisco.axl.api._10.UpdateH323TrunkReq.AddDestinations.class,
+    com.cisco.axl.api._10.UpdateH323TrunkReq.Destinations.class,
+    com.cisco.axl.api._10.UpdateMediaResourceGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateMediaResourceGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateMediaResourceGroupReq.Members.class,
+    com.cisco.axl.api._10.UpdateLdapDirectoryReq.RemoveAccessControlGroupInfo.class,
+    com.cisco.axl.api._10.UpdateLdapDirectoryReq.AddAccessControlGroupInfo.class,
+    com.cisco.axl.api._10.UpdateLdapDirectoryReq.AccessControlGroupInfo.class,
+    com.cisco.axl.api._10.UpdateWlanProfileGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateWlanProfileGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateWlanProfileGroupReq.Members.class,
+    com.cisco.axl.api._10.UpdateIpPhoneServicesReq.RemoveParameters.class,
+    com.cisco.axl.api._10.UpdateIpPhoneServicesReq.AddParameters.class,
+    com.cisco.axl.api._10.UpdateIpPhoneServicesReq.Parameters.class,
+    com.cisco.axl.api._10.UpdateCallerFilterListReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateCallerFilterListReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateCallerFilterListReq.Members.class,
+    com.cisco.axl.api._10.UpdateMobileVoiceAccessReq.RemoveLocales.class,
+    com.cisco.axl.api._10.UpdateMobileVoiceAccessReq.AddLocales.class,
+    com.cisco.axl.api._10.UpdateMobileVoiceAccessReq.Locales.class,
+    com.cisco.axl.api._10.UpdateUserGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateUserGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateUserGroupReq.Members.class,
+    com.cisco.axl.api._10.UpdateUserGroupReq.RemoveUserRoles.class,
+    com.cisco.axl.api._10.UpdateUserGroupReq.AddUserRoles.class,
+    com.cisco.axl.api._10.UpdateUserGroupReq.UserRoles.class,
+    com.cisco.axl.api._10.UpdateCssReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateCssReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateCssReq.Members.class,
+    com.cisco.axl.api._10.UpdateTimeScheduleReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateTimeScheduleReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateTimeScheduleReq.Members.class,
+    com.cisco.axl.api._10.UpdateResourcePriorityNamespaceListReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateResourcePriorityNamespaceListReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateResourcePriorityNamespaceListReq.Members.class,
+    com.cisco.axl.api._10.UpdateUserReq.RemoveExtensionsInfo.class,
+    com.cisco.axl.api._10.UpdateUserReq.AddExtensionsInfo.class,
+    com.cisco.axl.api._10.UpdateUserReq.ExtensionsInfo.class,
+    com.cisco.axl.api._10.UpdateRouteListReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateRouteListReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateRouteListReq.Members.class,
+    com.cisco.axl.api._10.UpdateLineGroupReq.RemoveMembers.class,
+    com.cisco.axl.api._10.UpdateLineGroupReq.AddMembers.class,
+    com.cisco.axl.api._10.UpdateLineGroupReq.Members.class,
+    com.cisco.axl.api._10.XCallPickupGroup.Members.class,
+    com.cisco.axl.api._10.XRouteGroup.Members.class,
+    com.cisco.axl.api._10.XMediaResourceList.Members.class,
+    com.cisco.axl.api._10.XTimeSchedule.Members.class,
+    com.cisco.axl.api._10.XRouteFilter.Members.class,
+    com.cisco.axl.api._10.XH323Trunk.Destinations.class,
+    com.cisco.axl.api._10.XResourcePriorityNamespaceList.Members.class,
+    com.cisco.axl.api._10.XSafForwarder.AssociatedCucms.class,
+    com.cisco.axl.api._10.XLineGroup.Members.class,
+    com.cisco.axl.api._10.XLdapDirectory.AccessControlGroupInfo.class,
+    com.cisco.axl.api._10.XDeviceMobility.Members.class,
+    com.cisco.axl.api._10.XUser.ExtensionsInfo.class,
+    com.cisco.axl.api._10.XGeoLocationPolicy.RelatedPolicies.class,
+    com.cisco.axl.api._10.XHuntList.Members.class,
+    com.cisco.axl.api._10.XSipTrunk.Destinations.class,
+    com.cisco.axl.api._10.XMobileVoiceAccess.Locales.class,
+    com.cisco.axl.api._10.XWlanProfileGroup.Members.class,
+    com.cisco.axl.api._10.XUserGroup.Members.class,
+    com.cisco.axl.api._10.XUserGroup.UserRoles.class,
+    com.cisco.axl.api._10.XCallManagerGroup.Members.class,
+    com.cisco.axl.api._10.XRouteList.Members.class,
+    com.cisco.axl.api._10.XCss.Members.class,
+    com.cisco.axl.api._10.XCcdRequestingService.AssociatedTrunks.class,
+    com.cisco.axl.api._10.XCallerFilterList.Members.class,
+    com.cisco.axl.api._10.XDdi.Members.class,
+    com.cisco.axl.api._10.LLdapDirectory.AccessControlGroupInfo.class,
+    com.cisco.axl.api._10.XSipDialRules.Patterns.class,
+    com.cisco.axl.api._10.XSipDialRules.Plars.class,
+    com.cisco.axl.api._10.XSdpTransparencyProfile.AttributeSet.class,
+    com.cisco.axl.api._10.XDateTimeGroup.PhoneNtpReferences.class,
+    com.cisco.axl.api._10.XMediaResourceGroup.Members.class,
+    com.cisco.axl.api._10.XIpPhoneServices.Parameters.class,
+    com.cisco.axl.api._10.XImeClient.Members.class,
+    com.cisco.axl.api._10.XImeClient.CcmExternalIpMaps.class,
+    com.cisco.axl.api._10.XApplicationServer.AppUsers.class,
+    com.cisco.axl.api._10.XApplicationServer.EndUsers.class,
+    com.cisco.axl.api._10.XLbmHubGroup.Members.class
+})
+public class XCommonMembersExtension {
+
+
+}

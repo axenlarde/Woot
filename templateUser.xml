@@ -1,0 +1,96 @@
+﻿<!--Fichier de paramétrage de la collecte-->
+<!--
+Rappel :
+Texte libre à mettre entre guillement simple, exemple = 'test'
+utiliser des + pour séparer les éléments
+Un chiffre entre étoiles placé avant une valeure indique le nombre de lettre à utiliser, exemple : *1*file.firstname = On utilise la première lettre du prénom
+Le symbole *M* indique que toute la valeure suivante doit être converti en majuscule
+Le symbole *1M* indique que seul la première lettre doit être converti en majuscule. Le chiffre peut être ajusté.
+Le symbole *m* indique que toute la valeure suivante doit être converti en minuscule
+Le symbole *1m* indique que seul la première lettre doit être converti en minuscule. Le chiffre peut être ajusté.
+Les combinaisons sont possibles, par exemple : *4**M*file.lastname affichera les 4 premières lettres du nom mises en majuscule. *M**4* est équivalent. *2M**5*file.lastname affichera les 5 première lettres du prénom dont les deux premières seront en majuscule.
+-->
+<xml>
+	<items>
+		<phone>
+			<targetname>phone</targetname>
+			<description>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</description>
+			<linedescription>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</linedescription>
+			<alertingname>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</alertingname>
+			<display>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</display>
+			<linetextlabel>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</linetextlabel>
+			<externalphonemask>file.lineexternalphonenumbermask</externalphonemask>
+			<aarmask></aarmask>
+			<commondeviceconfig>'CDC_French'</commondeviceconfig>
+			<commonphoneconfig>'Standard Common Phone Profile'</commonphoneconfig>
+			<securityprofile>*LFphone*file.phonetype+' - Standard '+file.phoneprotocol+' Non-Secure Profile'</securityprofile>
+			<devicemobilitymode>'Default'</devicemobilitymode><!--Off, On, Default-->
+			<aargroup></aargroup>
+			<aarcss></aarcss>
+			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
+			<reroutingcss></reroutingcss>
+			<linenumber>file.linenumber1</linenumber><!--One or more-->
+			<linenumber>file.linenumber2</linenumber><!--One or more-->
+			<cssline>office.name+file.linecss</cssline>
+			<cssforward>office.name+file.linecss</cssforward>
+			<fwalldestination>file.forwardall</fwalldestination>
+			<fwnoandestination>file.forwardnoan</fwnoandestination>
+			<fwbusydestination>file.forwardbusy</fwbusydestination>
+			<fwunrdestination>file.forwardunr</fwunrdestination>
+			<fwallvoicemailenable>'false'</fwallvoicemailenable>
+			<fwnoanvoicemailenable>*LFmisc*file.voicemail</fwnoanvoicemailenable>
+			<fwbusyvoicemailenable>*LFmisc*file.voicemail</fwbusyvoicemailenable>
+			<fwunrvoicemailenable>*LFmisc*file.voicemail</fwunrvoicemailenable>
+			<voicemailprofile>office.voicemailprofile</voicemailprofile>
+			<routepartition>config.didpartition</routepartition>
+			<devicename>'SEP'+file.phonemac</devicename>
+			<producttype>*LFphone*file.phonetype</producttype>
+			<protocol>file.phoneprotocol</protocol>
+			<buttontemplate>file.phonepbt</buttontemplate>
+			<devicepool>'DP'+office.name</devicepool>
+			<location>office.name</location>
+			<cssdevice></cssdevice>
+			<service>file.service1</service><!--'Service Name':'Service URL label' One or more service-->
+			<service>file.service2</service><!--'Service Name':'Service URL label' One or more service-->
+			<service>file.service3</service><!--'Service Name':'Service URL label' One or more service-->
+			<speeddial>file.speeddial1</speeddial><!--One or more-->
+			<speeddial>file.speeddial2</speeddial><!--One or more-->
+			<speeddial>file.speeddial3</speeddial><!--One or more-->
+		</phone>
+		<user>
+			<targetname>associatetophone1</targetname>
+			<userid>file.userid</userid>
+			<lastname></lastname>
+			<firstname></firstname>
+			<telephonenumber></telephonenumber>
+			<userlocal></userlocal>
+			<subscribecss></subscribecss>
+			<primaryextension></primaryextension>
+			<partition></partition>
+			<password></password>
+			<pin></pin>
+			<device>'SEP'+file.phonemac</device>
+		</user>
+		<user>
+			<targetname>associatetophone2</targetname>
+			<userid>file.userid</userid>
+			<lastname></lastname>
+			<firstname></firstname>
+			<telephonenumber></telephonenumber>
+			<userlocal>office.userlocal</userlocal>
+			<subscribecss></subscribecss>
+			<primaryextension>file.linenumber1</primaryextension>
+			<partition>config.didpartition</partition>
+			<password></password>
+			<pin></pin>
+		</user>
+		<voicemail>
+			<targetname>voicemail</targetname>
+			<alias>userid</alias>
+			<firstname>prenom</firstname>
+			<lastname>*M*nom</lastname>
+			<displayname>''</displayname>
+			<voicemailtemplate>office.voicemailtemplate</voicemailtemplate>
+		</voicemail>
+	</items>
+</xml>

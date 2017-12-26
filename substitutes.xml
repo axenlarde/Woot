@@ -1,0 +1,225 @@
+<!--
+Substitute list
+-->
+<substitutes>
+	<substitute>
+		<type>phone</type>
+		<match>Analogique</match>
+		<replaceby>Analog Phone</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>Poste SIP</match>
+		<replaceby>Third-party SIP Device (Basic)</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>DECT IP</match>
+		<replaceby>Third-party SIP Device (Basic)</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>6921</match>
+		<replaceby>Cisco 6921</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>7811</match>
+		<replaceby>Cisco 7811</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>7841</match>
+		<replaceby>Cisco 7841</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>7821</match>
+		<replaceby>Cisco 7821</replaceby>
+	</substitute>		
+	<substitute>
+		<type>phone</type>
+		<match>7962</match>
+		<replaceby>Cisco 7962</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>7965</match>
+		<replaceby>Cisco 7965</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>7937</match>
+		<replaceby>Cisco 7937</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>8831</match>
+		<replaceby>Cisco 8831</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>JABBER</match>
+		<replaceby>Cisco Unified Client Services Framework</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>DECT</match>
+		<replaceby>Third-party SIP Device (Basic)</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>FAX</match>
+		<replaceby>Analog Phone</replaceby>
+	</substitute>
+	<substitute>
+		<type>phone</type>
+		<match>ANALOG</match>
+		<replaceby>Analog Phone</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>7821</match>
+		<replaceby>Standard 7821 SIP</replaceby>
+	</substitute>		
+	<substitute>
+		<type>pbt</type>
+		<match>7962</match>
+		<replaceby>Standard 7962G SIP</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>7965</match>
+		<replaceby>Standard 7965 SIP</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>7937</match>
+		<replaceby>Standard 7937</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>8831</match>
+		<replaceby>Standard 8831 SIP</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>JABBER</match>
+		<replaceby>Standard Client Services Framework</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>DECT</match>
+		<replaceby>Third-party SIP Device (Basic)</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>ANALOG</match>
+		<replaceby>Standard analog</replaceby>
+	</substitute>
+	<substitute>
+		<type>pbt</type>
+		<match>6921</match>
+		<replaceby>Standard 6921 SIP</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>Urgences_Uniquement</match>
+		<replaceby>css_user_fr_emergency_local</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>Interne</match>
+		<replaceby>css_user_fr_internal</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National</match>
+		<replaceby>css_user_fr_metropolitain_fixes</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National_et_Mobile</match>
+		<replaceby>css_user_fr_metropolitain_mobile</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National_et_Mobile_et_Surtaxe</match>
+		<replaceby>css_user_fr_metropolitain_mobile_toll</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National_et_Mobile_et_DOM</match>
+		<replaceby>css_user_fr_national</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National_et_Mobile_et_DOM_et_Surtaxe</match>
+		<replaceby>css_user_fr_national_limitrophe</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National_et_Mobile_et_Limitrophe</match>
+		<replaceby>css_user_fr_metropolitain_limitrophe</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>DOM</match>
+		<replaceby>css_user_fr_DOM_only</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National_et_Mobile_et_DOM_et_Limitrophe</match>
+		<replaceby>css_user_fr_national</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>National_et_Mobile_et_DOM_et Limitrophe</match>
+		<replaceby>css_user_fr_national</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>International_Hors_Surtaxe</match>
+		<replaceby>css_user_fr_international_hors_surtaxe</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>International_Hors Surtaxe</match>
+		<replaceby>css_user_fr_international_hors_surtaxe</replaceby>
+	</substitute>
+	<substitute>
+		<type>css</type>
+		<match>Tous_les_numeros</match>
+		<replaceby>css_user_fr_no_restrictions</replaceby>
+	</substitute>
+	<substitute>
+		<type>profile</type>
+		<match>Fixe</match>
+		<replaceby>hardphone</replaceby>
+	</substitute>
+	<substitute>
+		<type>profile</type>
+		<match>Mobile</match>
+		<replaceby>emobility</replaceby>
+	</substitute>
+	<substitute>
+		<type>profile</type>
+		<match>Simple</match>
+		<replaceby>basic</replaceby>
+	</substitute>
+	<substitute>
+		<type>profile</type>
+		<match>Analogique</match>
+		<replaceby>analog</replaceby>
+	</substitute>
+	<substitute>
+		<type>misc</type>
+		<match>Oui</match>
+		<replaceby>true</replaceby>
+	</substitute>
+	<substitute>
+		<type>misc</type>
+		<match>Non</match>
+		<replaceby>false</replaceby>
+	</substitute>
+</substitutes>

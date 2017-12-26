@@ -1,0 +1,87 @@
+<!--
+Rule to follow to define a parameter :
+<matcher>Name of the parameter:sheet:column:row</matcher>
+if the row is "X+*" it means that the row is X plus as much as necessary to reach the end of the file 
+Example : <matcher>firstname:4:4:4+*</matcher> means that the parameter "firstname" will be found sheet number 4 column 4 and row 4 and plus.
+sheet, row and column start from 0.
+-->
+<xml>
+	<matchers>
+		<!--Office-->
+		<matcher>cucm.internalprefix:0:0:2</matcher>
+		<matcher>cucm.sitename:0:0:2</matcher>
+		<matcher>cucm.sitedescription:0:1:2</matcher>
+		<matcher>cnaf.siteType:0:2:2</matcher>
+		<matcher>cucm.mainnumber:0:3:2</matcher>
+		<matcher>cnaf.firstsda:0:1:17-56</matcher><!--First column of the sda range-->
+		<matcher>cnaf.lastsda:0:2:17-56</matcher><!--Last column of the sda range-->
+		<matcher>cnaf.voicegatewaytype:0:0:65-74</matcher>
+		<matcher>cnaf.voicegatewayip:0:1:65-74</matcher>
+		<matcher>cucm.voicegatewayip:0:0:61</matcher>
+		<matcher>cucm.voicenetworkip:0:2:101</matcher>
+		<matcher>cucm.datanetworkip:0:2:100</matcher>
+		<matcher>cucm.standard:1:0:14</matcher>
+		<matcher>cucm.audiobandwidth:0:3:103</matcher>
+		<matcher>cucm.videobandwidth:0:3:103</matcher>
+		<!--End Office-->
+		<!--User-->
+		<matcher>cucm.firstname:5:5:5-*</matcher>
+		<matcher>cucm.lastname:5:4:5-*</matcher>
+		<matcher>cucm.userid:5:6:5-*</matcher>
+		<matcher>cucm.linenumber:5:2:5-*</matcher>
+		<matcher>cucm.externalphonenumber:5:3:5-*</matcher>
+		<matcher>cucm.userprofil:5:7:5-*</matcher>
+		<matcher>cucm.phonetype1:5:8:5-*</matcher>
+		<matcher>cucm.phonetype2:5:9:5-*</matcher>
+		<matcher>cucm.phonetype3:5:10:5-*</matcher>
+		<matcher>cucm.maxcalls:5:14:5-*</matcher>
+		<matcher>cucm.othermaxcalls:5:15:5-*</matcher>
+		<matcher>cucm.callrestriction:5:16:5-*</matcher>
+		<matcher>cucm.othercallrestriction:5:17:5-*</matcher>
+		<matcher>cucm.voicemail:5:19:5-*</matcher>
+		<matcher>cucm.forwardrestriction:5:20:5-*</matcher>
+		<matcher>cucm.otherforwardrestriction:5:21:5-*</matcher>
+		<matcher>cucm.forwardbusyint:5:23:5-*</matcher>
+		<matcher>cucm.forwardbusyext:5:25:5-*</matcher>
+		<matcher>cucm.forwardnoanint:5:27:5-*</matcher>
+		<matcher>cucm.forwardnoanext:5:29:5-*</matcher>
+		<matcher>cucm.forwardunr:5:31:5-*</matcher>
+		<matcher>cucm.mac:5:96:5-*</matcher>
+		<matcher>cucm.linegroupuser:5:32:5-*</matcher>
+		<matcher>cucm.pickupuser:5:34:5-*</matcher>
+		<matcher>cnaf.gatewayinfo:5:93:5-*</matcher>
+		<matcher>cnaf.gatewayport:5:94:5-*</matcher>
+		<!--End User-->
+		<!--Pickup Group-->
+		<matcher>cucm.pickupname:4:1:2-*</matcher>
+		<matcher>cucm.pickupnumber:4:0:2-*</matcher>
+		<matcher>cucm.pickupnotification:4:2:2-*</matcher>
+		<matcher>cucm.pickuptimer:4:3:2-*</matcher>
+		<matcher>cucm.pickupothertimer:4:4:2-*</matcher>
+		<!--End Pickup Group-->
+		<!--Line Group, Hunt List, Hunt Pilot-->
+		<matcher>cucm.huntpilotnumber:3:0:2-*</matcher>
+		<matcher>cucm.linegroupname:3:1:2-*</matcher>
+		<matcher>cucm.linegroupdistributiontype:3:2:2-*</matcher>
+		<matcher>cucm.linegroupphonetimer:3:3:2-*</matcher>
+		<matcher>cucm.linegroupotherphonetimer:3:4:2-*</matcher>
+		<matcher>cucm.linegroupoveralltimer:3:5:2-*</matcher>
+		<matcher>cucm.linegroupotheroveralltimer:3:6:2-*</matcher>
+		<matcher>cucm.linegroupforwardnoandest:3:10:2-*</matcher>
+		<matcher>cucm.linegroupforwardbusydest:3:12:2-*</matcher>
+		<matcher>cucm.linegrouppickup:3:13:2-*</matcher>
+		<!--End Line Group, Hunt List, Hunt Pilot-->
+		<!--BLF-->
+		<matcher>cucm.firstblfnum:5:35:5-*</matcher>
+		<matcher>cucm.firstblflabel:5:36:5-*</matcher>
+		<matcher>cucm.lastblfnum:5:43:5-*</matcher>
+		<matcher>cucm.lastblflabel:5:44:5-*</matcher>
+		<!--End BLF-->
+		<!--Speed dial-->
+		<matcher>cucm.firstsdnum:5:45:5-*</matcher>
+		<matcher>cucm.firstsdlabel:5:46:5-*</matcher>
+		<matcher>cucm.lastsdnum:5:91:5-*</matcher>
+		<matcher>cucm.lastsdlabel:5:92:5-*</matcher>
+		<!--End Speed dial-->
+	</matchers>
+</xml>

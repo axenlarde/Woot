@@ -1,0 +1,79 @@
+﻿<!--
+File used to describe the user profiles which can then be used in 
+the collection file
+-->
+
+<xml>
+	<profiles>
+		<profile>
+			<name>emobility</name>
+			<udp>
+				<target>udp</target>
+				<action>inject</action>
+			</udp>
+			<phone>
+				<target>loggedoutphone</target>
+				<action>inject</action>
+			</phone>
+			<user>
+				<target>mobileuser</target>
+				<action>inject</action>
+			</user>
+			<user>
+				<target>updateudp</target>
+				<action>update</action>
+			</user>
+			<user>
+				<target>updatepe</target>
+				<action>update</action>
+			</user>
+		</profile>
+		<profile>
+			<name>hardphone</name>
+			<phone>
+				<target>phone</target>
+				<action>inject</action>
+			</phone>
+			<user>
+				<target>harduser</target>
+				<action>inject</action>
+			</user>
+		</profile>
+		<profile>
+			<name>basic</name>
+			<phone>
+				<target>phone</target>
+				<action>inject</action>
+			</phone>
+		</profile>
+		<profile>
+			<name>analog</name>
+			<analog>
+				<target>analog</target>
+				<action>inject</action>
+			</analog>
+		</profile>
+		<profile>
+			<name>dectip</name>
+			<phone>
+				<target>dect</target>
+				<action>inject</action>
+			</phone>
+			<user>
+				<target>dectuser</target>
+				<action>inject</action>
+			</user>
+			<phone>
+				<target>dectipdigest</target>
+				<action>update</action>
+			</phone>
+		</profile>
+		<profile>
+			<name>spare</name>
+			<phone>
+				<target>loggedoutphone</target>
+				<action>inject</action>
+			</phone>
+		</profile>
+	</profiles>
+</xml>

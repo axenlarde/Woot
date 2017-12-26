@@ -1,0 +1,24 @@
+﻿<!--
+File used to describe the user profiles which can then be used in 
+the collection file
+-->
+
+<xml>
+	<profiles>
+		<profile>
+			<name>mainphone</name>
+			<phone>
+				<target>phone</target>
+				<action>inject</action>
+			</phone>
+			<user>
+				<target>associatetophone1</target>
+				<action>update</action>
+			</user>
+			<user>
+				<target>associatetophone2</target>
+				<action>update</action>
+			</user>
+		</profile>
+	</profiles>
+</xml>

@@ -1,0 +1,70 @@
+﻿<!--
+Overal configuration file
+-->
+
+<xml>
+	<config>
+		<!--Misc-->
+		<log4j>DEBUG</log4j><!--Logging level : ERROR,INFO,DEBUG-->
+		<checkfreq>10000</checkfreq><!--user connection loging frequency. In milliseconds-->
+		<language>french</language><!--french,english-->
+		<maxdataprocessed>1000</maxdataprocessed><!--Integer-->
+		<automaticreport>enable</automaticreport><!--enable,disable-->
+		<threadMode>enable</threadMode><!--enable,disable-->
+		<threadLevel>20</threadLevel><!--integer : number of simultaneous thread-->
+		<storerequest>enable</storerequest><!--Keep in memory the already asked UUID-->
+		<autoanswer>enable</autoanswer><!--enable, disable : If enable, do not ask the user what to do-->
+		<javaversiondetection>enable</javaversiondetection><!--enable, disable-->
+		<minjavaversion>1.6:16</minjavaversion><!--Minimum java version allowed-->
+		<maxvgport>24</maxvgport><!--Max vg port handled by the system-->
+		<!--Smtp parameters-->
+		<smtpemailport>25</smtpemailport>
+		<smtpemailprotocol>smtp</smtpemailprotocol>
+		<smtpemailserver>smtp.certiam.cnaf</smtpemailserver>
+		<smtpemail>yuza_noreply@certiam.cnaf</smtpemail>
+		<smtpemailpassword></smtpemailpassword>
+		<smtpemailreceiver>alexandre.ratel@spie.com</smtpemailreceiver><!--One or more destinations separated by a ;-->
+		<!--Smtp parameters end-->
+		<!--AXL parameters-->
+		<axlhost>10.0.1.172</axlhost><!--IP of the CUCM server-->
+		<axlport>8443</axlport><!--Port to contact the CUCM server using AXL-->
+		<axlversion>105</axlversion><!--85 or 105--><!--AXL version of the CUCM-->
+		<axlusername>AXL_Woot</axlusername><!--AXL user name to contact the CUCM server-->
+		<axlpassword>CCMCisco92</axlpassword><!--Password of the AXL user in clear !!!!Warning : keep it secret!!!!-->
+		<!--AXL parameters end-->
+		<!--Call Pickup Group-->
+		<cpgname>file.cpgname+'_'+office.name+'_CPG'</cpgname>
+		<cpgdescription>file.cpgname+' '+office.name</cpgdescription>
+		<pickupnotification>Visual Alert</pickupnotification><!--No Alert,Audio Alert,Visual Alert,Audio and Visual Alert-->
+		<pickupnotificationtimer>2</pickupnotificationtimer><!--Integer-->
+		<callingpartyinfo>true</callingpartyinfo><!--true,false-->
+		<calledpartyinfo>true</calledpartyinfo><!--true,false-->
+		<cpgrange>19000200:19000399</cpgrange>
+		<cpgpartition>CPG_P</cpgpartition>
+		<!--Call Pickup Group end-->
+		<!--Line Group-->
+		<lgrange>19020000:19020999</lgrange>
+		<lgdefaulttimeout>20</lgdefaulttimeout><!--If not written in the collection file, we use this value-->
+		<lgpartition>config.didpartition</lgpartition>
+		<lgdefaultalgorithm>Circular</lgdefaultalgorithm><!--Top Down, Circular, Longest Idle Time, Broadcast-->
+		<lgname>*1S:*file.linegroupname+'_'+office.name+'_LG'</lgname>
+		<hlname>*1S:*file.linegroupname+'_'+office.name+'_HL'</hlname>
+		<hldescription>*1S:*file.linegroupname+' '+office.name</hldescription>
+		<hlcallmanagergroup>MAIN_CMG</hlcallmanagergroup>
+		<hpdescription>*1S:*file.linegroupname+' '+office.name</hpdescription>
+		<hpalertingname>*1S:*file.linegroupname</hpalertingname>
+		<hppartition>LG_P</hppartition>
+		<!--Line Group end-->
+		<!--Gateway-->
+		<iosdeletion>true</iosdeletion><!--true,false-->
+		<gwrestart>true</gwrestart><!--true,false-->
+		<!--Gateway end-->
+		<!--Provisioning Misc-->
+		<nodidrange>19011000:19019999</nodidrange>
+		<didpartition>SDA_P</didpartition>
+		<nodidpartition>HSDA_P</nodidpartition>
+		<maxnumchar>30</maxnumchar><!--Integer-->
+		<csvseparator>;</csvseparator>
+		<!--Provisioning Misc end-->
+	</config>
+</xml>

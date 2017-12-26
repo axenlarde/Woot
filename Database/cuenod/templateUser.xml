@@ -1,0 +1,115 @@
+<!--Fichier de paramétrage de la collecte-->
+<!--Rappel :
+cucm.lastname = cucm.lastname
+Précucm.lastname = cucm.firstname
+UserID = userid
+Adresse mac = mac
+Type de poste = poste
+Numéro de la ligne = nligne
+cucm.sitename = cucm.sitename
+desc = description du site
+Titre = titre
+Mot de passe = pass
+Code PIN = pin
+CSS Ligne = cssligne
+type de poste = tposte
+Texte libre à mettre entre guillement simple, exemple = 'test'
+utiliser des + pour séparer les éléments
+Un chiffre entre étoiles placé avant une valeure indique le nombre de lettre à utiliser, exemple : *1*cucm.firstname = On utilise la première lettre du prénom
+Le symbole *M* indique que tout la valeure suivante doit être converti en majuscule
+Le symbole *1M* indique que seul la première lettre doit être converti en majuscule. Le chiffre peut être ajusté.
+Le symbole *m* indique que tout la valeure suivante doit être converti en minuscule
+Le symbole *1m* indique que seul la première lettre doit être converti en minuscule. Le chiffre peut être ajusté.
+Les combinaisons sont possibles, par exemple : *4**M*cucm.lastname affichera les 4 premières lettres du nom mises en majuscule. *M**4* est équivalent. *2M**5*cucm.lastname affichera les 5 première lettres du prénom dont les deux premières seront en majuscule.
+-->
+<xml>
+	<items>
+		<phones>
+			<phone>
+				<targetname>phone</targetname><!--Name to target the phone profil-->
+				<description>'Temporary Phone'</description>
+				<linedescription>'#000000# Temp Line'</linedescription>
+				<alertingname>''</alertingname>
+				<display>''</display>
+				<linetextlabel>'Veuillez activer votre ligne'</linetextlabel>
+				<externalphonemask>'0000000000'</externalphonemask>
+				<linenumber>cucm.randomline</linenumber><!--cucm.randomline is a special regex which means that the software is going to randomly find an available number in the non did range provided in the configuration file-->
+				<cssline>'css_user_fr_internal'</cssline>
+				<routepartition>'p_autoregistration'</routepartition>
+				<devicename>'SEP'+cucm.mac</devicename>
+				<producttype>*LFPhone*cucm.phonetype1</producttype>
+				<buttontemplate>*LFPBT*cucm.phonetype1</buttontemplate>
+				<devicepool>'Default'</devicepool>
+				<location>'Hub_None'</location>
+				<cssdevice>'CSS_internal'</cssdevice>
+				<service>'ExtensionMobility':'Connexion'</service><!--'Service Name':'Service URL label' One or more service-->
+				<protocol>'SIP'</protocol>
+				<sdlabel>*C*</sdlabel><!--Used if you want to change the Speed dial and BLF label. Here you just have to write the pattern"ex : *M*"-->
+				<sdpartition>'p_internalphone'</sdpartition><!--Used to set up BLF destination-->
+			</phone>
+			<phone>
+				<targetname>loggedoutphone</targetname><!--Name to target the phone profil-->
+				<description>'Temporary Phone'</description>
+				<linedescription>'#000000# Temp Line'</linedescription>
+				<alertingname>''</alertingname>
+				<display>''</display>
+				<linetextlabel>'Veuillez activer votre ligne'</linetextlabel>
+				<externalphonemask>'0000000000'</externalphonemask>
+				<linenumber>cucm.randomline</linenumber><!--cucm.randomline is a special regex which means that the software is going to randomly find an available number in the non did range provided in the configuration file-->
+				<cssline>'css_user_fr_internal'</cssline>
+				<routepartition>'p_autoregistration'</routepartition>
+				<devicename>'SEP'+cucm.mac</devicename>
+				<producttype>*LFPhone*cucm.phonetype1</producttype>
+				<buttontemplate>*LFPBT*cucm.phonetype1</buttontemplate>
+				<devicepool>'Default'</devicepool>
+				<location>'Hub_None'</location>
+				<cssdevice>'CSS_internal'</cssdevice>
+				<service>'ExtensionMobility':'Connexion'</service><!--'Service Name':'Service URL label' One or more service-->
+				<protocol>'SIP'</protocol>
+				<sdlabel>*C*</sdlabel><!--Used if you want to change the Speed dial and BLF label. Here you just have to write the pattern"ex : *M*"-->
+				<sdpartition>'p_internalphone'</sdpartition><!--Used to set up BLF destination-->
+			</phone>
+		<phones>
+		<udps>
+			<udp>
+				<targetname>udp</targetname><!--Name to target the phone profil-->
+				<description>*1M**C*cucm.firstname+' '+*M**C*cucm.lastname+' - Temp Profile - '+cucm.sitename</description>
+				<linedescription>'#000000# Temp Line'</linedescription>
+				<alertingname>''</alertingname>
+				<display>''</display>
+				<linetextlabel>'Configuration en cours'</linetextlabel>
+				<externalphonemask>'*'</externalphonemask>
+				<linenumber>cucm.randomline</linenumber><!--cucm.randomline is a special regex which means that the software is going to randomly find an available number in the non did range provided in the configuration file-->
+				<cssline>'css_user_fr_internal'</cssline>
+				<routepartition>'p_autoregistration'</routepartition>
+				<devicename>'udp_'+*m*cucm.userid</devicename>
+				<producttype>*LFPhone*cucm.phonetype1</producttype>
+				<buttontemplate>*LFPBT*cucm.phonetype1</buttontemplate>
+				<service>'ExtensionMobility':'Deconnexion'</service><!--'Service Name':'Service URL label' One or more service-->
+				<protocol>'SIP'</protocol>
+				<sdlabel>*C*</sdlabel><!--Used if you want to change the Speed dial and BLF label. Here you just have to write the pattern"ex : *M*"-->
+				<sdpartition>'p_internalphone'</sdpartition><!--Used to set up BLF destination-->
+			</udp>
+		</udps>
+		<users>
+			<user>
+				<targetname>enduser</targetname><!--Name to target the user profil-->
+				<lastname>*M**C*cucm.lastname</lastname>
+				<firstname>*1M**C*cucm.firstname</firstname>
+				<userid>cucm.userid</userid>
+				<pin>'12345'</pin>
+				<udpname>'udp_'+*m*cucm.userid</udpname>
+			</user>
+		</users>
+		<mevos>
+			<mevo>
+				<targetname>mevo</targetname><!--Name to target the mevo profil-->
+				<alias>userid</alias>
+				<firstname>prenom</firstname>
+				<lastname>*M*nom</lastname>
+				<displayname>''</displayname>
+				<voicemailtemplate>office.voicemailtemplate</voicemailtemplate>
+			</mevo>
+		</mevos>
+	</items>
+</xml>

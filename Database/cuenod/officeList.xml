@@ -1,0 +1,83 @@
+<!--
+XML file containing all the offices and their settings
+
+To access one of this setting, use the following syntax : office.name, office.mohnumber, etc.
+-->
+
+<xml>
+	<offices>
+		<office>
+			<name>LAROCHE</name><!--Office name-->
+			<fullname>La Roche sur foron</fullname><!--Office full name-->
+			<audiobandwidth>100</audiobandwidth><!--(Kbps)-->
+			<videobandwidth>384</videobandwidth><!--(Kbps)-->
+			<userlocal>French France</userlocal><!--French France, Italian Italy, English United States, etc.-->
+			<softkeytemplate>Standard User</softkeytemplate><!--Softkey template name-->
+			<callmanagergroup>MAIN_CMG</callmanagergroup><!--Call Manager group name-->
+			<datetimegroup>Paris</datetimegroup><!--Date time group name-->
+			<mohnumber>2</mohnumber><!--Moh number-->
+			<country>France</country><!--France, Italy, United Kingdom, etc.-->
+			<internalprefix>21</internalprefix><!--Office internal prefix-->
+			<didranges>
+				<did>01414641XX</did><!--one or more--><!--CUCM like pattern for one did range-->
+				<did>01414741XX</did><!--one or more--><!--CUCM like pattern for one did range-->
+			</didranges>
+			<e164>33</e164><!--Country E.164 prefix-->
+			<receptionnumber>21345</receptionnumber><!--Reception number-->
+			<aargroup>Global_AAR</aargroup><!--AAR Group name-->
+			<voicemailtemplate>voicemailusertemplate</voicemailtemplate><!--Voice mail template name-->
+			<voicenetwork>192.168.1.0/24</voicenetwork><!--VoIP network-->
+			<phoneprofile>phone</phoneprofile>
+			<loggedoutprofile>loggedoutphone</loggedoutprofile>
+			<udpprofile>udp</udpprofile>
+			<userprofile>enduser</userprofile>
+			<voicemailprofile>mevo</voicemailprofile>
+			<services>
+				<service><!--One or more-->
+					<targetname>login</targetname><!--name to target the service-->
+					<servicename>Connexion<servicename><!--CUCM Service name-->
+					<surl>Veuillez activer votre ligne</surl><!--Description when displayed on the phone using a surl--><!--Leave blank if no surl is needed-->
+				<service>
+				<service>
+					<targetname>logout</targetname>
+					<servicename>Deconnexion<servicename>
+					<surl></surl>
+				<service>
+				<service>
+					<targetname>directory</targetname>
+					<servicename>Annuaire<servicename>
+					<surl>Annuaire</surl>
+				<service>
+			</services>
+			<speeddials>
+				<speeddial><!--One or more-->
+					<targetname>emergency</targetname><!--Name to target this speed dial-->
+					<type>sd</type><!--sd,blf-->
+					<partition></partition><!--empty in case of speed dial-->
+					<number>21893<number><!--SD number-->
+					<description>Poste de garde</description><!--Description to display on the phone-->
+					<position>0</position><!--Position of the SD. Starts from 0-->
+				</speeddial>
+				<speeddial>
+					<targetname>firemen</targetname><!--Name to target this speed dial-->
+					<type>sd</type><!--sd,blf-->
+					<partition></partition><!--empty in case of speed dial-->
+					<number>18<number><!--SD number-->
+					<description>Pompier</description><!--Description to display on the phone-->
+					<position>1</position><!--Position of the SD. Starts from 0-->
+				</speeddial>
+			</speeddials>
+			<settings>
+				<setting><!--One or more-->
+					<targetname>1</targetname><!--Name to target this setting-->
+					<value>0141464146</value><!--Value of this setting-->
+				<setting>
+				<setting><!--One or more-->
+					<targetname>2</targetname><!--Name to target this setting-->
+					<value>Setting 2</value><!--Value of this setting-->
+				<setting>
+			<settings>
+		</office>
+	</offices>
+</xml>
+			
