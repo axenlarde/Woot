@@ -24,11 +24,6 @@ Substitute list
 	</substitute>
 	<substitute>
 		<type>phone</type>
-		<match>7811</match>
-		<replaceby>Cisco 7811</replaceby>
-	</substitute>
-	<substitute>
-		<type>phone</type>
 		<match>7841</match>
 		<replaceby>Cisco 7841</replaceby>
 	</substitute>

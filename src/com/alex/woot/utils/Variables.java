@@ -249,7 +249,7 @@ public class Variables
 	private static ArrayList<String> internalNumberList;
 	private static ArrayList<String> cpgNumberList;
 	private static ArrayList<String> lgNumberList;
-	private static Office currentOffice;
+	//private static Office currentOffice;
 	private static ArrayList<String> LGAlgorithm;
 	private static JFrame myWindow;
 	
@@ -848,6 +848,7 @@ public class Variables
 		Variables.internalNumberList = internalNumberList;
 		}
 
+	/*
 	public static Office getCurrentOffice() throws NumberFormatException, Exception
 		{
 		if(currentOffice == null)
@@ -863,7 +864,7 @@ public class Variables
 	public static void setCurrentOffice(Office currentOffice)
 		{
 		Variables.currentOffice = currentOffice;
-		}
+		}*/
 
 	public static ArrayList<String> getCpgNumberList() throws Exception
 		{

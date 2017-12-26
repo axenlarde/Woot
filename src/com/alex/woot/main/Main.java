@@ -1,7 +1,6 @@
 package com.alex.woot.main;
 
 
-import java.util.ArrayList;
 import org.apache.log4j.Level;
 
 import com.alex.woot.gui.MainWindow;
@@ -11,7 +10,7 @@ import com.alex.woot.utils.Variables;
 
 
 /**********************************
- * WOOT Main Class 10/10/2016
+ * WOOT Main Class 26/12/2017
  * 
  * @author RATEL Alexandre
  **********************************/
@@ -39,7 +38,7 @@ public class Main
 		Variables.getLogger().info("\r\n");
 		Variables.getLogger().info("#### Entering application");
 		Variables.getLogger().info("## Welcome to : "+Variables.getSoftwareName()+" version "+Variables.getSoftwareVersion());
-		Variables.getLogger().info("## Author : RATEL Alexandre : 2016");
+		Variables.getLogger().info("## Author : RATEL Alexandre : 2017");
 		/*******/
 		
 		/******

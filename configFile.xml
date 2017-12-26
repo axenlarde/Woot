@@ -17,6 +17,7 @@ Overal configuration file
 		<javaversiondetection>enable</javaversiondetection><!--enable, disable-->
 		<minjavaversion>1.6:16</minjavaversion><!--Minimum java version allowed-->
 		<maxvgport>24</maxvgport><!--Max vg port handled by the system-->
+		<officenametemplate>file.officename</officenametemplate><!--office name template to use to find the office name-->
 		<!--Smtp parameters-->
 		<smtpemailport>25</smtpemailport>
 		<smtpemailprotocol>smtp</smtpemailprotocol>
@@ -26,7 +27,7 @@ Overal configuration file
 		<smtpemailreceiver>alexandre.ratel@spie.com</smtpemailreceiver><!--One or more destinations separated by a ;-->
 		<!--Smtp parameters end-->
 		<!--AXL parameters-->
-		<axlhost>10.1.1.1</axlhost><!--IP of the CUCM server-->
+		<axlhost>10.0.1.172</axlhost><!--IP of the CUCM server-->
 		<axlport>8443</axlport><!--Port to contact the CUCM server using AXL-->
 		<axlversion>105</axlversion><!--85 or 105--><!--AXL version of the CUCM-->
 		<axlusername>AXL_Woot</axlusername><!--AXL user name to contact the CUCM server-->
@@ -60,11 +61,11 @@ Overal configuration file
 		<gwrestart>true</gwrestart><!--true,false-->
 		<!--Gateway end-->
 		<!--Provisioning Misc-->
-		<nodidrange>81400:81999</nodidrange>
-		<didpartition>defaut</didpartition>
-		<nodidpartition>defaut</nodidpartition>
+		<nodidrange>19011000:19019999</nodidrange>
+		<didpartition>SDA_P</didpartition>
+		<nodidpartition>HSDA_P</nodidpartition>
 		<maxnumchar>30</maxnumchar><!--Integer-->
-		<csvseparator>,</csvseparator>
+		<csvseparator>;</csvseparator>
 		<!--Provisioning Misc end-->
 	</config>
 </xml>

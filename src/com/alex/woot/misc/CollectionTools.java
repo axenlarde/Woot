@@ -1,8 +1,6 @@
 package com.alex.woot.misc;
 
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,8 +9,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import com.alex.woot.utils.ClearFrenchString;
 import com.alex.woot.utils.UsefulMethod;
@@ -154,7 +150,20 @@ public class CollectionTools
 			if(Pattern.matches(".*office\\..*", param[i]))
 				{
 				String[] tab = param[i].split("\\.");
-				String result = Variables.getCurrentOffice().getString(tab[1]);
+				
+				String result = "";
+				String lineOfficeName = getValueFromCollectionFile(currentRow, UsefulMethod.getTargetOption("officenametemplate"), true);
+				for(Office office : Variables.getOfficeList())
+					{
+					if(office.getName().equals(lineOfficeName))
+						{
+						//We found the office in the office list
+						result = office.getString(tab[1]);
+						}
+					}
+				
+				if(result.equals(""))throw new Exception("The office was not found in the office list");
+				
 				regex.append(applyRegex(result, param[i]));
 				
 				match = true;
@@ -682,7 +691,7 @@ public class CollectionTools
 	/********
 	 * Method used to get a single value from the excel file
 	 * We can here choose what behavior we want regarding the empty value
-	 * in the colleciton file :
+	 * in the collection file :
 	 * - True : We will get EmptyValueException if empty
 	 * - False : We will just get an empty String
 	 * @throws Exception 

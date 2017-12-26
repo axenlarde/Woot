@@ -14,25 +14,25 @@ Les combinaisons sont possibles, par exemple : *4**M*file.lastname affichera les
 	<items>
 		<phone>
 			<targetname>phone</targetname>
-			<description>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</description>
-			<linedescription>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</linedescription>
-			<alertingname>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</alertingname>
-			<display>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</display>
-			<linetextlabel>(*M**C*file.lastname+' '+*1M**C*file.firstname)IfLongerThan40(*M**C*file.lastname+' '+*1**M**C*file.firstname)</linetextlabel>
+			<description>(*1M**C*file.firstname+' '+*M**C*file.lastname+' - '+office.name)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname+' - '+office.name)</description>
+			<linedescription>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</linedescription>
+			<alertingname>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</alertingname>
+			<display>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</display>
+			<linetextlabel>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</linetextlabel>
 			<externalphonemask>file.lineexternalphonenumbermask</externalphonemask>
 			<aarmask></aarmask>
-			<commondeviceconfig>'CDC_French'</commondeviceconfig>
+			<commondeviceconfig>office.name+'_CDC'</commondeviceconfig>
 			<commonphoneconfig>'Standard Common Phone Profile'</commonphoneconfig>
 			<securityprofile>*LFphone*file.phonetype+' - Standard '+file.phoneprotocol+' Non-Secure Profile'</securityprofile>
 			<devicemobilitymode>'Default'</devicemobilitymode><!--Off, On, Default-->
-			<aargroup></aargroup>
-			<aarcss></aarcss>
+			<aargroup>office.aargroup</aargroup>
+			<aarcss>office.name+'_DEVICE_AAR_CSS'</aarcss>
 			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
-			<reroutingcss></reroutingcss>
+			<reroutingcss>office.name+'_DEVICE_CSS'</reroutingcss>
 			<linenumber>file.linenumber1</linenumber><!--One or more-->
 			<linenumber>file.linenumber2</linenumber><!--One or more-->
-			<cssline>office.name+file.linecss</cssline>
-			<cssforward>office.name+file.linecss</cssforward>
+			<cssline>file.linecss</cssline>
+			<cssforward>file.forwardcss</cssforward>
 			<fwalldestination>file.forwardall</fwalldestination>
 			<fwnoandestination>file.forwardnoan</fwnoandestination>
 			<fwbusydestination>file.forwardbusy</fwbusydestination>
@@ -47,9 +47,9 @@ Les combinaisons sont possibles, par exemple : *4**M*file.lastname affichera les
 			<producttype>*LFphone*file.phonetype</producttype>
 			<protocol>file.phoneprotocol</protocol>
 			<buttontemplate>file.phonepbt</buttontemplate>
-			<devicepool>'DP'+office.name</devicepool>
-			<location>office.name</location>
-			<cssdevice></cssdevice>
+			<devicepool>office.name+'_DP'</devicepool>
+			<location>office.name+'_LOC'</location>
+			<cssdevice>office.name+'_DEVICE_CSS'</cssdevice>
 			<service>file.service1</service><!--'Service Name':'Service URL label' One or more service-->
 			<service>file.service2</service><!--'Service Name':'Service URL label' One or more service-->
 			<service>file.service3</service><!--'Service Name':'Service URL label' One or more service-->
@@ -57,8 +57,188 @@ Les combinaisons sont possibles, par exemple : *4**M*file.lastname affichera les
 			<speeddial>file.speeddial2</speeddial><!--One or more-->
 			<speeddial>file.speeddial3</speeddial><!--One or more-->
 		</phone>
+		<phone>
+			<targetname>loggedoutphone</targetname>
+			<description>'Telephone non connecte'</description>
+			<linedescription>'Ligne HSDA'</linedescription>
+			<alertingname></alertingname>
+			<display></display>
+			<linetextlabel></linetextlabel>
+			<externalphonemask></externalphonemask>
+			<aarmask></aarmask>
+			<commondeviceconfig>office.name+'_CDC'</commondeviceconfig>
+			<commonphoneconfig>'Standard Common Phone Profile'</commonphoneconfig>
+			<securityprofile>*LFphone*file.phonetype+' - Standard '+file.phoneprotocol+' Non-Secure Profile'</securityprofile>
+			<devicemobilitymode>'Default'</devicemobilitymode><!--Off, On, Default-->
+			<aargroup></aargroup>
+			<aarcss></aarcss>
+			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
+			<reroutingcss>office.name+'_DEVICE_CSS'</reroutingcss>
+			<linenumber>cucm.availableline</linenumber><!--One or more-->
+			<cssline>'ALL_CSS'</cssline>
+			<cssforward></cssforward>
+			<fwalldestination></fwalldestination>
+			<fwnoandestination></fwnoandestination>
+			<fwbusydestination></fwbusydestination>
+			<fwunrdestination></fwunrdestination>
+			<fwallvoicemailenable>'false'</fwallvoicemailenable>
+			<fwnoanvoicemailenable>'false'</fwnoanvoicemailenable>
+			<fwbusyvoicemailenable>'false'</fwbusyvoicemailenable>
+			<fwunrvoicemailenable>'false'</fwunrvoicemailenable>
+			<voicemailprofile></voicemailprofile>
+			<routepartition>config.nodidpartition</routepartition>
+			<devicename>'SEP'+file.phonemac</devicename>
+			<producttype>*LFphone*file.phonetype</producttype>
+			<protocol>file.phoneprotocol</protocol>
+			<buttontemplate>file.phonepbt</buttontemplate>
+			<devicepool>office.name+'_DP'</devicepool>
+			<location>office.name+'_LOC'</location>
+			<cssdevice>office.name+'_DEVICE_CSS'</cssdevice>
+			<service>'Connexion'</service><!--'Service Name':'Service URL label' One or more service-->
+			<speeddial>18:Pompier</speeddial><!--One or more-->
+			<speeddial>15:Samu</speeddial><!--One or more-->
+		</phone>
+		<analog>
+			<targetname>analog</targetname>
+			<description>(*1M**C*file.firstname+' '+*M**C*file.lastname+' - '+office.name)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname+' - '+office.name)</description>
+			<linedescription>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</linedescription>
+			<alertingname>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</alertingname>
+			<display>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</display>
+			<linetextlabel></linetextlabel>
+			<externalphonemask>file.lineexternalphonenumbermask</externalphonemask>
+			<aarmask></aarmask>
+			<commondeviceconfig>office.name+'_CDC'</commondeviceconfig>
+			<commonphoneconfig>'Standard Common Phone Profile'</commonphoneconfig>
+			<securityprofile>*LFphone*file.phonetype+' - Standard '+file.phoneprotocol+' Non-Secure Profile'</securityprofile>
+			<devicemobilitymode>'Off'</devicemobilitymode><!--Off, On, Default-->
+			<aargroup>office.aargroup</aargroup>
+			<aarcss>office.name+'_DEVICE_AAR_CSS'</aarcss>
+			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
+			<linenumber>file.linenumber1</linenumber><!--One or more-->
+			<cssline>file.linecss</cssline>
+			<cssforward>file.forwardcss</cssforward>
+			<fwalldestination>file.forwardall</fwalldestination>
+			<fwnoandestination>file.forwardnoan</fwnoandestination>
+			<fwbusydestination>file.forwardbusy</fwbusydestination>
+			<fwunrdestination>file.forwardunr</fwunrdestination>
+			<fwallvoicemailenable>'false'</fwallvoicemailenable>
+			<fwnoanvoicemailenable>*LFmisc*file.voicemail</fwnoanvoicemailenable>
+			<fwbusyvoicemailenable>*LFmisc*file.voicemail</fwbusyvoicemailenable>
+			<fwunrvoicemailenable>*LFmisc*file.voicemail</fwunrvoicemailenable>
+			<voicemailprofile></voicemailprofile>
+			<routepartition>config.didpartition</routepartition>
+			<producttype>*LFphone*file.phonetype</producttype>
+			<protocol>file.phoneprotocol</protocol>
+			<devicepool>office.name+'_DP'</devicepool>
+			<location>office.name+'_LOC'</location>
+			<cssdevice>office.name+'_DEVICE_CSS'</cssdevice>
+		</analog>
+		<udp>
+			<targetname>udp</targetname>
+			<devicename>*m*file.userid</devicename>
+			<description>(*1M**C*file.firstname+' '+*M**C*file.lastname+' - '+office.name)IfLongerThan40(*1**M**C*file.firstname+'.'+*M**C*file.lastname+' - '+office.name)</description>
+			<linedescription>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan30(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</linedescription>
+			<alertingname>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan30(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</alertingname>
+			<display>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan30(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</display>
+			<linetextlabel>(*1M**C*file.firstname+' '+*M**C*file.lastname)IfLongerThan30(*1**M**C*file.firstname+'.'+*M**C*file.lastname)</linetextlabel>
+			<externalphonemask></externalphonemask>
+			<linenumber>file.linenumber1</linenumber><!--One or more-->
+			<linenumber>file.linenumber2</linenumber><!--One or more-->
+			<cssline>file.linecss</cssline>
+			<cssforward>file.forwardcss</cssforward>
+			<fwalldestination>file.forwardall</fwalldestination>
+			<fwnoandestination>file.forwardnoan</fwnoandestination>
+			<fwbusydestination>file.forwardbusy</fwbusydestination>
+			<fwunrdestination>file.forwardunr</fwunrdestination>
+			<fwallvoicemailenable>'false'</fwallvoicemailenable>
+			<fwnoanvoicemailenable>*LFmisc*file.voicemail</fwnoanvoicemailenable>
+			<fwbusyvoicemailenable>*LFmisc*file.voicemail</fwbusyvoicemailenable>
+			<fwunrvoicemailenable>*LFmisc*file.voicemail</fwunrvoicemailenable>
+			<voicemailprofile>office.voicemailprofile</voicemailprofile>
+			<routepartition>config.didpartition</routepartition>
+			<producttype>*LFphone*file.phonetype</producttype>
+			<buttontemplate>file.phonepbt</buttontemplate>
+			<service>file.service1</service><!--'Service Name':'Service URL label' One or more service-->
+			<service>file.service2</service><!--'Service Name':'Service URL label' One or more service-->
+			<service>file.service3</service><!--'Service Name':'Service URL label' One or more service-->
+			<protocol>file.phoneprotocol</protocol>
+			<speeddial>file.speeddial1</speeddial><!--One or more-->
+			<speeddial>file.speeddial2</speeddial><!--One or more-->
+			<speeddial>file.speeddial3</speeddial><!--One or more-->
+		</udp>
 		<user>
-			<targetname>associatetophone1</targetname>
+			<targetname>user</targetname>
+			<userid>file.userid</userid>
+			<lastname>*M**C*file.lastname</lastname>
+			<firstname>*1M**C*file.firstname</firstname>
+			<telephonenumber></telephonenumber>
+			<userlocal></userlocal>
+			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
+			<primaryextension></primaryextension>
+			<partition></partition>
+			<password></password>
+			<pin></pin>
+			<group>'Standard CCM End Users'</group><!--One or more-->
+		</user>
+		<user>
+			<targetname>mobileuser</targetname>
+			<userid>file.userid</userid>
+			<lastname>*M**C*file.lastname</lastname>
+			<firstname>*1M**C*file.firstname</firstname>
+			<telephonenumber>file.linenumber1</telephonenumber>
+			<userlocal>office.userlocal</userlocal>
+			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
+			<primaryextension></primaryextension>
+			<partition></partition>
+			<password>file.userpassword</password>
+			<pin>file.userpin</pin>
+			<group>'Standard CCM End Users'</group><!--One or more-->
+			<udp>*m*file.userid</udp>
+		</user>
+		<user>
+			<targetname>harduser</targetname>
+			<userid>file.userid</userid>
+			<lastname>*M**C*file.lastname</lastname>
+			<firstname>*1M**C*file.firstname</firstname>
+			<telephonenumber>file.linenumber1</telephonenumber>
+			<userlocal>office.userlocal</userlocal>
+			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
+			<primaryextension>file.linenumber1</primaryextension>
+			<partition>config.didpartition</partition>
+			<password>file.userpassword</password>
+			<pin>file.userpin</pin>
+			<group>'Standard CCM End Users'</group><!--One or more-->
+			<device>'SEP'+file.phonemac</device>
+		</user>
+		<user>
+			<targetname>updateudp</targetname>
+			<userid>file.userid</userid>
+			<lastname></lastname>
+			<firstname></firstname>
+			<telephonenumber></telephonenumber>
+			<userlocal></userlocal>
+			<subscribecss></subscribecss>
+			<primaryextension></primaryextension>
+			<partition></partition>
+			<password></password>
+			<pin></pin>
+			<udp>*m*file.userid</udp>
+		</user>
+		<user>
+			<targetname>updatepe</targetname>
+			<userid>file.userid</userid>
+			<lastname></lastname>
+			<firstname></firstname>
+			<telephonenumber></telephonenumber>
+			<userlocal></userlocal>
+			<subscribecss></subscribecss>
+			<primaryextension>file.linenumber1</primaryextension>
+			<partition>config.didpartition</partition>
+			<password></password>
+			<pin></pin>
+		</user>
+		<user>
+			<targetname>updatephone</targetname>
 			<userid>file.userid</userid>
 			<lastname></lastname>
 			<firstname></firstname>
@@ -70,19 +250,6 @@ Les combinaisons sont possibles, par exemple : *4**M*file.lastname affichera les
 			<password></password>
 			<pin></pin>
 			<device>'SEP'+file.phonemac</device>
-		</user>
-		<user>
-			<targetname>associatetophone2</targetname>
-			<userid>file.userid</userid>
-			<lastname></lastname>
-			<firstname></firstname>
-			<telephonenumber></telephonenumber>
-			<userlocal>office.userlocal</userlocal>
-			<subscribecss></subscribecss>
-			<primaryextension>file.linenumber1</primaryextension>
-			<partition>config.didpartition</partition>
-			<password></password>
-			<pin></pin>
 		</user>
 		<voicemail>
 			<targetname>voicemail</targetname>
