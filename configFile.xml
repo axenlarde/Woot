@@ -17,7 +17,6 @@ Overal configuration file
 		<javaversiondetection>enable</javaversiondetection><!--enable, disable-->
 		<minjavaversion>1.6:16</minjavaversion><!--Minimum java version allowed-->
 		<maxvgport>24</maxvgport><!--Max vg port handled by the system-->
-		<officenametemplate>file.officename</officenametemplate><!--office name template to use to find the office name-->
 		<!--Smtp parameters-->
 		<smtpemailport>25</smtpemailport>
 		<smtpemailprotocol>smtp</smtpemailprotocol>
@@ -67,5 +66,14 @@ Overal configuration file
 		<maxnumchar>30</maxnumchar><!--Integer-->
 		<csvseparator>;</csvseparator>
 		<!--Provisioning Misc end-->
+		<!--Mandatory variables template-->
+		<officenametemplate>file.officename</officenametemplate><!--use to find the office name-->
+		<usercreationprofiletemplate>*LFprofile*file.usercreationprofile</usercreationprofiletemplate><!--use to find the creation profile name-->
+		<userlastnametemplate>file.lastname</userlastnametemplate><!--use to find the user lastname-->
+		<userfirstnametemplate>file.firstname</userfirstnametemplate><!--use to find the user first name-->
+		<useridtemplate>file.userid</useridtemplate><!--use to find the user id-->
+		<phonemactemplate>file.phonemac</phonemactemplate><!--use to find the phone mac address-->
+		<phonetypetemplate>file.phonetype</phonetypetemplate><!--use to find the phone mac address-->
+		<!--Variables template end-->
 	</config>
 </xml>

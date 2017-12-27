@@ -51,7 +51,6 @@ public class TemplateUserReader
 			//And here we get the detail
 			ArrayList<ArrayList<String[][]>> templateUserContentDetail = xMLGear.getResultListTabExt(fileContent, listParams);
 			
-			//
 			String[][] tab = templateUserContent.get(0);
 			ArrayList<String[][]> detail = templateUserContentDetail.get(0);
 			

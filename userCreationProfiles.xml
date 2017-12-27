@@ -7,6 +7,10 @@ the collection file
 	<profiles>
 		<profile>
 			<name>emobility</name>
+			<user>
+				<target>newuser</target>
+				<action>inject</action>
+			</user>
 			<udp>
 				<target>udp</target>
 				<action>inject</action>
@@ -15,10 +19,6 @@ the collection file
 				<target>loggedoutphone</target>
 				<action>inject</action>
 			</phone>
-			<user>
-				<target>mobileuser</target>
-				<action>inject</action>
-			</user>
 			<user>
 				<target>updateudp</target>
 				<action>update</action>
@@ -35,7 +35,7 @@ the collection file
 				<action>inject</action>
 			</phone>
 			<user>
-				<target>harduser</target>
+				<target>newuser</target>
 				<action>inject</action>
 			</user>
 		</profile>

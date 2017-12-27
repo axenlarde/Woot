@@ -1,9 +1,13 @@
 package com.alex.woot.axlitems.linkers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
@@ -105,6 +109,42 @@ public class UserLinker extends AXLItemLinker
 		catch (Exception e)
 			{
 			errorList.add(new UserError(this.name, "", "Not found during init : "+e.getMessage(), itemType.user, itemType.usercontrolgroup, errorType.notFound));
+			}
+		
+		//User local
+		try
+			{
+			//Proceed only if the user local is not empty
+			if(!this.getUserLocale().equals(""))
+				{
+				//Here we need a SQL request to fetch the user local list
+				List<Object> SQLResp = SimpleRequest.doSQLQuery("select name from typeuserlocale");
+				
+				boolean found = false;
+				
+				for(Object o : SQLResp)
+					{
+					Element rowElement = (Element) o;
+					NodeList list = rowElement.getChildNodes();
+					
+					for(int i = 0; i< list.getLength(); i++)
+						{
+						if(list.item(i).getTextContent().equals(this.getUserLocale()))
+							{
+							Variables.getLogger().debug("User local found in the CUCM : "+list.item(i).getTextContent());
+							found = true;
+							break;
+							}
+						}
+					if(found)break;
+					}
+				
+				if(!found)throw new Exception("The following user local was not found in the CUCM : "+this.getUserLocale());
+				}
+			}
+		catch (Exception e)
+			{
+			errorList.add(new UserError(this.name, "", "Not found during init : "+e.getMessage(), itemType.user, itemType.userlocal, errorType.notFound));
 			}
 				
 		return errorList;

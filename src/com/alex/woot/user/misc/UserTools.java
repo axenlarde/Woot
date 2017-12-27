@@ -7,8 +7,6 @@ import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.EmptyValueException;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.PhoneService;
-import com.alex.woot.misc.SQLRequest;
-import com.alex.woot.misc.SimpleRequest;
 import com.alex.woot.misc.SpeedDial;
 import com.alex.woot.misc.Task;
 import com.alex.woot.soap.items.CallPickupGroupMember;
@@ -19,7 +17,6 @@ import com.alex.woot.soap.misc.MainItem;
 import com.alex.woot.user.items.AssociateAnalogToGateway;
 import com.alex.woot.user.items.CallPickupGroup;
 import com.alex.woot.user.items.DeviceProfile;
-import com.alex.woot.user.items.GatewayEndpointAnalogAccess;
 import com.alex.woot.user.items.HuntList;
 import com.alex.woot.user.items.HuntPilot;
 import com.alex.woot.user.items.Line;
@@ -31,7 +28,6 @@ import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.itemType;
-import com.alex.woot.utils.Variables.sqlRequestType;
 
 
 /**********************************
@@ -52,8 +48,13 @@ public class UserTools
 		{
 		ArrayList<MainItem> userList = new ArrayList<MainItem>();
 		
-		int lastIndex = CollectionTools.getTheLastIndexOfAColumn("file.lastname");
-		int[] infos = CollectionTools.getMatcherInfo("file.lastname");//To log where we are working
+		String lastNameTemplate = UsefulMethod.getTargetOption("userlastnametemplate");
+		String firstNameTemplate = UsefulMethod.getTargetOption("userfirstnametemplate");
+		String userIDTemplate = UsefulMethod.getTargetOption("useridtemplate");
+		String phoneMacTemplate = UsefulMethod.getTargetOption("phonemactemplate");
+		
+		int lastIndex = CollectionTools.getTheLastIndexOfAColumn(lastNameTemplate);
+		int[] infos = CollectionTools.getMatcherInfo(lastNameTemplate);//To log where we are working
 		
 		
 		/**
@@ -64,9 +65,9 @@ public class UserTools
 			{
 			try
 				{
-				String lastname = CollectionTools.getValueFromCollectionFile(i, "file.lastname", false);
-				String firstname = CollectionTools.getValueFromCollectionFile(i, "file.firstname", false);
-				String userid = CollectionTools.getValueFromCollectionFile(i, "file.userid", false);
+				String lastname = CollectionTools.getValueFromCollectionFile(i, lastNameTemplate, false);
+				String firstname = CollectionTools.getValueFromCollectionFile(i, firstNameTemplate, false);
+				String userid = CollectionTools.getValueFromCollectionFile(i, userIDTemplate, false);
 				
 				MItemUser myUser = new MItemUser(userid, lastname, firstname);
 				boolean foundMIU = false;
@@ -93,7 +94,7 @@ public class UserTools
 				 * According to the user creation profile we add to the MainItemList
 				 * the item asked by the profile
 				 */
-				String profile = CollectionTools.getValueFromCollectionFile(i, "*LFprofile*file.usercreationprofile");
+				String profile = CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("usercreationprofiletemplate"));
 				UdpLoginItem uli = new UdpLoginItem();
 				
 				for(UserCreationProfile ucp : Variables.getUserCreationProfileList())
@@ -102,80 +103,85 @@ public class UserTools
 						{
 						for(UserTemplate ut : ucp.getTemplateList())
 							{
-							//Here we decide if we will delete or not
+							/*****
+							 * In case of deletion, we transform inject and update task into delete task
+							 */
 							actionType at = (action.equals(actionType.delete))?action:ut.getAction();
 							
-							if(ut.getType().equals(itemType.udp))
+							if((at.equals(actionType.delete)) && (ut.getAction().equals(actionType.update)))
 								{
-								DeviceProfile dpTemplate = (DeviceProfile)getTemplate(ut.getType(), ut.getTarget());
-								
-								ArrayList<ItemToInject> udpList = prepareUDP(i, dpTemplate, at);
-								if(!((udpList == null) || (udpList.size() == 0)))
-									{
-									myUser.getAssociatedItems().addAll(udpList);
-									
-									Variables.getLogger().debug("UDP prepared for the user : "+myUser.getDescription());
-									}
-								
-								if(uli.getDeviceProfile() == null)
-									{
-									uli.setIndex(i);
-									uli.setDeviceProfile(dpTemplate.getName());//Here we get the UDP name, it will be used to connect the UDP later
-									uli.setDeviceName("SEP"+CollectionTools.getValueFromCollectionFile(i, "file.phonemac"));//Here we get the UDP name, it will be used to connect the UDP later
-									}
+								Variables.getLogger().debug("We do not add this to the user because it is an update item and this is a deletion task");
 								}
-							else if(ut.getType().equals(itemType.phone))
+							else
 								{
-								ArrayList<ItemToInject> phoneList = preparePhone(i, (Phone)getTemplate(ut.getType(), ut.getTarget()), at);
-								if(!((phoneList == null) || (phoneList.size() == 0)))
+								if(ut.getType().equals(itemType.udp))
 									{
-									myUser.getAssociatedItems().addAll(phoneList);
+									DeviceProfile dpTemplate = (DeviceProfile)getTemplate(ut.getType(), ut.getTarget());
 									
-									Variables.getLogger().debug("Phone prepared for the user : "+myUser.getDescription());
-									}
-								}
-							else if(ut.getType().equals(itemType.analog))
-								{
-								ArrayList<ItemToInject> analogList = prepareAnalog(i, (Phone)getTemplate(itemType.phone, ut.getTarget()), at);
-								if(!((analogList == null) || (analogList.size() == 0)))
-									{
-									myUser.getAssociatedItems().addAll(analogList);
-									
-									Variables.getLogger().debug("Analog prepared for the user : "+myUser.getDescription());
-									}
-								}
-							else if(ut.getType().equals(itemType.user))
-								{
-								//If the user already exist we have to use it instead of creating a new one
-								if((foundMIU) && (!at.equals(actionType.update)))
-									{
-									for(ItemToInject item : myUser.getAssociatedItems())
+									ArrayList<ItemToInject> udpList = prepareUDP(i, dpTemplate, at);
+									if(!((udpList == null) || (udpList.size() == 0)))
 										{
-										if(item.getType().equals(itemType.user))
+										myUser.getAssociatedItems().addAll(udpList);
+										Variables.getLogger().debug("UDP prepared for the user : "+myUser.getDescription());
+										}
+									
+									if(uli.getDeviceProfile() == null)
+										{
+										uli.setIndex(i);
+										uli.setDeviceProfile(dpTemplate.getName());//Here we get the UDP name, it will be used to connect the UDP later
+										uli.setDeviceName("SEP"+CollectionTools.getValueFromCollectionFile(i, phoneMacTemplate));//Here we get the device name, it will be used to connect the UDP later
+										}
+									}
+								else if(ut.getType().equals(itemType.phone))
+									{
+									ArrayList<ItemToInject> phoneList = preparePhone(i, (Phone)getTemplate(ut.getType(), ut.getTarget()), at);
+									if(!((phoneList == null) || (phoneList.size() == 0)))
+										{
+										myUser.getAssociatedItems().addAll(phoneList);
+										Variables.getLogger().debug("Phone prepared for the user : "+myUser.getDescription());
+										}
+									}
+								else if(ut.getType().equals(itemType.analog))
+									{
+									ArrayList<ItemToInject> analogList = prepareAnalog(i, (Phone)getTemplate(itemType.phone, ut.getTarget()), at);
+									if(!((analogList == null) || (analogList.size() == 0)))
+										{
+										myUser.getAssociatedItems().addAll(analogList);
+										Variables.getLogger().debug("Analog prepared for the user : "+myUser.getDescription());
+										}
+									}
+								else if(ut.getType().equals(itemType.user))
+									{
+									//If the user already exist we have to use it instead of creating a new one
+									if((foundMIU) && (!at.equals(actionType.update)))
+										{
+										for(ItemToInject item : myUser.getAssociatedItems())
 											{
-											//In this case we just add the device or UDP to the user
-											((User)item).getUDPList().addAll(((User)getTemplate(ut.getType(), ut.getTarget())).getUDPList());
-											((User)item).getDeviceList().addAll(((User)getTemplate(ut.getType(), ut.getTarget())).getDeviceList());
-											((User)item).resolveDevices(i);
-											Variables.getLogger().debug("Devices added to the user : "+myUser.getDescription());
-											break;
+											if(item.getType().equals(itemType.user))
+												{
+												//In this case we just add the device or UDP to the user
+												((User)item).getUDPList().addAll(((User)getTemplate(ut.getType(), ut.getTarget())).getUDPList());
+												((User)item).getDeviceList().addAll(((User)getTemplate(ut.getType(), ut.getTarget())).getDeviceList());
+												((User)item).resolveDevices(i);
+												Variables.getLogger().debug("Devices added to the user : "+myUser.getDescription());
+												break;
+												}
 											}
 										}
-									}
-								else
-									{
-									User uTemplate = (User)getTemplate(ut.getType(), ut.getTarget());
-									
-									ItemToInject user = prepareUser(i, uTemplate, at);
-									if(user != null)
+									else
 										{
-										myUser.getAssociatedItems().add(user);
+										User uTemplate = (User)getTemplate(ut.getType(), ut.getTarget());
 										
-										Variables.getLogger().debug("User prepared for the user : "+myUser.getDescription());
-										}
-									if((uli.getDeviceProfile() != null) && (uli.getUserID() == null))
-										{
-										uli.setUserID(uTemplate.getName());//Here we get the User name, it will be used to connect the UDP later
+										ItemToInject user = prepareUser(i, uTemplate, at);
+										if(user != null)
+											{
+											myUser.getAssociatedItems().add(user);
+											Variables.getLogger().debug("User item prepared for the user : "+myUser.getDescription());
+											}
+										if((uli.getDeviceProfile() != null) && (uli.getUserID() == null))
+											{
+											uli.setUserID(uTemplate.getName());//Here we get the User name, it will be used to connect the UDP later
+											}
 										}
 									}
 								}
@@ -197,6 +203,7 @@ public class UserTools
 								uli.getDeviceName(),
 								uli.getDeviceProfile());
 						
+						myLogin.setIndex(uli.getIndex());
 						myLogin.resolve();
 						myUser.getAssociatedItems().add(myLogin);
 						
@@ -210,7 +217,7 @@ public class UserTools
 				if(Variables.getAllowedItemsToProcess().contains(itemType.voicemail))
 					{
 					Variables.getLogger().debug("Voicemail preparation process starts");
-					
+					Variables.getLogger().debug("## Has to be written ##");
 					//To be written
 					}
 				

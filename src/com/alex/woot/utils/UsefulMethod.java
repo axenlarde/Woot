@@ -609,7 +609,9 @@ public class UsefulMethod
 				return itemDetails[i][1];
 				}
 			}
-		throw new Exception("Item not found : "+name);
+		//throw new Exception("Item not found : "+name);
+		Variables.getLogger().debug("Item not found : "+name);
+		return "";
 		}
 	
 	/**********************************************************
@@ -976,6 +978,7 @@ public class UsefulMethod
 		Variables.getLogger().debug("No substitute of type \""+type.name()+"\" have been found for the string : "+s);
 		return s;
 		}
+	
 	/**
 	 * Methos used to check if a value is null or empty
 	 */
@@ -1054,6 +1057,25 @@ public class UsefulMethod
 			}
 		}
 	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*******
+	 * Method used to initialize the current office
+	 * @throws Exception 
+	 * @throws NumberFormatException 
+	 ****/
+	public static void initCurrentOffice() throws NumberFormatException, Exception
+		{
+		if(Variables.getCurrentOffice() == null)
+			{
+			Variables.getLogger().debug("Initialisation of currentOffice");
+			//We have to ask the user what is the current office
+			Variables.setCurrentOffice(UsefulMethod.askCurrentOffice());
+			}
+		else
+			{
+			Variables.getLogger().debug("We don't need to initialize the current office again, it is already done. current office is : "+Variables.getCurrentOffice().getName());
+			}
+		}
+	
+	/*2017*//*RATEL Alexandre 8)*/
 	}
 

@@ -188,6 +188,11 @@ Substitute list
 		<replaceby>css_user_fr_no_restrictions</replaceby>
 	</substitute>
 	<substitute>
+		<type>css</type>
+		<match>international</match>
+		<replaceby>ALL_CSS</replaceby>
+	</substitute>
+	<substitute>
 		<type>profile</type>
 		<match>Fixe</match>
 		<replaceby>hardphone</replaceby>

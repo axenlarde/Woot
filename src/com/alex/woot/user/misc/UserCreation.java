@@ -14,6 +14,7 @@ import com.alex.woot.soap.misc.MainItem;
 import com.alex.woot.user.items.DeviceProfile;
 import com.alex.woot.user.items.Phone;
 import com.alex.woot.utils.LanguageManagement;
+import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.itemType;
@@ -59,12 +60,13 @@ public class UserCreation extends Thread
 			 * Init
 			 */
 			//Collection file checking
-			CollectionFileChecker.checkForUserCreation();//Has to be improved
+			CollectionFileChecker.checkForUserCreation();
 			
 			//We build the list of users and their phones which is a list of main items
 			itemToInjectList = UserTools.setUserList(actionType.inject);
 			
 			//Temp
+			/*
 			Variables.getLogger().debug("We display here the content of the injection list : ");
 			
 			for(MainItem mi : itemToInjectList)
@@ -84,7 +86,7 @@ public class UserCreation extends Thread
 						Variables.getLogger().debug("Sd count : "+((Phone)iti).getSdList().size());
 						}
 					}
-				}
+				}*/
 			//Temp
 			
 			/**
@@ -115,6 +117,8 @@ public class UserCreation extends Thread
 		catch (Exception e)
 			{
 			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
+			JOptionPane.showMessageDialog(null,LanguageManagement.getString("usercreationerror")+" : "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 			}
 		
 		mySplashWindow.close();

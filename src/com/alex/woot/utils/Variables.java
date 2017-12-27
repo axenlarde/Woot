@@ -84,6 +84,7 @@ public class Variables
 		gateway,
 		sqlRequest,
 		associateanalog,
+		userlocal
 		};
 	
 	/********************************************
@@ -217,7 +218,7 @@ public class Variables
 	private static cucmAXLVersion CUCMVersion;
 	private static Logger logger;
 	private static Workbook myWorkbook;
-	private static ArrayList<String> userlocal;
+	//private static ArrayList<String> userlocal;
 	private static ArrayList<String> country;
 	private static ArrayList<String[][]> tabConfig;
 	private static ArrayList<String[][]> userConfig;
@@ -249,7 +250,7 @@ public class Variables
 	private static ArrayList<String> internalNumberList;
 	private static ArrayList<String> cpgNumberList;
 	private static ArrayList<String> lgNumberList;
-	//private static Office currentOffice;
+	private static Office currentOffice;
 	private static ArrayList<String> LGAlgorithm;
 	private static JFrame myWindow;
 	
@@ -273,7 +274,7 @@ public class Variables
 	public Variables()
 		{
 		CUCMReachable = true;
-		userlocal = UsefulMethod.initUserLocalList();
+		//userlocal = UsefulMethod.initUserLocalList();
 		country = UsefulMethod.initCountryList();
 		uuidList = new ArrayList<storedUUID>();
 		databaseFileName = "database.dat";
@@ -349,7 +350,7 @@ public class Variables
 		{
 		Variables.logger = logger;
 		}
-
+/*
 	public static ArrayList<String> getUserlocal()
 		{
 		return userlocal;
@@ -359,7 +360,7 @@ public class Variables
 		{
 		Variables.userlocal = userlocal;
 		}
-
+*/
 	public static ArrayList<String> getCountry()
 		{
 		return country;
@@ -848,23 +849,16 @@ public class Variables
 		Variables.internalNumberList = internalNumberList;
 		}
 
-	/*
+	
 	public static Office getCurrentOffice() throws NumberFormatException, Exception
 		{
-		if(currentOffice == null)
-			{
-			Variables.getLogger().debug("Initialisation of currentOffice");
-			//We have to ask the user what is the current office
-			Variables.setCurrentOffice(UsefulMethod.askCurrentOffice());
-			}
-		
 		return currentOffice;
 		}
 
 	public static void setCurrentOffice(Office currentOffice)
 		{
 		Variables.currentOffice = currentOffice;
-		}*/
+		}
 
 	public static ArrayList<String> getCpgNumberList() throws Exception
 		{

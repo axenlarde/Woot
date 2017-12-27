@@ -2,6 +2,7 @@ package com.alex.woot.misc;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 
 /**********************************
@@ -52,13 +53,14 @@ public class CollectionFileChecker
 			Variables.getLogger().info("Collection file check for a user creation begin");
 			//If a value is empty, an exception is going to be thrown
 			
-			int lastIndex = CollectionTools.getTheLastIndexOfAColumn("file.lastname");
+			int lastIndex = CollectionTools.getTheLastIndexOfAColumn(UsefulMethod.getTargetOption("userlastnametemplate"));
 			if(lastIndex == 0)throw new Exception("There is no user to process !");
 			
 			for(int i=0; i<lastIndex; i++)
 				{
-				CollectionTools.getValueFromCollectionFile(i, "file.phonetype");
-				CollectionTools.getValueFromCollectionFile(i, "file.mac");
+				CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("officenametemplate"));
+				CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("phonetypetemplate"));
+				CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("phonemactemplate"));//It depends if we want to make woot provide this value automatically
 				}
 			
 			//Add some more check

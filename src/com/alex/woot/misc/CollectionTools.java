@@ -152,17 +152,39 @@ public class CollectionTools
 				String[] tab = param[i].split("\\.");
 				
 				String result = "";
-				String lineOfficeName = getValueFromCollectionFile(currentRow, UsefulMethod.getTargetOption("officenametemplate"), true);
-				for(Office office : Variables.getOfficeList())
+				
+				if(Variables.getCurrentOffice() == null)
 					{
-					if(office.getName().equals(lineOfficeName))
+					//If Current Office is null it means that 
+					String lineOfficeName = getValueFromCollectionFile(currentRow, UsefulMethod.getTargetOption("officenametemplate"), false);
+					
+					if(!lineOfficeName.equals(""))
 						{
-						//We found the office in the office list
-						result = office.getString(tab[1]);
+						for(Office office : Variables.getOfficeList())
+							{
+							if(office.getName().equals(lineOfficeName))
+								{
+								//We found the office in the office list so we get the searched value
+								result = office.getString(tab[1]);
+								}
+							}
+						}
+					
+					if(result.equals(""))
+						{
+						/************
+						 * We didn't find the office so we ask for it and in addition in this case
+						 * we have to retain the office choice to avoid asking for it a second time
+						 ************/
+						Variables.getLogger().debug("The office was not found so we ask for it");
+						UsefulMethod.initCurrentOffice();
+						result = Variables.getCurrentOffice().getString(tab[1]);
 						}
 					}
-				
-				if(result.equals(""))throw new Exception("The office was not found in the office list");
+				else
+					{
+					result = Variables.getCurrentOffice().getString(tab[1]);
+					}
 				
 				regex.append(applyRegex(result, param[i]));
 				

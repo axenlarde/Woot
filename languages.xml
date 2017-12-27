@@ -62,6 +62,8 @@ Language configuration file
 			<terminated>Terminated</terminated>
 			<errorlist>Error list</errorlist>
 			<noerror>No error to report</noerror>
+			<!--Errors-->
+			<usercreationerror>The following error occurs, we will now exit</usercreationerror>
 		</values>
 	</language>
 	<language>
