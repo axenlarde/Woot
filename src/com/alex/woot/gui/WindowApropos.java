@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JWindow;
 import javax.swing.border.TitledBorder;
 
-import com.alex.woot.utils.Centrer;
+import com.alex.woot.utils.Position;
+import com.alex.woot.utils.Position.cornerType;
 import com.alex.woot.utils.Variables;
 
 
@@ -91,7 +92,7 @@ public class WindowApropos extends JWindow implements MouseListener
 		//setSize(larg,haut);
 		this.pack();
 		
-		new Centrer(this);
+		Position.center(this);
 		
 		addMouseListener(this);
 		

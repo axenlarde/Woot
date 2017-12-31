@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alex.woot.gui.OfficeSelectionWindow;
+import com.alex.woot.misc.Correction;
 import com.alex.woot.misc.DidRange;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.OfficeSetting;
@@ -1074,6 +1075,20 @@ public class UsefulMethod
 			{
 			Variables.getLogger().debug("We don't need to initialize the current office again, it is already done. current office is : "+Variables.getCurrentOffice().getName());
 			}
+		}
+	
+	
+	public static void addNewCorrection(Correction correction)
+		{
+		if(Variables.getCorrectionList() == null)Variables.setCorrectionList(new ArrayList<Correction>());
+		
+		//We check for duplicate
+		boolean exists = false;
+		for(Correction c : Variables.getCorrectionList())
+			{
+			if(c.getUsedToCompare().equals(correction.getUsedToCompare()))exists = true;
+			}
+		if(!exists)Variables.getCorrectionList().add(correction);
 		}
 	
 	/*2017*//*RATEL Alexandre 8)*/

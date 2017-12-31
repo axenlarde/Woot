@@ -52,12 +52,26 @@ public abstract class ItemToInject implements ItemToInjectImpl
 			//We check that the item doesn't already exist
 			if(isExisting())
 				{
-				this.status = statusType.injected;
+				if((action.equals(actionType.delete))||(action.equals(actionType.update)))
+					{
+					this.status = statusType.waiting;
+					}
+				else
+					{
+					this.status = statusType.injected;
+					}
 				}
 			else
 				{
-				//The item doesn't already exist we have to inject it
-				this.status = statusType.waiting;
+				//The item doesn't already exist we have to inject it except if it is a deletion task
+				if(action.equals(actionType.delete))
+					{
+					this.status = statusType.disabled;
+					}
+				else
+					{
+					this.status = statusType.waiting;
+					}
 				}
 			
 			doBuild();
@@ -113,7 +127,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		Variables.getLogger().info("Item "+this.getName()+" deletion process begin");
 		
 		//If we got the UUID we can proceed
-		if((!this.UUID.equals(""))&&(this.UUID != null)&&(this.status.equals(statusType.injected)))
+		if((!this.UUID.equals(""))&&(this.UUID != null)&&(status.equals(statusType.waiting)))
 			{
 			try
 				{
@@ -132,6 +146,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		else
 			{
 			Variables.getLogger().info("The item "+this.getName()+" of type "+this.getType().name()+" can't be deleted because it doesn't exist in the CUCM");
+			status = statusType.disabled;
 			}
 		}
 	
@@ -144,7 +159,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		Variables.getLogger().info("Item "+this.getName()+" update process begin");
 		
 		//If we got the UUID we can proceed
-		if((!this.UUID.equals(""))&&(this.UUID != null)&&(this.status.equals(statusType.injected)))
+		if((!this.UUID.equals(""))&&(this.UUID != null)&&(status.equals(statusType.waiting)))
 			{
 			try
 				{
@@ -163,6 +178,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		else
 			{
 			Variables.getLogger().info("The item "+this.getName()+" of type "+this.getType().name()+" can't be updated because it doesn't exist in the CUCM");
+			status = statusType.disabled;
 			}
 		}
 	

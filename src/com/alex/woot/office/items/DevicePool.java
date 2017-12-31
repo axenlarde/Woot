@@ -3,14 +3,13 @@ package com.alex.woot.office.items;
 //import jxl.Workbook;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.alex.yuza.axlitems.DevicePoolLinker;
-import com.alex.yuza.axlitems.LocationLinker;
-import com.alex.yuza.misc.CollectionTools;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.UsefulMethod;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
+import com.alex.woot.axlitems.linkers.DevicePoolLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
+import com.alex.woot.utils.Variables.statusType;
+
 
 /**********************************
  * Class used to define an item of type "Device Pool"
@@ -48,9 +47,9 @@ public class DevicePool extends ItemToInject
 			String dateTimeSettingName, String srstreference,
 			String mediaressourcegrouplist, String localroutegroup,
 			String physicallocation, String devicemobilitygroup,
-			String devicemobilitycss, Workbook myWorkbook) throws Exception
+			String devicemobilitycss) throws Exception
 		{
-		super(itemType.devicepool, name, myWorkbook);
+		super(itemType.devicepool, name);
 		myDevicePool = new DevicePoolLinker(name);
 		this.callManagerGroupName = callManagerGroupName;
 		this.regionName = regionName;
@@ -77,16 +76,8 @@ public class DevicePool extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		//We now gather the needed UUID
+		this.errorList = myDevicePool.init();
 		}
 	
 	
@@ -173,7 +164,7 @@ public class DevicePool extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		this.name = CollectionTools.getValueFromCollectionFile(this.getName(), myWorkbook);
+		this.name = CollectionTools.getValueFromCollectionFile(this.getName());
 		
 		/**
 		 * Here we check if the CallManagerGroup has to be treated a special way

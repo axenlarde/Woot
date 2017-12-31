@@ -10,7 +10,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import com.alex.woot.misc.Correction.correctionType;
 import com.alex.woot.utils.ClearFrenchString;
+import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.SubstituteType;
@@ -36,7 +38,7 @@ public class CollectionTools
 		 ****/
 		if(Pattern.matches("\\(.+\\)IfLongerThan\\d+\\(.+\\)", pat))
 			{
-			Variables.getLogger().debug("Row : "+currentRow+" : TooLong value detection required");
+			Variables.getLogger().debug("TooLong value detection required");
 			
 			//Get the 2 values
 			String normal="", tooLong="";
@@ -73,23 +75,47 @@ public class CollectionTools
 					(tooLong == null) || (tooLong.equals("")) ||
 					(maxLength == 0))
 				{
-				throw new Exception("ERROR : Row : "+currentRow+" : the IfLongerThan regex return a bad Result");
+				throw new Exception("ERROR : The \"IfLongerThan\" regex returned a bad Result");
 				}
 			
+			/**
+			 * Whatever the result, we need to log the real row number according to the used pattern
+			 * So we need to find it
+			 */
+			int realRowNumber = currentRow+1;//Default value;
+			
+			try
+				{
+				realRowNumber = getRowNumber(findRealRow(normal), currentRow);
+				}
+			catch (Exception e)
+				{
+				Variables.getLogger().error("Error : Unable to find the real row number. We will use the default value instead : "+e.getMessage());
+				}
+			
+			/********/
+			
+			Variables.getLogger().debug("We try the normal pattern");
 			normal = dodoRegex(normal, currentRow, emptyException);
 			if(normal.length() > maxLength)
 				{
+				Variables.getLogger().debug("The normal pattern is longer than "+maxLength+" : "+normal+" so we try the backup pattern");
 				tooLong = dodoRegex(tooLong, currentRow, emptyException);
+				
 				if(tooLong.length() > maxLength)
 					{
-					throw new Exception("ERROR : Row : "+currentRow+" : Even after the IfLongerThan regex the value is still longer than "+maxLength+" : "+tooLong);
+					//The corrected value is still too long so we add it with a warning
+					UsefulMethod.addNewCorrection(new Correction(realRowNumber, normal+" > "+tooLong, "", correctionType.tooLong, true));
+					
+					Variables.getLogger().debug("Row : "+realRowNumber+" : Even after the IfLongerThan regex the value is still longer than "+maxLength+" : "+tooLong);
+					return tooLong;
 					}
 				else
 					{
-					//To Improve
-					//Add here an autocorrect error to notify the user that a correction has been made
-					//To Improve
-					Variables.getLogger().debug("Row : "+currentRow+" : The value was longer than \""+maxLength+"\" so the \"too long pattern\" has been used instead");
+					//A correction was made so we add it in the correction list
+					UsefulMethod.addNewCorrection(new Correction(realRowNumber, normal+" > "+tooLong, "", correctionType.tooLong, false));
+					
+					Variables.getLogger().debug("Row : "+realRowNumber+" : The value was longer than \""+maxLength+"\" so the \"too long pattern\" has been used instead. The result is : "+tooLong);
 					return tooLong;
 					}
 				}
@@ -110,16 +136,11 @@ public class CollectionTools
 	 * Method used to return the pattern
 	 * @throws Exception 
 	 ****************************************/
-	public static String dodoRegex(String pat, int currentRow, boolean emptyException) throws Exception
+	private static String dodoRegex(String pat, int currentRow, boolean emptyException) throws Exception
 		{
 		StringBuffer regex = new StringBuffer("");
 		
-		pat = pat.replace("'", "");
-		
-		String delim = "+";
-		String splitRegex = "(?<!\\\\)" + Pattern.quote(delim);//To activate "\" as an escape character
-		
-		String[] param = pat.split(splitRegex);
+		String[] param = getSplittedValue(pat, UsefulMethod.getTargetOption("splitter"));
 		
 		for(int i = 0; i<param.length; i++)
 			{
@@ -127,7 +148,7 @@ public class CollectionTools
 			for(String s : Variables.getMatcherList())
 				{
 				String[] tab = s.split(":");//Example : cucm.firstname:4:4:4+*
-				//tab[0]=cucm.firstname  etc.
+				//tab[0]=cucm.firstname, tab[1]=sheet, tab[2]=column and tab[3]=row
 				
 				if(Pattern.matches(".*"+tab[0]+".*", param[i]))
 					{
@@ -905,6 +926,48 @@ public class CollectionTools
 			}
 		}
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/**
+	 * Used to split a value while using the escape character "\"
+	 * @param pat
+	 * @param splitter
+	 * @return
+	 */
+	private static String[] getSplittedValue(String pat, String splitter)
+		{
+		pat = pat.replace("'", "");
+		String splitRegex = "(?<!\\\\)" + Pattern.quote(splitter);//To activate "\" as an escape character
+		
+		return pat.split(splitRegex);
+		}
+	
+	/**
+	 * Used to 
+	 * @param pattern
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws Exception
+	 */
+	private static String findRealRow(String pattern) throws NumberFormatException, Exception
+		{
+		String[] pat = getSplittedValue(pattern, UsefulMethod.getTargetOption("splitter"));
+		
+		for(int i = 0; i<pat.length; i++)
+			{
+			for(String s : Variables.getMatcherList())
+				{
+				String[] tab = s.split(":");//Example : cucm.firstname:4:4:4+*
+				//tab[0]=cucm.firstname, tab[1]=sheet, tab[2]=column and tab[3]=row
+				
+				if(Pattern.matches(".*"+tab[0]+".*", pat[i]))
+					{
+					return tab[3];
+					}
+				}
+			}
+		throw new Exception("No pattern found, so no row number could be retrieve");
+		}
+	
+	
+	/*2017*//*RATEL Alexandre 8)*/
 	}
 

@@ -50,6 +50,7 @@ Language configuration file
 			<play>Play</play>
 			<selectall>Select all</selectall>
 			<expandall>Expand all</expandall>
+			<justtoletyouknow>Just to let you know</justtoletyouknow>
 			<!--Status-->
 			<injected>Injected</injected>
 			<error>Error</error>
@@ -64,6 +65,11 @@ Language configuration file
 			<noerror>No error to report</noerror>
 			<!--Errors-->
 			<usercreationerror>The following error occurs, we will now exit</usercreationerror>
+			<!--Correction window-->
+			<correctionwindowtitle>Correction list</correctionwindowtitle>
+			<correctionwarning>Some correction needed to be done</correctionwarning>
+			<correctionline>Correction on item row</correctionline>
+			<correctionalert>Still too long</correctionalert>
 		</values>
 	</language>
 	<language>

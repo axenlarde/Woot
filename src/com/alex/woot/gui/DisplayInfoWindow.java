@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JWindow;
 
-import com.alex.woot.utils.Centrer;
+import com.alex.woot.utils.Position;
 
 /**
  * Class used to display AXL Request Content
@@ -34,7 +34,7 @@ public class DisplayInfoWindow extends JWindow implements MouseListener
 		this.info = info;
 		
 		this.setSize(new Dimension(500, 100));
-		new Centrer(this);
+		Position.center(this);
 		
 		//Disposition
 		content = new JPanel();

@@ -5,7 +5,7 @@ import com.alex.woot.utils.Variables.itemType;
 /**
  * @author "Alexandre RATEL"
  *
- * Class used to represent an auto correction error
+ * Class used to represent an error
  */
 public class ErrorTemplate
 	{

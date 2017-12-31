@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.alex.woot.misc.Office;
-import com.alex.woot.utils.Centrer;
+import com.alex.woot.utils.Position;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.UsefulMethod;
 
@@ -76,7 +76,7 @@ public class OfficeSelectionWindow extends JDialog implements ActionListener,Win
 		this.addWindowListener(this);
 		
 		this.pack();
-		new Centrer(this);
+		Position.center(this);
 		this.setVisible(true);
 		}
 

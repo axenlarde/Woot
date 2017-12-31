@@ -77,8 +77,6 @@ public class StatusLine extends JPanel implements ActionListener, MouseListener,
 		//Disposition
 		setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 		
-		//Paramètres
-		
 		//Assignation
 		this.add(select);
 		this.add(this.name);
@@ -199,7 +197,7 @@ public class StatusLine extends JPanel implements ActionListener, MouseListener,
 			for(ErrorTemplate er : myItem.getErrorList())
 				{
 				errorBuffer.append(er.getErrorDesc());
-				errorBuffer.append("\\r\\n");
+				errorBuffer.append("\r\n");
 				}
 			}
 		}

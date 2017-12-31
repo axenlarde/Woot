@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-import com.alex.woot.utils.Centrer;
+import com.alex.woot.utils.Position;
 
 
 /*********************************************
@@ -57,8 +57,7 @@ public class WaitingWindow extends JWindow
 		
 		//Positionnement
 		this.setSize(new Dimension(650,50));
-		new Centrer(this);
-		this.setBounds(this.getX(), this.getY()-250, this.getWidth(), this.getHeight());//We push the widow a bit upper
+		Position.upper(this, 250);
 		
 		//Layout
 		this.getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.X_AXIS));
@@ -93,5 +92,5 @@ public class WaitingWindow extends JWindow
 		this.dispose();
 		}
 	
-	/*2012*//*RATEL Alexandre 8)*/
+	/*2017*//*RATEL Alexandre 8)*/
 	}

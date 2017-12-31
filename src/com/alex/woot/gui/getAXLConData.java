@@ -23,7 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.alex.woot.misc.databaseAccess;
-import com.alex.woot.utils.Centrer;
+import com.alex.woot.utils.Position;
 
 
 /***********
@@ -70,7 +70,7 @@ public class getAXLConData extends JDialog implements ActionListener, WindowList
 		
 		//Positionnement
 		this.setSize(new Dimension(400,175));
-		new Centrer(this);
+		new Position(this);
 		
 		centralPane = new JPanel();
 		centralPane.setLayout(new GridLayout(5, 2));

@@ -99,30 +99,32 @@ public class Task extends Thread
 								}
 							else
 								{
-								Variables.getLogger().debug("The status of the item \""+myToDo.getName()+"\" is different than waiting ( Current status \""+myToDo.getStatus().name()+"\" so we do not inject it)");
+								Variables.getLogger().debug("The status of the item \""+myToDo.getName()+"\" is different than waiting (Current status \""+myToDo.getStatus().name()+"\" so we do not inject it)");
+								myToDo.setStatus(statusType.disabled);
 								}
 							}
 						else if(myToDo.getAction().equals(actionType.delete))
 							{
-							if(myToDo.getStatus().equals(statusType.injected))
+							if(myToDo.getStatus().equals(statusType.waiting))
 								{
 								myToDo.delete();
 								}
 							else
 								{
-								Variables.getLogger().debug("The status of the item \""+myToDo.getName()+"\" is different than injected ( Current status \""+myToDo.getStatus().name()+"\" so we do not delete it)");
+								Variables.getLogger().debug("The status of the item \""+myToDo.getName()+"\" is different than waiting (Current status \""+myToDo.getStatus().name()+"\" so we do not delete it)");
+								myToDo.setStatus(statusType.disabled);
 								}
 							}
 						else if(myToDo.getAction().equals(actionType.update))
 							{
 							if(myToDo.isExisting())
 								{
-								myToDo.setStatus(statusType.injected);
 								myToDo.update();
 								}
 							else
 								{
-								Variables.getLogger().debug("The status of the item \""+myToDo.getName()+"\" is different than injected ( Current status \""+myToDo.getStatus().name()+"\" so we do not update it)");
+								Variables.getLogger().debug("The status of the item \""+myToDo.getName()+"\" is different than injected (Current status \""+myToDo.getStatus().name()+"\" so we do not update it)");
+								myToDo.setStatus(statusType.disabled);
 								}
 							}
 						else
@@ -149,6 +151,8 @@ public class Task extends Thread
 			Variables.getMyWorkbook().close();
 			Variables.setMyWorkbook(null);//We reset the workbook
 			Variables.getLogger().info("Workbook closed");
+			Variables.setCorrectionList(new ArrayList<Correction>());
+			Variables.getLogger().info("Correction list cleared");
 			}
 		catch (Exception e)
 			{

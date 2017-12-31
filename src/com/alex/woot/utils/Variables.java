@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.alex.woot.gui.MainWindow;
+import com.alex.woot.misc.Correction;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.ValueMatcher;
@@ -253,6 +254,7 @@ public class Variables
 	private static Office currentOffice;
 	private static ArrayList<String> LGAlgorithm;
 	private static JFrame myWindow;
+	private static ArrayList<Correction> correctionList;
 	
 	//Templates
 	private static ArrayList<ItemToInject> userTemplateList;
@@ -910,6 +912,16 @@ public class Variables
 	public static void setMyWindow(JFrame myWindow)
 		{
 		Variables.myWindow = myWindow;
+		}
+
+	public static ArrayList<Correction> getCorrectionList()
+		{
+		return correctionList;
+		}
+
+	public static void setCorrectionList(ArrayList<Correction> correctionList)
+		{
+		Variables.correctionList = correctionList;
 		}
 	
 	

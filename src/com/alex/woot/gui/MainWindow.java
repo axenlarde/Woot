@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 import com.alex.woot.user.misc.UserTreatmentCreationPanel;
 import com.alex.woot.user.misc.UserTreatmentDeletionPanel;
-import com.alex.woot.utils.Centrer;
+import com.alex.woot.utils.Position;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
@@ -98,7 +98,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		
 		//Positionnement
 		this.setSize(new Dimension(600,400));
-		new Centrer(this);
+		Position.center(this);
 		this.getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
 		
 		//Assignation

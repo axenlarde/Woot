@@ -17,6 +17,7 @@ Overal configuration file
 		<javaversiondetection>enable</javaversiondetection><!--enable, disable-->
 		<minjavaversion>1.6:16</minjavaversion><!--Minimum java version allowed-->
 		<maxvgport>24</maxvgport><!--Max vg port handled by the system-->
+		<splitter>+</splitter>
 		<!--Smtp parameters-->
 		<smtpemailport>25</smtpemailport>
 		<smtpemailprotocol>smtp</smtpemailprotocol>

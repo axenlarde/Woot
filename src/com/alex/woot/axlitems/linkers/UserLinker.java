@@ -15,7 +15,6 @@ import com.alex.woot.misc.ErrorTemplate;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.SimpleRequest;
 import com.alex.woot.misc.ErrorTemplate.errorType;
-import com.alex.woot.user.items.Line;
 import com.alex.woot.user.items.User;
 import com.alex.woot.user.misc.UserError;
 import com.alex.woot.utils.UsefulMethod;
