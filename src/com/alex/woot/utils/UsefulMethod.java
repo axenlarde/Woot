@@ -1078,19 +1078,6 @@ public class UsefulMethod
 		}
 	
 	
-	public static void addNewCorrection(Correction correction)
-		{
-		if(Variables.getCorrectionList() == null)Variables.setCorrectionList(new ArrayList<Correction>());
-		
-		//We check for duplicate
-		boolean exists = false;
-		for(Correction c : Variables.getCorrectionList())
-			{
-			if(c.getUsedToCompare().equals(correction.getUsedToCompare()))exists = true;
-			}
-		if(!exists)Variables.getCorrectionList().add(correction);
-		}
-	
 	/*2017*//*RATEL Alexandre 8)*/
 	}
 

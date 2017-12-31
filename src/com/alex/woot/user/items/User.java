@@ -200,23 +200,23 @@ public class User extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		lastname = CollectionTools.getValueFromCollectionFile(index, lastname);
-		firstname = CollectionTools.getValueFromCollectionFile(index, firstname, false);
-		telephoneNumber = CollectionTools.getValueFromCollectionFile(index, telephoneNumber, false);
-		userLocale = CollectionTools.getValueFromCollectionFile(index, userLocale, false);
-		subscribeCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, subscribeCallingSearchSpaceName, false);
-		primaryExtension = CollectionTools.getValueFromCollectionFile(index, primaryExtension, false);
-		routePartition = CollectionTools.getValueFromCollectionFile(index, routePartition, false);
-		pin = CollectionTools.getValueFromCollectionFile(index, pin, false);
-		password = CollectionTools.getValueFromCollectionFile(index, password, false);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		lastname = CollectionTools.getValueFromCollectionFile(index, lastname, this);
+		firstname = CollectionTools.getValueFromCollectionFile(index, firstname, this, false);
+		telephoneNumber = CollectionTools.getValueFromCollectionFile(index, telephoneNumber, this, false);
+		userLocale = CollectionTools.getValueFromCollectionFile(index, userLocale, this, false);
+		subscribeCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, subscribeCallingSearchSpaceName, this, false);
+		primaryExtension = CollectionTools.getValueFromCollectionFile(index, primaryExtension, this, false);
+		routePartition = CollectionTools.getValueFromCollectionFile(index, routePartition, this, false);
+		pin = CollectionTools.getValueFromCollectionFile(index, pin, this, false);
+		password = CollectionTools.getValueFromCollectionFile(index, password, this, false);
 		
 		ArrayList<String> ucgList = new ArrayList<String>();
 		for(String s : userControlGroupList)
 			{
 			try
 				{
-				ucgList.add(CollectionTools.getValueFromCollectionFile(index, s));
+				ucgList.add(CollectionTools.getValueFromCollectionFile(index, s, this));
 				}
 			catch(EmptyValueException eve)
 				{
@@ -257,7 +257,7 @@ public class User extends ItemToInject
 			{
 			try
 				{
-				dList.add(CollectionTools.getValueFromCollectionFile(j, deviceList.get(i)));
+				dList.add(CollectionTools.getValueFromCollectionFile(j, deviceList.get(i), this));
 				}
 			catch(EmptyValueException eve)
 				{
@@ -272,7 +272,7 @@ public class User extends ItemToInject
 			{
 			try
 				{
-				udpList.add(CollectionTools.getValueFromCollectionFile(j, UDPList.get(i)));
+				udpList.add(CollectionTools.getValueFromCollectionFile(j, UDPList.get(i), this));
 				}
 			catch(EmptyValueException eve)
 				{

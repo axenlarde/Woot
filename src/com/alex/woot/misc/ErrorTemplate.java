@@ -16,6 +16,7 @@ public class ErrorTemplate
 		{
 		notFound,
 		duplicate,
+		tooLong,
 		other
 		};
 	

@@ -131,12 +131,12 @@ public class AssociateAnalogToGateway extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		gatewayName = CollectionTools.getValueFromCollectionFile(index, gatewayName);
-		portName = CollectionTools.getValueFromCollectionFile(index, portName);
-		slot = CollectionTools.getValueFromCollectionFile(index, slot);
-		subunit = CollectionTools.getValueFromCollectionFile(index, subunit);
-		port = CollectionTools.getValueFromCollectionFile(index, port);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		gatewayName = CollectionTools.getValueFromCollectionFile(index, gatewayName, this);
+		portName = CollectionTools.getValueFromCollectionFile(index, portName, this);
+		slot = CollectionTools.getValueFromCollectionFile(index, slot, this);
+		subunit = CollectionTools.getValueFromCollectionFile(index, subunit, this);
+		port = CollectionTools.getValueFromCollectionFile(index, port, this);
 		
 		/**
 		 * We set the item parameters

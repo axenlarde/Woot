@@ -254,7 +254,6 @@ public class Variables
 	private static Office currentOffice;
 	private static ArrayList<String> LGAlgorithm;
 	private static JFrame myWindow;
-	private static ArrayList<Correction> correctionList;
 	
 	//Templates
 	private static ArrayList<ItemToInject> userTemplateList;
@@ -913,20 +912,8 @@ public class Variables
 		{
 		Variables.myWindow = myWindow;
 		}
-
-	public static ArrayList<Correction> getCorrectionList()
-		{
-		return correctionList;
-		}
-
-	public static void setCorrectionList(ArrayList<Correction> correctionList)
-		{
-		Variables.correctionList = correctionList;
-		}
 	
 	
-	
-	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*2017*//*RATEL Alexandre 8)*/
 	}
 

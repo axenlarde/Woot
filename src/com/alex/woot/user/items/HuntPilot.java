@@ -140,12 +140,12 @@ public class HuntPilot extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		description = CollectionTools.getValueFromCollectionFile(index, description, false);
-		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName);
-		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, false);
-		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, false);
-		huntListName = CollectionTools.getValueFromCollectionFile(index, huntListName);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
+		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this);
+		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, this, false);
+		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, this, false);
+		huntListName = CollectionTools.getValueFromCollectionFile(index, huntListName, this);
 		
 		myHuntPilot.setAlertingName(alertingName);
 		myHuntPilot.setAsciiAlertingName(asciiAlertingName);

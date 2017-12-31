@@ -25,6 +25,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 	protected statusType status;
 	protected actionType action;
 	protected ArrayList<ErrorTemplate> errorList;
+	protected ArrayList<Correction> correctionList;
 	protected ArrayList<ToUpdate> tuList;
 	
 	/***************
@@ -38,6 +39,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		this.status = statusType.init;
 		tuList = new ArrayList<ToUpdate>();
 		errorList = new ArrayList<ErrorTemplate>();
+		correctionList = new ArrayList<Correction>();
 		}
 	
 	/****
@@ -182,6 +184,17 @@ public abstract class ItemToInject implements ItemToInjectImpl
 			}
 		}
 	
+	public void addNewCorrection(Correction correction)
+		{
+		//We check for duplicate
+		boolean exists = false;
+		for(Correction c : correctionList)
+			{
+			if(c.getDescription().equals(correction.getDescription()))exists = true;
+			}
+		if(!exists)correctionList.add(correction);
+		}
+	
 	public itemType getType()
 		{
 		return type;
@@ -246,9 +259,20 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		{
 		this.tuList = tuList;
 		}
+
+	public ArrayList<Correction> getCorrectionList()
+		{
+		return correctionList;
+		}
+
+	public void setCorrectionList(ArrayList<Correction> correctionList)
+		{
+		this.correctionList = correctionList;
+		}
 	
 	
 	
-	/*2016*//*RATEL Alexandre 8)*/
+	
+	/*2017*//*RATEL Alexandre 8)*/
 	}
 

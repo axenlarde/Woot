@@ -160,16 +160,16 @@ public class GatewayEndpointAnalogAccess extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		description = CollectionTools.getValueFromCollectionFile(index, description, false);//The "false" means that this value can be empty
-		devicePool = CollectionTools.getValueFromCollectionFile(index, devicePool);
-		location = CollectionTools.getValueFromCollectionFile(index, location, false);
-		productType = CollectionTools.getValueFromCollectionFile(index, productType);
-		phoneCss = CollectionTools.getValueFromCollectionFile(index, phoneCss, false);
-		protocol = CollectionTools.getValueFromCollectionFile(index, protocol);
-		commonDeviceConfigName = CollectionTools.getValueFromCollectionFile(index, commonDeviceConfigName, false);
-		aarNeighborhoodName = CollectionTools.getValueFromCollectionFile(index, aarNeighborhoodName, false);
-		automatedAlternateRoutingCssName = CollectionTools.getValueFromCollectionFile(index, automatedAlternateRoutingCssName, false);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);//The "false" means that this value can be empty
+		devicePool = CollectionTools.getValueFromCollectionFile(index, devicePool, this);
+		location = CollectionTools.getValueFromCollectionFile(index, location, this, false);
+		productType = CollectionTools.getValueFromCollectionFile(index, productType, this);
+		phoneCss = CollectionTools.getValueFromCollectionFile(index, phoneCss, this, false);
+		protocol = CollectionTools.getValueFromCollectionFile(index, protocol, this);
+		commonDeviceConfigName = CollectionTools.getValueFromCollectionFile(index, commonDeviceConfigName, this, false);
+		aarNeighborhoodName = CollectionTools.getValueFromCollectionFile(index, aarNeighborhoodName, this, false);
+		automatedAlternateRoutingCssName = CollectionTools.getValueFromCollectionFile(index, automatedAlternateRoutingCssName, this, false);
 		
 		/**
 		 * We set the item parameters

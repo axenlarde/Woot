@@ -161,23 +161,23 @@ public class Line extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		description = CollectionTools.getValueFromCollectionFile(index, description, false);
-		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName);
-		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, false);
-		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, false);
-		shareLineAppearanceCssName = CollectionTools.getValueFromCollectionFile(index, shareLineAppearanceCssName, false);
-		fwCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, fwCallingSearchSpaceName, false);
-		fwAllDestination = CollectionTools.getValueFromCollectionFile(index, fwAllDestination, false);
-		fwNoanDestination = CollectionTools.getValueFromCollectionFile(index, fwNoanDestination, false);
-		fwBusyDestination = CollectionTools.getValueFromCollectionFile(index, fwBusyDestination, false);
-		fwUnrDestination = CollectionTools.getValueFromCollectionFile(index, fwUnrDestination, false);
-		voiceMailProfileName = CollectionTools.getValueFromCollectionFile(index, voiceMailProfileName, false);
-		fwAllVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwAllVoicemailEnable, false);
-		fwNoanVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwNoanVoicemailEnable, false);
-		fwBusyVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwBusyVoicemailEnable, false);
-		fwUnrVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwUnrVoicemailEnable, false);
-		callPickupGroupName = CollectionTools.getValueFromCollectionFile(index, callPickupGroupName, false);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
+		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this);
+		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, this, false);
+		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, this, false);
+		shareLineAppearanceCssName = CollectionTools.getValueFromCollectionFile(index, shareLineAppearanceCssName, this, false);
+		fwCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, fwCallingSearchSpaceName, this, false);
+		fwAllDestination = CollectionTools.getValueFromCollectionFile(index, fwAllDestination, this, false);
+		fwNoanDestination = CollectionTools.getValueFromCollectionFile(index, fwNoanDestination, this, false);
+		fwBusyDestination = CollectionTools.getValueFromCollectionFile(index, fwBusyDestination, this, false);
+		fwUnrDestination = CollectionTools.getValueFromCollectionFile(index, fwUnrDestination, this, false);
+		voiceMailProfileName = CollectionTools.getValueFromCollectionFile(index, voiceMailProfileName, this, false);
+		fwAllVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwAllVoicemailEnable, this, false);
+		fwNoanVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwNoanVoicemailEnable, this, false);
+		fwBusyVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwBusyVoicemailEnable, this, false);
+		fwUnrVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwUnrVoicemailEnable, this, false);
+		callPickupGroupName = CollectionTools.getValueFromCollectionFile(index, callPickupGroupName, this, false);
 		
 		/**
 		 * We set the item parameters

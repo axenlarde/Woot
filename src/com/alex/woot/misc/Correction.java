@@ -16,25 +16,20 @@ public class Correction
 		other
 		};
 	
-	private int line;
 	private String description;
 	private String advice;
 	private boolean warning;
 	private correctionType type;
-	private String usedToCompare;
 	
 	/**
 	 * Constructor
 	 */
-	public Correction(int line, String description, String advice, correctionType type, boolean warning)
+	public Correction(String description, String advice, correctionType type, boolean warning)
 		{
-		this.line = line;
 		this.description = description;
 		this.advice = advice;
 		this.type = type;
 		this.warning = warning;
-		
-		usedToCompare = new String(line+description);
 		}
 
 	public boolean isWarning()
@@ -55,26 +50,6 @@ public class Correction
 	public void setAdvice(String advice)
 		{
 		this.advice = advice;
-		}
-
-	public String getUsedToCompare()
-		{
-		return usedToCompare;
-		}
-
-	public void setUsedToCompare(String usedToCompare)
-		{
-		this.usedToCompare = usedToCompare;
-		}
-
-	public int getLine()
-		{
-		return line;
-		}
-
-	public void setLine(int line)
-		{
-		this.line = line;
 		}
 
 	public String getDescription()

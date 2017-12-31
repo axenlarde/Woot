@@ -144,9 +144,9 @@ public class HuntList extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		description = CollectionTools.getValueFromCollectionFile(index, description, false);
-		callManagerGroupName = CollectionTools.getValueFromCollectionFile(index, callManagerGroupName);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
+		callManagerGroupName = CollectionTools.getValueFromCollectionFile(index, callManagerGroupName, this);
 		
 		
 		myHuntList.setCallManagerGroupName(callManagerGroupName);

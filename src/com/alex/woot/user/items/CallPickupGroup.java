@@ -143,13 +143,13 @@ public class CallPickupGroup extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		description = CollectionTools.getValueFromCollectionFile(index, description, false);
-		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName);
-		pickupNotification = CollectionTools.getValueFromCollectionFile(index, pickupNotification, false);
-		pickupNotificationTimer = CollectionTools.getValueFromCollectionFile(index, pickupNotificationTimer, false);
-		callingPartyInfo = CollectionTools.getValueFromCollectionFile(index, callingPartyInfo, false);
-		calledPartyInfo = CollectionTools.getValueFromCollectionFile(index, calledPartyInfo, false);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
+		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this);
+		pickupNotification = CollectionTools.getValueFromCollectionFile(index, pickupNotification, this, false);
+		pickupNotificationTimer = CollectionTools.getValueFromCollectionFile(index, pickupNotificationTimer, this, false);
+		callingPartyInfo = CollectionTools.getValueFromCollectionFile(index, callingPartyInfo, this, false);
+		calledPartyInfo = CollectionTools.getValueFromCollectionFile(index, calledPartyInfo, this, false);
 		
 		for(CallPickupGroupMember cpg : cpgList)
 			{

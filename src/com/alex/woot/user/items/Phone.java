@@ -180,23 +180,23 @@ public class Phone extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		description = CollectionTools.getValueFromCollectionFile(index, description, false);//The "false" means that this value can be empty
-		devicePool = CollectionTools.getValueFromCollectionFile(index, devicePool);
-		enableExtensionMobility = CollectionTools.getValueFromCollectionFile(index, enableExtensionMobility, false);
-		location = CollectionTools.getValueFromCollectionFile(index, location, false);
-		phoneButtonTemplate = CollectionTools.getValueFromCollectionFile(index, phoneButtonTemplate);
-		productType = CollectionTools.getValueFromCollectionFile(index, productType);
-		phoneCss = CollectionTools.getValueFromCollectionFile(index, phoneCss, false);
-		protocol = CollectionTools.getValueFromCollectionFile(index, protocol);
-		commonDeviceConfigName = CollectionTools.getValueFromCollectionFile(index, commonDeviceConfigName, false);
-		aarNeighborhoodName = CollectionTools.getValueFromCollectionFile(index, aarNeighborhoodName, false);
-		automatedAlternateRoutingCssName = CollectionTools.getValueFromCollectionFile(index, automatedAlternateRoutingCssName, false);
-		subscribeCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, subscribeCallingSearchSpaceName, false);
-		rerouteCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, rerouteCallingSearchSpaceName, false);
-		commonPhoneConfigName = CollectionTools.getValueFromCollectionFile(index, commonPhoneConfigName, false);
-		securityProfileName = CollectionTools.getValueFromCollectionFile(index, securityProfileName, false);
-		deviceMobilityMode = CollectionTools.getValueFromCollectionFile(index, deviceMobilityMode, false);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);//The "false" means that this value can be empty
+		devicePool = CollectionTools.getValueFromCollectionFile(index, devicePool, this);
+		enableExtensionMobility = CollectionTools.getValueFromCollectionFile(index, enableExtensionMobility, this, false);
+		location = CollectionTools.getValueFromCollectionFile(index, location, this, false);
+		phoneButtonTemplate = CollectionTools.getValueFromCollectionFile(index, phoneButtonTemplate, this);
+		productType = CollectionTools.getValueFromCollectionFile(index, productType, this);
+		phoneCss = CollectionTools.getValueFromCollectionFile(index, phoneCss, this, false);
+		protocol = CollectionTools.getValueFromCollectionFile(index, protocol, this);
+		commonDeviceConfigName = CollectionTools.getValueFromCollectionFile(index, commonDeviceConfigName, this, false);
+		aarNeighborhoodName = CollectionTools.getValueFromCollectionFile(index, aarNeighborhoodName, this, false);
+		automatedAlternateRoutingCssName = CollectionTools.getValueFromCollectionFile(index, automatedAlternateRoutingCssName, this, false);
+		subscribeCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, subscribeCallingSearchSpaceName, this, false);
+		rerouteCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, rerouteCallingSearchSpaceName, this, false);
+		commonPhoneConfigName = CollectionTools.getValueFromCollectionFile(index, commonPhoneConfigName, this, false);
+		securityProfileName = CollectionTools.getValueFromCollectionFile(index, securityProfileName, this, false);
+		deviceMobilityMode = CollectionTools.getValueFromCollectionFile(index, deviceMobilityMode, this, false);
 		
 		/**
 		 * We set the item parameters

@@ -112,9 +112,9 @@ public class UdpLogin extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name);
-		deviceName = CollectionTools.getValueFromCollectionFile(index, deviceName);
-		deviceProfile = CollectionTools.getValueFromCollectionFile(index, deviceProfile);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		deviceName = CollectionTools.getValueFromCollectionFile(index, deviceName, this);
+		deviceProfile = CollectionTools.getValueFromCollectionFile(index, deviceProfile, this);
 		
 		/**
 		 * We set the item parameters

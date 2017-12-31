@@ -11,11 +11,14 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import com.alex.woot.misc.Correction.correctionType;
+import com.alex.woot.misc.ErrorTemplate.errorType;
+import com.alex.woot.user.misc.UserError;
 import com.alex.woot.utils.ClearFrenchString;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.SubstituteType;
+import com.alex.woot.utils.Variables.itemType;
 
 /**********************************
  * Class used to store static method used to work with the collection and template file
@@ -28,7 +31,7 @@ public class CollectionTools
 	 * Method used to return the pattern
 	 * @throws Exception 
 	 ****************************************/
-	public static String doRegex(String pat, int currentRow, boolean emptyException) throws Exception
+	public static String doRegex(String pat, int currentRow, ItemToInject iti, boolean emptyException) throws Exception
 		{
 		/**********
 		 * Add here a special regex detection for too long value
@@ -86,7 +89,7 @@ public class CollectionTools
 			
 			try
 				{
-				realRowNumber = getRowNumber(findRealRow(normal), currentRow);
+				realRowNumber = findRealRow(normal, currentRow);
 				}
 			catch (Exception e)
 				{
@@ -104,8 +107,8 @@ public class CollectionTools
 				
 				if(tooLong.length() > maxLength)
 					{
-					//The corrected value is still too long so we add it with a warning
-					UsefulMethod.addNewCorrection(new Correction(realRowNumber, normal+" > "+tooLong, "", correctionType.tooLong, true));
+					//The corrected value is still too long so we add it as an error
+					iti.getErrorList().add(new UserError(iti.getName(), "", LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong, iti.getType(), iti.getType(), errorType.tooLong));
 					
 					Variables.getLogger().debug("Row : "+realRowNumber+" : Even after the IfLongerThan regex the value is still longer than "+maxLength+" : "+tooLong);
 					return tooLong;
@@ -113,7 +116,7 @@ public class CollectionTools
 				else
 					{
 					//A correction was made so we add it in the correction list
-					UsefulMethod.addNewCorrection(new Correction(realRowNumber, normal+" > "+tooLong, "", correctionType.tooLong, false));
+					iti.addNewCorrection(new Correction(normal+" > "+tooLong, "", correctionType.tooLong, false));
 					
 					Variables.getLogger().debug("Row : "+realRowNumber+" : The value was longer than \""+maxLength+"\" so the \"too long pattern\" has been used instead. The result is : "+tooLong);
 					return tooLong;
@@ -177,7 +180,8 @@ public class CollectionTools
 				if(Variables.getCurrentOffice() == null)
 					{
 					//If Current Office is null it means that 
-					String lineOfficeName = getValueFromCollectionFile(currentRow, UsefulMethod.getTargetOption("officenametemplate"), false);
+					//String lineOfficeName = getValueFromCollectionFile(currentRow, UsefulMethod.getTargetOption("officenametemplate"), false);
+					String lineOfficeName = dodoRegex(UsefulMethod.getTargetOption("officenametemplate"), currentRow, false);
 					
 					if(!lineOfficeName.equals(""))
 						{
@@ -718,7 +722,7 @@ public class CollectionTools
 	 * Method used to get a single value from the excel file
 	 * @throws Exception 
 	 */
-	public static String getValueFromCollectionFile(int row, String pattern) throws Exception
+	public static String getValueFromCollectionFile(int row, String pattern, ItemToInject iti) throws Exception
 		{
 		if((pattern == null) || (pattern .equals("")))
 				{
@@ -726,7 +730,7 @@ public class CollectionTools
 				return "";
 				}
 		Variables.getLogger().debug("Value from collection file before : "+pattern);
-		String result = doRegex(pattern, row, true);
+		String result = doRegex(pattern, row, iti, true);
 		Variables.getLogger().debug("Value from collection file after : "+result);
 		return result;
 		}
@@ -739,7 +743,7 @@ public class CollectionTools
 	 * - False : We will just get an empty String
 	 * @throws Exception 
 	 */
-	public static String getValueFromCollectionFile(int row, String pattern, Boolean emptyBehavior) throws Exception
+	public static String getValueFromCollectionFile(int row, String pattern, ItemToInject iti, Boolean emptyBehavior) throws Exception
 		{
 		if((pattern == null) || (pattern .equals("")))
 			{
@@ -748,7 +752,7 @@ public class CollectionTools
 			}
 		
 		Variables.getLogger().debug("Value from collection file before : "+pattern);
-		String result = doRegex(pattern, row, emptyBehavior);
+		String result = doRegex(pattern, row, iti, emptyBehavior);
 		
 		result = result.trim();//Just to remove unwanted spaces
 		
@@ -772,8 +776,8 @@ public class CollectionTools
 			try
 				{
 				if(i>max)throw new Exception("Max data processed limit reached");
-					
-				CollectionTools.getValueFromCollectionFile(i, matcher);//Will raise an exception once an empty value will be found
+				
+				CollectionTools.getValueFromCollectionFile(i, matcher, null);//Will raise an exception once an empty value will be found
 				}
 			catch(EmptyValueException eve)
 				{
@@ -913,7 +917,7 @@ public class CollectionTools
 		{
 		try
 			{
-			CollectionTools.getValueFromCollectionFile(index, pattern);
+			CollectionTools.getValueFromCollectionFile(index, pattern, null);
 			return false;
 			}
 		catch (EmptyValueException eve)
@@ -941,13 +945,13 @@ public class CollectionTools
 		}
 	
 	/**
-	 * Used to 
+	 * Used to find the real row number from the index and a pattern such as "file.lastname"
 	 * @param pattern
 	 * @return
 	 * @throws NumberFormatException
 	 * @throws Exception
 	 */
-	private static String findRealRow(String pattern) throws NumberFormatException, Exception
+	private static int findRealRow(String pattern, int index) throws NumberFormatException, Exception
 		{
 		String[] pat = getSplittedValue(pattern, UsefulMethod.getTargetOption("splitter"));
 		
@@ -960,7 +964,7 @@ public class CollectionTools
 				
 				if(Pattern.matches(".*"+tab[0]+".*", pat[i]))
 					{
-					return tab[3];
+					return getRowNumber(tab[3], index);
 					}
 				}
 			}
