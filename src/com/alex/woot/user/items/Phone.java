@@ -180,15 +180,15 @@ public class Phone extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
 		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);//The "false" means that this value can be empty
-		devicePool = CollectionTools.getValueFromCollectionFile(index, devicePool, this);
+		devicePool = CollectionTools.getValueFromCollectionFile(index, devicePool, this, true);
 		enableExtensionMobility = CollectionTools.getValueFromCollectionFile(index, enableExtensionMobility, this, false);
 		location = CollectionTools.getValueFromCollectionFile(index, location, this, false);
-		phoneButtonTemplate = CollectionTools.getValueFromCollectionFile(index, phoneButtonTemplate, this);
-		productType = CollectionTools.getValueFromCollectionFile(index, productType, this);
+		phoneButtonTemplate = CollectionTools.getValueFromCollectionFile(index, phoneButtonTemplate, this, true);
+		productType = CollectionTools.getValueFromCollectionFile(index, productType, this, true);
 		phoneCss = CollectionTools.getValueFromCollectionFile(index, phoneCss, this, false);
-		protocol = CollectionTools.getValueFromCollectionFile(index, protocol, this);
+		protocol = CollectionTools.getValueFromCollectionFile(index, protocol, this, true);
 		commonDeviceConfigName = CollectionTools.getValueFromCollectionFile(index, commonDeviceConfigName, this, false);
 		aarNeighborhoodName = CollectionTools.getValueFromCollectionFile(index, aarNeighborhoodName, this, false);
 		automatedAlternateRoutingCssName = CollectionTools.getValueFromCollectionFile(index, automatedAlternateRoutingCssName, this, false);
@@ -197,6 +197,24 @@ public class Phone extends ItemToInject
 		commonPhoneConfigName = CollectionTools.getValueFromCollectionFile(index, commonPhoneConfigName, this, false);
 		securityProfileName = CollectionTools.getValueFromCollectionFile(index, securityProfileName, this, false);
 		deviceMobilityMode = CollectionTools.getValueFromCollectionFile(index, deviceMobilityMode, this, false);
+		
+		/**
+		 * We fetch the error and corrections from the lists
+		 */
+		//PhoneLine
+		for(PhoneLine pl : lineList)
+			{
+			this.getErrorList().addAll(pl.getErrorList());
+			this.getCorrectionList().addAll(pl.getCorrectionList());
+			}
+		
+		//Services
+		dsdssd
+		
+		
+		//SD a BLF
+		
+		
 		
 		/**
 		 * We set the item parameters

@@ -146,9 +146,9 @@ public class LineGroup extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name, this);
-		distributionAlgorithm = CollectionTools.getValueFromCollectionFile(index, distributionAlgorithm, this);
-		rnaReversionTimeOut = CollectionTools.getValueFromCollectionFile(index, rnaReversionTimeOut, this);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
+		distributionAlgorithm = CollectionTools.getValueFromCollectionFile(index, distributionAlgorithm, this, true);
+		rnaReversionTimeOut = CollectionTools.getValueFromCollectionFile(index, rnaReversionTimeOut, this, true);
 		huntAlgorithmNoAnswer = CollectionTools.getValueFromCollectionFile(index, huntAlgorithmNoAnswer, this, false);
 		huntAlgorithmBusy = CollectionTools.getValueFromCollectionFile(index, huntAlgorithmBusy, this, false);
 		huntAlgorithmNotAvailable = CollectionTools.getValueFromCollectionFile(index, huntAlgorithmNotAvailable, this, false);

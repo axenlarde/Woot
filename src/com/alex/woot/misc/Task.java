@@ -151,8 +151,6 @@ public class Task extends Thread
 			Variables.getMyWorkbook().close();
 			Variables.setMyWorkbook(null);//We reset the workbook
 			Variables.getLogger().info("Workbook closed");
-			Variables.setCorrectionList(new ArrayList<Correction>());
-			Variables.getLogger().info("Correction list cleared");
 			}
 		catch (Exception e)
 			{

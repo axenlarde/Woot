@@ -115,9 +115,17 @@ public class MainStatusLine extends JPanel implements ActionListener, MouseListe
 		left.setBackground(couleur);
 		right.setBackground(couleur);
 		select.setBackground(couleur);
-		for(int i=0; i<slList.size(); i++)
+		for(StatusLine sl : slList)
 			{
-			slList.get(i).setFond(couleur);
+			//If a correction was made we choose the orange color
+			if(sl.getItem().getCorrectionList().size() != 0)
+				{
+				sl.setFond(couleur);
+				}
+			else
+				{
+				sl.setFond(Color.ORANGE);
+				}
 			}
 		}
 	

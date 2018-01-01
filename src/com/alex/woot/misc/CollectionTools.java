@@ -31,7 +31,7 @@ public class CollectionTools
 	 * Method used to return the pattern
 	 * @throws Exception 
 	 ****************************************/
-	public static String doRegex(String pat, int currentRow, ItemToInject iti, boolean emptyException) throws Exception
+	public static String doRegex(String pat, int currentRow, Object obj, boolean emptyException) throws Exception
 		{
 		/**********
 		 * Add here a special regex detection for too long value
@@ -108,7 +108,24 @@ public class CollectionTools
 				if(tooLong.length() > maxLength)
 					{
 					//The corrected value is still too long so we add it as an error
-					iti.getErrorList().add(new UserError(iti.getName(), "", LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong, iti.getType(), iti.getType(), errorType.tooLong));
+					try
+						{
+						ItemToInject iti = (ItemToInject)obj;
+						iti.getErrorList().add(new UserError(LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong));
+						}
+					catch (Exception e)
+						{
+						Variables.getLogger().debug("The object is not an \"ItemToInject\" so we try with a \"BasicItem\"");
+						try
+							{
+							BasicItem bi = (BasicItem)obj;
+							bi.getErrorList().add(new UserError(LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong));
+							}
+						catch (Exception exc)
+							{
+							Variables.getLogger().error("ERROR : The object is neither an \"ItemToInject\" nor a \"BasicItem\"", exc);
+							}
+						}
 					
 					Variables.getLogger().debug("Row : "+realRowNumber+" : Even after the IfLongerThan regex the value is still longer than "+maxLength+" : "+tooLong);
 					return tooLong;
@@ -116,7 +133,24 @@ public class CollectionTools
 				else
 					{
 					//A correction was made so we add it in the correction list
-					iti.addNewCorrection(new Correction(normal+" > "+tooLong, "", correctionType.tooLong, false));
+					try
+						{
+						ItemToInject iti = (ItemToInject)obj;
+						iti.addNewCorrection(new Correction(normal+" > "+tooLong, "", correctionType.tooLong, false));
+						}
+					catch (Exception e)
+						{
+						Variables.getLogger().debug("The object is not an \"ItemToInject\" so we try with a \"BasicItem\"");
+						try
+							{
+							BasicItem bi = (BasicItem)obj;
+							bi.addNewCorrection(new Correction(normal+" > "+tooLong, "", correctionType.tooLong, false));
+							}
+						catch (Exception exc)
+							{
+							Variables.getLogger().error("ERROR : The object is neither an \"ItemToInject\" nor a \"BasicItem\"", exc);
+							}
+						}
 					
 					Variables.getLogger().debug("Row : "+realRowNumber+" : The value was longer than \""+maxLength+"\" so the \"too long pattern\" has been used instead. The result is : "+tooLong);
 					return tooLong;
@@ -720,30 +754,13 @@ public class CollectionTools
 	
 	/********
 	 * Method used to get a single value from the excel file
-	 * @throws Exception 
-	 */
-	public static String getValueFromCollectionFile(int row, String pattern, ItemToInject iti) throws Exception
-		{
-		if((pattern == null) || (pattern .equals("")))
-				{
-				Variables.getLogger().debug("The pattern is either null or empty, so we return an empty value");
-				return "";
-				}
-		Variables.getLogger().debug("Value from collection file before : "+pattern);
-		String result = doRegex(pattern, row, iti, true);
-		Variables.getLogger().debug("Value from collection file after : "+result);
-		return result;
-		}
-	
-	/********
-	 * Method used to get a single value from the excel file
 	 * We can here choose what behavior we want regarding the empty value
 	 * in the collection file :
 	 * - True : We will get EmptyValueException if empty
 	 * - False : We will just get an empty String
 	 * @throws Exception 
 	 */
-	public static String getValueFromCollectionFile(int row, String pattern, ItemToInject iti, Boolean emptyBehavior) throws Exception
+	public static String getValueFromCollectionFile(int row, String pattern, Object obj, Boolean emptyBehavior) throws Exception
 		{
 		if((pattern == null) || (pattern .equals("")))
 			{
@@ -752,7 +769,7 @@ public class CollectionTools
 			}
 		
 		Variables.getLogger().debug("Value from collection file before : "+pattern);
-		String result = doRegex(pattern, row, iti, emptyBehavior);
+		String result = doRegex(pattern, row, obj, emptyBehavior);
 		
 		result = result.trim();//Just to remove unwanted spaces
 		
@@ -777,7 +794,7 @@ public class CollectionTools
 				{
 				if(i>max)throw new Exception("Max data processed limit reached");
 				
-				CollectionTools.getValueFromCollectionFile(i, matcher, null);//Will raise an exception once an empty value will be found
+				CollectionTools.getValueFromCollectionFile(i, matcher, null, true);//Will raise an exception once an empty value will be found
 				}
 			catch(EmptyValueException eve)
 				{
@@ -917,7 +934,7 @@ public class CollectionTools
 		{
 		try
 			{
-			CollectionTools.getValueFromCollectionFile(index, pattern, null);
+			CollectionTools.getValueFromCollectionFile(index, pattern, null, true);
 			return false;
 			}
 		catch (EmptyValueException eve)

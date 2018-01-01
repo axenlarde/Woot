@@ -1,7 +1,7 @@
 package com.alex.woot.soap.items;
 
-import org.apache.poi.ss.usermodel.Workbook;
 
+import com.alex.woot.misc.BasicItem;
 import com.alex.woot.misc.CollectionTools;
 
 /**********************************
@@ -9,14 +9,14 @@ import com.alex.woot.misc.CollectionTools;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class HuntListMember
+public class HuntListMember extends BasicItem
 	{
 	/**
 	 * Variables
 	 */
 	private String lineGroupName;
 	private int order;
-	
+	private int index;
 	
 	
 	/***************
@@ -24,6 +24,7 @@ public class HuntListMember
 	 ***************/
 	public HuntListMember(String lineGroupName, int order)
 		{
+		super();
 		this.lineGroupName = lineGroupName;
 		this.order = order;
 		}
@@ -32,9 +33,9 @@ public class HuntListMember
 	 * Method used to resolve this member's value
 	 * @throws Exception 
 	 */
-	public void resolve(int index) throws Exception
+	public void resolve() throws Exception
 		{
-		lineGroupName = CollectionTools.getValueFromCollectionFile(index, lineGroupName);
+		lineGroupName = CollectionTools.getValueFromCollectionFile(index, lineGroupName, this, true);
 		}
 	
 	public String getLineGroupName()
@@ -55,6 +56,16 @@ public class HuntListMember
 	public void setOrder(int order)
 		{
 		this.order = order;
+		}
+
+	public int getIndex()
+		{
+		return index;
+		}
+
+	public void setIndex(int index)
+		{
+		this.index = index;
 		}
 	
 	

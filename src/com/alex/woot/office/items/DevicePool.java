@@ -164,7 +164,7 @@ public class DevicePool extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		this.name = CollectionTools.getValueFromCollectionFile(this.getName());
+		this.name = CollectionTools.getValueFromCollectionFile(0, this.name, this, true);
 		
 		/**
 		 * Here we check if the CallManagerGroup has to be treated a special way

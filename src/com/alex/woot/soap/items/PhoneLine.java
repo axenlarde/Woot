@@ -1,5 +1,6 @@
 package com.alex.woot.soap.items;
 
+import com.alex.woot.misc.BasicItem;
 import com.alex.woot.misc.CollectionTools;
 
 
@@ -8,7 +9,7 @@ import com.alex.woot.misc.CollectionTools;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class PhoneLine
+public class PhoneLine extends BasicItem
 	{
 	/***
 	 * Variables
@@ -36,6 +37,7 @@ public class PhoneLine
 	fwUnrVoicemailEnable;
 	
 	private int lineIndex;
+	private int index;
 
 	/***************
 	 * Constructor
@@ -54,6 +56,7 @@ public class PhoneLine
 			int lineIndex)
 		{
 		super();
+		
 		this.description = description;
 		this.lineLabel = lineLabel;
 		this.asciiLineLabel = asciiLineLabel;
@@ -85,29 +88,29 @@ public class PhoneLine
 	 * For instance : file.firstname becomes "alexandre"
 	 * @throws Exception 
 	 */
-	public void resolve(int index) throws Exception
+	public void resolve() throws Exception
 		{
-		lineLabel = CollectionTools.getValueFromCollectionFile(index, lineLabel, false);
-		asciiLineLabel = CollectionTools.getValueFromCollectionFile(index, asciiLineLabel, false);
-		lineDisplay = CollectionTools.getValueFromCollectionFile(index, lineDisplay, false);
-		lineDisplayAscii = CollectionTools.getValueFromCollectionFile(index, lineDisplayAscii, false);
-		externalPhoneNumberMask = CollectionTools.getValueFromCollectionFile(index, externalPhoneNumberMask, false);
-		lineNumber = CollectionTools.getValueFromCollectionFile(index, lineNumber);
-		routePartition = CollectionTools.getValueFromCollectionFile(index, routePartition);
-		lineCSS = CollectionTools.getValueFromCollectionFile(index, lineCSS, false);
-		description = CollectionTools.getValueFromCollectionFile(index, description, false);
-		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, false);
-		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, false);
-		fwCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, fwCallingSearchSpaceName, false);
-		fwAllDestination = CollectionTools.getValueFromCollectionFile(index, fwAllDestination, false);
-		fwNoanDestination = CollectionTools.getValueFromCollectionFile(index, fwNoanDestination, false);
-		fwBusyDestination = CollectionTools.getValueFromCollectionFile(index, fwBusyDestination, false);
-		fwUnrDestination = CollectionTools.getValueFromCollectionFile(index, fwUnrDestination, false);
-		voiceMailProfileName = CollectionTools.getValueFromCollectionFile(index, voiceMailProfileName, false);
-		fwAllVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwAllVoicemailEnable, false);
-		fwNoanVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwNoanVoicemailEnable, false);
-		fwBusyVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwBusyVoicemailEnable, false);
-		fwUnrVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwUnrVoicemailEnable, false);
+		lineLabel = CollectionTools.getValueFromCollectionFile(index, lineLabel, this, false);
+		asciiLineLabel = CollectionTools.getValueFromCollectionFile(index, asciiLineLabel, this, false);
+		lineDisplay = CollectionTools.getValueFromCollectionFile(index, lineDisplay, this, false);
+		lineDisplayAscii = CollectionTools.getValueFromCollectionFile(index, lineDisplayAscii, this, false);
+		externalPhoneNumberMask = CollectionTools.getValueFromCollectionFile(index, externalPhoneNumberMask, this, false);
+		lineNumber = CollectionTools.getValueFromCollectionFile(index, lineNumber, this, true);
+		routePartition = CollectionTools.getValueFromCollectionFile(index, routePartition, this, true);
+		lineCSS = CollectionTools.getValueFromCollectionFile(index, lineCSS, this, false);
+		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
+		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, this, false);
+		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, this, false);
+		fwCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, fwCallingSearchSpaceName, this, false);
+		fwAllDestination = CollectionTools.getValueFromCollectionFile(index, fwAllDestination, this, false);
+		fwNoanDestination = CollectionTools.getValueFromCollectionFile(index, fwNoanDestination, this, false);
+		fwBusyDestination = CollectionTools.getValueFromCollectionFile(index, fwBusyDestination, this, false);
+		fwUnrDestination = CollectionTools.getValueFromCollectionFile(index, fwUnrDestination, this, false);
+		voiceMailProfileName = CollectionTools.getValueFromCollectionFile(index, voiceMailProfileName, this, false);
+		fwAllVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwAllVoicemailEnable, this, false);
+		fwNoanVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwNoanVoicemailEnable, this, false);
+		fwBusyVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwBusyVoicemailEnable, this, false);
+		fwUnrVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwUnrVoicemailEnable, this, false);
 		}
 
 	public String getLineLabel()
@@ -329,10 +332,16 @@ public class PhoneLine
 		{
 		this.fwUnrVoicemailEnable = fwUnrVoicemailEnable;
 		}
-	
-	
-	
-	
+
+	public int getIndex()
+		{
+		return index;
+		}
+
+	public void setIndex(int index)
+		{
+		this.index = index;
+		}
 	
 	/*2016*//*RATEL Alexandre 8)*/
 	}

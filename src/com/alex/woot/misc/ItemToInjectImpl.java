@@ -1,9 +1,5 @@
 package com.alex.woot.misc;
 
-import java.util.ArrayList;
-
-import com.alex.woot.axlitems.misc.ToUpdate;
-
 /**********************************
  * Interface design to force to define the following method
  * 

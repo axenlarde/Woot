@@ -2,6 +2,7 @@ package com.alex.woot.soap.items;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.alex.woot.misc.BasicItem;
 import com.alex.woot.misc.CollectionTools;
 
 /**********************************
@@ -9,13 +10,14 @@ import com.alex.woot.misc.CollectionTools;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class LineGroupMember
+public class LineGroupMember extends BasicItem
 	{
 	/**
 	 * Variables
 	 */
 	private String number, partition;
 	private int order;
+	private int index;
 	
 	/***************
 	 * Constructor
@@ -32,10 +34,10 @@ public class LineGroupMember
 	 * Method used to resolve this member's value
 	 * @throws Exception 
 	 */
-	public void resolve(int index) throws Exception
+	public void resolve() throws Exception
 		{
-		number = CollectionTools.getValueFromCollectionFile(index, number);
-		partition = CollectionTools.getValueFromCollectionFile(index, partition);
+		number = CollectionTools.getValueFromCollectionFile(index, number, this, true);
+		partition = CollectionTools.getValueFromCollectionFile(index, partition, this, true);
 		}
 	
 	public String getNumber()
@@ -61,6 +63,16 @@ public class LineGroupMember
 	public void setOrder(int order)
 		{
 		this.order = order;
+		}
+
+	public int getIndex()
+		{
+		return index;
+		}
+
+	public void setIndex(int index)
+		{
+		this.index = index;
 		}
 	
 	

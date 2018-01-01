@@ -161,9 +161,9 @@ public class Line extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
 		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
-		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this);
+		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this, true);
 		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, this, false);
 		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, this, false);
 		shareLineAppearanceCssName = CollectionTools.getValueFromCollectionFile(index, shareLineAppearanceCssName, this, false);

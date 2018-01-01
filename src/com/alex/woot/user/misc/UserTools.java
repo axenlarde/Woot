@@ -65,9 +65,9 @@ public class UserTools
 			{
 			try
 				{
-				String lastname = CollectionTools.getValueFromCollectionFile(i, lastNameTemplate, false);
-				String firstname = CollectionTools.getValueFromCollectionFile(i, firstNameTemplate, false);
-				String userid = CollectionTools.getValueFromCollectionFile(i, userIDTemplate, false);
+				String lastname = CollectionTools.getValueFromCollectionFile(i, lastNameTemplate, null, false);
+				String firstname = CollectionTools.getValueFromCollectionFile(i, firstNameTemplate, null, false);
+				String userid = CollectionTools.getValueFromCollectionFile(i, userIDTemplate, null, false);
 				
 				MItemUser myUser = new MItemUser(userid, lastname, firstname);
 				boolean foundMIU = false;
@@ -94,7 +94,7 @@ public class UserTools
 				 * According to the user creation profile we add to the MainItemList
 				 * the item asked by the profile
 				 */
-				String profile = CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("usercreationprofiletemplate"));
+				String profile = CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("usercreationprofiletemplate"), null, true);
 				UdpLoginItem uli = new UdpLoginItem();
 				
 				for(UserCreationProfile ucp : Variables.getUserCreationProfileList())
@@ -129,7 +129,7 @@ public class UserTools
 										{
 										uli.setIndex(i);
 										uli.setDeviceProfile(dpTemplate.getName());//Here we get the UDP name, it will be used to connect the UDP later
-										uli.setDeviceName("SEP"+CollectionTools.getValueFromCollectionFile(i, phoneMacTemplate));//Here we get the device name, it will be used to connect the UDP later
+										uli.setDeviceName("SEP"+CollectionTools.getValueFromCollectionFile(i, phoneMacTemplate, null, true));//Here we get the device name, it will be used to connect the UDP later
 										}
 									}
 								else if(ut.getType().equals(itemType.phone))
@@ -253,7 +253,7 @@ public class UserTools
 					{
 					if(!CollectionTools.isValueFromCollectionFileEmpty(i, "file.cpgname"))
 						{
-						String CPGName = CollectionTools.getValueFromCollectionFile(i, "file.cpgname");
+						String CPGName = CollectionTools.getValueFromCollectionFile(i, "file.cpgname", null, true);
 						
 						//We check if the group is already in the list
 						Boolean present = false;
@@ -290,10 +290,10 @@ public class UserTools
 							//Then we look for the associated line to update
 							for(int j=i; j<lastIndex; j++)
 								{
-								String TempCPGName = CollectionTools.getValueFromCollectionFile(j, "file.cpgname", false);
+								String TempCPGName = CollectionTools.getValueFromCollectionFile(j, "file.cpgname", CallCPG, false);
 								if((!(TempCPGName.equals(""))) && (TempCPGName.equals(CPGName)))
 									{
-									Line myLine = new Line(CollectionTools.getValueFromCollectionFile(j, "file.linenumber1"),
+									Line myLine = new Line(CollectionTools.getValueFromCollectionFile(j, "file.linenumber1", null, true),
 											UsefulMethod.getTargetOption("didpartition"));
 									myLine.setCallPickupGroupName(UsefulMethod.getTargetOption("cpgname"));
 									myLine.setAction(actionType.update);
@@ -342,7 +342,7 @@ public class UserTools
 					{
 					if(!CollectionTools.isValueFromCollectionFileEmpty(i, "file.linegroupname"))
 						{
-						String[] tab = CollectionTools.getValueFromCollectionFile(i, "file.linegroupname").split(":");
+						String[] tab = CollectionTools.getValueFromCollectionFile(i, "file.linegroupname", null, false).split(":");
 						
 						/**
 						 * Here we gonna get the Line group details as follow :
@@ -406,15 +406,16 @@ public class UserTools
 							int order = 0;
 							for(int j=i; j<lastIndex; j++)
 								{
-								String[] ttab = CollectionTools.getValueFromCollectionFile(j, "file.linegroupname", false).split(":");
+								String[] ttab = CollectionTools.getValueFromCollectionFile(j, "file.linegroupname", lineG, false).split(":");
 								String tempLGName = ttab[0];
 								
 								if((!(tempLGName.equals(""))) && (tempLGName.equals(LGName)))
 									{
-									LineGroupMember myLGM = new LineGroupMember(CollectionTools.getValueFromCollectionFile(j, "file.linenumber1"),
+									LineGroupMember myLGM = new LineGroupMember(CollectionTools.getValueFromCollectionFile(j, "file.linenumber1",lineG, true),
 											UsefulMethod.getTargetOption("didpartition"),
 											order);
-									myLGM.resolve(j);
+									myLGM.setIndex(j);
+									myLGM.resolve();
 									lineG.getLineList().add(myLGM);
 									order ++;
 									}
@@ -564,7 +565,7 @@ public class UserTools
 			
 			
 			/***************
-			 * Second we have to create the Device Profile
+			 * Finally we have to create the Device Profile
 			 */
 			DeviceProfile myUDP = new DeviceProfile(template.getTargetName(),
 					template.getName(),
@@ -746,7 +747,7 @@ public class UserTools
 			String portIndex = null;
 			String portName = null;
 			String lineNumber = template.getLineList().get(0).getLineNumber();
-			lineNumber = CollectionTools.getValueFromCollectionFile(i, lineNumber, false);
+			lineNumber = CollectionTools.getValueFromCollectionFile(i, lineNumber, myPhone, false);
 			boolean found = false;
 			
 			if(!lineNumber.equals(""))
@@ -756,11 +757,11 @@ public class UserTools
 					{
 					for(int h=0; h<maxVGPort; h++)
 						{
-						String portLine = CollectionTools.getValueFromCollectionFile(j, "file.vgport"+(h+1), false);
+						String portLine = CollectionTools.getValueFromCollectionFile(j, "file.vgport"+(h+1), myPhone, false);
 						if(portLine.equals(lineNumber))
 							{
 							Variables.getLogger().debug("Analog number found line "+((CollectionTools.getMatcherInfo("file.vgname")[2])+j)+" port "+(h+1));
-							vgMac = CollectionTools.getValueFromCollectionFile(j, "file.vgmac", false);
+							vgMac = CollectionTools.getValueFromCollectionFile(j, "file.vgmac", myPhone, false);
 							portIndex = Integer.toString(h);
 							portName = generateAnalogPortName(vgMac, h);
 							found = true;
@@ -933,7 +934,8 @@ public class UserTools
 		
 		try
 			{
-			myLine.resolve(i);
+			myLine.setIndex(i);
+			myLine.resolve();
 			}
 		catch (EmptyValueException eve)
 			{
@@ -954,7 +956,8 @@ public class UserTools
 		PhoneService myService = new PhoneService(s.getTemplate());
 		try
 			{
-			myService.resolve(i);
+			myService.setIndex(i);
+			myService.resolve();
 			}
 		catch (EmptyValueException eve)
 			{
@@ -975,7 +978,8 @@ public class UserTools
 		SpeedDial mySD = new SpeedDial(sd.getTemplate(), sd.getPosition());
 		try
 			{
-			mySD.resolve(i);
+			mySD.setIndex(i);
+			mySD.resolve();
 			}
 		catch (EmptyValueException eve)
 			{

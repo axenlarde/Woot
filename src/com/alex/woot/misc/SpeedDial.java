@@ -8,7 +8,7 @@ import com.alex.woot.utils.Variables.sdType;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class SpeedDial
+public class SpeedDial extends BasicItem
 	{
 	/**
 	 * Variables
@@ -20,6 +20,7 @@ public class SpeedDial
 	private boolean pickup;
 	private sdType type;
 	private int position;
+	private int index;
 	
 	/***************
 	 * Constructor
@@ -32,9 +33,9 @@ public class SpeedDial
 		type = sdType.sd;
 		}
 	
-	public void resolve(int index) throws Exception
+	public void resolve() throws Exception
 		{
-		template = CollectionTools.getValueFromCollectionFile(index, template);
+		template = CollectionTools.getValueFromCollectionFile(index, template, this, true);
 		
 		if(template.contains(":"))
 			{
@@ -128,6 +129,16 @@ public class SpeedDial
 	public void setTemplate(String template)
 		{
 		this.template = template;
+		}
+
+	public int getIndex()
+		{
+		return index;
+		}
+
+	public void setIndex(int index)
+		{
+		this.index = index;
 		}
 	
 	

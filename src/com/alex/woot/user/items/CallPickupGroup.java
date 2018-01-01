@@ -143,9 +143,9 @@ public class CallPickupGroup extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name, this);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
 		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
-		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this);
+		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this, true);
 		pickupNotification = CollectionTools.getValueFromCollectionFile(index, pickupNotification, this, false);
 		pickupNotificationTimer = CollectionTools.getValueFromCollectionFile(index, pickupNotificationTimer, this, false);
 		callingPartyInfo = CollectionTools.getValueFromCollectionFile(index, callingPartyInfo, this, false);
@@ -153,7 +153,8 @@ public class CallPickupGroup extends ItemToInject
 		
 		for(CallPickupGroupMember cpg : cpgList)
 			{
-			cpg.resolve(index);
+			cpg.setIndex(index);
+			cpg.resolve();
 			}
 		
 		myCallPickupGroup.setName(name);

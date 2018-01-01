@@ -1,11 +1,14 @@
 package com.alex.woot.soap.items;
 
+import com.alex.woot.misc.BasicItem;
+import com.alex.woot.misc.CollectionTools;
+
 /**********************************
  * Class used to store a Sip Trunk Destination
  * 
  * @author RATEL Alexandre
  **********************************/
-public class SipTrunkDestination
+public class SipTrunkDestination extends BasicItem
 	{
 	/**
 	 * Variables
@@ -24,6 +27,12 @@ public class SipTrunkDestination
 		this.addressIpv4 = addressIpv4;
 		this.port = port;
 		this.order = order;
+		}
+	
+	@Override
+	public void resolve() throws Exception
+		{
+		this.addressIpv4 = CollectionTools.getValueFromCollectionFile(0, this.addressIpv4, this, true);
 		}
 
 	public String getAddressIpv4()
@@ -55,8 +64,6 @@ public class SipTrunkDestination
 		{
 		this.order = order;
 		}
-	
-
 	
 	
 	/*2015*//*RATEL Alexandre 8)*/

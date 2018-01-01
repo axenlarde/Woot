@@ -103,12 +103,6 @@ public class UserCreation extends Thread
 			
 			Variables.getLogger().info("User injection starts");
 			
-			//If needed we launch the correction window
-			if((Variables.getCorrectionList() != null) && (Variables.getCorrectionList().size() != 0))
-				{
-				new CorrectionWindow(Variables.getCorrectionList());
-				}
-			
 			//We launch the user interface panel
 			StatusWindow sw = new StatusWindow(itemToInjectList, myTask);
 			Variables.getMyWindow().getContentPane().removeAll();

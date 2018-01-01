@@ -151,13 +151,13 @@ public class DeviceProfile extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		this.name = CollectionTools.getValueFromCollectionFile(index, this.name, this);
+		this.name = CollectionTools.getValueFromCollectionFile(index, this.name, this, true);
 		this.description = CollectionTools.getValueFromCollectionFile(index, this.description, this, false);
-		this.phoneClass = CollectionTools.getValueFromCollectionFile(index, this.phoneClass, this);
-		this.productType = CollectionTools.getValueFromCollectionFile(index, this.productType, this);
-		this.protocol = CollectionTools.getValueFromCollectionFile(index, this.protocol, this);
-		this.protocolSide = CollectionTools.getValueFromCollectionFile(index, this.protocolSide, this);
-		this.phoneButtonTemplate = CollectionTools.getValueFromCollectionFile(index, this.phoneButtonTemplate, this);
+		this.phoneClass = CollectionTools.getValueFromCollectionFile(index, this.phoneClass, this, true);
+		this.productType = CollectionTools.getValueFromCollectionFile(index, this.productType, this, true);
+		this.protocol = CollectionTools.getValueFromCollectionFile(index, this.protocol, this, true);
+		this.protocolSide = CollectionTools.getValueFromCollectionFile(index, this.protocolSide, this, true);
+		this.phoneButtonTemplate = CollectionTools.getValueFromCollectionFile(index, this.phoneButtonTemplate, this, true);
 		
 		
 		/**
@@ -185,7 +185,8 @@ public class DeviceProfile extends ItemToInject
 		//Line
 		for(PhoneLine myLine : lineList)
 			{
-			myLine.resolve(i);
+			myLine.setIndex(i);
+			myLine.resolve();
 			}
 		
 		myUDP.setLineList(this.lineList);

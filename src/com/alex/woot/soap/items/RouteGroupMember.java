@@ -1,11 +1,14 @@
 package com.alex.woot.soap.items;
 
+import com.alex.woot.misc.BasicItem;
+import com.alex.woot.misc.CollectionTools;
+
 /**********************************
  * Class used to store a Route Group Member
  * 
  * @author RATEL Alexandre
  **********************************/
-public class RouteGroupMember
+public class RouteGroupMember extends BasicItem
 	{
 	/**
 	 * Variables
@@ -20,9 +23,16 @@ public class RouteGroupMember
 	 ***************/
 	public RouteGroupMember(String deviceName, int order)
 		{
+		super();
 		this.deviceName = deviceName;
 		this.port = "0";
 		this.order = order;
+		}
+	
+	@Override
+	public void resolve() throws Exception
+		{
+		this.deviceName = CollectionTools.getValueFromCollectionFile(0, this.deviceName, this, true);
 		}
 
 	public String getDeviceName()
@@ -54,8 +64,6 @@ public class RouteGroupMember
 		{
 		this.order = order;
 		}
-
-	
 
 	
 	

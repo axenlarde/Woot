@@ -8,13 +8,15 @@ import org.apache.poi.ss.usermodel.Workbook;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class PhoneService
+public class PhoneService extends BasicItem
 	{
 	/**
 	 * Variables
 	 */
 	private String template, servicename,
 	surl;
+	
+	private int index;
 
 	/***************
 	 * Constructor
@@ -32,9 +34,9 @@ public class PhoneService
 	 * For instance : cucm.firstname becomes "alexandre"
 	 * @throws Exception 
 	 */
-	public void resolve(int index) throws Exception
+	public void resolve() throws Exception
 		{
-		template = CollectionTools.getValueFromCollectionFile(index, template);
+		template = CollectionTools.getValueFromCollectionFile(index, template, this, true);
 		
 		if(template.contains(":"))
 			{
@@ -77,6 +79,16 @@ public class PhoneService
 	public void setTemplate(String template)
 		{
 		this.template = template;
+		}
+
+	public int getIndex()
+		{
+		return index;
+		}
+
+	public void setIndex(int index)
+		{
+		this.index = index;
 		}
 	
 	
