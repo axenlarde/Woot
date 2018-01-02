@@ -3,10 +3,10 @@ package com.alex.woot.user.misc;
 import java.util.ArrayList;
 
 import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.PhoneService;
-import com.alex.woot.misc.SpeedDial;
 import com.alex.woot.misc.Voicemail;
 import com.alex.woot.soap.items.PhoneLine;
+import com.alex.woot.soap.items.PhoneService;
+import com.alex.woot.soap.items.SpeedDial;
 import com.alex.woot.user.items.DeviceProfile;
 import com.alex.woot.user.items.Phone;
 import com.alex.woot.user.items.User;

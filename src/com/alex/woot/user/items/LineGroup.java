@@ -71,16 +71,7 @@ public class LineGroup extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		errorList.addAll(myLineGroup.init());
 		}
 	
 	
@@ -152,6 +143,12 @@ public class LineGroup extends ItemToInject
 		huntAlgorithmNoAnswer = CollectionTools.getValueFromCollectionFile(index, huntAlgorithmNoAnswer, this, false);
 		huntAlgorithmBusy = CollectionTools.getValueFromCollectionFile(index, huntAlgorithmBusy, this, false);
 		huntAlgorithmNotAvailable = CollectionTools.getValueFromCollectionFile(index, huntAlgorithmNotAvailable, this, false);
+		
+		for(LineGroupMember lgm : lineList)
+			{
+			this.getErrorList().addAll(lgm.getErrorList());
+			this.getCorrectionList().addAll(lgm.getCorrectionList());
+			}
 		
 		myLineGroup.setName(name);
 		myLineGroup.setDistributionAlgorithm(distributionAlgorithm);

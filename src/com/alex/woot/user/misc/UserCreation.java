@@ -80,11 +80,17 @@ public class UserCreation extends Thread
 						{
 						Variables.getLogger().debug("Services count : "+((DeviceProfile)iti).getServiceList().size());
 						Variables.getLogger().debug("Sd count : "+((DeviceProfile)iti).getSdList().size());
+						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
 						}
 					else if(iti.getType().equals(itemType.phone))
 						{
 						Variables.getLogger().debug("Services count : "+((Phone)iti).getServiceList().size());
 						Variables.getLogger().debug("Sd count : "+((Phone)iti).getSdList().size());
+						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
+						}
+					else if(iti.getType().equals(itemType.line))
+						{
+						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
 						}
 					}
 				}*/

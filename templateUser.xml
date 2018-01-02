@@ -165,7 +165,7 @@ Les combinaisons sont possibles, par exemple : *4**M*file.lastname affichera les
 			<targetname>newuser</targetname>
 			<userid>file.userid</userid>
 			<lastname>*M**C*file.lastname</lastname>
-			<firstname>*1M**C*file.firstname</firstname>
+			<firstname>(*1M**C*file.firstname)IfLongerThan30(*1**M**C*file.firstname+'.')</firstname>
 			<telephonenumber>file.linenumber1</telephonenumber>
 			<userlocal>office.userlocal</userlocal>
 			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>

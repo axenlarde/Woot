@@ -6,9 +6,9 @@ import com.alex.woot.axlitems.linkers.GatewayEndpointAnalogAccessLinker;
 import com.alex.woot.axlitems.linkers.PhoneLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.PhoneService;
-import com.alex.woot.misc.SpeedDial;
 import com.alex.woot.soap.items.PhoneLine;
+import com.alex.woot.soap.items.PhoneService;
+import com.alex.woot.soap.items.SpeedDial;
 import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
@@ -92,8 +92,7 @@ public class GatewayEndpointAnalogAccess extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We now gather the needed UUID
-		this.errorList = myAnalog.init();
+		this.errorList.addAll(myAnalog.init());
 		}
 	
 	
@@ -170,6 +169,13 @@ public class GatewayEndpointAnalogAccess extends ItemToInject
 		commonDeviceConfigName = CollectionTools.getValueFromCollectionFile(index, commonDeviceConfigName, this, false);
 		aarNeighborhoodName = CollectionTools.getValueFromCollectionFile(index, aarNeighborhoodName, this, false);
 		automatedAlternateRoutingCssName = CollectionTools.getValueFromCollectionFile(index, automatedAlternateRoutingCssName, this, false);
+		
+		/**
+		 * We fetch the errors and corrections from the lists
+		 */
+		//PhoneLine
+		this.getErrorList().addAll(line.getErrorList());
+		this.getCorrectionList().addAll(line.getCorrectionList());
 		
 		/**
 		 * We set the item parameters

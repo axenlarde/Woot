@@ -20,7 +20,7 @@ public class Task extends Thread
 	 */
 	private ArrayList<ItemToInject> todoList;
 	private statusType status;
-	private boolean pause, stop, started;
+	private boolean pause, stop, started, end;
 	private int progress;
 	
 	/***************
@@ -33,6 +33,7 @@ public class Task extends Thread
 		stop = false;
 		pause = true;
 		started = false;
+		end = false;
 		progress = 0;
 		}
 	
@@ -52,7 +53,7 @@ public class Task extends Thread
 				if(myToDo.getErrorList().size() != 0)
 					{
 					//Something happened during the building process so we disable the item
-					Variables.getLogger().info("The following item has been disabled because some items are missing in the CUCM to allow its injection : "+myToDo.getType().name()+" "+myToDo.getName());
+					Variables.getLogger().info("The following item has been disabled because some errors occurs during its preparation process : "+myToDo.getType().name()+" "+myToDo.getName());
 					for(ErrorTemplate e : myToDo.getErrorList())
 						{
 						Variables.getLogger().debug("- "+e.getTargetName()+" "+e.getIssueName()+" "+e.getErrorDesc()+" "+e.getError().name()+" "+e.getIssueType().name());
@@ -145,6 +146,7 @@ public class Task extends Thread
 					}
 				progress++;
 				}
+			end = true;
 			Variables.getLogger().info("Task ends");
 			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
 			Variables.getLogger().info("UUID list cleared");
@@ -220,6 +222,16 @@ public class Task extends Thread
 	public boolean isStarted()
 		{
 		return started;
+		}
+
+	public boolean isEnd()
+		{
+		return end;
+		}
+
+	public void setEnd(boolean end)
+		{
+		this.end = end;
 		}
 	
 	

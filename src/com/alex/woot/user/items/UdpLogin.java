@@ -47,8 +47,7 @@ public class UdpLogin extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We now gather the needed UUID
-		errorList = myUDPLogin.init();
+		errorList.addAll(myUDPLogin.init());
 		}
 	
 	

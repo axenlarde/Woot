@@ -1,10 +1,14 @@
 
 package com.alex.woot.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,7 +24,7 @@ public class DisplayInfoWindow extends JWindow implements MouseListener
 	/**
 	 * Variables
 	 */
-	private String info;
+	private ArrayList<String> infos;
 	private JPanel content;
 	private JScrollPane scrollbar;
 	
@@ -28,19 +32,30 @@ public class DisplayInfoWindow extends JWindow implements MouseListener
 	/**
 	 * Constrcteurs
 	 */
-	public DisplayInfoWindow(String info)
+	public DisplayInfoWindow(ArrayList<String> infos)
 		{
 		super();
-		this.info = info;
-		
-		this.setSize(new Dimension(500, 100));
-		Position.center(this);
+		this.infos = infos;
 		
 		//Disposition
 		content = new JPanel();
-		content.add(new JLabel(info));
+		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		
+		for(int i=0; i<infos.size(); i++)
+			{
+			JPanel p = new JPanel();
+			p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
+			p.add(new JLabel(infos.get(i)));
+			p.add(Box.createHorizontalGlue());
+			p.setBackground((i%2==0)?Color.WHITE:Color.LIGHT_GRAY);
+			content.add(p);
+			}
+		
 		scrollbar = new JScrollPane(content);
 		this.getContentPane().add(scrollbar);
+		
+		this.pack();
+		Position.center(this);
 		
 		this.setVisible(true);
 		

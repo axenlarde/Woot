@@ -69,16 +69,7 @@ public class HuntList extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		errorList.addAll(myHuntList.init());
 		}
 	
 	
@@ -148,6 +139,12 @@ public class HuntList extends ItemToInject
 		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
 		callManagerGroupName = CollectionTools.getValueFromCollectionFile(index, callManagerGroupName, this, true);
 		
+		//lgList
+		for(HuntListMember hlm : lgList)
+			{
+			this.getErrorList().addAll(hlm.getErrorList());
+			this.getCorrectionList().addAll(hlm.getCorrectionList());
+			}
 		
 		myHuntList.setCallManagerGroupName(callManagerGroupName);
 		myHuntList.setDescription(description);

@@ -1,5 +1,7 @@
-package com.alex.woot.misc;
+package com.alex.woot.soap.items;
 
+import com.alex.woot.misc.BasicItem;
+import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables.sdType;
 

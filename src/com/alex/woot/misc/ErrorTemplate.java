@@ -24,7 +24,7 @@ public class ErrorTemplate
 	protected String issueName;
 	protected String errorDesc;
 	protected String advice;
-	protected itemType tagetType;
+	protected itemType targetType;
 	protected itemType issueType;
 	protected errorType error;
 	protected boolean warning;
@@ -32,7 +32,7 @@ public class ErrorTemplate
 	/**
 	 * Constructor
 	 */
-	public ErrorTemplate(String targetName, String issueName, String errorDesc, String advice, itemType tagetType,
+	public ErrorTemplate(String targetName, String issueName, String errorDesc, String advice, itemType targetType,
 			itemType issueType, errorType error, boolean warning)
 		{
 		super();
@@ -40,13 +40,13 @@ public class ErrorTemplate
 		this.issueName = issueName;
 		this.errorDesc = errorDesc;
 		this.advice = advice;
-		this.tagetType = tagetType;
+		this.targetType = targetType;
 		this.issueType = issueType;
 		this.error = error;
 		this.warning = warning;
 		}
 	
-	public ErrorTemplate(String targetName, String issueName, String errorDesc, itemType tagetType,
+	public ErrorTemplate(String targetName, String issueName, String errorDesc, itemType targetType,
 			itemType issueType, errorType error)
 		{
 		super();
@@ -54,7 +54,7 @@ public class ErrorTemplate
 		this.issueName = issueName;
 		this.errorDesc = errorDesc;
 		this.advice = "";
-		this.tagetType = tagetType;
+		this.targetType = targetType;
 		this.issueType = issueType;
 		this.error = error;
 		this.warning = true;
@@ -66,7 +66,11 @@ public class ErrorTemplate
 		this.errorDesc = errorDesc;
 		this.advice = "";
 		this.error = errorType.other;
-		this.warning = true;
+		this.warning = false;
+		this.targetName = "";
+		this.issueName = "";
+		this.targetType = itemType.unknown;
+		this.issueType = itemType.unknown;
 		}
 	
 	
@@ -100,14 +104,14 @@ public class ErrorTemplate
 		this.advice = advice;
 		}
 
-	public itemType getTagetType()
+	public itemType getTargetType()
 		{
-		return tagetType;
+		return targetType;
 		}
 
-	public void setTagetType(itemType tagetType)
+	public void setTargetType(itemType tagetType)
 		{
-		this.tagetType = tagetType;
+		this.targetType = tagetType;
 		}
 
 	public itemType getIssueType()

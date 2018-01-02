@@ -66,10 +66,17 @@ Language configuration file
 			<!--Errors-->
 			<usercreationerror>The following error occurs, we will now exit</usercreationerror>
 			<!--Correction window-->
-			<correctionwindowtitle>Correction list</correctionwindowtitle>
+			<correctionlist>Correction list</correctionlist>
 			<correctionwarning>Some correction needed to be done</correctionwarning>
 			<correctionline>Correction on item row</correctionline>
 			<correctionalert>Still too long</correctionalert>
+			<nocorrection>No correction to report</nocorrection>
+			<!--Information window-->
+			<tasksummary>Task summary</tasksummary>
+			<elapsedtime>Elapsed time</elapsedtime>
+			<totalitem>Total item</totalitem>
+			<disableditem>Disabled item</disableditem>
+			<erroritem>Errors</erroritem>
 		</values>
 	</language>
 	<language>

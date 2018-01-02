@@ -7,9 +7,9 @@ import com.alex.woot.axlitems.linkers.UserLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.EmptyValueException;
 import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.PhoneService;
-import com.alex.woot.misc.SpeedDial;
 import com.alex.woot.soap.items.PhoneLine;
+import com.alex.woot.soap.items.PhoneService;
+import com.alex.woot.soap.items.SpeedDial;
 import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
@@ -112,8 +112,7 @@ public class Phone extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We now gather the needed UUID
-		this.errorList = myPhone.init();
+		this.errorList.addAll(myPhone.init());
 		}
 	
 	
@@ -199,7 +198,7 @@ public class Phone extends ItemToInject
 		deviceMobilityMode = CollectionTools.getValueFromCollectionFile(index, deviceMobilityMode, this, false);
 		
 		/**
-		 * We fetch the error and corrections from the lists
+		 * We fetch the errors and corrections from the lists
 		 */
 		//PhoneLine
 		for(PhoneLine pl : lineList)
@@ -209,11 +208,18 @@ public class Phone extends ItemToInject
 			}
 		
 		//Services
-		dsdssd
-		
+		for(PhoneService s : serviceList)
+			{
+			this.getErrorList().addAll(s.getErrorList());
+			this.getCorrectionList().addAll(s.getCorrectionList());
+			}
 		
 		//SD a BLF
-		
+		for(SpeedDial sd : sdList)
+			{
+			this.getErrorList().addAll(sd.getErrorList());
+			this.getCorrectionList().addAll(sd.getCorrectionList());
+			}
 		
 		
 		/**

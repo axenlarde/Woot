@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,6 +15,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.alex.woot.misc.Correction;
 import com.alex.woot.misc.ErrorTemplate;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.utils.LanguageManagement;
@@ -31,6 +33,7 @@ public class StatusLine extends JPanel implements ActionListener, MouseListener,
 	 ************/
 	private ItemToInject myItem;
 	private StringBuffer errorBuffer;
+	private ArrayList<String> errorList;
 	
 	//Contrôle
 	private JCheckBox select;
@@ -187,17 +190,35 @@ public class StatusLine extends JPanel implements ActionListener, MouseListener,
 	public void updateErrorBuffer()
 		{
 		errorBuffer = new StringBuffer("");
+		errorList = new ArrayList<String>();
 		
+		//Errors
 		if(myItem.getErrorList().size() == 0)
 			{
 			errorBuffer.append(LanguageManagement.getString("noerror"));
+			errorList.add(LanguageManagement.getString("noerror"));
 			}
 		else
 			{
 			for(ErrorTemplate er : myItem.getErrorList())
 				{
-				errorBuffer.append(er.getErrorDesc());
-				errorBuffer.append("\r\n");
+				errorList.add(LanguageManagement.getString("errorlist")+" :");
+				errorBuffer.append(er.getErrorDesc()+"\r\n");
+				errorList.add(er.getErrorDesc());
+				}
+			}
+		
+		//Correction
+		if(myItem.getCorrectionList().size() == 0)
+			{
+			errorList.add(LanguageManagement.getString("nocorrection"));
+			}
+		else
+			{
+			errorList.add(LanguageManagement.getString("correctionlist")+" :");
+			for(Correction c : myItem.getCorrectionList())
+				{
+				errorList.add(c.getDescription());
 				}
 			}
 		}
@@ -208,7 +229,7 @@ public class StatusLine extends JPanel implements ActionListener, MouseListener,
 			{
 			try
 				{
-				new DisplayInfoWindow(LanguageManagement.getString("errorlist")+" : "+errorBuffer.toString());
+				new DisplayInfoWindow(errorList);
 				}
 			catch (Exception exc)
 				{

@@ -58,9 +58,9 @@ public class CollectionFileChecker
 			
 			for(int i=0; i<lastIndex; i++)
 				{
-				CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("officenametemplate"));
-				CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("phonetypetemplate"));
-				CollectionTools.getValueFromCollectionFile(i, UsefulMethod.getTargetOption("phonemactemplate"));//It depends if we want to make woot provide this value automatically
+				CollectionTools.isValueFromCollectionFileEmpty(i, UsefulMethod.getTargetOption("officenametemplate"));
+				CollectionTools.isValueFromCollectionFileEmpty(i, UsefulMethod.getTargetOption("phonetypetemplate"));
+				CollectionTools.isValueFromCollectionFileEmpty(i, UsefulMethod.getTargetOption("phonemactemplate"));//It depends if we want to make woot provide this value automatically
 				}
 			
 			//Add some more check

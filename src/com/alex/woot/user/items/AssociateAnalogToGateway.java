@@ -64,7 +64,7 @@ public class AssociateAnalogToGateway extends ItemToInject
 	public void doBuild() throws Exception
 		{
 		//We now gather the needed UUID
-		this.errorList = myAssoG.init();
+		this.errorList.addAll(myAssoG.init());
 		}
 	
 	

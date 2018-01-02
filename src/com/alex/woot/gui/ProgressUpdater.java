@@ -4,13 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.regex.Pattern;
-
-import javax.swing.JPanel;
 
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Task;
+import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.statusType;
 
 
 /****************************************************
@@ -23,8 +22,6 @@ public class ProgressUpdater extends Thread
 	 * Variables
 	 ************/
 	private boolean done;
-	private float progress;
-	private int count;
 	private StatusWindow sw;
 	private Task myTask;
 	
@@ -41,15 +38,12 @@ public class ProgressUpdater extends Thread
 		{
 		this.sw = sw;
 		this.myTask = myTask;
-		count = 0;
 		done = true;
 		
-		//On récupère l'heure de début de l'injection
-		startTime = System.currentTimeMillis();
+		startTime = 0;
 		timeFormat = new SimpleDateFormat("mm:ss:SSS");
 		timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 		myDate = new Date();
-		myDate.setTime(startTime);
 		
 		start();
 		}
@@ -60,6 +54,12 @@ public class ProgressUpdater extends Thread
 			{
 			if((!myTask.isStarted()) || (myTask.isAlive()))
 				{
+				if((!myTask.isPause())&&(startTime == 0))
+					{
+					startTime = System.currentTimeMillis();
+					myDate.setTime(startTime);
+					}
+				
 				sw.updateProgress(myTask.getProgress());
 				}
 			else
@@ -71,6 +71,32 @@ public class ProgressUpdater extends Thread
 				elapsedTime = System.currentTimeMillis() - startTime;
 				myDate.setTime(elapsedTime);
 				Variables.getLogger().debug("Total processing time : "+timeFormat.format(myDate));
+				
+				/**
+				 * We display the task infos
+				 */
+				if(myTask.isEnd())
+					{
+					ArrayList<String> infos = new ArrayList<String>();
+					infos.add(LanguageManagement.getString("tasksummary")+" :");
+					infos.add(LanguageManagement.getString("totalitem")+" : "+myTask.getTodoList().size());
+					
+					//We gather the required informations
+					int disabledItem = 0;
+					int errorItem = 0;
+					for(ItemToInject iti : myTask.getTodoList())
+						{
+						if(iti.getStatus().equals(statusType.disabled))disabledItem++;
+						if(iti.getStatus().equals(statusType.error))errorItem++;
+						}
+					
+					infos.add(LanguageManagement.getString("disableditem")+" : "+disabledItem);
+					infos.add(LanguageManagement.getString("erroritem")+" : "+errorItem);
+					infos.add(LanguageManagement.getString("elapsedtime")+" : "+timeFormat.format(myDate));
+					
+					new DisplayInfoWindow(infos);
+					}
+				
 				break;
 				}
 			

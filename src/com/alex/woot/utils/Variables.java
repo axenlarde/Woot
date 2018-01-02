@@ -85,7 +85,8 @@ public class Variables
 		gateway,
 		sqlRequest,
 		associateanalog,
-		userlocal
+		userlocal,
+		unknown
 		};
 	
 	/********************************************

@@ -26,13 +26,32 @@ public abstract class BasicItem implements BasicItemImpl
 		correctionList = new ArrayList<Correction>();
 		}
 
+	public void addNewError(ErrorTemplate error)
+		{
+		//We check for duplicate
+		boolean exists = false;
+		for(ErrorTemplate e : errorList)
+			{
+			if(e.getErrorDesc().equals(error.getErrorDesc()))
+				{
+				exists = true;
+				break;
+				}
+			}
+		if(!exists)errorList.add(error);
+		}
+	
 	public void addNewCorrection(Correction correction)
 		{
 		//We check for duplicate
 		boolean exists = false;
 		for(Correction c : correctionList)
 			{
-			if(c.getDescription().equals(correction.getDescription()))exists = true;
+			if(c.getDescription().equals(correction.getDescription()))
+				{
+				exists = true;
+				break;
+				}
 			}
 		if(!exists)correctionList.add(correction);
 		}

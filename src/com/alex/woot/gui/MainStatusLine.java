@@ -118,7 +118,7 @@ public class MainStatusLine extends JPanel implements ActionListener, MouseListe
 		for(StatusLine sl : slList)
 			{
 			//If a correction was made we choose the orange color
-			if(sl.getItem().getCorrectionList().size() != 0)
+			if(sl.getItem().getCorrectionList().size() == 0)
 				{
 				sl.setFond(couleur);
 				}
@@ -201,17 +201,19 @@ public class MainStatusLine extends JPanel implements ActionListener, MouseListe
 			if(sl.getItem().getStatus().equals(statusType.error))
 				{
 				statusLabel.setText(LanguageManagement.getString(statusType.error.name()));
-				break;
-				}
-			else if(sl.getItem().getStatus().equals(statusType.waiting))
-				{
-				statusLabel.setText(LanguageManagement.getString(statusType.waiting.name()));
+				progress.setText("   ");
 				break;
 				}
 			else if(sl.getItem().getStatus().equals(statusType.processing))
 				{
 				statusLabel.setText(LanguageManagement.getString(statusType.processing.name()));
 				updateProgress();
+				break;
+				}
+			else if(sl.getItem().getStatus().equals(statusType.waiting))
+				{
+				statusLabel.setText(LanguageManagement.getString(statusType.waiting.name()));
+				progress.setText("   ");
 				break;
 				}
 			else

@@ -111,7 +111,8 @@ public class CollectionTools
 					try
 						{
 						ItemToInject iti = (ItemToInject)obj;
-						iti.getErrorList().add(new UserError(LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong));
+						iti.addNewError(new UserError(LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong));
+						Variables.getLogger().debug("New User error added for the following item : "+iti.getType()+" "+iti.getName());
 						}
 					catch (Exception e)
 						{
@@ -119,7 +120,8 @@ public class CollectionTools
 						try
 							{
 							BasicItem bi = (BasicItem)obj;
-							bi.getErrorList().add(new UserError(LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong));
+							bi.addNewError(new UserError(LanguageManagement.getString("correctionalert")+" : "+normal+" > "+tooLong));
+							Variables.getLogger().debug("New User error added to the error list");
 							}
 						catch (Exception exc)
 							{

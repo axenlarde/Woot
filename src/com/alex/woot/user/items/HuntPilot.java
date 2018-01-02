@@ -65,16 +65,7 @@ public class HuntPilot extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		errorList.addAll(myHuntPilot.init());
 		}
 	
 	

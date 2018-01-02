@@ -133,8 +133,7 @@ public class User extends ItemToInject
 			setAction(actionType.update);
 			}
 		
-		//We now gather the needed UUID
-		errorList = myUser.init();
+		errorList.addAll(myUser.init());
 		}
 	
 	
@@ -200,8 +199,8 @@ public class User extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name, this);
-		lastname = CollectionTools.getValueFromCollectionFile(index, lastname, this);
+		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
+		lastname = CollectionTools.getValueFromCollectionFile(index, lastname, this, true);
 		firstname = CollectionTools.getValueFromCollectionFile(index, firstname, this, false);
 		telephoneNumber = CollectionTools.getValueFromCollectionFile(index, telephoneNumber, this, false);
 		userLocale = CollectionTools.getValueFromCollectionFile(index, userLocale, this, false);
@@ -216,7 +215,7 @@ public class User extends ItemToInject
 			{
 			try
 				{
-				ucgList.add(CollectionTools.getValueFromCollectionFile(index, s, this));
+				ucgList.add(CollectionTools.getValueFromCollectionFile(index, s, this, true));
 				}
 			catch(EmptyValueException eve)
 				{
@@ -257,7 +256,7 @@ public class User extends ItemToInject
 			{
 			try
 				{
-				dList.add(CollectionTools.getValueFromCollectionFile(j, deviceList.get(i), this));
+				dList.add(CollectionTools.getValueFromCollectionFile(j, deviceList.get(i), this, true));
 				}
 			catch(EmptyValueException eve)
 				{
@@ -272,7 +271,7 @@ public class User extends ItemToInject
 			{
 			try
 				{
-				udpList.add(CollectionTools.getValueFromCollectionFile(j, UDPList.get(i), this));
+				udpList.add(CollectionTools.getValueFromCollectionFile(j, UDPList.get(i), this, true));
 				}
 			catch(EmptyValueException eve)
 				{

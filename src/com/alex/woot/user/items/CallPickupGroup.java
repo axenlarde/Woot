@@ -77,7 +77,7 @@ public class CallPickupGroup extends ItemToInject
 	public void doBuild() throws Exception
 		{
 		//We now gather the needed UUID
-		errorList = myCallPickupGroup.init();
+		errorList.addAll(myCallPickupGroup.init());
 		}
 	
 	
@@ -155,6 +155,8 @@ public class CallPickupGroup extends ItemToInject
 			{
 			cpg.setIndex(index);
 			cpg.resolve();
+			this.getErrorList().addAll(cpg.getErrorList());
+			this.getCorrectionList().addAll(cpg.getCorrectionList());
 			}
 		
 		myCallPickupGroup.setName(name);

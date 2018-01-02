@@ -92,8 +92,7 @@ public class Line extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We now gather the needed UUID
-		errorList = myLine.init();
+		errorList.addAll(myLine.init());
 		}
 	
 	
