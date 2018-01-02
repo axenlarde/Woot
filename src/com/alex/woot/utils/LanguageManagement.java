@@ -19,7 +19,7 @@ public class LanguageManagement
 	 * Static method aims to return the good
 	 * String according to the current language
 	 */
-	public static String getString(String name)
+	public synchronized static String getString(String name)
 		{
 		try
 			{

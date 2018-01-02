@@ -22,6 +22,7 @@ import com.alex.woot.misc.Task;
 import com.alex.woot.soap.misc.MainItem;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.actionType;
 
 /*********************************************
  * Class used to display AXL insertion status
@@ -38,6 +39,7 @@ public class StatusWindow extends JPanel implements ActionListener, AncestorList
 	private Task myTask;
 	
 	//Contrôles
+	private JLabel taskType;
 	private JLabel Info;
 	private JProgressBar progress;
 	private JButton pause;
@@ -55,7 +57,7 @@ public class StatusWindow extends JPanel implements ActionListener, AncestorList
 	private JPanel Principale;
 	
 	/***************
-	 * Constructeur
+	 * Constructor
 	 * @throws Exception 
 	 ***************/
 	public StatusWindow(ArrayList<MainItem> itemList, Task myTask) throws Exception
@@ -75,6 +77,7 @@ public class StatusWindow extends JPanel implements ActionListener, AncestorList
 	private void buildWindow() throws Exception
 		{
 		//Contrôles
+		taskType = new JLabel(LanguageManagement.getString("tasktype")+" : "+myTask.getTodoList().get(0).getAction().toString());
 		Info = new JLabel(" 0/0");
 		progress = new JProgressBar(0,totalItem);
 		pause = new JButton(LanguageManagement.getString("play"));
@@ -92,7 +95,14 @@ public class StatusWindow extends JPanel implements ActionListener, AncestorList
 		controlProgress = new JPanel();
 		Principale = new JPanel();
 		InfoAndProgress.setPreferredSize(new Dimension(600,25));
-		InfoAndProgress.setBackground(Color.LIGHT_GRAY);
+		if(myTask.getTodoList().get(0).getAction().equals(actionType.delete))
+			{
+			InfoAndProgress.setBackground(Color.RED);
+			}
+		else
+			{
+			InfoAndProgress.setBackground(Color.LIGHT_GRAY);
+			}
 		controlProgress.setPreferredSize(new Dimension(600,25));
 		controlProgress.setBackground(Color.GRAY);
 		pause.setBackground(Color.GRAY);
@@ -109,6 +119,8 @@ public class StatusWindow extends JPanel implements ActionListener, AncestorList
 		scrollbar = new JScrollPane(listRequest);
 		
 		//Assignation
+		InfoAndProgress.add(Box.createHorizontalGlue());
+		InfoAndProgress.add(taskType);
 		InfoAndProgress.add(Box.createHorizontalGlue());
 		InfoAndProgress.add(new JLabel("Info : "));
 		InfoAndProgress.add(Box.createHorizontalGlue());

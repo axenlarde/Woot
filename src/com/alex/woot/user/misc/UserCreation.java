@@ -3,22 +3,15 @@ package com.alex.woot.user.misc;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
-import com.alex.woot.gui.CorrectionWindow;
 import com.alex.woot.gui.ProgressUpdater;
 import com.alex.woot.gui.StatusWindow;
 import com.alex.woot.gui.WaitingWindow;
 import com.alex.woot.misc.CollectionFileChecker;
-import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Task;
 import com.alex.woot.soap.misc.MainItem;
-import com.alex.woot.user.items.DeviceProfile;
-import com.alex.woot.user.items.Phone;
 import com.alex.woot.utils.LanguageManagement;
-import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
-import com.alex.woot.utils.Variables.itemType;
 
 
 /**********************************
@@ -52,7 +45,7 @@ public class UserCreation extends Thread
 		 * Splash window
 		 * Used to make the user waiting
 		 */
-		WaitingWindow mySplashWindow = new WaitingWindow(LanguageManagement.getString("pleasewait"));
+		WaitingWindow myWW = new WaitingWindow(LanguageManagement.getString("pleasewait"));
 		/**************/
 		
 		try
@@ -63,8 +56,10 @@ public class UserCreation extends Thread
 			//Collection file checking
 			CollectionFileChecker.checkForUserCreation();
 			
+			myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding"));
+			
 			//We build the list of users and their phones which is a list of main items
-			itemToInjectList = UserTools.setUserList(actionType.inject);
+			itemToInjectList = UserTools.setUserList(actionType.inject, myWW);
 			
 			//Temp
 			/*
@@ -103,6 +98,7 @@ public class UserCreation extends Thread
 			/********************
 			 * Injection
 			 */
+			myWW.getAvancement().setText(" "+LanguageManagement.getString("taskbuilding"));
 			Task myTask = UserTools.prepareUserProcess(itemToInjectList, actionType.inject);		
 			myTask.startBuildProcess();
 			myTask.start();
@@ -127,8 +123,8 @@ public class UserCreation extends Thread
 			JOptionPane.showMessageDialog(null,LanguageManagement.getString("usercreationerror")+" : "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 			}
-		
-		mySplashWindow.close();
+
+		myWW.close();
 		}
 	
 	

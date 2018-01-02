@@ -4,8 +4,6 @@ package com.alex.woot.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.net.URL;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -14,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JWindow;
 
 import com.alex.woot.utils.Position;
+import com.alex.woot.utils.Variables;
 
 
 /*********************************************
@@ -27,7 +26,6 @@ public class WaitingWindow extends JWindow
 	//Contenu
 	private JLabel titre;
 	private JLabel avancement;
-	private JLabel sarlSize;
 	private JPanel info;
 	private JPanel loader;
 	
@@ -37,15 +35,13 @@ public class WaitingWindow extends JWindow
 	public WaitingWindow(String waitingText)
 		{
 		titre = new JLabel(" "+waitingText);
-		avancement = new JLabel("");
-		sarlSize = new JLabel("");
+		avancement = new JLabel(" ");
 		info  = new JPanel();
 		loader  = new JPanel();
 		
 		Font f = new Font("Serif", Font.BOLD, 14);
 		titre.setFont(f);
 		avancement.setFont(f);
-		sarlSize.setFont(f);
 		
 		//Colors
 		this.getContentPane().setBackground(Color.BLACK);
@@ -53,7 +49,6 @@ public class WaitingWindow extends JWindow
 		loader.setBackground(Color.BLACK);
 		titre.setForeground(Color.WHITE);
 		avancement.setForeground(Color.WHITE);
-		sarlSize.setForeground(Color.WHITE);
 		
 		//Positionnement
 		this.setSize(new Dimension(650,50));
@@ -68,7 +63,6 @@ public class WaitingWindow extends JWindow
 		info.add(Box.createHorizontalGlue());
 		info.add(titre);
 		info.add(avancement);
-		info.add(sarlSize);
 		info.add(Box.createHorizontalGlue());
 		
 		//loader.add(new JLabel(" "));
@@ -89,8 +83,21 @@ public class WaitingWindow extends JWindow
 	
 	public void close()
 		{
+		Variables.getLogger().debug("Closing of the Waiting Window");
 		this.dispose();
 		}
+
+	public JLabel getAvancement()
+		{
+		return avancement;
+		}
+
+	public void setAvancement(JLabel avancement)
+		{
+		this.avancement = avancement;
+		}
+	
+	
 	
 	/*2017*//*RATEL Alexandre 8)*/
 	}

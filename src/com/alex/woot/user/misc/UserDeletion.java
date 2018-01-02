@@ -50,7 +50,7 @@ public class UserDeletion extends Thread
 		 * Splash window
 		 * Used to make the user waiting
 		 */
-		WaitingWindow mySplashWindow = new WaitingWindow(LanguageManagement.getString("pleasewait"));
+		WaitingWindow myWW = new WaitingWindow(LanguageManagement.getString("pleasewait"));
 		/**************/
 		
 		try
@@ -61,10 +61,13 @@ public class UserDeletion extends Thread
 			//Collection file checking
 			CollectionFileChecker.checkForUserCreation();//Has to be improved
 			
+			myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding"));
+			
 			//We build the list of users and their phones which is a list of main items
-			itemToDeleteList = UserTools.setUserList(actionType.delete);
+			itemToDeleteList = UserTools.setUserList(actionType.delete, myWW);
 			
 			//Temp
+			/*
 			Variables.getLogger().debug("We display here the content of the deletion list : ");
 			
 			for(MainItem mi : itemToDeleteList)
@@ -84,7 +87,7 @@ public class UserDeletion extends Thread
 						Variables.getLogger().debug("Sd count : "+((Phone)iti).getSdList().size());
 						}
 					}
-				}
+				}*/
 			//Temp
 			
 			/**
@@ -94,6 +97,7 @@ public class UserDeletion extends Thread
 			/********************
 			 * Injection
 			 */
+			myWW.getAvancement().setText(" "+LanguageManagement.getString("taskbuilding"));
 			Task myTask = UserTools.prepareUserProcess(itemToDeleteList, actionType.delete);		
 			myTask.startBuildProcess();
 			myTask.start();
@@ -117,7 +121,7 @@ public class UserDeletion extends Thread
 			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
 			}
 		
-		mySplashWindow.close();
+		myWW.close();
 		}
 	
 	

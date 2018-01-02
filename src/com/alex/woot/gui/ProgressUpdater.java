@@ -75,10 +75,11 @@ public class ProgressUpdater extends Thread
 				/**
 				 * We display the task infos
 				 */
-				if(myTask.isEnd())
+				if(myTask.getProgress() != 0)
 					{
 					ArrayList<String> infos = new ArrayList<String>();
 					infos.add(LanguageManagement.getString("tasksummary")+" :");
+					infos.add(LanguageManagement.getString("tasktype")+" : "+myTask.getTodoList().get(0).getAction());
 					infos.add(LanguageManagement.getString("totalitem")+" : "+myTask.getTodoList().size());
 					
 					//We gather the required informations

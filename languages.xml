@@ -16,7 +16,6 @@ Language configuration file
 			<no>No</no>
 			<error>Error</error>
 			<selectButton>Select</selectButton>
-			<pleasewait>Please wait</pleasewait>
 			<invitMainDirectoryPhrase>Please select the main directory</invitMainDirectoryPhrase>
 			<databasefilefetch>Please select the database file</databasefilefetch>
 			<collectionfilefetch>Please select the collection file</collectionfilefetch>
@@ -51,6 +50,9 @@ Language configuration file
 			<selectall>Select all</selectall>
 			<expandall>Expand all</expandall>
 			<justtoletyouknow>Just to let you know</justtoletyouknow>
+			<pleasewait>Please wait</pleasewait>
+			<itemlistbuilding>Item list Building in progress</itemlistbuilding>
+			<taskbuilding>Almost there : Task building in progress</taskbuilding>
 			<!--Status-->
 			<injected>Injected</injected>
 			<error>Error</error>
@@ -73,6 +75,7 @@ Language configuration file
 			<nocorrection>No correction to report</nocorrection>
 			<!--Information window-->
 			<tasksummary>Task summary</tasksummary>
+			<tasktype>Task type</tasktype>
 			<elapsedtime>Elapsed time</elapsedtime>
 			<totalitem>Total item</totalitem>
 			<disableditem>Disabled item</disableditem>

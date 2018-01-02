@@ -246,11 +246,11 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		{
 		this.errorList = errorList;
 		}
-	public statusType getStatus()
+	public synchronized statusType getStatus()
 		{
 		return status;
 		}
-	public void setStatus(statusType status)
+	public synchronized void setStatus(statusType status)
 		{
 		this.status = status;
 		}

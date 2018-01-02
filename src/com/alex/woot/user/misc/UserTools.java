@@ -3,6 +3,7 @@ package com.alex.woot.user.misc;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.alex.woot.gui.WaitingWindow;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.EmptyValueException;
 import com.alex.woot.misc.ItemToInject;
@@ -24,6 +25,7 @@ import com.alex.woot.user.items.LineGroup;
 import com.alex.woot.user.items.Phone;
 import com.alex.woot.user.items.UdpLogin;
 import com.alex.woot.user.items.User;
+import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
@@ -44,7 +46,7 @@ public class UserTools
 	 * !!!! Very important and complex algorithm !!!!
 	 * !!!! Modify with care !!!!!
 	 */
-	public static ArrayList<MainItem> setUserList(actionType action) throws Exception
+	public static ArrayList<MainItem> setUserList(actionType action, WaitingWindow myWW) throws Exception
 		{
 		ArrayList<MainItem> userList = new ArrayList<MainItem>();
 		
@@ -70,6 +72,10 @@ public class UserTools
 				String userid = CollectionTools.getValueFromCollectionFile(i, userIDTemplate, null, false);
 				
 				MItemUser myUser = new MItemUser(userid, lastname, firstname);
+				
+				//We update the waiting window
+				myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding")+" : "+(i+1)+"/"+lastIndex+" : "+myUser.getDescription());
+				
 				boolean foundMIU = false;
 				
 				/**
@@ -255,6 +261,9 @@ public class UserTools
 						{
 						String CPGName = CollectionTools.getValueFromCollectionFile(i, "file.cpgname", null, true);
 						
+						//We update the waiting window
+						myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding")+"(cpg) : "+(i+1)+"/"+lastIndex+" : "+CPGName);
+						
 						//We check if the group is already in the list
 						Boolean present = false;
 						for(MItemCPG cpg : cpgList)
@@ -343,6 +352,9 @@ public class UserTools
 					if(!CollectionTools.isValueFromCollectionFileEmpty(i, "file.linegroupname"))
 						{
 						String[] tab = CollectionTools.getValueFromCollectionFile(i, "file.linegroupname", null, false).split(":");
+						
+						//We update the waiting window
+						myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding")+"(lg) : "+(i+1)+"/"+lastIndex+" : "+tab[0]);
 						
 						/**
 						 * Here we gonna get the Line group details as follow :
