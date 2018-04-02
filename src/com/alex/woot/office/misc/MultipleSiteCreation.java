@@ -115,12 +115,12 @@ public class MultipleSiteCreation extends Thread
 			/**
 			 * We now launch a site injection site by site
 			 */
-			SiteCreation mySiteCreation = null;
+			OfficeCreation mySiteCreation = null;
 			
 			if(Variables.isCUCMReachable())
 				{
 				//We launch the site creation
-				mySiteCreation = new SiteCreation(siteFileName,
+				mySiteCreation = new OfficeCreation(siteFileName,
 						myWorkbook,
 						currentSite.getName(),
 						UsefulMethod.getCurrentSiteTypeNumber(currentSite.getType()));

@@ -22,7 +22,7 @@ import com.alex.yuza.utils.Variables;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class SiteDeletion extends Thread
+public class OfficeDeletion extends Thread
 	{
 	/**
 	 * Variables
@@ -38,7 +38,7 @@ public class SiteDeletion extends Thread
 	/****
 	 * Constructor
 	 */
-	public SiteDeletion(String collectionFileName, Workbook myWorkbook, String siteName, int siteType)
+	public OfficeDeletion(String collectionFileName, Workbook myWorkbook, String siteName, int siteType)
 		{
 		this.myWorkbook = myWorkbook;
 		this.siteName = siteName;
@@ -75,10 +75,10 @@ public class SiteDeletion extends Thread
 			CollectionFileChecker.checkForSiteCreation(myWorkbook);
 			
 			//templateCCM file reading
-			CCMTemplateList = TemplateCCMReader.readCCMTemplate(myWorkbook, siteType);
+			CCMTemplateList = TemplateOfficeReader.readCCMTemplate(myWorkbook, siteType);
 			
 			//We fill the CCMItemToInjectList
-			CCMItemToDeleteList = SiteTools.builCCMList(CCMTemplateList, myWorkbook);
+			CCMItemToDeleteList = OfficeTools.builCCMList(CCMTemplateList, myWorkbook);
 			
 			/**********************
 			 * Initialization of the AXL connection
@@ -92,7 +92,7 @@ public class SiteDeletion extends Thread
 			 * To do so :
 			 * We are going to check if the device pool already exists in the CUCM
 			 */
-			siteInjected = SiteTools.isSiteExisting(CCMItemToDeleteList);
+			siteInjected = OfficeTools.isSiteExisting(CCMItemToDeleteList);
 			/*********************/
 			
 			/**
@@ -113,7 +113,7 @@ public class SiteDeletion extends Thread
 			
 			if(answer == 0)//Deletion asked
 				{
-				Task myTask = SiteTools.prepareSiteDeletion(CCMItemToDeleteList);
+				Task myTask = OfficeTools.prepareSiteDeletion(CCMItemToDeleteList);
 				
 				Variables.getLogger().info("Site deletion starts");
 				myTask.proceed();//Injection;

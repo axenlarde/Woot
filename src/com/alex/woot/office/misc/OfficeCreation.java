@@ -1,25 +1,30 @@
-package com.alex.woot.user.misc;
+package com.alex.woot.office.misc;
 
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
 import com.alex.woot.gui.ProgressUpdater;
 import com.alex.woot.gui.StatusWindow;
 import com.alex.woot.gui.WaitingWindow;
 import com.alex.woot.misc.CollectionFileChecker;
+import com.alex.woot.misc.Office;
 import com.alex.woot.misc.Task;
 import com.alex.woot.soap.misc.MainItem;
+import com.alex.woot.user.misc.UserTools;
 import com.alex.woot.utils.LanguageManagement;
+import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
 
 
+
 /**********************************
- * Class used to create the user injection process
+ * Class used to create an office
  * 
  * @author RATEL Alexandre
  **********************************/
-public class UserCreation extends Thread
+public class OfficeCreation extends Thread
 	{
 	/**
 	 * Variables
@@ -29,7 +34,7 @@ public class UserCreation extends Thread
 	/****
 	 * Constructor
 	 */
-	public UserCreation()
+	public OfficeCreation()
 		{
 		itemToInjectList = new ArrayList<MainItem>();
 		
@@ -37,7 +42,7 @@ public class UserCreation extends Thread
 		}
 	
 	/******
-	 * Global Method used to inject the items
+	 * Global Method used to inject the site
 	 */
 	public void run()
 		{
@@ -53,43 +58,20 @@ public class UserCreation extends Thread
 			/***************
 			 * Init
 			 */
-			//Collection file checking
-			CollectionFileChecker.checkForUserCreation();
-			
 			myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding"));
 			
-			//We build the list of users and their phones which is a list of main items
-			itemToInjectList = UserTools.setUserList(actionType.inject, myWW);
-			
+			//We should ask here the offices to inject
 			//Temp
-			/*
-			Variables.getLogger().debug("We display here the content of the injection list : ");
+			ArrayList<Office> officeList = new ArrayList<Office>();//Temp
+			officeList.add(Variables.getCurrentOffice());//Will trigger the office seleciton window. This window should return one or more offices
+			//Temp
 			
-			for(MainItem mi : itemToInjectList)
+			//We build the list of office items to inject
+			for(Office o : officeList)
 				{
-				Variables.getLogger().debug("Item : "+mi.getDescription());
-				for(ItemToInject iti : mi.getAssociatedItems())
-					{
-					Variables.getLogger().debug("Name : "+iti.getName()+" type : "+iti.getType().name()+" action : "+iti.getAction().name());
-					if(iti.getType().equals(itemType.udp))
-						{
-						Variables.getLogger().debug("Services count : "+((DeviceProfile)iti).getServiceList().size());
-						Variables.getLogger().debug("Sd count : "+((DeviceProfile)iti).getSdList().size());
-						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
-						}
-					else if(iti.getType().equals(itemType.phone))
-						{
-						Variables.getLogger().debug("Services count : "+((Phone)iti).getServiceList().size());
-						Variables.getLogger().debug("Sd count : "+((Phone)iti).getSdList().size());
-						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
-						}
-					else if(iti.getType().equals(itemType.line))
-						{
-						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
-						}
-					}
-				}*/
-			//Temp
+				//Here we add he items for each office
+				itemToInjectList.add(OfficeTools.setOfficeList(o, actionType.inject, myWW));
+				}
 			
 			/**
 			 * End Init 
@@ -99,11 +81,11 @@ public class UserCreation extends Thread
 			 * Injection
 			 */
 			myWW.getAvancement().setText(" "+LanguageManagement.getString("taskbuilding"));
-			Task myTask = UserTools.prepareUserProcess(itemToInjectList, actionType.inject);		
+			Task myTask = OfficeTools.prepareOfficeProcess(itemToInjectList, actionType.inject);
 			myTask.startBuildProcess();
 			myTask.start();
 			
-			Variables.getLogger().info("User injection starts");
+			Variables.getLogger().info("Office injection starts");
 			
 			//We launch the user interface panel
 			StatusWindow sw = new StatusWindow(itemToInjectList, myTask);
@@ -120,13 +102,17 @@ public class UserCreation extends Thread
 		catch (Exception e)
 			{
 			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
-			JOptionPane.showMessageDialog(null,LanguageManagement.getString("usercreationerror")+" : "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,LanguageManagement.getString("officecreationerror")+" : "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 			}
 
 		myWW.close();
 		}
 	
-	/*2017*//*RATEL Alexandre 8)*/
+	
+	
+	
+	
+	/*2015*//*RATEL Alexandre 8)*/
 	}
 

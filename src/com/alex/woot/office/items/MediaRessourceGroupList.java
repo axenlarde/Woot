@@ -2,15 +2,16 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.MediaRessourceGroupListLinker;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.soap.items.LineGroupMember;
+import com.alex.woot.soap.items.MRGLMember;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.MediaRessourceGroupListLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.MRGLMember;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "Media Resource Group List"
@@ -31,23 +32,16 @@ public class MediaRessourceGroupList extends ItemToInject
 	 * Constructor
 	 * @throws Exception 
 	 ***************/
-	public MediaRessourceGroupList(String name, ArrayList<MRGLMember> members, Workbook myWorkbook) throws Exception
+	public MediaRessourceGroupList(String name, ArrayList<MRGLMember> members) throws Exception
 		{
-		super(itemType.mediaressourcegrouplist, name, myWorkbook);
+		super(itemType.mediaresourcegrouplist, name);
 		myMRG = new MediaRessourceGroupListLinker(name);
 		this.members = members;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myMRG.setName(this.getName());
-		myMRG.setMembers(members);
-		/*********/
 		}
 
 	public MediaRessourceGroupList(String name) throws Exception
 		{
-		super(itemType.mediaressourcegrouplist, name);
+		super(itemType.mediaresourcegrouplist, name);
 		myMRG = new MediaRessourceGroupListLinker(name);
 		}
 
@@ -57,16 +51,7 @@ public class MediaRessourceGroupList extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myMRG.init());
 		}
 	
 	
@@ -96,7 +81,7 @@ public class MediaRessourceGroupList extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myMRG.update();
+		myMRG.update(tuList);
 		}
 	
 	/**
@@ -120,18 +105,39 @@ public class MediaRessourceGroupList extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		return name+" "
-		+UUID;
-		}
-	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		
+		for(MRGLMember mm : members)
+			{
+			mm.resolve();
+			}
+		
+		/**
+		 * We set the item parameters
+		 */
+		myMRG.setName(this.getName());
+		myMRG.setMembers(members);
+		/*********/
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if((members == null) || (members.size() == 0))
+			{
+			//We do not add it to the update list
+			}
+		else
+			{
+			tuList.add(MediaRessourceGroupListLinker.toUpdate.members);
+			}
 		}
 
 	public ArrayList<MRGLMember> getMembers()

@@ -1,10 +1,13 @@
 package com.alex.woot.axlitems.linkers;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.site.Location;
-import com.alex.yuza.utils.Variables;
+import java.util.ArrayList;
 
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.office.items.Location;
+import com.alex.woot.utils.Variables;
 
 /**********************************
  * Is the AXLItem design to link the item "Location"
@@ -19,6 +22,12 @@ public class LocationLinker extends AXLItemLinker
 	 */
 	String Kbits,VideoKbits;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		Kbits,
+		VideoKbits
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -30,15 +39,24 @@ public class LocationLinker extends AXLItemLinker
 	
 	/***************
 	 * Initialization
+	 * @return 
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -58,7 +76,7 @@ public class LocationLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeLocation(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeLocation(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -98,7 +116,7 @@ public class LocationLinker extends AXLItemLinker
 		/************/
 		
 		req.setLocation(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addLocation(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addLocation(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -107,7 +125,7 @@ public class LocationLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateLocationReq req = new com.cisco.axl.api._10.UpdateLocationReq();
 		
@@ -115,14 +133,15 @@ public class LocationLinker extends AXLItemLinker
 		 * We set the item parameters
 		 */
 		req.setName(this.getName());
-		req.setWithinAudioBandwidth(this.getKbits());
-		req.setWithinVideoBandwidth(this.getVideoKbits());
+
+		if(tuList.contains(toUpdate.Kbits))req.setWithinAudioBandwidth(this.getKbits());
+		if(tuList.contains(toUpdate.VideoKbits))req.setWithinVideoBandwidth(this.getVideoKbits());
 		/************/
 		
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateLocation(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateLocationReq req = new com.cisco.axl.api._8.UpdateLocationReq();
 		
@@ -130,11 +149,12 @@ public class LocationLinker extends AXLItemLinker
 		 * We set the item parameters
 		 */
 		req.setName(this.getName());
-		req.setKbits(this.getKbits());
-		req.setVideoKbits(this.getVideoKbits());
+		
+		if(tuList.contains(toUpdate.Kbits))req.setKbits(this.getKbits());
+		if(tuList.contains(toUpdate.VideoKbits))req.setVideoKbits(this.getVideoKbits());
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateLocation(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateLocation(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -171,7 +191,7 @@ public class LocationLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetLocationRes resp = Variables.getAXLConnectionToCUCM().getLocation(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetLocationRes resp = Variables.getAXLConnectionToCUCM85().getLocation(req);//We send the request to the CUCM
 		
 		Location myLoc = new Location(this.getName());
 		myLoc.setUUID(resp.getReturn().getLocation().getUuid());
@@ -201,13 +221,8 @@ public class LocationLinker extends AXLItemLinker
 		{
 		VideoKbits = videoKbits;
 		}
-
 	
 	
-
-	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

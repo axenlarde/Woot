@@ -2,44 +2,25 @@ package com.alex.woot.office.misc;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
 
-import com.alex.yuza.misc.CollectionTools;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.MRGLMember;
-import com.alex.yuza.misc.PartitionMember;
-import com.alex.yuza.misc.RelatedRegionDetail;
-import com.alex.yuza.misc.RouteGroupMember;
-import com.alex.yuza.misc.SipTrunkDestination;
-import com.alex.yuza.site.CallingSearchSpace;
-import com.alex.yuza.site.ConferenceBridge;
-import com.alex.yuza.site.DevicePool;
-import com.alex.yuza.site.Location;
-import com.alex.yuza.site.MediaRessourceGroup;
-import com.alex.yuza.site.MediaRessourceGroupList;
-import com.alex.yuza.site.MobilityInfo;
-import com.alex.yuza.site.Partition;
-import com.alex.yuza.site.PhysicalLocation;
-import com.alex.yuza.site.Region;
-import com.alex.yuza.site.RouteGroup;
-import com.alex.yuza.site.SRSTReference;
-import com.alex.yuza.site.TranslationPattern;
-import com.alex.yuza.site.TrunkSip;
-import com.alex.yuza.site.VG2XX;
-import com.alex.yuza.utils.UsefulMethod;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.xMLGear;
-import com.alex.yuza.utils.xMLReader;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.siteType;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.actionType;
+import com.alex.woot.utils.Variables.itemType;
+import com.alex.woot.utils.xMLGear;
+import com.alex.woot.utils.xMLReader;
+import com.alex.woot.office.items.*;
+import com.alex.woot.soap.items.RelatedRegionDetail;
+
+
 
 /**********************************
  * Class used to read the CUCM template
  * 
  * @author RATEL Alexandre
  **********************************/
-public class TemplateCCMReader
+public class TemplateOfficeReader
 	{
 	/**************
 	 * Variables
@@ -49,7 +30,7 @@ public class TemplateCCMReader
 	 * Static method used to read the CUCM Template 
 	 * @throws Exception 
 	 */
-	public static ArrayList<ItemToInject> readCCMTemplate(Workbook myWorkBook, int type) throws Exception
+	public static ArrayList<OfficeTemplate> readOfficeTemplate() throws Exception
 		{
 		try
 			{
@@ -57,8 +38,7 @@ public class TemplateCCMReader
 			String fileContent = xMLReader.fileRead(Variables.getCcmTemplateFileName());
 			
 			ArrayList<String> listParams = new ArrayList<String>();
-			listParams.add("sites");
-			listParams.add("site");
+			listParams.add("template");
 			
 			//We get here the list of the items we want to inject
 			ArrayList<String[][]> templateCCMContent = xMLGear.getResultListTab(fileContent, listParams);
@@ -66,30 +46,39 @@ public class TemplateCCMReader
 			//And here we get the detail
 			ArrayList<ArrayList<String[][]>> templateCCMContentDetail = xMLGear.getResultListTabExt(fileContent, listParams);
 			
-			//We are interested only by the type of site define in the collection file
-			String[][] tab = templateCCMContent.get(type);
-			ArrayList<String[][]> detail = templateCCMContentDetail.get(type);
-			
-			//We initialize the Item to Inject List
-			ArrayList<ItemToInject> CCMTemplateList = new ArrayList<ItemToInject>();
+			//We initialize the Office template List
+			ArrayList<OfficeTemplate> officeTemplateList = new ArrayList<OfficeTemplate>();
 			
 			/******
 			 * For each item we check if we have to process it.
 			 * If yes we create the suitable item object and 
 			 * we add it to the list of items to inject
-			 */
-			for(int i=0; i<tab.length; i++)
+			 */		
+			for(int a=0; a<templateCCMContent.size(); a++)
 				{
-				for(itemType item : itemType.values())
+				String[][] tab = templateCCMContent.get(a);
+				ArrayList<String[][]> detail = templateCCMContentDetail.get(a);
+				ArrayList<ItemToInject> CCMTemplateList = new ArrayList<ItemToInject>();
+				
+				//We get the name of the template
+				
+				OfficeTemplate myOfficeT = new OfficeTemplate(detail.get(0)[0][0]);//Should be the template name ;)
+				
+				for(int i=0; i<tab.length; i++)
 					{
-					if(tab[i][0].equals(item.name()))
+					for(itemType item : itemType.values())
 						{
-						ItemToInject myItem = createItem(item, detail.get(i), myWorkBook);
-						if(myItem != null)CCMTemplateList.add(myItem);
+						if(tab[i][0].equals(item.name()))
+							{
+							ItemToInject myItem = createItem(item, detail.get(i));
+							if(myItem != null)CCMTemplateList.add(myItem);
+							}
 						}
 					}
+				myOfficeT.setTemplateItemList(CCMTemplateList);
+				officeTemplateList.add(myOfficeT);
 				}
-			return CCMTemplateList;
+			return officeTemplateList;
 			}
 		catch(Exception e)
 			{
@@ -101,14 +90,16 @@ public class TemplateCCMReader
 	 * Method used to create Item
 	 * @throws Exception 
 	 */
-	private static ItemToInject createItem(itemType type, String[][] itemDetails, Workbook myWorkbook) throws Exception
+	private static ItemToInject createItem(itemType type, String[][] itemDetails) throws Exception
 		{
 		if(type.equals(itemType.location))//Location
 			{
-			return new Location(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("audiobandwidth", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("videobandwidth", itemDetails), myWorkbook),
-					myWorkbook);
+			Location myLocation = new Location(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("audiobandwidth", itemDetails),
+					UsefulMethod.getItemByName("videobandwidth", itemDetails));
+			
+			myLocation.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myLocation;
 			}
 		else if(type.equals(itemType.region))
 			{

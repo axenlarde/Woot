@@ -2,17 +2,15 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.axlitems.linkers.RouteGroupLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.soap.items.RouteGroupMember;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.CallingSearchSpaceLinker;
-import com.alex.yuza.axlitems.RouteGroupLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.PartitionMember;
-import com.alex.yuza.misc.RouteGroupMember;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "Route Group"
@@ -35,19 +33,12 @@ public class RouteGroup extends ItemToInject
 	 * @throws Exception 
 	 ***************/
 	public RouteGroup(String name, String distributionAlgorithm,
-			ArrayList<RouteGroupMember> members, Workbook myWorkbook) throws Exception
+			ArrayList<RouteGroupMember> members) throws Exception
 		{
-		super(itemType.routegroup, name, myWorkbook);
+		super(itemType.routegroup, name);
 		myRouteGroup = new RouteGroupLinker(name);
 		this.distributionAlgorithm = distributionAlgorithm;
 		this.members = members;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myRouteGroup.setDistributionAlgorithm(distributionAlgorithm);
-		myRouteGroup.setMembers(members);
-		/*********/
 		}
 
 	public RouteGroup(String name) throws Exception
@@ -62,16 +53,7 @@ public class RouteGroup extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myRouteGroup.init());
 		}
 	
 	
@@ -101,7 +83,7 @@ public class RouteGroup extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myRouteGroup.update();
+		myRouteGroup.update(tuList);
 		}
 	
 	/**
@@ -125,18 +107,42 @@ public class RouteGroup extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		return name+" "
-		+UUID;
-		}
-	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		distributionAlgorithm = CollectionTools.getRawValue(distributionAlgorithm, this, true);
+		
+		for(RouteGroupMember rgm : members)
+			{
+			rgm.resolve();
+			}
+		
+		/**
+		 * We set the item parameters
+		 */
+		myRouteGroup.setName(name);
+		myRouteGroup.setDistributionAlgorithm(distributionAlgorithm);
+		myRouteGroup.setMembers(members);
+		/*********/
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(distributionAlgorithm))tuList.add(RouteGroupLinker.toUpdate.distributionAlgorithm);
+		if((members == null) || (members.size() == 0))
+			{
+			//Nothing to do
+			}
+		else
+			{
+			tuList.add(RouteGroupLinker.toUpdate.members);
+			}
 		}
 
 	public String getDistributionAlgorithm()

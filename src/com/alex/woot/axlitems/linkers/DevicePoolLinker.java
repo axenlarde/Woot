@@ -1,14 +1,17 @@
 package com.alex.woot.axlitems.linkers;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.DevicePool;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
+import com.alex.woot.axlitems.linkers.PhoneLinker.toUpdate;
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
 
 /**********************************
@@ -29,10 +32,26 @@ public class DevicePoolLinker extends AXLItemLinker
 	dateTimeSettingName,
 	srstreference,
 	mediaressourcegrouplist,
-	localroutegroup,
 	physicallocation,
 	devicemobilitygroup,
 	devicemobilitycss;
+	
+	private ArrayList<String> localroutegroup;
+	
+	public enum toUpdate implements ToUpdate
+		{
+		callManagerGroupName,
+		regionName,
+		locationName,
+		networkLocale,
+		dateTimeSettingName,
+		srstreference,
+		mediaressourcegrouplist,
+		localroutegroup,
+		physicallocation,
+		devicemobilitygroup,
+		devicemobilitycss
+		}
 	
 	/***************
 	 * Constructor
@@ -46,14 +65,20 @@ public class DevicePoolLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -73,7 +98,7 @@ public class DevicePoolLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeDevicePool(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeDevicePool(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -121,7 +146,7 @@ public class DevicePoolLinker extends AXLItemLinker
 		/************/
 		
 		req.setDevicePool(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addDevicePool(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addDevicePool(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -130,25 +155,31 @@ public class DevicePoolLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateDevicePoolReq req = new com.cisco.axl.api._10.UpdateDevicePoolReq();
+		com.cisco.axl.api._10.UpdateDevicePoolReq.LocalRouteGroup myLRG = new com.cisco.axl.api._10.UpdateDevicePoolReq.LocalRouteGroup();
 		
 		/***********
 		 * We set the item parameters
 		 */
 		req.setName(this.getName());
-		req.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.mediaressourcegrouplist, this.mediaressourcegrouplist)));
-		req.setLocalRouteGroupName(SimpleRequest.getUUIDV105(itemType.routegroup, this.localroutegroup));
-		req.setPhysicalLocationName(new JAXBElement(new QName("physicalLocationName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.physicallocation, this.physicallocation)));
-		req.setDeviceMobilityGroupName(new JAXBElement(new QName("deviceMobilityGroupName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.devicemobilitygroup, this.devicemobilitygroup)));
-		req.setMobilityCssName(new JAXBElement(new QName("mobilityCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.devicemobilitycss)));
+		
+		if(tuList.contains(toUpdate.mediaressourcegrouplist))req.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.mediaresourcegrouplist, this.mediaressourcegrouplist)));
+		if(tuList.contains(toUpdate.physicallocation))req.setPhysicalLocationName(new JAXBElement(new QName("physicalLocationName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.physicallocation, this.physicallocation)));
+		if(tuList.contains(toUpdate.devicemobilitygroup))req.setDeviceMobilityGroupName(new JAXBElement(new QName("deviceMobilityGroupName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.devicemobilitygroup, this.devicemobilitygroup)));
+		if(tuList.contains(toUpdate.devicemobilitycss))req.setMobilityCssName(new JAXBElement(new QName("mobilityCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.devicemobilitycss)));
+		
+		//Local Route Group
+		myLRG.setName(new JAXBElement(new QName("name"), String.class,"Standard Local Route Group"));//To improve with a variables
+		myLRG.setValue(this.localroutegroup.get(0));
+		if(tuList.contains(toUpdate.localroutegroup))req.getLocalRouteGroup().add(myLRG);
 		/************/
 		
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateDevicePool(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateDevicePoolReq req = new com.cisco.axl.api._8.UpdateDevicePoolReq();
 		
@@ -156,14 +187,14 @@ public class DevicePoolLinker extends AXLItemLinker
 		 * We set the item parameters
 		 */
 		req.setName(this.getName());
-		req.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.mediaressourcegrouplist, this.mediaressourcegrouplist)));
+		req.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.mediaresourcegrouplist, this.mediaressourcegrouplist)));
 		req.setLocalRouteGroupName(new JAXBElement(new QName("localRouteGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.routegroup, this.localroutegroup)));
 		req.setPhysicalLocationName(new JAXBElement(new QName("physicalLocationName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.physicallocation, this.physicallocation)));
 		req.setDeviceMobilityGroupName(new JAXBElement(new QName("deviceMobilityGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.devicemobilitygroup, this.devicemobilitygroup)));
 		req.setMobilityCssName(new JAXBElement(new QName("mobilityCssName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.callingsearchspace, this.devicemobilitycss)));
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateDevicePool(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateDevicePool(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -201,7 +232,7 @@ public class DevicePoolLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetDevicePoolRes resp = Variables.getAXLConnectionToCUCM().getDevicePool(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetDevicePoolRes resp = Variables.getAXLConnectionToCUCM85().getDevicePool(req);//We send the request to the CUCM
 		
 		DevicePool myDP = new DevicePool(this.getName());
 		myDP.setUUID(resp.getReturn().getDevicePool().getUuid());
@@ -293,12 +324,12 @@ public class DevicePoolLinker extends AXLItemLinker
 		this.mediaressourcegrouplist = mediaressourcegrouplist;
 		}
 
-	public String getLocalroutegroup()
+	public ArrayList<String> getLocalroutegroup()
 		{
 		return localroutegroup;
 		}
 
-	public void setLocalroutegroup(String localroutegroup)
+	public void setLocalroutegroup(ArrayList<String> localroutegroup)
 		{
 		this.localroutegroup = localroutegroup;
 		}

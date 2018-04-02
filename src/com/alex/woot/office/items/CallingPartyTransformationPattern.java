@@ -1,6 +1,5 @@
 package com.alex.woot.office.items;
 
-import com.alex.woot.axlitems.linkers.PhoneLinker;
 import com.alex.woot.axlitems.linkers.TranslationPatternLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
@@ -9,34 +8,32 @@ import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
 
 /**********************************
- * Class used to define an item of type "Translation Pattern"
+ * Class used to define an item of type "Calling Party Transformation Pattern"
  * 
  * @author RATEL Alexandre
  **********************************/
 
-public class TranslationPattern extends ItemToInject
+public class CallingPartyTransformationPattern extends ItemToInject
 	{
 	/**
 	 * Variables
 	 */
 	private TranslationPatternLinker myTranslationPattern;
-	private String usage,//Translation
-	provideOutsideDialtone,//True
-	description,
+	private String description,
 	routePartitionName,
-	callingSearchSpaceName,
-	patternUrgency,
 	useCallingPartyPhoneMask,
-	calledPartyTransformationMask,
 	callingPartyTransformationMask,
-	digitDiscardInstructionName;
+	callingPartyPrefixDigits,
+	callingLinePresentationBit,
+	callingPartyNumberType,
+	callingPartyNumberingPlan;
 
 	
 	/***************
 	 * Constructor
 	 * @throws Exception
 	 ***************/
-	public TranslationPattern(String name,
+	public CallingPartyTransformationPattern(String name,
 			String description,
 			String routePartitionName, String callingSearchSpaceName,
 			String patternUrgency, String useCallingPartyPhoneMask,
@@ -58,7 +55,7 @@ public class TranslationPattern extends ItemToInject
 		this.digitDiscardInstructionName = digitDiscardInstructionName;
 		}
 
-	public TranslationPattern(String name, String routePartitionName) throws Exception
+	public CallingPartyTransformationPattern(String name, String routePartitionName) throws Exception
 		{
 		super(itemType.translationpattern, name);
 		myTranslationPattern = new TranslationPatternLinker(name, routePartitionName);
@@ -110,7 +107,7 @@ public class TranslationPattern extends ItemToInject
 		{
 		try
 			{
-			TranslationPattern myTP = (TranslationPattern) myTranslationPattern.get();
+			CallingPartyTransformationPattern myTP = (CallingPartyTransformationPattern) myTranslationPattern.get();
 			this.UUID = myTP.getUUID();
 			
 			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");

@@ -1,15 +1,14 @@
 package com.alex.woot.axlitems.linkers;
 
 import java.util.ArrayList;
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.PartitionMember;
-import com.alex.yuza.misc.RouteGroupMember;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.CallingSearchSpace;
-import com.alex.yuza.site.RouteGroup;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
+
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.soap.items.RouteGroupMember;
+import com.alex.woot.utils.Variables;
+
 
 
 /**********************************
@@ -26,6 +25,12 @@ public class RouteGroupLinker extends AXLItemLinker
 	private String distributionAlgorithm;
 	private ArrayList<RouteGroupMember> members;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		distributionAlgorithm,
+		members
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -38,14 +43,20 @@ public class RouteGroupLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -65,7 +76,7 @@ public class RouteGroupLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeRouteGroup(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeRouteGroup(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -131,7 +142,7 @@ public class RouteGroupLinker extends AXLItemLinker
 		/************/
 		
 		req.setRouteGroup(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addRouteGroup(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addRouteGroup(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -140,13 +151,13 @@ public class RouteGroupLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		//Has to be written
 		Variables.getLogger().info("This method has to be written");
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		//Has to be written
 		Variables.getLogger().info("This method has to be written");
@@ -187,7 +198,7 @@ public class RouteGroupLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetRouteGroupRes resp = Variables.getAXLConnectionToCUCM().getRouteGroup(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetRouteGroupRes resp = Variables.getAXLConnectionToCUCM85().getRouteGroup(req);//We send the request to the CUCM
 		
 		RouteGroup myR = new RouteGroup(this.getName());
 		myR.setUUID(resp.getReturn().getRouteGroup().getUuid());

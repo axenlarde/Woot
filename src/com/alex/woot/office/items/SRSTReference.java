@@ -1,13 +1,12 @@
 package com.alex.woot.office.items;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
-
-import com.alex.yuza.axlitems.SRSTReferenceLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.axlitems.linkers.SRSTReferenceLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
 /**********************************
  * Class used to define an item of type "SRST Reference"
@@ -22,27 +21,17 @@ public class SRSTReference extends ItemToInject
 	 */
 	private SRSTReferenceLinker mySRSTReference;
 	private String ipAddress;
-
-	
 	
 	
 	/***************
 	 * Constructor
 	 * @throws Exception 
 	 ***************/
-	public SRSTReference(String name, String ipAddress, Workbook myWorkbook) throws Exception
+	public SRSTReference(String name, String ipAddress) throws Exception
 		{
-		super(itemType.srstreference, name, myWorkbook);
+		super(itemType.srstreference, name);
 		mySRSTReference = new SRSTReferenceLinker(name);
 		this.ipAddress = ipAddress;
-		
-		/**
-		 * We set the item parameters
-		 */
-		mySRSTReference.setName(this.getName());
-		this.ipAddress = this.ipAddress.trim();
-		mySRSTReference.setIpAddress(this.ipAddress);
-		/*********/
 		}
 
 	public SRSTReference(String name) throws Exception
@@ -57,16 +46,7 @@ public class SRSTReference extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(mySRSTReference.init());
 		}
 	
 	
@@ -96,7 +76,7 @@ public class SRSTReference extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		mySRSTReference.update();
+		mySRSTReference.update(tuList);
 		}
 	
 	/**
@@ -133,7 +113,23 @@ public class SRSTReference extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		ipAddress = CollectionTools.getRawValue(ipAddress, this, true);
+		
+		/**
+		 * We set the item parameters
+		 */
+		mySRSTReference.setName(this.getName());
+		mySRSTReference.setIpAddress(this.ipAddress);
+		/*********/
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(ipAddress))tuList.add(SRSTReferenceLinker.toUpdate.ipAddress);
 		}
 	
 	public String getIpAddress()

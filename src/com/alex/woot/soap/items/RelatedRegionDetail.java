@@ -40,7 +40,7 @@ public class RelatedRegionDetail extends BasicItem
 	@Override
 	public void resolve() throws Exception
 		{
-		this.regionName = CollectionTools.getValueFromCollectionFile(0, this.regionName, this, true);
+		this.regionName = CollectionTools.getRawValue(this.regionName, this, true);
 		}
 
 	public String getRegionName()

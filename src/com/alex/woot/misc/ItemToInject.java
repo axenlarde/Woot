@@ -184,6 +184,15 @@ public abstract class ItemToInject implements ItemToInjectImpl
 			}
 		}
 	
+	/**
+	 * Method used to display the item informations
+	 */
+	public String getInfo()
+		{
+		return name+" "
+		+UUID;
+		}
+	
 	public void addNewError(ErrorTemplate error)
 		{
 		//We check for duplicate

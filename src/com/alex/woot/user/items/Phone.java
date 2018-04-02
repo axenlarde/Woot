@@ -3,9 +3,7 @@ package com.alex.woot.user.items;
 import java.util.ArrayList;
 
 import com.alex.woot.axlitems.linkers.PhoneLinker;
-import com.alex.woot.axlitems.linkers.UserLinker;
 import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.EmptyValueException;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.soap.items.PhoneLine;
 import com.alex.woot.soap.items.PhoneService;
@@ -137,7 +135,7 @@ public class Phone extends ItemToInject
 		}
 
 	/**
-	 * Method used to delete data in the CUCM using
+	 * Method used to update data in the CUCM using
 	 * the Cisco API
 	 */
 	public void doUpdate() throws Exception

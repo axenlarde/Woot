@@ -2,15 +2,14 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.CallingSearchSpaceLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.soap.items.PartitionMember;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.CallingSearchSpaceLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.PartitionMember;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
+
 
 /**********************************
  * Class used to define an item of type "Calling Search Space"
@@ -34,20 +33,12 @@ public class CallingSearchSpace extends ItemToInject
 	 * @throws Exception 
 	 ***************/
 	public CallingSearchSpace(String name, String description,
-			ArrayList<PartitionMember> members, Workbook myWorkbook) throws Exception
+			ArrayList<PartitionMember> members) throws Exception
 		{
-		super(itemType.callingsearchspace, name, myWorkbook);
+		super(itemType.callingsearchspace, name);
 		myCSS = new CallingSearchSpaceLinker(name);
 		this.description = description;
 		this.members = members;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myCSS.setName(this.getName());
-		myCSS.setDescription(description);
-		myCSS.setMembers(members);
-		/*********/
 		}
 
 	public CallingSearchSpace(String name) throws Exception
@@ -62,16 +53,7 @@ public class CallingSearchSpace extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myCSS.init());
 		}
 	
 	
@@ -101,7 +83,7 @@ public class CallingSearchSpace extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myCSS.update();
+		myCSS.update(tuList);
 		}
 	
 	/**
@@ -124,19 +106,29 @@ public class CallingSearchSpace extends ItemToInject
 			}
 		return false;
 		}
-	
-	public String getInfo()
-		{
-		return name+" "
-		+UUID;
-		}
 
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		
+		for(PartitionMember p : members)
+			{
+			p.resolve();
+			}
+		
+		myCSS.setName(name);
+		myCSS.setMembers(members);
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if((members != null) && (members.size() != 0))tuList.add(CallingSearchSpaceLinker.toUpdate.members);
 		}
 	
 	public String getDescription()

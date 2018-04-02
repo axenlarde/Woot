@@ -32,7 +32,7 @@ public class SipTrunkDestination extends BasicItem
 	@Override
 	public void resolve() throws Exception
 		{
-		this.addressIpv4 = CollectionTools.getValueFromCollectionFile(0, this.addressIpv4, this, true);
+		this.addressIpv4 = CollectionTools.getRawValue(this.addressIpv4, this, true);
 		}
 
 	public String getAddressIpv4()

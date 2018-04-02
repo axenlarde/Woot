@@ -1,13 +1,12 @@
 package com.alex.woot.office.items;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
-
-import com.alex.yuza.axlitems.PartitionLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
+import com.alex.woot.axlitems.linkers.PartitionLinker;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
 /**********************************
  * Class used to define an item of type "Partition"
@@ -28,18 +27,11 @@ public class Partition extends ItemToInject
 	 * Constructor
 	 * @throws Exception 
 	 ***************/
-	public Partition(String name, String description, Workbook myWorkbook) throws Exception
+	public Partition(String name, String description) throws Exception
 		{
-		super(itemType.partition, name, myWorkbook);
+		super(itemType.partition, name);
 		myPartition = new PartitionLinker(name);
 		this.description = description;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myPartition.setName(this.getName());
-		myPartition.setDescription(description);
-		/*********/
 		}
 
 	public Partition(String name) throws Exception
@@ -54,16 +46,7 @@ public class Partition extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myPartition.init());
 		}
 	
 	
@@ -93,7 +76,7 @@ public class Partition extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myPartition.update();
+		myPartition.update(tuList);
 		}
 	
 	/**
@@ -118,21 +101,30 @@ public class Partition extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		return name+" "
-		+UUID+" "
-		+description;
-		}
-	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		description = CollectionTools.getRawValue(description, this, false);
+		
+		/**
+		 * We set the item parameters
+		 */
+		myPartition.setName(this.getName());
+		myPartition.setDescription(description);
+		/*********/
 		}
 
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(description))tuList.add(PartitionLinker.toUpdate.description);
+		}
+	
 	public String getDescription()
 		{
 		return description;

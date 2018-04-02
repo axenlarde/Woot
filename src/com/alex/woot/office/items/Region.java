@@ -2,15 +2,15 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.axlitems.linkers.RegionLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.soap.items.RelatedRegionDetail;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.RegionLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.RelatedRegionDetail;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "Region"
@@ -34,20 +34,12 @@ public class Region extends ItemToInject
 	 * @throws Exception 
 	 ***************/
 	public Region( String name,
-			String defaultCodec, ArrayList<RelatedRegionDetail> g711RegionList, Workbook myWorkbook) throws Exception
+			String defaultCodec, ArrayList<RelatedRegionDetail> g711RegionList) throws Exception
 		{
-		super(itemType.region, name, myWorkbook);
+		super(itemType.region, name);
 		myRegion = new RegionLinker(name);
 		this.defaultCodec = defaultCodec;
 		this.g711RegionList = g711RegionList;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myRegion.setName(this.getName());
-		myRegion.setDefaultCodec(defaultCodec);
-		myRegion.setG711RegionList(g711RegionList);
-		/*********/
 		}
 
 	public Region(String name) throws Exception
@@ -62,16 +54,7 @@ public class Region extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myRegion.init());
 		}
 	
 	
@@ -101,7 +84,7 @@ public class Region extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myRegion.update();
+		myRegion.update(tuList);
 		}
 	
 	/**
@@ -125,20 +108,43 @@ public class Region extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		return name+" "
-		+UUID;
-		}
-	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		defaultCodec = CollectionTools.getRawValue(defaultCodec, this, true);
+		
+		for(RelatedRegionDetail rrd : g711RegionList)
+			{
+			rrd.resolve();
+			}
+		
+		/**
+		 * We set the item parameters
+		 */
+		myRegion.setName(this.getName());
+		myRegion.setDefaultCodec(defaultCodec);
+		myRegion.setG711RegionList(g711RegionList);
+		/*********/
 		}
 	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(defaultCodec))tuList.add(RegionLinker.toUpdate.defaultCodec);
+		if((g711RegionList == null) || (g711RegionList.size() == 0))
+			{
+			//Nothing to do
+			}
+		else
+			{
+			tuList.add(RegionLinker.toUpdate.g711RegionList);
+			}
+		}
 
 	public String getDefaultCodec()
 		{

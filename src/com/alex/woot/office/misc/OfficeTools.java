@@ -4,9 +4,16 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.alex.woot.gui.WaitingWindow;
+import com.alex.woot.misc.DidRange;
+import com.alex.woot.misc.Gateway;
 import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.misc.Office;
+import com.alex.woot.misc.Task;
+import com.alex.woot.soap.misc.MainItem;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.itemType;
 
 
@@ -16,66 +23,76 @@ import com.alex.woot.utils.Variables.itemType;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class SiteTools
+public class OfficeTools
 	{
-	
-	/********************
-	 * Method used to check if the site is already injected
-	 * 
-	 * To do so :
-	 * We are going to check if the device pool already exists in the CUCM
-	 */
-	public static synchronized boolean isSiteExisting(ArrayList<ItemToInject> CCMItemToInjectList)
-		{
-		try
-			{
-			for(ItemToInject item : CCMItemToInjectList)
-				{
-				if(item.getType().equals(itemType.devicepool))
-					{
-					if(item.isExisting())
-						{
-						Variables.getLogger().info("The site exist");
-						return true;//The site exist
-						}
-					else
-						{
-						Variables.getLogger().info("The site doesn't exist");
-						}
-					}
-				}
-			}
-		catch(Exception exc)
-			{
-			Variables.getLogger().error(exc);
-			Variables.getLogger().error("While discovering the site : "+exc.getMessage());
-			JOptionPane.showMessageDialog(null,LanguageManagement.getString("errordiscovery"),LanguageManagement.getString("error"),JOptionPane.INFORMATION_MESSAGE);
-			//At this point we continue even if an error occurred during the discovery
-			}
-		return false;
-		}
-	
+
 	
 	/**********
 	 * Method used to build the
 	 * CCMItemToInjectList
 	 * @throws Exception 
 	 */
-	public static synchronized ArrayList<ItemToInject> builCCMList(ArrayList<ItemToInject> CCMTemplateList, Workbook myWorkbook) throws Exception
+	public static synchronized MainItem setOfficeList(Office o, actionType action, WaitingWindow myWW) throws Exception
 		{
-		Variables.getLogger().info("Site CCM List building process begin");
+		Variables.getLogger().info("Office List building process begin");
 		
-		//We initialize the CCMItemToInjectList
-		ArrayList<ItemToInject> CCMItemToInjectList = new ArrayList<ItemToInject>();
+		MItemOffice myOffice = new MItemOffice(o.getName(), o.getFullname());
 		
 		//We initialize the DID ranges list
-		ArrayList<DIDRange> DIDRanges = null;
+		//ArrayList<DidRange> DIDRanges = null;
 		
 		//We initialize the gateway list
-		ArrayList<Gateway> myGatewayList = null;
+		//ArrayList<Gateway> myGatewayList = null;
 		
-		for(ItemToInject item : CCMTemplateList)
+		//We get the office template to use
+		ArrayList<ItemToInject> TemplateItemList = new ArrayList<ItemToInject>();
+		for(OfficeTemplate ot : Variables.getOfficeTemplateList())
 			{
+			if(ot.getName().equals(o.getTemplatename()))
+				{
+				TemplateItemList = ot.getTemplateItemList();
+				break;
+				}
+			else
+				{
+				TemplateItemList = null;
+				}
+			}
+		
+		//In case we didn't find a matching template
+		if(TemplateItemList == null)throw new Exception("ERROR : The office template name didn't find any exiting tamplate");
+		
+		for(int i=0; i<TemplateItemList.size(); i++)
+			{
+			//We update the waiting window
+			myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding")+" : "+(i+1)+"/"+TemplateItemList.size()+" : "+o.getName()+" "+o.getFullname());
+			
+			ItemToInject item = TemplateItemList.get(i);
+			
+			/**
+			 * In case of deletion we exclude update items and transform inject actions into delete ones 
+			 */
+			if(action.equals(actionType.delete))
+				{
+				if(item.getAction().equals(actionType.update))
+					{
+					Variables.getLogger().debug("We do not add this to the user because it is an update item and this is a deletion task");
+					}
+				else
+					{
+					item.setAction(actionType.delete);
+					
+					item.resolve();
+					Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
+					myOffice.getAssociatedItems().add(item);
+					}
+				}
+			
+			
+			
+			
+			//Temp : We will manage the particular cases later
+			/*
 			if(item.getType().equals(itemType.translationpattern))
 				{
 				if(DIDRanges == null)
@@ -122,12 +139,12 @@ public class SiteTools
 				item.resolve();
 				Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
 				CCMItemToInjectList.add(item);
-				}
+				}*/
 			}
 		
-		Variables.getLogger().info("Site CCM List building process end");
+		Variables.getLogger().info("Item List building process end for the office :"+o.getName());
 		
-		return CCMItemToInjectList;
+		return myOffice;
 		}
 	
 	
@@ -152,46 +169,22 @@ public class SiteTools
 	 * - devicemobilitygroup
 	 * - Update Device Pool
 	 */
-	public static synchronized Task prepareSiteInjection(ArrayList<ItemToInject> CCMItemToInjectList) throws Exception
+	public static synchronized Task prepareOfficeProcess(ArrayList<MainItem> itemToInjectList, actionType type) throws Exception
 		{
-		Variables.getLogger().info("Site preparation process begin");
+		Variables.getLogger().info("Office "+type.name()+" preparation process begin");
 		
-		ArrayList<ToDo> myList = new ArrayList<ToDo>();
+		ArrayList<ItemToInject> myList = new ArrayList<ItemToInject>();
 		
-		/**
-		 * This is important for sorting the injection list
-		 */
-		for(itemType type : itemType.values())
+		for(MainItem mi : itemToInjectList)
 			{
-			for(ItemToInject item : CCMItemToInjectList)
+			for(ItemToInject item : mi.getAssociatedItems())
 				{
-				if(item.getType().equals(type))
-					{
-					Variables.getLogger().info("Adding the "+type.name()+" "+item.getName()+" to the injection list");
-					myList.add(new ToDo(actionType.inject, item));
-					}
+				Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the list as an "+item.getAction().name()+" todo");
+				myList.add(item);
 				}
 			}
 		
-		//We add the update of the device pool
-		for(ItemToInject item : CCMItemToInjectList)
-			{
-			if(item.getType().equals(itemType.devicepool))
-				{
-				myList.add(new ToDo(actionType.update, item));
-				}
-			}
-		
-		//Finally we add the update of the region matrix
-		for(ItemToInject item : CCMItemToInjectList)
-			{
-			if(item.getType().equals(itemType.region))
-				{
-				myList.add(new ToDo(actionType.update, item));
-				}
-			}
-		
-		Variables.getLogger().info("Site preparation process end");
+		Variables.getLogger().info("Office "+type.name()+" preparation process end");
 		
 		//The injection task is ready
 		return new Task(myList);
@@ -386,12 +379,12 @@ public class SiteTools
 		{
 		String suffixePattern = "XXXX";
 		
-		
+		//Has to be written
 		
 		return suffixePattern;
 		}
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2017*//*RATEL Alexandre 8)*/
 	}
 

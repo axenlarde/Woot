@@ -19,7 +19,9 @@ import javax.swing.JScrollPane;
 
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.itemType;
+import com.alex.woot.utils.Variables.provisioningType;
 
 /**********************************
  * Used to define the basic settings of
@@ -42,11 +44,13 @@ public abstract class BaseLaunchPanel extends JPanel implements ActionListener, 
 	protected JLabel titleLabel;
 	protected JFrame mainFrame;
 	protected JCheckBox selectAll;
+	protected actionType action;
+	protected provisioningType pType;
 	
 	/***************
 	 * Constructor
 	 ***************/
-	public BaseLaunchPanel(JFrame mainFrame, String panelTitle, ArrayList<OptionLine> myOptionList)
+	public BaseLaunchPanel(JFrame mainFrame, String panelTitle, ArrayList<OptionLine> myOptionList, actionType action, provisioningType pType)
 		{
 		this.mainFrame = mainFrame;
 		this.myOptionList = myOptionList;
@@ -54,6 +58,9 @@ public abstract class BaseLaunchPanel extends JPanel implements ActionListener, 
 		cancel = new JButton(LanguageManagement.getString("cancelbutton"));
 		selectAll = new JCheckBox();
 		titleLabel = new JLabel(panelTitle);
+		this.action = action;
+		this.pType = pType;
+		
 		
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		

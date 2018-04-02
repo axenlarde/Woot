@@ -1,15 +1,16 @@
 package com.alex.woot.axlitems.linkers;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.ConferenceBridge;
-import com.alex.yuza.site.DevicePool;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.utils.Variables;
+
 
 
 /**********************************
@@ -28,6 +29,14 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 	location,
 	commondeviceconfiguration;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		description,
+		devicepool,
+		location,
+		commondeviceconfiguration
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -40,14 +49,20 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -67,7 +82,7 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeConferenceBridge(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeConferenceBridge(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -113,7 +128,7 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 		/************/
 		
 		req.setConferenceBridge(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addConferenceBridge(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addConferenceBridge(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -122,7 +137,7 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateConferenceBridgeReq req = new com.cisco.axl.api._10.UpdateConferenceBridgeReq();
 		
@@ -136,7 +151,7 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateConferenceBridge(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateConferenceBridgeReq req = new com.cisco.axl.api._8.UpdateConferenceBridgeReq();
 		
@@ -147,7 +162,7 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 		//Has to be written
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateConferenceBridge(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateConferenceBridge(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -184,7 +199,7 @@ public class ConferenceBridgeLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetConferenceBridgeRes resp = Variables.getAXLConnectionToCUCM().getConferenceBridge(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetConferenceBridgeRes resp = Variables.getAXLConnectionToCUCM85().getConferenceBridge(req);//We send the request to the CUCM
 		
 		ConferenceBridge myCFB = new ConferenceBridge(this.getName());
 		myCFB.setUUID(resp.getReturn().getConferenceBridge().getUuid());

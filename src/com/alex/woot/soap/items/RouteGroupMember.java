@@ -32,7 +32,7 @@ public class RouteGroupMember extends BasicItem
 	@Override
 	public void resolve() throws Exception
 		{
-		this.deviceName = CollectionTools.getValueFromCollectionFile(0, this.deviceName, this, true);
+		this.deviceName = CollectionTools.getRawValue(this.deviceName, this, true);
 		}
 
 	public String getDeviceName()

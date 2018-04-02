@@ -2,14 +2,12 @@ package com.alex.woot.axlitems.linkers;
 
 import java.util.ArrayList;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.RelatedRegionDetail;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.MobilityInfo;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.cisco.axl.api._8.XRegionRelationship;
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
 
 /**********************************
@@ -27,6 +25,13 @@ public class MobilityInfoLinker extends AXLItemLinker
 	
 	private ArrayList<String> members;//Devicepool list
 	
+	public enum toUpdate implements ToUpdate
+		{
+		subnet,
+		subnetMask,
+		members
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -39,14 +44,20 @@ public class MobilityInfoLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -66,7 +77,7 @@ public class MobilityInfoLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeDeviceMobility(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeDeviceMobility(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -132,7 +143,7 @@ public class MobilityInfoLinker extends AXLItemLinker
 		/************/
 		
 		req.setDeviceMobility(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addDeviceMobility(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addDeviceMobility(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -141,7 +152,7 @@ public class MobilityInfoLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateDeviceMobilityReq req = new com.cisco.axl.api._10.UpdateDeviceMobilityReq();
 		
@@ -155,7 +166,7 @@ public class MobilityInfoLinker extends AXLItemLinker
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateDeviceMobility(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateDeviceMobilityReq req = new com.cisco.axl.api._8.UpdateDeviceMobilityReq();
 		
@@ -166,7 +177,7 @@ public class MobilityInfoLinker extends AXLItemLinker
 		//has to be written
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateDeviceMobility(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateDeviceMobility(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -203,7 +214,7 @@ public class MobilityInfoLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetDeviceMobilityRes resp = Variables.getAXLConnectionToCUCM().getDeviceMobility(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetDeviceMobilityRes resp = Variables.getAXLConnectionToCUCM85().getDeviceMobility(req);//We send the request to the CUCM
 		
 		MobilityInfo myMI = new MobilityInfo(this.getName());
 		myMI.setUUID(resp.getReturn().getDeviceMobility().getUuid());

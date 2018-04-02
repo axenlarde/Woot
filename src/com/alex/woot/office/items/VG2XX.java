@@ -2,16 +2,14 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.util.SystemOutLogger;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.axlitems.linkers.VG2XXLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.VG2XXLinker;
-import com.alex.yuza.misc.CollectionTools;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "VG2XX"
@@ -38,11 +36,11 @@ public class VG2XX extends ItemToInject
 	 * Constructor
 	 * @throws Exception 
 	 ***************/
-	public VG2XX(String name, Workbook myWorkbook,
+	public VG2XX(String name,
 			String description, String product,
 			String protocol, String callManagerGroupName, boolean t38Enable) throws Exception
 		{
-		super(itemType.vg, name, myWorkbook);
+		super(itemType.vg, name);
 		myVg = new VG2XXLinker(name);
 		this.description = description;
 		this.product = product;
@@ -64,16 +62,7 @@ public class VG2XX extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myVg.init());
 		}
 	
 	
@@ -103,7 +92,7 @@ public class VG2XX extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myVg.update();
+		myVg.update(tuList);
 		}
 	
 	/**
@@ -139,11 +128,11 @@ public class VG2XX extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(index, name, myWorkbook);
-		description = CollectionTools.getValueFromCollectionFile(description, myWorkbook);
-		//product = CollectionTools.getValueFromCollectionFile(product, myWorkbook);
-		protocol = CollectionTools.getValueFromCollectionFile(protocol, myWorkbook);
-		callManagerGroupName = CollectionTools.getValueFromCollectionFile(callManagerGroupName, myWorkbook);
+		name = CollectionTools.getRawValue(name, this, true);
+		description = CollectionTools.getRawValue(description, this, true);
+		//product = CollectionTools.getRawValue(product, this, true);
+		protocol = CollectionTools.getRawValue(protocol, this, true);
+		callManagerGroupName = CollectionTools.getRawValue(callManagerGroupName, this, true);
 		
 		/**
 		 * We set the item parameters
@@ -156,6 +145,15 @@ public class VG2XX extends ItemToInject
 		myVg.setT38Enable(t38Enable);
 		myVg.setSize(size);
 		/*********/
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(description))tuList.add(VG2XXLinker.toUpdate.description);
+		if(UsefulMethod.isNotEmpty(callManagerGroupName))tuList.add(VG2XXLinker.toUpdate.callManagerGroupName);
 		}
 
 	/******

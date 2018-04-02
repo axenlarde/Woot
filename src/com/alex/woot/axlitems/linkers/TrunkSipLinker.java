@@ -6,13 +6,14 @@ import java.math.BigInteger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.misc.SipTrunkDestination;
-import com.alex.yuza.site.TrunkSip;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.soap.items.SipTrunkDestination;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
+
 
 
 /**********************************
@@ -51,6 +52,33 @@ public class TrunkSipLinker extends AXLItemLinker
 	
 	private ArrayList<SipTrunkDestination> myDestinations;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		description,
+		product,//"SIP Trunk"
+		xClass,//Trunk
+		protocol,//SIP
+		protocolSide,//User
+		callingSearchSpaceName,
+		devicePoolName,
+		commonDeviceConfigName,
+		locationName,
+		securityProfileName,
+		sipProfileName,
+		callingPTransformationCssName,
+		useDevicePoolCallingPTransformCss,
+		calledPTransformationCssName,
+		useDevicePoolCalledPTransformCss,
+		subscribeCallingSearchSpaceName,
+		sipTrunkType,//None(Default)
+		rerouteCallingSearchSpaceName,
+		unknownPrefix,
+		unknownStripDigits,
+		cgpnTransformationUnknownCssName,
+		useDevicePoolCgpnTransformCssUnkn,
+		myDestinations
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -63,14 +91,20 @@ public class TrunkSipLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -90,7 +124,7 @@ public class TrunkSipLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeSipTrunk(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeSipTrunk(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -198,7 +232,7 @@ public class TrunkSipLinker extends AXLItemLinker
 		/************/
 		
 		req.setSipTrunk(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addSipTrunk(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addSipTrunk(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -207,7 +241,7 @@ public class TrunkSipLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateSipTrunkReq req = new com.cisco.axl.api._10.UpdateSipTrunkReq();
 		
@@ -221,7 +255,7 @@ public class TrunkSipLinker extends AXLItemLinker
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateSipTrunk(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateSipTrunkReq req = new com.cisco.axl.api._8.UpdateSipTrunkReq();
 		
@@ -232,7 +266,7 @@ public class TrunkSipLinker extends AXLItemLinker
 		//Has to be written
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateSipTrunk(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateSipTrunk(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -270,7 +304,7 @@ public class TrunkSipLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetSipTrunkRes resp = Variables.getAXLConnectionToCUCM().getSipTrunk(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetSipTrunkRes resp = Variables.getAXLConnectionToCUCM85().getSipTrunk(req);//We send the request to the CUCM
 		
 		TrunkSip myT = new TrunkSip(this.getName());
 		myT.setUUID(resp.getReturn().getSipTrunk().getUuid());

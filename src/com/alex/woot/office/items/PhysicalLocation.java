@@ -1,13 +1,12 @@
 package com.alex.woot.office.items;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
-
-import com.alex.yuza.axlitems.PhysicalLocationLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.axlitems.linkers.PhysicalLocationLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
 /**********************************
  * Class used to define an item of type "Physical Location"
@@ -27,18 +26,11 @@ public class PhysicalLocation extends ItemToInject
 	 * Constructor
 	 * @throws Exception 
 	 ***************/
-	public PhysicalLocation(String name, String description, Workbook myWorkbook) throws Exception
+	public PhysicalLocation(String name, String description) throws Exception
 		{
-		super(itemType.physicallocation, name, myWorkbook);
+		super(itemType.physicallocation, name);
 		myPhysicalLocation = new PhysicalLocationLinker(name);
 		this.description = description;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myPhysicalLocation.setName(this.getName());
-		myPhysicalLocation.setDescription(this.description);
-		/*********/
 		}
 	
 	public PhysicalLocation(String name) throws Exception
@@ -53,16 +45,7 @@ public class PhysicalLocation extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myPhysicalLocation.init());
 		}
 	
 	
@@ -92,7 +75,7 @@ public class PhysicalLocation extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myPhysicalLocation.update();
+		myPhysicalLocation.update(tuList);
 		}
 	
 	/**
@@ -116,18 +99,26 @@ public class PhysicalLocation extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		//Has to be written
-		return "";
-		}
 	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		description = CollectionTools.getRawValue(description, this, false);
+		
+		/**
+		 * We set the item parameters
+		 */
+		myPhysicalLocation.setName(this.getName());
+		myPhysicalLocation.setDescription(this.description);
+		/*********/
+		}
+	
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(description))tuList.add(PhysicalLocationLinker.toUpdate.description);
 		}
 
 	public String getDescription()

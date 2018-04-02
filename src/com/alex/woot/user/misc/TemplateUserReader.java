@@ -125,7 +125,7 @@ public class TemplateUserReader
 					UsefulMethod.getItemByName("securityprofile", itemDetails),
 					UsefulMethod.getItemByName("devicemobilitymode", itemDetails));
 			}
-		if(type.equals(itemType.analog))
+		else if(type.equals(itemType.analog))
 			{
 			//Lines
 			ArrayList<PhoneLine> lineList = readLines(itemDetails);			

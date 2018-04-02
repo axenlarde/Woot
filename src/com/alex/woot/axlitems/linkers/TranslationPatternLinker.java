@@ -1,5 +1,6 @@
 package com.alex.woot.axlitems.linkers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -8,13 +9,14 @@ import javax.xml.namespace.QName;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.TranslationPattern;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.cisco.axl.api._8.XFkType;
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
+
+
 
 
 /**********************************
@@ -39,6 +41,20 @@ public class TranslationPatternLinker extends AXLItemLinker
 	callingPartyTransformationMask,
 	digitDiscardInstructionName;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		usage,
+		provideOutsideDialtone,
+		description,
+		routePartitionName,
+		callingSearchSpaceName,
+		patternUrgency,
+		useCallingPartyPhoneMask,
+		calledPartyTransformationMask,
+		callingPartyTransformationMask,
+		digitDiscardInstructionName
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -52,14 +68,20 @@ public class TranslationPatternLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -83,7 +105,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 		deleteReq.setPattern(this.getName());//We add the parameters to the request
 		deleteReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(itemType.partition, this.routePartitionName)));
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeTransPattern(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeTransPattern(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -148,14 +170,14 @@ public class TranslationPatternLinker extends AXLItemLinker
 		String digitDiscardInstructionUUID = getDigitDiscardUUID(this.digitDiscardInstructionName);
 		if(digitDiscardInstructionUUID != null)
 			{
-			com.cisco.axl.api._8.XFkType xfkDigit = new XFkType();
+			com.cisco.axl.api._8.XFkType xfkDigit = new com.cisco.axl.api._8.XFkType();
 			xfkDigit.setUuid(digitDiscardInstructionUUID);
 			params.setDigitDiscardInstructionName(new JAXBElement(new QName("digitDiscardInstructionName"), com.cisco.axl.api._8.XFkType.class, xfkDigit));
 			}
 		/************/
 		
 		req.setTransPattern(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addTransPattern(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addTransPattern(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -164,7 +186,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateTransPatternReq req = new com.cisco.axl.api._10.UpdateTransPatternReq();
 		
@@ -179,7 +201,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateTransPattern(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateTransPatternReq req = new com.cisco.axl.api._8.UpdateTransPatternReq();
 		
@@ -191,7 +213,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 		//Has to be written
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateTransPattern(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateTransPattern(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -229,7 +251,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(itemType.partition, this.routePartitionName)));
 		/************/
 		
-		com.cisco.axl.api._8.GetTransPatternRes resp = Variables.getAXLConnectionToCUCM().getTransPattern(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetTransPatternRes resp = Variables.getAXLConnectionToCUCM85().getTransPattern(req);//We send the request to the CUCM
 		
 		TranslationPattern myTP = new TranslationPattern(this.getName(), this.getRoutePartitionName());
 		myTP.setUUID(resp.getReturn().getTransPattern().getUuid());

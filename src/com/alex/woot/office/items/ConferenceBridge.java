@@ -1,16 +1,13 @@
 package com.alex.woot.office.items;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.ConferenceBridgeLinker;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.ConferenceBridgeLinker;
-import com.alex.yuza.axlitems.DevicePoolLinker;
-import com.alex.yuza.axlitems.LocationLinker;
-import com.alex.yuza.misc.CollectionTools;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "Conference Bridge"
@@ -35,24 +32,14 @@ public class ConferenceBridge extends ItemToInject
 	 * @throws Exception 
 	 ***************/
 	public ConferenceBridge(String name, String description,
-			String devicepool, String location, String commondeviceconfiguration, Workbook myWorkbook) throws Exception
+			String devicepool, String location, String commondeviceconfiguration) throws Exception
 		{
-		super(itemType.conferencebridge, name, myWorkbook);
+		super(itemType.conferencebridge, name);
 		myConferenceBridge = new ConferenceBridgeLinker(name);
 		this.description = description;
 		this.devicepool = devicepool;
 		this.location = location;
 		this.commondeviceconfiguration = commondeviceconfiguration;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myConferenceBridge.setName(this.getName());
-		myConferenceBridge.setDescription(description);
-		myConferenceBridge.setDevicepool(devicepool);
-		myConferenceBridge.setLocation(location);
-		myConferenceBridge.setCommondeviceconfiguration(commondeviceconfiguration);
-		/*********/
 		}
 
 	public ConferenceBridge(String name) throws Exception
@@ -67,16 +54,7 @@ public class ConferenceBridge extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myConferenceBridge.init());
 		}
 	
 	
@@ -106,7 +84,7 @@ public class ConferenceBridge extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myConferenceBridge.update();
+		myConferenceBridge.update(tuList);
 		}
 	
 	/**
@@ -131,20 +109,39 @@ public class ConferenceBridge extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		return name+" "
-		+UUID;
-		}
-	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		description = CollectionTools.getRawValue(description, this, true);
+		devicepool = CollectionTools.getRawValue(devicepool, this, true);
+		location = CollectionTools.getRawValue(location, this, true);
+		commondeviceconfiguration = CollectionTools.getRawValue(commondeviceconfiguration, this, true);
+		
+		/**
+		 * We set the item parameters
+		 */
+		myConferenceBridge.setName(this.getName());
+		myConferenceBridge.setDescription(description);
+		myConferenceBridge.setDevicepool(devicepool);
+		myConferenceBridge.setLocation(location);
+		myConferenceBridge.setCommondeviceconfiguration(commondeviceconfiguration);
+		/*********/
 		}
 
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(description))tuList.add(ConferenceBridgeLinker.toUpdate.description);
+		if(UsefulMethod.isNotEmpty(devicepool))tuList.add(ConferenceBridgeLinker.toUpdate.devicepool);
+		if(UsefulMethod.isNotEmpty(location))tuList.add(ConferenceBridgeLinker.toUpdate.location);
+		if(UsefulMethod.isNotEmpty(commondeviceconfiguration))tuList.add(ConferenceBridgeLinker.toUpdate.commondeviceconfiguration);
+		}
+	
 	public String getDescription()
 		{
 		return description;

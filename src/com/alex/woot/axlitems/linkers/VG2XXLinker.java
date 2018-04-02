@@ -1,5 +1,7 @@
 package com.alex.woot.axlitems.linkers;
 
+import java.util.ArrayList;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
@@ -8,12 +10,13 @@ import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.VG2XX;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.utils.Variables;
+
 
 
 /**********************************
@@ -35,6 +38,12 @@ public class VG2XXLinker extends AXLItemLinker
 	private int size;
 	private boolean t38Enable;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		description,
+		callManagerGroupName
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -47,14 +56,20 @@ public class VG2XXLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -74,7 +89,7 @@ public class VG2XXLinker extends AXLItemLinker
 		com.cisco.axl.api._8.RemoveGatewayReq deleteReq = new com.cisco.axl.api._8.RemoveGatewayReq();
 		
 		deleteReq.setDomainName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeGateway(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeGateway(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -186,7 +201,7 @@ public class VG2XXLinker extends AXLItemLinker
 		/************/
 		
 		req.setGateway(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addGateway(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addGateway(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -195,7 +210,7 @@ public class VG2XXLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateGatewayReq req = new com.cisco.axl.api._10.UpdateGatewayReq();
 		
@@ -209,7 +224,7 @@ public class VG2XXLinker extends AXLItemLinker
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateGateway(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateGatewayReq req = new com.cisco.axl.api._8.UpdateGatewayReq();
 		
@@ -220,7 +235,7 @@ public class VG2XXLinker extends AXLItemLinker
 		//Has to be written
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateGateway(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateGateway(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -258,7 +273,7 @@ public class VG2XXLinker extends AXLItemLinker
 		req.setDomainName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetGatewayRes resp = Variables.getAXLConnectionToCUCM().getGateway(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetGatewayRes resp = Variables.getAXLConnectionToCUCM85().getGateway(req);//We send the request to the CUCM
 		
 		VG2XX myVg = new VG2XX(this.getName());
 		myVg.setUUID(resp.getReturn().getGateway().getUuid());

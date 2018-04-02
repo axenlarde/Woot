@@ -22,7 +22,9 @@ import com.alex.woot.user.misc.UserTreatmentDeletionPanel;
 import com.alex.woot.utils.Position;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.itemType;
+import com.alex.woot.utils.Variables.provisioningType;
 
 
 public class MainWindow extends JFrame implements ActionListener, WindowListener
@@ -40,7 +42,10 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 	public JMenuItem injectUser;
 	public JMenuItem updateUser;
 	public JMenuItem deleteUser;
-	public JMenuItem cucmInjection;
+	public JMenu officeProvisioning;
+	public JMenuItem injectOffice;
+	public JMenuItem updateOffice;
+	public JMenuItem deleteOffice;
 	public JMenuItem exit;
 	public JMenu tools;
 	public JMenuItem option;
@@ -66,7 +71,10 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		injectUser = new JMenuItem(LanguageManagement.getString("injectuser"));
 		updateUser = new JMenuItem(LanguageManagement.getString("updateuser"));
 		deleteUser = new JMenuItem(LanguageManagement.getString("deleteuser"));
-		cucmInjection = new JMenuItem(LanguageManagement.getString("cucminjection"));
+		officeProvisioning = new JMenu(LanguageManagement.getString("officeinjection"));
+		injectOffice = new JMenuItem(LanguageManagement.getString("injectoffice"));
+		updateOffice = new JMenuItem(LanguageManagement.getString("updateoffice"));
+		deleteOffice = new JMenuItem(LanguageManagement.getString("deleteoffice"));
 		exit = new JMenuItem(LanguageManagement.getString("exit"));
 		tools = new JMenu(LanguageManagement.getString("tools"));
 		option = new JMenuItem(LanguageManagement.getString("option"));
@@ -109,7 +117,10 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		userProvisioning.add(updateUser);
 		userProvisioning.add(deleteUser);
 		menu.add(userProvisioning);
-		menu.add(cucmInjection);
+		officeProvisioning.add(injectOffice);
+		officeProvisioning.add(updateOffice);
+		officeProvisioning.add(deleteOffice);
+		menu.add(officeProvisioning);
 		menu.add(exit);
 		tools.add(option);
 		tools.add(genCollectionFile);
@@ -131,7 +142,9 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		injectUser.addActionListener(this);
 		updateUser.addActionListener(this);
 		deleteUser.addActionListener(this);
-		cucmInjection.addActionListener(this);
+		injectOffice.addActionListener(this);
+		updateOffice.addActionListener(this);
+		deleteOffice.addActionListener(this);
 		exit.addActionListener(this);
 		option.addActionListener(this);
 		genCollectionFile.addActionListener(this);
@@ -167,11 +180,28 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			myOptionList.add(new OptionLine(itemType.analog));
 			
 			this.getContentPane().removeAll();
-			this.getContentPane().add(new UserTreatmentCreationPanel(this, LanguageManagement.getString("injectiontitle"), myOptionList));
+			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("userinjectiontitle"), myOptionList, actionType.inject, provisioningType.user));
 			this.repaint();
 			this.validate();
 			}
-		if(evt.getSource() == this.deleteUser)
+		else if(evt.getSource() == this.updateUser)
+			{
+			Variables.getLogger().info("User update button pressed");
+			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
+			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
+			myOptionList.add(new OptionLine(itemType.phone));
+			myOptionList.add(new OptionLine(itemType.udp));
+			myOptionList.add(new OptionLine(itemType.user));
+			myOptionList.add(new OptionLine(itemType.callpickupgroup));
+			myOptionList.add(new OptionLine(itemType.linegroup));
+			myOptionList.add(new OptionLine(itemType.analog));
+			
+			this.getContentPane().removeAll();
+			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("userupdatetitle"), myOptionList, actionType.update, provisioningType.user));
+			this.repaint();
+			this.validate();
+			}
+		else if(evt.getSource() == this.deleteUser)
 			{
 			Variables.getLogger().info("User deletion button pressed");
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
@@ -179,21 +209,65 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			myOptionList.add(new OptionLine(itemType.phone));
 			myOptionList.add(new OptionLine(itemType.udp));
 			myOptionList.add(new OptionLine(itemType.user));
-			myOptionList.add(new OptionLine(itemType.udplogin));
 			myOptionList.add(new OptionLine(itemType.callpickupgroup));
 			myOptionList.add(new OptionLine(itemType.linegroup));
 			myOptionList.add(new OptionLine(itemType.analog));
 			
 			this.getContentPane().removeAll();
-			this.getContentPane().add(new UserTreatmentDeletionPanel(this, LanguageManagement.getString("deletiontitle"), myOptionList));
+			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("userdeletiontitle"), myOptionList, actionType.delete, provisioningType.user));
 			this.repaint();
 			this.validate();
 			}
-		if(evt.getSource() == this.exit)
+		else if(evt.getSource() == this.injectOffice)
+			{
+			Variables.getLogger().info("Office injection button pressed");
+			
+			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
+			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
+			myOptionList.add(new OptionLine(itemType.location));
+			myOptionList.add(new OptionLine(itemType.region));
+			//To be completed
+			
+			this.getContentPane().removeAll();
+			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("officeinjectiontitle"), myOptionList, actionType.inject, provisioningType.office));
+			this.repaint();
+			this.validate();
+			}
+		else if(evt.getSource() == this.updateOffice)
+			{
+			Variables.getLogger().info("Office update button pressed");
+			
+			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
+			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
+			myOptionList.add(new OptionLine(itemType.location));
+			myOptionList.add(new OptionLine(itemType.region));
+			//To be completed
+			
+			this.getContentPane().removeAll();
+			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("officeupdatetitle"), myOptionList, actionType.update, provisioningType.office));
+			this.repaint();
+			this.validate();
+			}
+		else if(evt.getSource() == this.deleteOffice)
+			{
+			Variables.getLogger().info("Office deletion button pressed");
+			
+			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
+			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
+			myOptionList.add(new OptionLine(itemType.location));
+			myOptionList.add(new OptionLine(itemType.region));
+			//To be completed
+			
+			this.getContentPane().removeAll();
+			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("officedeletiontiontitle"), myOptionList, actionType.delete, provisioningType.office));
+			this.repaint();
+			this.validate();
+			}
+		else if(evt.getSource() == this.exit)
 			{
 			this.dispose();
 			}
-		if(evt.getSource() == this.about)
+		else if(evt.getSource() == this.about)
 			{
 			Variables.getLogger().info("About button pressed");
 			new WindowApropos(LanguageManagement.getString("about")+Variables.getSoftwareName(),

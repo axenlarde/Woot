@@ -2,14 +2,13 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.MobilityInfoLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.MobilityInfoLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "Mobility Info"
@@ -34,22 +33,13 @@ public class MobilityInfo extends ItemToInject
 	 * @throws Exception 
 	 ***************/
 	public MobilityInfo(String name, String subnet,
-			String subnetMask, ArrayList<String> members, Workbook myWorkbook) throws Exception
+			String subnetMask, ArrayList<String> members) throws Exception
 		{
-		super(itemType.devicemobilityinfo, name, myWorkbook);
+		super(itemType.devicemobilityinfo, name);
 		myMobilityInfo = new MobilityInfoLinker(name);
 		this.subnet = subnet;
 		this.subnetMask = subnetMask;
 		this.members = members;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myMobilityInfo.setName(this.getName());
-		myMobilityInfo.setSubnet(this.subnet);
-		myMobilityInfo.setSubnetMask(this.subnetMask);
-		myMobilityInfo.setMembers(this.members);
-		/*********/
 		}
 	
 	public MobilityInfo(String name) throws Exception
@@ -64,16 +54,7 @@ public class MobilityInfo extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myMobilityInfo.init());
 		}
 	
 	
@@ -103,7 +84,7 @@ public class MobilityInfo extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myMobilityInfo.update();
+		myMobilityInfo.update(tuList);
 		}
 	
 	/**
@@ -128,20 +109,33 @@ public class MobilityInfo extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		//Has to be written
-		return "";
-		}
-	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		subnet = CollectionTools.getRawValue(subnet, this, true);
+		subnetMask = CollectionTools.getRawValue(subnetMask, this, true);
+		members = CollectionTools.resolveStringList(members, this, true);
+		
+		/**
+		 * We set the item parameters
+		 */
+		myMobilityInfo.setName(this.getName());
+		myMobilityInfo.setSubnet(this.subnet);
+		myMobilityInfo.setSubnetMask(this.subnetMask);
+		myMobilityInfo.setMembers(this.members);
+		/*********/
 		}
 
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(subnet))tuList.add(MobilityInfoLinker.toUpdate.subnet);
+		if(UsefulMethod.isNotEmpty(subnetMask))tuList.add(MobilityInfoLinker.toUpdate.subnetMask);
+		if(UsefulMethod.isNotEmpty(members))tuList.add(MobilityInfoLinker.toUpdate.members);
+		}
+	
 	public String getSubnet()
 		{
 		return subnet;

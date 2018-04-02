@@ -1,12 +1,14 @@
 package com.alex.woot.axlitems.linkers;
 
 import java.util.ArrayList;
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.MediaRessourceGroup;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
+
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
+
 
 
 /**********************************
@@ -20,10 +22,15 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 	/**
 	 * Variables
 	 */
-	private String description;
-	private boolean multicast;
+	private String description, multicast;
 	private ArrayList<String> members;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		description,
+		multicast,
+		members
+		}
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -36,14 +43,20 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -63,7 +76,7 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeMediaResourceGroup(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeMediaResourceGroup(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -80,7 +93,7 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 		 */
 		params.setName(this.getName());//Name
 		params.setDescription(description);
-		params.setMulticast((multicast)?"true":"false");
+		params.setMulticast(multicast);
 		
 		com.cisco.axl.api._10.XMediaResourceGroup.Members myMembers = new com.cisco.axl.api._10.XMediaResourceGroup.Members();
 		
@@ -111,7 +124,7 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 		 */
 		params.setName(this.getName());//Name
 		params.setDescription(description);
-		params.setMulticast((multicast)?"true":"false");
+		params.setMulticast(multicast);
 		
 		com.cisco.axl.api._8.XMediaResourceGroup.Members myMembers = new com.cisco.axl.api._8.XMediaResourceGroup.Members();
 		
@@ -127,7 +140,7 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 		/************/
 		
 		req.setMediaResourceGroup(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addMediaResourceGroup(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addMediaResourceGroup(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -136,13 +149,13 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		//Has to be written
 		Variables.getLogger().info("This method has to be written");
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		//Has to be written
 		Variables.getLogger().info("This method has to be written");
@@ -183,7 +196,7 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetMediaResourceGroupRes resp = Variables.getAXLConnectionToCUCM().getMediaResourceGroup(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetMediaResourceGroupRes resp = Variables.getAXLConnectionToCUCM85().getMediaResourceGroup(req);//We send the request to the CUCM
 		
 		MediaRessourceGroup myM = new MediaRessourceGroup(this.getName());
 		myM.setUUID(resp.getReturn().getMediaResourceGroup().getUuid());
@@ -204,16 +217,6 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 		this.description = description;
 		}
 
-	public boolean isMulticast()
-		{
-		return multicast;
-		}
-
-	public void setMulticast(boolean multicast)
-		{
-		this.multicast = multicast;
-		}
-
 	public ArrayList<String> getMembers()
 		{
 		return members;
@@ -222,6 +225,16 @@ public class MediaRessourceGroupLinker extends AXLItemLinker
 	public void setMembers(ArrayList<String> members)
 		{
 		this.members = members;
+		}
+
+	public String getMulticast()
+		{
+		return multicast;
+		}
+
+	public void setMulticast(String multicast)
+		{
+		this.multicast = multicast;
 		}
 
 	

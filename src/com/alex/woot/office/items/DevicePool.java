@@ -1,15 +1,13 @@
 package com.alex.woot.office.items;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import java.util.ArrayList;
 
 import com.alex.woot.axlitems.linkers.DevicePoolLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
-import com.alex.woot.utils.Variables.statusType;
-
 
 /**********************************
  * Class used to define an item of type "Device Pool"
@@ -30,12 +28,11 @@ public class DevicePool extends ItemToInject
 	dateTimeSettingName,
 	srstreference,
 	mediaressourcegrouplist,
-	localroutegroup,
 	physicallocation,
 	devicemobilitygroup,
 	devicemobilitycss;
 
-	
+	private ArrayList<String> localroutegroup;
 	
 	/***************
 	 * Constructor
@@ -45,7 +42,7 @@ public class DevicePool extends ItemToInject
 			String callManagerGroupName,
 			String regionName, String locationName, String networkLocale,
 			String dateTimeSettingName, String srstreference,
-			String mediaressourcegrouplist, String localroutegroup,
+			String mediaressourcegrouplist, ArrayList<String> localroutegroup,
 			String physicallocation, String devicemobilitygroup,
 			String devicemobilitycss) throws Exception
 		{
@@ -76,7 +73,6 @@ public class DevicePool extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We now gather the needed UUID
 		this.errorList = myDevicePool.init();
 		}
 	
@@ -107,7 +103,7 @@ public class DevicePool extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myDevicePool.update();
+		myDevicePool.update(tuList);
 		}
 	
 	/**
@@ -164,31 +160,19 @@ public class DevicePool extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		this.name = CollectionTools.getValueFromCollectionFile(0, this.name, this, true);
+		name = CollectionTools.getRawValue(name, this, true);
+		callManagerGroupName = CollectionTools.getRawValue(callManagerGroupName, this, true);
+		regionName = CollectionTools.getRawValue(regionName, this, true);
+		locationName = CollectionTools.getRawValue(locationName, this, true);
+		networkLocale = CollectionTools.getRawValue(networkLocale, this, false);
+		dateTimeSettingName = CollectionTools.getRawValue(dateTimeSettingName, this, true);
+		srstreference = CollectionTools.getRawValue(srstreference, this, false);
+		mediaressourcegrouplist = CollectionTools.getRawValue(mediaressourcegrouplist, this, false);
+		physicallocation = CollectionTools.getRawValue(physicallocation, this, false);
+		devicemobilitygroup = CollectionTools.getRawValue(devicemobilitygroup, this, false);
+		devicemobilitycss = CollectionTools.getRawValue(devicemobilitycss, this, false);
 		
-		/**
-		 * Here we check if the CallManagerGroup has to be treated a special way
-		 */
-		if(callManagerGroupName.equals("site.cmg"))
-			{
-			this.callManagerGroupName = CollectionTools.getCurrentSite(myWorkbook).getCmg();
-			}
-		else
-			{
-			//Normal CMG
-			this.callManagerGroupName = CollectionTools.getValueFromCollectionFile(callManagerGroupName, myWorkbook);
-			}
-		
-		this.regionName = CollectionTools.getValueFromCollectionFile(this.regionName, myWorkbook);
-		this.locationName = CollectionTools.getValueFromCollectionFile(locationName, myWorkbook);
-		this.networkLocale = CollectionTools.getValueFromCollectionFile(networkLocale, myWorkbook);
-		this.dateTimeSettingName = CollectionTools.getValueFromCollectionFile(dateTimeSettingName, myWorkbook);
-		this.srstreference = CollectionTools.getValueFromCollectionFile(srstreference, myWorkbook);
-		this.mediaressourcegrouplist = CollectionTools.getValueFromCollectionFile(mediaressourcegrouplist, myWorkbook);
-		this.localroutegroup = CollectionTools.getValueFromCollectionFile(localroutegroup, myWorkbook);
-		this.physicallocation = CollectionTools.getValueFromCollectionFile(physicallocation, myWorkbook);
-		this.devicemobilitygroup = CollectionTools.getValueFromCollectionFile(devicemobilitygroup, myWorkbook);
-		this.devicemobilitycss = CollectionTools.getValueFromCollectionFile(devicemobilitycss, myWorkbook);
+		localroutegroup = CollectionTools.resolveStringList(localroutegroup, this, false);
 		
 		/**
 		 * We set the item parameters
@@ -206,6 +190,24 @@ public class DevicePool extends ItemToInject
 		myDevicePool.setRegionName(this.regionName);
 		myDevicePool.setSrstreference(this.srstreference);
 		/*********/
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(callManagerGroupName))tuList.add(DevicePoolLinker.toUpdate.callManagerGroupName);
+		if(UsefulMethod.isNotEmpty(regionName))tuList.add(DevicePoolLinker.toUpdate.regionName);
+		if(UsefulMethod.isNotEmpty(locationName))tuList.add(DevicePoolLinker.toUpdate.locationName);
+		if(UsefulMethod.isNotEmpty(networkLocale))tuList.add(DevicePoolLinker.toUpdate.networkLocale);
+		if(UsefulMethod.isNotEmpty(dateTimeSettingName))tuList.add(DevicePoolLinker.toUpdate.dateTimeSettingName);
+		if(UsefulMethod.isNotEmpty(srstreference))tuList.add(DevicePoolLinker.toUpdate.srstreference);
+		if(UsefulMethod.isNotEmpty(mediaressourcegrouplist))tuList.add(DevicePoolLinker.toUpdate.mediaressourcegrouplist);
+		if(UsefulMethod.isNotEmpty(physicallocation))tuList.add(DevicePoolLinker.toUpdate.physicallocation);
+		if(UsefulMethod.isNotEmpty(devicemobilitygroup))tuList.add(DevicePoolLinker.toUpdate.devicemobilitygroup);
+		if(UsefulMethod.isNotEmpty(devicemobilitycss))tuList.add(DevicePoolLinker.toUpdate.devicemobilitycss);
+		if(UsefulMethod.isNotEmpty(localroutegroup))tuList.add(DevicePoolLinker.toUpdate.localroutegroup);
 		}
 
 	public DevicePoolLinker getMyDevicePool()
@@ -288,12 +290,12 @@ public class DevicePool extends ItemToInject
 		this.mediaressourcegrouplist = mediaressourcegrouplist;
 		}
 
-	public String getLocalroutegroup()
+	public ArrayList<String> getLocalroutegroup()
 		{
 		return localroutegroup;
 		}
 
-	public void setLocalroutegroup(String localroutegroup)
+	public void setLocalroutegroup(ArrayList<String> localroutegroup)
 		{
 		this.localroutegroup = localroutegroup;
 		}

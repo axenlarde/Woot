@@ -2,16 +2,16 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.axlitems.linkers.TrunkSipLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.soap.items.SipTrunkDestination;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.TrunkSipLinker;
-import com.alex.yuza.misc.CollectionTools;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.SipTrunkDestination;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
+
 
 /**********************************
  * Class used to define an item of type "Device Pool"
@@ -55,7 +55,7 @@ public class TrunkSip extends ItemToInject
 	 * Constructor
 	 * @throws Exception 
 	 ***************/
-	public TrunkSip(String name, Workbook myWorkbook,
+	public TrunkSip(String name,
 			String description,
 			String callingSearchSpaceName,
 			String devicePoolName, String commonDeviceConfigName,
@@ -70,7 +70,7 @@ public class TrunkSip extends ItemToInject
 			String useDevicePoolCgpnTransformCssUnkn,
 			ArrayList<SipTrunkDestination> myDestinations) throws Exception
 		{
-		super(itemType.trunksip, name, myWorkbook);
+		super(itemType.trunksip, name);
 		myTrunkSip = new TrunkSipLinker(name);
 		this.description = description;
 		this.product = "SIP Trunk";
@@ -109,16 +109,7 @@ public class TrunkSip extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myTrunkSip.init());
 		}
 	
 	
@@ -148,7 +139,7 @@ public class TrunkSip extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myTrunkSip.update();
+		myTrunkSip.update(tuList);
 		}
 	
 	/**
@@ -206,28 +197,28 @@ public class TrunkSip extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		name = CollectionTools.getValueFromCollectionFile(name, myWorkbook);
-		description = CollectionTools.getValueFromCollectionFile(description, myWorkbook);
-		callingSearchSpaceName = CollectionTools.getValueFromCollectionFile(callingSearchSpaceName, myWorkbook);
-		devicePoolName = CollectionTools.getValueFromCollectionFile(devicePoolName, myWorkbook);
-		commonDeviceConfigName = CollectionTools.getValueFromCollectionFile(commonDeviceConfigName, myWorkbook);
-		locationName = CollectionTools.getValueFromCollectionFile(locationName, myWorkbook);
-		securityProfileName = CollectionTools.getValueFromCollectionFile(securityProfileName, myWorkbook);
-		sipProfileName = CollectionTools.getValueFromCollectionFile(sipProfileName, myWorkbook);
-		callingPTransformationCssName = CollectionTools.getValueFromCollectionFile(callingPTransformationCssName, myWorkbook);
-		useDevicePoolCallingPTransformCss = CollectionTools.getValueFromCollectionFile(useDevicePoolCallingPTransformCss, myWorkbook);
-		calledPTransformationCssName = CollectionTools.getValueFromCollectionFile(calledPTransformationCssName, myWorkbook);
-		useDevicePoolCalledPTransformCss = CollectionTools.getValueFromCollectionFile(useDevicePoolCalledPTransformCss, myWorkbook);
-		subscribeCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(subscribeCallingSearchSpaceName, myWorkbook);
-		rerouteCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(rerouteCallingSearchSpaceName, myWorkbook);
-		unknownPrefix = CollectionTools.getValueFromCollectionFile(unknownPrefix, myWorkbook);
-		unknownStripDigits = CollectionTools.getValueFromCollectionFile(unknownStripDigits, myWorkbook);
-		cgpnTransformationUnknownCssName = CollectionTools.getValueFromCollectionFile(cgpnTransformationUnknownCssName, myWorkbook);
-		useDevicePoolCgpnTransformCssUnkn = CollectionTools.getValueFromCollectionFile(useDevicePoolCgpnTransformCssUnkn, myWorkbook);
+		name = CollectionTools.getRawValue(name, this, true);
+		description = CollectionTools.getRawValue(description, this, true);
+		callingSearchSpaceName = CollectionTools.getRawValue(callingSearchSpaceName, this, true);
+		devicePoolName = CollectionTools.getRawValue(devicePoolName, this, true);
+		commonDeviceConfigName = CollectionTools.getRawValue(commonDeviceConfigName, this, true);
+		locationName = CollectionTools.getRawValue(locationName, this, true);
+		securityProfileName = CollectionTools.getRawValue(securityProfileName, this, true);
+		sipProfileName = CollectionTools.getRawValue(sipProfileName, this, true);
+		callingPTransformationCssName = CollectionTools.getRawValue(callingPTransformationCssName, this, true);
+		useDevicePoolCallingPTransformCss = CollectionTools.getRawValue(useDevicePoolCallingPTransformCss, this, true);
+		calledPTransformationCssName = CollectionTools.getRawValue(calledPTransformationCssName, this, true);
+		useDevicePoolCalledPTransformCss = CollectionTools.getRawValue(useDevicePoolCalledPTransformCss, this, true);
+		subscribeCallingSearchSpaceName = CollectionTools.getRawValue(subscribeCallingSearchSpaceName, this, true);
+		rerouteCallingSearchSpaceName = CollectionTools.getRawValue(rerouteCallingSearchSpaceName, this, true);
+		unknownPrefix = CollectionTools.getRawValue(unknownPrefix, this, true);
+		unknownStripDigits = CollectionTools.getRawValue(unknownStripDigits, this, true);
+		cgpnTransformationUnknownCssName = CollectionTools.getRawValue(cgpnTransformationUnknownCssName, this, true);
+		useDevicePoolCgpnTransformCssUnkn = CollectionTools.getRawValue(useDevicePoolCgpnTransformCssUnkn, this, true);
 		
 		for(SipTrunkDestination d : myDestinations)
 			{
-			d.setAddressIpv4(CollectionTools.getValueFromCollectionFile(d.getAddressIpv4(), myWorkbook).trim());
+			d.resolve();
 			}
 		
 		/**
@@ -237,7 +228,7 @@ public class TrunkSip extends ItemToInject
 		myTrunkSip.setDescription(description);
 		myTrunkSip.setCalledPTransformationCssName(calledPTransformationCssName);
 		myTrunkSip.setCallingPTransformationCssName(callingPTransformationCssName);
-		myTrunkSip.setCallingSearchSpaceName(subscribeCallingSearchSpaceName);
+		myTrunkSip.setCallingSearchSpaceName(callingSearchSpaceName);
 		myTrunkSip.setCommonDeviceConfigName(commonDeviceConfigName);
 		myTrunkSip.setDevicePoolName(devicePoolName);
 		myTrunkSip.setLocationName(locationName);
@@ -258,6 +249,38 @@ public class TrunkSip extends ItemToInject
 		myTrunkSip.setUseDevicePoolCgpnTransformCssUnkn(useDevicePoolCgpnTransformCssUnkn);
 		myTrunkSip.setCgpnTransformationUnknownCssName(cgpnTransformationUnknownCssName);
 		/*********/
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(description))tuList.add(TrunkSipLinker.toUpdate.description);
+		if(UsefulMethod.isNotEmpty(calledPTransformationCssName))tuList.add(TrunkSipLinker.toUpdate.calledPTransformationCssName);
+		if(UsefulMethod.isNotEmpty(callingPTransformationCssName))tuList.add(TrunkSipLinker.toUpdate.callingPTransformationCssName);
+		if(UsefulMethod.isNotEmpty(callingSearchSpaceName))tuList.add(TrunkSipLinker.toUpdate.callingSearchSpaceName);
+		if(UsefulMethod.isNotEmpty(commonDeviceConfigName))tuList.add(TrunkSipLinker.toUpdate.commonDeviceConfigName);
+		if(UsefulMethod.isNotEmpty(devicePoolName))tuList.add(TrunkSipLinker.toUpdate.devicePoolName);
+		if(UsefulMethod.isNotEmpty(locationName))tuList.add(TrunkSipLinker.toUpdate.locationName);
+		if(UsefulMethod.isNotEmpty(securityProfileName))tuList.add(TrunkSipLinker.toUpdate.securityProfileName);
+		if(UsefulMethod.isNotEmpty(sipProfileName))tuList.add(TrunkSipLinker.toUpdate.sipProfileName);
+		if(UsefulMethod.isNotEmpty(subscribeCallingSearchSpaceName))tuList.add(TrunkSipLinker.toUpdate.subscribeCallingSearchSpaceName);
+		if(UsefulMethod.isNotEmpty(useDevicePoolCalledPTransformCss))tuList.add(TrunkSipLinker.toUpdate.useDevicePoolCallingPTransformCss);
+		if(UsefulMethod.isNotEmpty(rerouteCallingSearchSpaceName))tuList.add(TrunkSipLinker.toUpdate.rerouteCallingSearchSpaceName);
+		if(UsefulMethod.isNotEmpty(unknownPrefix))tuList.add(TrunkSipLinker.toUpdate.unknownPrefix);
+		if(UsefulMethod.isNotEmpty(unknownStripDigits))tuList.add(TrunkSipLinker.toUpdate.unknownStripDigits);
+		if(UsefulMethod.isNotEmpty(useDevicePoolCgpnTransformCssUnkn))tuList.add(TrunkSipLinker.toUpdate.useDevicePoolCgpnTransformCssUnkn);
+		if(UsefulMethod.isNotEmpty(cgpnTransformationUnknownCssName))tuList.add(TrunkSipLinker.toUpdate.cgpnTransformationUnknownCssName);
+		
+		if((myDestinations == null) || (myDestinations.size() == 0))
+			{
+			//Nothing to do
+			}
+		else
+			{
+			tuList.add(TrunkSipLinker.toUpdate.myDestinations);
+			}
 		}
 	
 	public String getDescription()

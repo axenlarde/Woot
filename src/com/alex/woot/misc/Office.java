@@ -15,6 +15,7 @@ public class Office
 	 * Variables
 	 */
 	private String name,
+	templatename,
 	fullname,
 	audiobandwidth,
 	videobandwidth,
@@ -40,7 +41,7 @@ public class Office
 	/***************
 	 * Constructor
 	 ***************/
-	public Office(String name, String fullname, String audiobandwidth,
+	public Office(String name, String templatename, String fullname, String audiobandwidth,
 			String videobandwidth, String softkeytemplate,
 			String callmanagergroup, String datetimegroup, String mohnumber,
 			String internalprefix, String e164, String receptionnumber,
@@ -50,6 +51,7 @@ public class Office
 		{
 		super();
 		this.name = name;
+		this.templatename = templatename;
 		this.fullname = fullname;
 		this.audiobandwidth = audiobandwidth;
 		this.videobandwidth = videobandwidth;
@@ -239,11 +241,19 @@ public class Office
 		{
 		this.voicemailprofile = voicemailprofile;
 		}
+	public String getTemplatename()
+		{
+		return templatename;
+		}
+	public void setTemplatename(String templatename)
+		{
+		this.templatename = templatename;
+		}
 	
 	
 	
 	
 	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

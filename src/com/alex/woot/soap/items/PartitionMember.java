@@ -29,7 +29,7 @@ public class PartitionMember extends BasicItem
 	@Override
 	public void resolve() throws Exception
 		{
-		this.name = CollectionTools.getValueFromCollectionFile(0, this.name, this, true);
+		this.name = CollectionTools.getRawValue(this.name, this, true);
 		}
 
 	public String getName()

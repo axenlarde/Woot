@@ -1,24 +1,19 @@
 package com.alex.woot.office.items;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.LocationLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.LocationLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "Location"
  * 
  * @author RATEL Alexandre
  **********************************/
-/**********************************
-* 
-* 
-* @author RATEL Alexandre
-**********************************/
+
 public class Location extends ItemToInject
 	{
 	/**
@@ -31,20 +26,12 @@ public class Location extends ItemToInject
 	 * Constructor
 	 * @throws Exception 
 	 ***************/
-	public Location(String name, String audiobandwidth, String videobandwidth, Workbook myWorkbook) throws Exception
+	public Location(String name, String audiobandwidth, String videobandwidth) throws Exception
 		{
-		super(itemType.location, name, myWorkbook);
+		super(itemType.location, name);
 		myLocation = new LocationLinker(name);
 		this.audiobandwidth = audiobandwidth;
 		this.videobandwidth = videobandwidth;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myLocation.setName(this.getName());
-		myLocation.setKbits(this.audiobandwidth);
-		myLocation.setVideoKbits(this.videobandwidth);
-		/*********/
 		}
 	
 	public Location(String name) throws Exception
@@ -59,16 +46,7 @@ public class Location extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myLocation.init());
 		}
 	
 	
@@ -93,12 +71,12 @@ public class Location extends ItemToInject
 		}
 
 	/**
-	 * Method used to delete data in the CUCM using
+	 * Method used to update data in the CUCM using
 	 * the Cisco API
 	 */
 	public void doUpdate() throws Exception
 		{
-		myLocation.update();
+		myLocation.update(tuList);
 		}
 	
 	/**
@@ -125,8 +103,9 @@ public class Location extends ItemToInject
 	
 	public String getInfo()
 		{
-		//Has to be written
-		return "";
+		//Has to be improved
+		return name+" "
+		+UUID;
 		}
 	
 	/**
@@ -134,7 +113,25 @@ public class Location extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		audiobandwidth = CollectionTools.getRawValue(audiobandwidth, this, true);
+		videobandwidth = CollectionTools.getRawValue(videobandwidth, this, true);
+		
+		/**
+		 * We set the item parameters
+		 */
+		myLocation.setName(name);
+		myLocation.setKbits(audiobandwidth);
+		myLocation.setVideoKbits(videobandwidth);
+		}
+	
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(audiobandwidth))tuList.add(LocationLinker.toUpdate.Kbits);
+		if(UsefulMethod.isNotEmpty(videobandwidth))tuList.add(LocationLinker.toUpdate.VideoKbits);
 		}
 
 	public String getAudiobandwidth()
@@ -155,16 +152,9 @@ public class Location extends ItemToInject
 	public void setVideobandwidth(String videobandwidth)
 		{
 		this.videobandwidth = videobandwidth;
-		}
-
-	
-
-	
-
+		}	
 	
 	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

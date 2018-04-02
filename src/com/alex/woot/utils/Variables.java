@@ -18,6 +18,8 @@ import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.ValueMatcher;
 import com.alex.woot.misc.storedUUID;
+import com.alex.woot.office.misc.OfficeTemplate;
+import com.alex.woot.office.misc.TemplateOfficeReader;
 import com.alex.woot.user.misc.TemplateUserReader;
 import com.alex.woot.user.misc.UserCreationProfile;
 import com.alex.woot.utils.UsefulMethod;
@@ -139,6 +141,16 @@ public class Variables
 		};
 	
 	/********************************************
+	 * actionType :
+	 * Is used to set the type of action is going to do a 
+	 ***************************************/
+	public enum provisioningType
+		{
+		user,
+		office
+		};
+	
+	/********************************************
 	 * SDType :
 	 * Is used to set the type of the Speed dial :
 	 * - simple SD
@@ -220,7 +232,6 @@ public class Variables
 	private static cucmAXLVersion CUCMVersion;
 	private static Logger logger;
 	private static Workbook myWorkbook;
-	//private static ArrayList<String> userlocal;
 	private static ArrayList<String> country;
 	private static ArrayList<String[][]> tabConfig;
 	private static ArrayList<String[][]> userConfig;
@@ -257,8 +268,8 @@ public class Variables
 	private static JFrame myWindow;
 	
 	//Templates
-	private static ArrayList<ItemToInject> userTemplateList;
-	private static ArrayList<ItemToInject> CCMTemplateList;
+	private static ArrayList<ItemToInject> userTemplateList;//User
+	private static ArrayList<OfficeTemplate> officeTemplateList;//List
 	
 	//Langage management
 	public enum language{english,french};
@@ -669,14 +680,20 @@ public class Variables
 		Variables.customerConfigFileName = customerConfigFileName;
 		}
 
-	public static ArrayList<ItemToInject> getCCMTemplateList()
+	public static ArrayList<OfficeTemplate> getOfficeTemplateList() throws Exception
 		{
-		return CCMTemplateList;
+		if(officeTemplateList == null)
+			{
+			Variables.getLogger().debug("Initialisation of officeTemplateList");
+			Variables.setOfficeTemplateList(TemplateOfficeReader.readOfficeTemplate());
+			}
+		
+		return officeTemplateList;
 		}
 
-	public static void setCCMTemplateList(ArrayList<ItemToInject> cCMTemplateList)
+	public static void setOfficeTemplateList(ArrayList<OfficeTemplate> officeTemplateList)
 		{
-		CCMTemplateList = cCMTemplateList;
+		Variables.officeTemplateList = officeTemplateList;
 		}
 
 	public static String getSubstitutesFileName()

@@ -1,13 +1,14 @@
 package com.alex.woot.axlitems.linkers;
 
 import java.util.ArrayList;
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.PartitionMember;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.CallingSearchSpace;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
+
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.soap.items.PartitionMember;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
+
 
 
 /**********************************
@@ -24,6 +25,11 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 	private String description;
 	private ArrayList<PartitionMember> members;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		members
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -36,14 +42,20 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -63,7 +75,7 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeCss(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeCss(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -127,7 +139,7 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 		/************/
 		
 		req.setCss(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addCss(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addCss(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -136,12 +148,12 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		//Has to be written
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		//Has to be written
 		}
@@ -181,7 +193,7 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetCssRes resp = Variables.getAXLConnectionToCUCM().getCss(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetCssRes resp = Variables.getAXLConnectionToCUCM85().getCss(req);//We send the request to the CUCM
 		
 		CallingSearchSpace myS = new CallingSearchSpace(this.getName());
 		myS.setUUID(resp.getReturn().getCss().getUuid());

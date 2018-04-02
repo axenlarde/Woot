@@ -9,19 +9,11 @@ import javax.xml.namespace.QName;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.RelatedRegionDetail;
-import com.alex.yuza.misc.SimpleRequest;
-import com.alex.yuza.site.Region;
-import com.alex.yuza.utils.UsefulMethod;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.cisco.axl.api._8.RRegion;
-import com.cisco.axl.api._8.XRegion;
-import com.cisco.axl.api._8.XRegionRelationship;
-import com.cisco.axl.api._8.RRegion.RelatedRegions;
-
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.soap.items.RelatedRegionDetail;
+import com.alex.woot.utils.Variables;
 
 /**********************************
  * Is the AXLItem design to link the item "Device Pool"
@@ -37,6 +29,12 @@ public class RegionLinker extends AXLItemLinker
 	private String defaultCodec;
 	private ArrayList<RelatedRegionDetail> g711RegionList;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		defaultCodec,
+		g711RegionList
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -49,14 +47,20 @@ public class RegionLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -76,7 +80,7 @@ public class RegionLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeRegion(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeRegion(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -145,7 +149,7 @@ public class RegionLinker extends AXLItemLinker
 		/************/
 		
 		req.setRegion(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addRegion(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addRegion(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -154,7 +158,7 @@ public class RegionLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		/*
 		com.cisco.axl.api._10.UpdateRegionReq req = new com.cisco.axl.api._10.UpdateRegionReq();
@@ -207,7 +211,7 @@ public class RegionLinker extends AXLItemLinker
 			}
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		/*
 		com.cisco.axl.api._8.UpdateRegionReq req = new com.cisco.axl.api._8.UpdateRegionReq();
@@ -294,7 +298,7 @@ public class RegionLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetRegionRes resp = Variables.getAXLConnectionToCUCM().getRegion(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetRegionRes resp = Variables.getAXLConnectionToCUCM85().getRegion(req);//We send the request to the CUCM
 		
 		Region myR = new Region(this.getName());
 		myR.setUUID(resp.getReturn().getRegion().getUuid());

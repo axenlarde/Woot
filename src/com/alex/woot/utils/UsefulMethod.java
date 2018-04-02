@@ -393,6 +393,7 @@ public class UsefulMethod
 				
 				myOfficeList.add(new Office(
 						UsefulMethod.getItemByName("name", tab),
+						UsefulMethod.getItemByName("templatename", tab),
 						UsefulMethod.getItemByName("fullname", tab),
 						UsefulMethod.getItemByName("audiobandwidth", tab),
 						UsefulMethod.getItemByName("videobandwidth", tab),
@@ -986,6 +987,21 @@ public class UsefulMethod
 	public static boolean isNotEmpty(String s)
 		{
 		if((s == null) || (s.equals("")))
+			{
+			return false;
+			}
+		else
+			{
+			return true;
+			}
+		}
+	
+	/**
+	 * Methos used to check if a value is null or empty
+	 */
+	public static boolean isNotEmpty(ArrayList<String> as)
+		{
+		if((as == null) || (as.size() == 0))
 			{
 			return false;
 			}

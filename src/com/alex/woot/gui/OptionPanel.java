@@ -1,4 +1,4 @@
-package com.alex.woot.user.misc;
+package com.alex.woot.gui;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -7,14 +7,19 @@ import javax.swing.JFrame;
 
 import com.alex.woot.gui.BaseLaunchPanel;
 import com.alex.woot.gui.OptionLine;
+import com.alex.woot.office.misc.OfficeCreation;
+import com.alex.woot.user.misc.UserCreation;
+import com.alex.woot.user.misc.UserDeletion;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.actionType;
+import com.alex.woot.utils.Variables.provisioningType;
 
 /**********************************
  * Used to treat a user process
  * 
  * @author RATEL Alexandre
  **********************************/
-public class UserTreatmentCreationPanel extends BaseLaunchPanel
+public class OptionPanel extends BaseLaunchPanel
 	{
 	/**
 	 * Variables
@@ -24,11 +29,10 @@ public class UserTreatmentCreationPanel extends BaseLaunchPanel
 	/***************
 	 * Constructor
 	 ***************/
-	public UserTreatmentCreationPanel(JFrame mainFrame, String panelTitle,
-			ArrayList<OptionLine> myOptionList)
+	public OptionPanel(JFrame mainFrame, String panelTitle,
+			ArrayList<OptionLine> myOptionList, actionType action, provisioningType pType)
 		{
-		super(mainFrame, panelTitle, myOptionList);
-		
+		super(mainFrame, panelTitle, myOptionList, action, pType);
 		}
 	
 	
@@ -48,7 +52,30 @@ public class UserTreatmentCreationPanel extends BaseLaunchPanel
 			
 			this.disableButton();
 			
-			new UserCreation();
+			switch(action)
+				{
+				case inject:
+					switch(pType)
+						{
+						case user:new UserCreation();break;
+						case office:new OfficeCreation();break;
+						}
+					break;
+				case update:
+					switch(pType)
+						{
+						case user://new UserCreation();break;
+						case office://new OfficeCreation();break;
+						}
+					break;
+				case delete:
+					switch(pType)
+						{
+						case user:new UserDeletion();break;
+						case office://new OfficeDeletion();break;
+						}
+					break;
+				}
 			}
 		else if(evt.getSource() == this.cancel)
 			{

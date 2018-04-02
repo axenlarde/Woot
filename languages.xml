@@ -29,7 +29,10 @@ Language configuration file
 			<injectuser>Inject</injectuser>
 			<updateuser>Update</updateuser>
 			<deleteuser>Delete</deleteuser>
-			<cucminjection>CUCM provisioning</cucminjection>
+			<officeinjection>Office provisioning</officeinjection>
+			<injectoffice>Inject</injectoffice>
+			<updateoffice>Update</updateoffice>
+			<deleteoffice>Delete</deleteoffice>
 			<exit>Exit</exit>
 			<tools>Tools</tools>
 			<option>Options</option>
@@ -41,8 +44,12 @@ Language configuration file
 			<softwareversion>Version : </softwareversion>
 			<author>Author : </author>
 			<contact>Email : </contact>
-			<injectiontitle>User Injection</injectiontitle>
-			<deletiontitle>User Deletion</deletiontitle>
+			<userinjectiontitle>User injection</userinjectiontitle>
+			<userupdatetitle>User update</userupdatetitle>
+			<userdeletiontitle>User deletion</userdeletiontitle>
+			<officeinjectiontitle>Office injection</officeinjectiontitle>
+			<officeupdatetitle>Office update</officeupdatetitle>
+			<officedeletiontitle>Office deletion</officedeletiontitle>
 			<start>Start</start>
 			<stop>Stop</stop>
 			<pause>Pause</pause>
@@ -67,6 +74,7 @@ Language configuration file
 			<noerror>No error to report</noerror>
 			<!--Errors-->
 			<usercreationerror>The following error occurs, we will now exit</usercreationerror>
+			<officecreationerror>The following error occurs, we will now exit</officecreationerror>
 			<!--Correction window-->
 			<correctionlist>Correction list</correctionlist>
 			<correctionwarning>Some correction needed to be done</correctionwarning>

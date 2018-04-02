@@ -1,10 +1,11 @@
 package com.alex.woot.axlitems.linkers;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.site.PhysicalLocation;
-import com.alex.yuza.utils.Variables;
+import java.util.ArrayList;
 
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.utils.Variables;
 
 /**********************************
  * Is the AXLItem design to link the item "Physical Location"
@@ -19,6 +20,10 @@ public class PhysicalLocationLinker extends AXLItemLinker
 	 */
 	String description;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		description
+		}
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -31,14 +36,20 @@ public class PhysicalLocationLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -58,7 +69,7 @@ public class PhysicalLocationLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removePhysicalLocation(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removePhysicalLocation(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -96,7 +107,7 @@ public class PhysicalLocationLinker extends AXLItemLinker
 		/************/
 		
 		req.setPhysicalLocation(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addPhysicalLocation(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addPhysicalLocation(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -105,7 +116,7 @@ public class PhysicalLocationLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdatePhysicalLocationReq req = new com.cisco.axl.api._10.UpdatePhysicalLocationReq();
 		
@@ -119,7 +130,7 @@ public class PhysicalLocationLinker extends AXLItemLinker
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updatePhysicalLocation(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdatePhysicalLocationReq req = new com.cisco.axl.api._8.UpdatePhysicalLocationReq();
 		
@@ -130,7 +141,7 @@ public class PhysicalLocationLinker extends AXLItemLinker
 		req.setDescription(this.description);
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updatePhysicalLocation(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updatePhysicalLocation(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -167,7 +178,7 @@ public class PhysicalLocationLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetPhysicalLocationRes resp = Variables.getAXLConnectionToCUCM().getPhysicalLocation(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetPhysicalLocationRes resp = Variables.getAXLConnectionToCUCM85().getPhysicalLocation(req);//We send the request to the CUCM
 		
 		PhysicalLocation myP = new PhysicalLocation(this.getName());
 		myP.setUUID(resp.getReturn().getPhysicalLocation().getUuid());

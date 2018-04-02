@@ -2,14 +2,14 @@ package com.alex.woot.office.items;
 
 import java.util.ArrayList;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.axlitems.linkers.MediaRessourceGroupLinker;
+import com.alex.woot.axlitems.linkers.PhoneLinker;
+import com.alex.woot.misc.CollectionTools;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
-import com.alex.yuza.axlitems.MediaRessourceGroupLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.utils.Variables;
-import com.alex.yuza.utils.Variables.itemType;
-import com.alex.yuza.utils.Variables.statusType;
 
 /**********************************
  * Class used to define an item of type "Media Ressource Group"
@@ -23,8 +23,8 @@ public class MediaRessourceGroup extends ItemToInject
 	 * Variables
 	 */
 	private MediaRessourceGroupLinker myMRG;
-	private String description;
-	private boolean multicast;
+	private String description, multicast;
+	
 	private ArrayList<String> members;
 	
 
@@ -33,27 +33,18 @@ public class MediaRessourceGroup extends ItemToInject
 	 * @throws Exception 
 	 ***************/
 	public MediaRessourceGroup(String name, String description,
-			boolean multicast, ArrayList<String> members, Workbook myWorkbook) throws Exception
+			String multicast, ArrayList<String> members) throws Exception
 		{
-		super(itemType.mediaressourcegroup, name, myWorkbook);
+		super(itemType.mediaresourcegroup, name);
 		myMRG = new MediaRessourceGroupLinker(name);
 		this.description = description;
 		this.multicast = multicast;
 		this.members = members;
-		
-		/**
-		 * We set the item parameters
-		 */
-		myMRG.setName(this.getName());
-		myMRG.setDescription(description);
-		myMRG.setMulticast(multicast);
-		myMRG.setMembers(members);
-		/*********/
 		}
 
 	public MediaRessourceGroup(String name) throws Exception
 		{
-		super(itemType.mediaressourcegroup, name);
+		super(itemType.mediaresourcegroup, name);
 		myMRG = new MediaRessourceGroupLinker(name);
 		}
 
@@ -63,16 +54,7 @@ public class MediaRessourceGroup extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		//We check that the item doesn't already exist
-		if(isExisting())
-			{
-			this.status = statusType.injected;
-			}
-		else
-			{
-			//The item doesn't already exist we have to inject it
-			this.status = statusType.waiting;
-			}
+		this.errorList.addAll(myMRG.init());
 		}
 	
 	
@@ -102,7 +84,7 @@ public class MediaRessourceGroup extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myMRG.update();
+		myMRG.update(tuList);
 		}
 	
 	/**
@@ -126,20 +108,35 @@ public class MediaRessourceGroup extends ItemToInject
 		return false;
 		}
 	
-	public String getInfo()
-		{
-		return name+" "
-		+UUID;
-		}
-	
 	/**
 	 * Method used to resolve pattern into real value
 	 */
 	public void resolve() throws Exception
 		{
-		//Has to be written for further uses
+		name = CollectionTools.getRawValue(name, this, true);
+		description = CollectionTools.getRawValue(description, this, true);
+		members = CollectionTools.resolveStringList(members, this, true);
+		
+		/**
+		 * We set the item parameters
+		 */
+		myMRG.setName(this.getName());
+		myMRG.setDescription(description);
+		myMRG.setMulticast(multicast);
+		myMRG.setMembers(members);
+		/*********/
 		}
 
+	/**
+	 * Manage the content of the "To Update List"
+	 */
+	public void manageTuList() throws Exception
+		{
+		if(UsefulMethod.isNotEmpty(description))tuList.add(MediaRessourceGroupLinker.toUpdate.description);
+		if(UsefulMethod.isNotEmpty(multicast))tuList.add(MediaRessourceGroupLinker.toUpdate.multicast);
+		if(UsefulMethod.isNotEmpty(members))tuList.add(MediaRessourceGroupLinker.toUpdate.members);
+		}
+	
 	public String getDescription()
 		{
 		return description;
@@ -148,16 +145,6 @@ public class MediaRessourceGroup extends ItemToInject
 	public void setDescription(String description)
 		{
 		this.description = description;
-		}
-
-	public boolean isMulticast()
-		{
-		return multicast;
-		}
-
-	public void setMulticast(boolean multicast)
-		{
-		this.multicast = multicast;
 		}
 
 	public ArrayList<String> getMembers()
@@ -170,10 +157,30 @@ public class MediaRessourceGroup extends ItemToInject
 		this.members = members;
 		}
 
+	public MediaRessourceGroupLinker getMyMRG()
+		{
+		return myMRG;
+		}
+
+	public void setMyMRG(MediaRessourceGroupLinker myMRG)
+		{
+		this.myMRG = myMRG;
+		}
+
+	public String getMulticast()
+		{
+		return multicast;
+		}
+
+	public void setMulticast(String multicast)
+		{
+		this.multicast = multicast;
+		}
+
 	
 	
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

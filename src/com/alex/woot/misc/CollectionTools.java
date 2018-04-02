@@ -1,6 +1,7 @@
 package com.alex.woot.misc;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -779,6 +780,30 @@ public class CollectionTools
 		return result;
 		}
 	
+	/********
+	 * Method used to get a direct value
+	 * We can here choose what behavior we want regarding an empty value :
+	 * - True : We will get EmptyValueException if empty
+	 * - False : We will just get an empty String
+	 * @throws Exception 
+	 */
+	public static String getRawValue(String pattern, Object obj, Boolean emptyBehavior) throws Exception
+		{
+		if((pattern == null) || (pattern .equals("")))
+			{
+			Variables.getLogger().debug("The pattern is either null or empty, so we return an empty value");
+			return "";
+			}
+		
+		Variables.getLogger().debug("Value before : "+pattern);
+		String result = doRegex(pattern, 0, obj, emptyBehavior);
+		
+		result = result.trim();//Just to remove unwanted spaces
+		
+		Variables.getLogger().debug("Value after : "+result);
+		return result;
+		}
+	
 	/**
 	 * Method used to get the last "non empty" value in
 	 * a given column
@@ -845,39 +870,6 @@ public class CollectionTools
 		Variables.getLgNumberList().remove(0);
 		Variables.getLogger().debug("Returned LG available number : "+availableNumber);
 		return availableNumber;
-		}
-	
-	/**
-	 * Method used to write a simple string in the
-	 * collection file without caring about the font
-	 * @throws Exception 
-	 */
-	public synchronized static void writeStringInTheCollectionFile(String fileName, String stringValue, int sheet, int column, int row, Workbook wW)
-		{
-		try
-			{
-			//Workbook wW = WorkbookFactory.create(new FileInputStream(fileName));
-			Sheet s = wW.getSheetAt(sheet);
-			Cell c = s.getRow(row).getCell(column);
-			
-			if(c == null)
-				{
-				c = s.getRow(row).createCell(column);
-				c.setCellType(Cell.CELL_TYPE_STRING);
-				}
-			
-			c.setCellValue(stringValue);
-			
-			FileOutputStream output = new FileOutputStream(fileName);
-			wW.write(output);
-			output.close();
-			wW.close();
-			}
-		catch (Exception e)
-			{
-			e.printStackTrace();
-			Variables.getLogger().error("Error while writing in the excel file", e);
-			}
 		}
 	
 	/**
@@ -990,7 +982,22 @@ public class CollectionTools
 		throw new Exception("No pattern found, so no row number could be retrieve");
 		}
 	
+	/**
+	 * Used to resolve all the items of a string list
+	 * @param list
+	 * @return
+	 * @throws Exception 
+	 */
+	public static ArrayList<String> resolveStringList(ArrayList<String> list, Object o, boolean emptyValueBehavior) throws Exception
+		{
+		for(int i= 0; i<list.size(); i++)
+			{
+			list.set(i,CollectionTools.getRawValue(list.get(i), o, emptyValueBehavior));
+			}
+		
+		return list;
+		}
 	
-	/*2017*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

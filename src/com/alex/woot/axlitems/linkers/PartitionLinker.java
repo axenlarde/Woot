@@ -1,9 +1,12 @@
 package com.alex.woot.axlitems.linkers;
 
-import com.alex.yuza.axlitems.misc.AXLItemLinker;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.site.Partition;
-import com.alex.yuza.utils.Variables;
+import java.util.ArrayList;
+
+import com.alex.woot.axlitems.misc.AXLItemLinker;
+import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.utils.Variables;
+
 
 
 /**********************************
@@ -19,6 +22,11 @@ public class PartitionLinker extends AXLItemLinker
 	 */
 	private String description;
 	
+	public enum toUpdate implements ToUpdate
+		{
+		description
+		}
+	
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -31,14 +39,20 @@ public class PartitionLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public void doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	
-	public void doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
 		{
-		//If needed
+		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
+		//To be written
+		
+		return errorList;
 		}
 	/**************/
 	
@@ -58,7 +72,7 @@ public class PartitionLinker extends AXLItemLinker
 		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
 		
 		deleteReq.setName(this.getName());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().removeRoutePartition(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeRoutePartition(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
@@ -96,7 +110,7 @@ public class PartitionLinker extends AXLItemLinker
 		/************/
 		
 		req.setRoutePartition(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().addRoutePartition(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addRoutePartition(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -105,7 +119,7 @@ public class PartitionLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105() throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateRoutePartitionReq req = new com.cisco.axl.api._10.UpdateRoutePartitionReq();
 		
@@ -119,7 +133,7 @@ public class PartitionLinker extends AXLItemLinker
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateRoutePartition(req);//We send the request to the CUCM
 		}
 
-	public void doUpdateVersion85() throws Exception
+	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
 		com.cisco.axl.api._8.UpdateRoutePartitionReq req = new com.cisco.axl.api._8.UpdateRoutePartitionReq();
 		
@@ -130,7 +144,7 @@ public class PartitionLinker extends AXLItemLinker
 		//Has to be written
 		/************/
 		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM().updateRoutePartition(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateRoutePartition(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -167,7 +181,7 @@ public class PartitionLinker extends AXLItemLinker
 		req.setName(this.getName());
 		/************/
 		
-		com.cisco.axl.api._8.GetRoutePartitionRes resp = Variables.getAXLConnectionToCUCM().getRoutePartition(req);//We send the request to the CUCM
+		com.cisco.axl.api._8.GetRoutePartitionRes resp = Variables.getAXLConnectionToCUCM85().getRoutePartition(req);//We send the request to the CUCM
 		
 		Partition myP = new Partition(this.getName());
 		myP.setUUID(resp.getReturn().getRoutePartition().getUuid());
