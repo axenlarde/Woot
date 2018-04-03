@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.alex.woot.axlitems.linkers.DevicePoolLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.soap.items.LocalRouteGroup;
 import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
@@ -30,21 +31,28 @@ public class DevicePool extends ItemToInject
 	mediaressourcegrouplist,
 	physicallocation,
 	devicemobilitygroup,
-	devicemobilitycss;
+	devicemobilitycss,
+	cgpnTransformationCssName,
+	cdpnTransformationCssName,
+	callingPartyNationalTransformationCssName,
+	callingPartyInternationalTransformationCssName,
+	callingPartyUnknownTransformationCssName,
+	callingPartySubscriberTransformationCssName,
+	cntdPnTransformationCssName,
+	redirectingPartyTransformationCSS,
+	callingPartyTransformationCSS;
 
-	private ArrayList<String> localroutegroup;
+	private ArrayList<LocalRouteGroup> localRouteGroupList;
 	
-	/***************
-	 * Constructor
-	 * @throws Exception 
-	 ***************/
-	public DevicePool(String name,
-			String callManagerGroupName,
-			String regionName, String locationName, String networkLocale,
-			String dateTimeSettingName, String srstreference,
-			String mediaressourcegrouplist, ArrayList<String> localroutegroup,
-			String physicallocation, String devicemobilitygroup,
-			String devicemobilitycss) throws Exception
+	
+	public DevicePool(String name, String callManagerGroupName, String regionName, String locationName,
+			String networkLocale, String dateTimeSettingName, String srstreference, String mediaressourcegrouplist,
+			String physicallocation, String devicemobilitygroup, String devicemobilitycss,
+			String cgpnTransformationCssName, String cdpnTransformationCssName,
+			String callingPartyNationalTransformationCssName, String callingPartyInternationalTransformationCssName,
+			String callingPartyUnknownTransformationCssName, String callingPartySubscriberTransformationCssName,
+			String cntdPnTransformationCssName, String redirectingPartyTransformationCSS,
+			String callingPartyTransformationCSS, ArrayList<LocalRouteGroup> localRouteGroupList) throws Exception
 		{
 		super(itemType.devicepool, name);
 		myDevicePool = new DevicePoolLinker(name);
@@ -55,10 +63,19 @@ public class DevicePool extends ItemToInject
 		this.dateTimeSettingName = dateTimeSettingName;
 		this.srstreference = srstreference;
 		this.mediaressourcegrouplist = mediaressourcegrouplist;
-		this.localroutegroup = localroutegroup;
 		this.physicallocation = physicallocation;
 		this.devicemobilitygroup = devicemobilitygroup;
 		this.devicemobilitycss = devicemobilitycss;
+		this.cgpnTransformationCssName = cgpnTransformationCssName;
+		this.cdpnTransformationCssName = cdpnTransformationCssName;
+		this.callingPartyNationalTransformationCssName = callingPartyNationalTransformationCssName;
+		this.callingPartyInternationalTransformationCssName = callingPartyInternationalTransformationCssName;
+		this.callingPartyUnknownTransformationCssName = callingPartyUnknownTransformationCssName;
+		this.callingPartySubscriberTransformationCssName = callingPartySubscriberTransformationCssName;
+		this.cntdPnTransformationCssName = cntdPnTransformationCssName;
+		this.redirectingPartyTransformationCSS = redirectingPartyTransformationCSS;
+		this.callingPartyTransformationCSS = callingPartyTransformationCSS;
+		this.localRouteGroupList = localRouteGroupList;
 		}
 
 	public DevicePool(String name) throws Exception
@@ -117,16 +134,7 @@ public class DevicePool extends ItemToInject
 			this.UUID = myDP.getUUID();
 			
 			/*
-			this.regionName = myDP.getRegionName();
-			this.locationName = myDP.getLocationName();
-			this.networkLocale = myDP.getNetworkLocale();
-			this.dateTimeSettingName = myDP.getDateTimeSettingName();
-			this.srstreference = myDP.getSrstreference();
-			this.mediaressourcegrouplist = myDP.getMediaressourcegrouplist();
-			this.localroutegroup = myDP.getLocalroutegroup();
-			this.physicallocation = myDP.getPhysicallocation();
-			this.devicemobilitygroup = myDP.getDevicemobilitygroup();
-			this.devicemobilitycss = myDP.getDevicemobilitycss();
+			to be written
 			*/
 			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
 			return true;
@@ -149,7 +157,7 @@ public class DevicePool extends ItemToInject
 		+dateTimeSettingName+" "
 		+srstreference+" "
 		+mediaressourcegrouplist+" "
-		+localroutegroup+" "
+		+localRouteGroupList+" "
 		+physicallocation+" "
 		+devicemobilitygroup+" "
 		+devicemobilitycss;
@@ -171,8 +179,21 @@ public class DevicePool extends ItemToInject
 		physicallocation = CollectionTools.getRawValue(physicallocation, this, false);
 		devicemobilitygroup = CollectionTools.getRawValue(devicemobilitygroup, this, false);
 		devicemobilitycss = CollectionTools.getRawValue(devicemobilitycss, this, false);
+		cgpnTransformationCssName = CollectionTools.getRawValue(cgpnTransformationCssName, this, false);
+		cdpnTransformationCssName = CollectionTools.getRawValue(cdpnTransformationCssName, this, false);
+		callingPartyNationalTransformationCssName = CollectionTools.getRawValue(callingPartyNationalTransformationCssName, this, false);
+		callingPartyInternationalTransformationCssName = CollectionTools.getRawValue(callingPartyInternationalTransformationCssName, this, false);
+		callingPartyUnknownTransformationCssName = CollectionTools.getRawValue(callingPartyUnknownTransformationCssName, this, false);
+		callingPartySubscriberTransformationCssName = CollectionTools.getRawValue(callingPartySubscriberTransformationCssName, this, false);
+		cntdPnTransformationCssName = CollectionTools.getRawValue(cntdPnTransformationCssName, this, false);
+		redirectingPartyTransformationCSS = CollectionTools.getRawValue(redirectingPartyTransformationCSS, this, false);
+		callingPartyTransformationCSS = CollectionTools.getRawValue(callingPartyTransformationCSS, this, false);
 		
-		localroutegroup = CollectionTools.resolveStringList(localroutegroup, this, false);
+		for(LocalRouteGroup lrg : localRouteGroupList)
+			{
+			lrg.resolve();
+			this.getErrorList().addAll(lrg.getErrorList());
+			}
 		
 		/**
 		 * We set the item parameters
@@ -182,7 +203,7 @@ public class DevicePool extends ItemToInject
 		myDevicePool.setDateTimeSettingName(this.dateTimeSettingName);
 		myDevicePool.setDevicemobilitycss(this.devicemobilitycss);
 		myDevicePool.setDevicemobilitygroup(this.devicemobilitygroup);
-		myDevicePool.setLocalroutegroup(this.localroutegroup);
+		myDevicePool.setLocalroutegroup(this.localRouteGroupList);
 		myDevicePool.setLocationName(this.locationName);
 		myDevicePool.setMediaressourcegrouplist(this.mediaressourcegrouplist);
 		myDevicePool.setNetworkLocale(this.networkLocale);
@@ -207,17 +228,14 @@ public class DevicePool extends ItemToInject
 		if(UsefulMethod.isNotEmpty(physicallocation))tuList.add(DevicePoolLinker.toUpdate.physicallocation);
 		if(UsefulMethod.isNotEmpty(devicemobilitygroup))tuList.add(DevicePoolLinker.toUpdate.devicemobilitygroup);
 		if(UsefulMethod.isNotEmpty(devicemobilitycss))tuList.add(DevicePoolLinker.toUpdate.devicemobilitycss);
-		if(UsefulMethod.isNotEmpty(localroutegroup))tuList.add(DevicePoolLinker.toUpdate.localroutegroup);
-		}
-
-	public DevicePoolLinker getMyDevicePool()
-		{
-		return myDevicePool;
-		}
-
-	public void setMyDevicePool(DevicePoolLinker myDevicePool)
-		{
-		this.myDevicePool = myDevicePool;
+		if((localRouteGroupList == null) || (localRouteGroupList.size() == 0))
+			{
+			//Nothing to do
+			}
+		else
+			{
+			tuList.add(DevicePoolLinker.toUpdate.localroutegroup);
+			}
 		}
 
 	public String getCallManagerGroupName()
@@ -290,16 +308,6 @@ public class DevicePool extends ItemToInject
 		this.mediaressourcegrouplist = mediaressourcegrouplist;
 		}
 
-	public ArrayList<String> getLocalroutegroup()
-		{
-		return localroutegroup;
-		}
-
-	public void setLocalroutegroup(ArrayList<String> localroutegroup)
-		{
-		this.localroutegroup = localroutegroup;
-		}
-
 	public String getPhysicallocation()
 		{
 		return physicallocation;
@@ -330,11 +338,107 @@ public class DevicePool extends ItemToInject
 		this.devicemobilitycss = devicemobilitycss;
 		}
 
+	public String getCgpnTransformationCssName()
+		{
+		return cgpnTransformationCssName;
+		}
+
+	public void setCgpnTransformationCssName(String cgpnTransformationCssName)
+		{
+		this.cgpnTransformationCssName = cgpnTransformationCssName;
+		}
+
+	public String getCdpnTransformationCssName()
+		{
+		return cdpnTransformationCssName;
+		}
+
+	public void setCdpnTransformationCssName(String cdpnTransformationCssName)
+		{
+		this.cdpnTransformationCssName = cdpnTransformationCssName;
+		}
+
+	public String getCallingPartyNationalTransformationCssName()
+		{
+		return callingPartyNationalTransformationCssName;
+		}
+
+	public void setCallingPartyNationalTransformationCssName(String callingPartyNationalTransformationCssName)
+		{
+		this.callingPartyNationalTransformationCssName = callingPartyNationalTransformationCssName;
+		}
+
+	public String getCallingPartyInternationalTransformationCssName()
+		{
+		return callingPartyInternationalTransformationCssName;
+		}
+
+	public void setCallingPartyInternationalTransformationCssName(String callingPartyInternationalTransformationCssName)
+		{
+		this.callingPartyInternationalTransformationCssName = callingPartyInternationalTransformationCssName;
+		}
+
+	public String getCallingPartyUnknownTransformationCssName()
+		{
+		return callingPartyUnknownTransformationCssName;
+		}
+
+	public void setCallingPartyUnknownTransformationCssName(String callingPartyUnknownTransformationCssName)
+		{
+		this.callingPartyUnknownTransformationCssName = callingPartyUnknownTransformationCssName;
+		}
+
+	public String getCallingPartySubscriberTransformationCssName()
+		{
+		return callingPartySubscriberTransformationCssName;
+		}
+
+	public void setCallingPartySubscriberTransformationCssName(String callingPartySubscriberTransformationCssName)
+		{
+		this.callingPartySubscriberTransformationCssName = callingPartySubscriberTransformationCssName;
+		}
+
+	public String getCntdPnTransformationCssName()
+		{
+		return cntdPnTransformationCssName;
+		}
+
+	public void setCntdPnTransformationCssName(String cntdPnTransformationCssName)
+		{
+		this.cntdPnTransformationCssName = cntdPnTransformationCssName;
+		}
+
+	public String getRedirectingPartyTransformationCSS()
+		{
+		return redirectingPartyTransformationCSS;
+		}
+
+	public void setRedirectingPartyTransformationCSS(String redirectingPartyTransformationCSS)
+		{
+		this.redirectingPartyTransformationCSS = redirectingPartyTransformationCSS;
+		}
+
+	public String getCallingPartyTransformationCSS()
+		{
+		return callingPartyTransformationCSS;
+		}
+
+	public void setCallingPartyTransformationCSS(String callingPartyTransformationCSS)
+		{
+		this.callingPartyTransformationCSS = callingPartyTransformationCSS;
+		}
+
+	public ArrayList<LocalRouteGroup> getLocalRouteGroupList()
+		{
+		return localRouteGroupList;
+		}
+
+	public void setLocalRouteGroupList(ArrayList<LocalRouteGroup> localRouteGroupList)
+		{
+		this.localRouteGroupList = localRouteGroupList;
+		}
 	
 	
-	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

@@ -3,6 +3,9 @@ package com.alex.woot.misc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.cucmAXLVersion;
 import com.alex.woot.utils.Variables.itemType;
@@ -176,12 +179,6 @@ public class SimpleRequest
 		else if(type.equals(itemType.trunksip))
 			{
 			com.cisco.axl.api._8.GetSipTrunkReq req = new com.cisco.axl.api._8.GetSipTrunkReq();
-			/**
-			 * Used to get a lighter answer. Indeed we are just interested by the UUID
-			 * 
-			 * setUuid can be set with whatever you want, it doesn't matter.
-			 * It just means that we just want the UUID in the answer
-			 */
 			com.cisco.axl.api._8.RSipTrunk returnedTags = new com.cisco.axl.api._8.RSipTrunk();
 			req.setName(itemName);
 			returnedTags.setUuid("");
@@ -462,12 +459,6 @@ public class SimpleRequest
 		else if(type.equals(itemType.trunksip))
 			{
 			com.cisco.axl.api._10.GetSipTrunkReq req = new com.cisco.axl.api._10.GetSipTrunkReq();
-			/**
-			 * Used to get a lighter answer. Indeed we are just interested by the UUID
-			 * 
-			 * setUuid can be set with whatever you want, it doesn't matter.
-			 * It just means that we just want the UUID in the answer
-			 */
 			com.cisco.axl.api._10.RSipTrunk returnedTags = new com.cisco.axl.api._10.RSipTrunk();
 			req.setName(itemName);
 			returnedTags.setUuid("");
@@ -843,8 +834,52 @@ public class SimpleRequest
 		com.cisco.axl.api._10.ExecuteSQLUpdateRes resp = Variables.getAXLConnectionToCUCMV105().executeSQLUpdate(req);//We send the request to the CUCM
 		}
 	
+	/***********
+	 * Method used to find the UUID of a
+	 * set DigitDiscard pattern
+	 * 
+	 * For instance : "PreDot"
+	 */
+	public static String getDigitDiscardUUID(String digitDiscardName)
+		{
+		if(!digitDiscardName.equals(""))
+			{
+			try
+				{
+				List<Object> SQLResp = SimpleRequest.doSQLQuery("select pkid from digitdiscardinstruction where name='"+digitDiscardName+"'");
+				
+				for(Object o : SQLResp)
+					{
+					Element rowElement = (Element) o;
+					NodeList list = rowElement.getChildNodes();
+					
+					for(int i = 0; i< list.getLength(); i++)
+						{
+						if(list.item(i).getNodeName().equals("pkid"))
+							{
+							Variables.getLogger().debug("Digitdiscardinstruction "+digitDiscardName+" UUID found : "+list.item(i).getTextContent());
+							return list.item(i).getTextContent();
+							}
+						}
+					
+					}
+				}
+			catch (Exception e)
+				{
+				e.printStackTrace();
+				Variables.getLogger().error("Digitdiscardinstruction \""+digitDiscardName+"\" has not been found. We return null instead : "+e.getMessage());
+				}
+			}
+		else
+			{
+			Variables.getLogger().debug("Digitdiscardinstruction was empty. We return null instead");
+			}
+		
+		
+		return null;
+		}
 	
 	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

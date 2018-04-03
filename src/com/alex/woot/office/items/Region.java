@@ -26,7 +26,7 @@ public class Region extends ItemToInject
 	private RegionLinker myRegion;
 	private String defaultCodec;
 	
-	private ArrayList<RelatedRegionDetail> g711RegionList;
+	private ArrayList<RelatedRegionDetail> relatedRegionList;
 	
 
 	/***************
@@ -34,12 +34,12 @@ public class Region extends ItemToInject
 	 * @throws Exception 
 	 ***************/
 	public Region( String name,
-			String defaultCodec, ArrayList<RelatedRegionDetail> g711RegionList) throws Exception
+			String defaultCodec, ArrayList<RelatedRegionDetail> relatedRegionList) throws Exception
 		{
 		super(itemType.region, name);
 		myRegion = new RegionLinker(name);
 		this.defaultCodec = defaultCodec;
-		this.g711RegionList = g711RegionList;
+		this.relatedRegionList = relatedRegionList;
 		}
 
 	public Region(String name) throws Exception
@@ -116,7 +116,7 @@ public class Region extends ItemToInject
 		name = CollectionTools.getRawValue(name, this, true);
 		defaultCodec = CollectionTools.getRawValue(defaultCodec, this, true);
 		
-		for(RelatedRegionDetail rrd : g711RegionList)
+		for(RelatedRegionDetail rrd : relatedRegionList)
 			{
 			rrd.resolve();
 			}
@@ -126,7 +126,7 @@ public class Region extends ItemToInject
 		 */
 		myRegion.setName(this.getName());
 		myRegion.setDefaultCodec(defaultCodec);
-		myRegion.setG711RegionList(g711RegionList);
+		myRegion.setG711RegionList(relatedRegionList);
 		/*********/
 		}
 	
@@ -136,7 +136,7 @@ public class Region extends ItemToInject
 	public void manageTuList() throws Exception
 		{
 		if(UsefulMethod.isNotEmpty(defaultCodec))tuList.add(RegionLinker.toUpdate.defaultCodec);
-		if((g711RegionList == null) || (g711RegionList.size() == 0))
+		if((relatedRegionList == null) || (relatedRegionList.size() == 0))
 			{
 			//Nothing to do
 			}
@@ -156,14 +156,14 @@ public class Region extends ItemToInject
 		this.defaultCodec = defaultCodec;
 		}
 
-	public ArrayList<RelatedRegionDetail> getG711RegionList()
+	public ArrayList<RelatedRegionDetail> getRelatedRegionList()
 		{
-		return g711RegionList;
+		return relatedRegionList;
 		}
 
-	public void setG711RegionList(ArrayList<RelatedRegionDetail> g711RegionList)
+	public void setRelatedRegionList(ArrayList<RelatedRegionDetail> relatedRegionList)
 		{
-		this.g711RegionList = g711RegionList;
+		this.relatedRegionList = relatedRegionList;
 		}
 
 	

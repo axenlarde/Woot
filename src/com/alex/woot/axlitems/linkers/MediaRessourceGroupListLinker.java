@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.office.items.MediaRessourceGroupList;
 import com.alex.woot.soap.items.MRGLMember;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
@@ -94,11 +96,11 @@ public class MediaRessourceGroupListLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._10.XMediaResourceList.Members myMembers = new com.cisco.axl.api._10.XMediaResourceList.Members();
 		
-		for(MRGLMember mrg : members)
+		for(int i=0; i<members.size(); i++)
 			{
 			com.cisco.axl.api._10.XMediaResourceListMember myMRLM = new com.cisco.axl.api._10.XMediaResourceListMember();
-			myMRLM.setMediaResourceGroupName(SimpleRequest.getUUIDV105(itemType.mediaresourcegroup, mrg.getName()));
-			myMRLM.setOrder(Integer.toString(mrg.getOrder()));
+			myMRLM.setMediaResourceGroupName(SimpleRequest.getUUIDV105(itemType.mediaresourcegroup, members.get(i).getName()));
+			myMRLM.setOrder(Integer.toString(i+1));
 			
 			myMembers.getMember().add(myMRLM);
 			}
@@ -124,11 +126,11 @@ public class MediaRessourceGroupListLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._8.XMediaResourceList.Members myMembers = new com.cisco.axl.api._8.XMediaResourceList.Members();
 		
-		for(MRGLMember mrg : members)
+		for(int i=0; i<members.size(); i++)
 			{
 			com.cisco.axl.api._8.XMediaResourceListMember myMRLM = new com.cisco.axl.api._8.XMediaResourceListMember();
-			myMRLM.setMediaResourceGroupName(SimpleRequest.getUUIDV85(itemType.mediaresourcegroup, mrg.getName()));
-			myMRLM.setOrder(Integer.toString(mrg.getOrder()));
+			myMRLM.setMediaResourceGroupName(SimpleRequest.getUUIDV85(itemType.mediaresourcegroup, members.get(i).getName()));
+			myMRLM.setOrder(Integer.toString(i+1));
 			
 			myMembers.getMember().add(myMRLM);
 			}

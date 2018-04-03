@@ -15,32 +15,35 @@ public class RelatedRegionDetail extends BasicItem
 	 */
 	String regionName,
 	videoBandwidth,
-	bandwidth;
+	bandwidth,
+	codecPreference;
 
-	/***************
-	 * Constructor
-	 ***************/
-	public RelatedRegionDetail(String regionName, String videoBandwidth,
-			String bandwidth)
+	public RelatedRegionDetail(String regionName, String videoBandwidth, String bandwidth,
+			String codecPreference)
 		{
 		super();
 		this.regionName = regionName;
 		this.videoBandwidth = videoBandwidth;
 		this.bandwidth = bandwidth;
+		this.codecPreference = codecPreference;
 		}
-	
+
 	public RelatedRegionDetail(String regionName)
 		{
 		super();
 		this.regionName = regionName;
 		this.bandwidth = "G.729";
 		this.videoBandwidth = "384";
+		this.codecPreference = ";
 		}
 	
 	@Override
 	public void resolve() throws Exception
 		{
 		this.regionName = CollectionTools.getRawValue(this.regionName, this, true);
+		this.videoBandwidth = CollectionTools.getRawValue(this.videoBandwidth, this, false);
+		this.bandwidth = CollectionTools.getRawValue(this.bandwidth, this, false);
+		this.codecPreference = CollectionTools.getRawValue(this.codecPreference, this, false);
 		}
 
 	public String getRegionName()
@@ -72,8 +75,18 @@ public class RelatedRegionDetail extends BasicItem
 		{
 		this.bandwidth = bandwidth;
 		}
+
+	public String getCodecPreference()
+		{
+		return codecPreference;
+		}
+
+	public void setCodecPreference(String codecPreference)
+		{
+		this.codecPreference = codecPreference;
+		}
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

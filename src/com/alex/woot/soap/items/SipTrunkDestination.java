@@ -16,17 +16,14 @@ public class SipTrunkDestination extends BasicItem
 	private String addressIpv4,
 	port;
 	
-	private int order;
-	
 	/***************
 	 * Constructor
 	 ***************/
-	public SipTrunkDestination(String addressIpv4, String port, int order)
+	public SipTrunkDestination(String addressIpv4, String port)
 		{
 		super();
 		this.addressIpv4 = addressIpv4;
 		this.port = port;
-		this.order = order;
 		}
 	
 	@Override
@@ -54,18 +51,8 @@ public class SipTrunkDestination extends BasicItem
 		{
 		this.port = port;
 		}
-
-	public int getOrder()
-		{
-		return order;
-		}
-
-	public void setOrder(int order)
-		{
-		this.order = order;
-		}
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

@@ -61,7 +61,11 @@ public class Variables
 		trunksip,
 		vg,
 		routegroup,
+		routelist,
 		translationpattern,
+		callingpartytransformationpattern,
+		calledpartytransformationpattern,
+		commondeviceconfiguration,
 		physicallocation,
 		devicemobilityinfo,
 		devicemobilitygroup,
@@ -264,6 +268,7 @@ public class Variables
 	private static ArrayList<String> cpgNumberList;
 	private static ArrayList<String> lgNumberList;
 	private static Office currentOffice;
+	private static ArrayList<Office> currentOffices;
 	private static ArrayList<String> LGAlgorithm;
 	private static JFrame myWindow;
 	
@@ -930,6 +935,23 @@ public class Variables
 		{
 		Variables.myWindow = myWindow;
 		}
+
+	public static ArrayList<Office> getCurrentOffices() throws NumberFormatException, Exception
+		{
+		if(currentOffices == null)
+			{
+			Variables.getLogger().debug("Initialisation of the current offices list");
+			setCurrentOffices(UsefulMethod.askCurrentOffices());
+			}
+		
+		return currentOffices;
+		}
+
+	public static void setCurrentOffices(ArrayList<Office> currentOffices)
+		{
+		Variables.currentOffices = currentOffices;
+		}
+	
 	
 	
 	/*2017*//*RATEL Alexandre 8)*/

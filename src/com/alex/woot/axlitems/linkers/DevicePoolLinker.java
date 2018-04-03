@@ -9,7 +9,9 @@ import com.alex.woot.axlitems.linkers.PhoneLinker.toUpdate;
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.office.items.DevicePool;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
 
@@ -34,7 +36,16 @@ public class DevicePoolLinker extends AXLItemLinker
 	mediaressourcegrouplist,
 	physicallocation,
 	devicemobilitygroup,
-	devicemobilitycss;
+	devicemobilitycss,
+	cgpnTransformationCssName,
+	cdpnTransformationCssName,
+	callingPartyNationalTransformationCssName,
+	callingPartyInternationalTransformationCssName,
+	callingPartyUnknownTransformationCssName,
+	callingPartySubscriberTransformationCssName,
+	cntdPnTransformationCssName,
+	redirectingPartyTransformationCSS,
+	callingPartyTransformationCSS;
 	
 	private ArrayList<String> localroutegroup;
 	
@@ -50,7 +61,16 @@ public class DevicePoolLinker extends AXLItemLinker
 		localroutegroup,
 		physicallocation,
 		devicemobilitygroup,
-		devicemobilitycss
+		devicemobilitycss,
+		cgpnTransformationCssName,
+		cdpnTransformationCssName,
+		callingPartyNationalTransformationCssName,
+		callingPartyInternationalTransformationCssName,
+		callingPartyUnknownTransformationCssName,
+		callingPartySubscriberTransformationCssName,
+		cntdPnTransformationCssName,
+		redirectingPartyTransformationCSS,
+		callingPartyTransformationCSS
 		}
 	
 	/***************
@@ -120,7 +140,32 @@ public class DevicePoolLinker extends AXLItemLinker
 		params.setSrstName(SimpleRequest.getUUIDV105(itemType.srstreference, this.srstreference));
 		params.setNetworkLocale(new JAXBElement(new QName("networkLocale"), String.class,this.networkLocale));
 		params.setLocationName(new JAXBElement(new QName("locationName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.location, this.locationName)));
+		params.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.mediaresourcegrouplist, this.mediaressourcegrouplist)));
+		params.setPhysicalLocationName(new JAXBElement(new QName("physicalLocationName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.physicallocation, this.physicallocation)));
+		params.setDeviceMobilityGroupName(new JAXBElement(new QName("deviceMobilityGroupName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.devicemobilitygroup, this.devicemobilitygroup)));
+		params.setMobilityCssName(new JAXBElement(new QName("mobilityCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.devicemobilitycss)));
+		params.setCgpnTransformationCssName(new JAXBElement(new QName("cgpnTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.cgpnTransformationCssName)));
+		params.setCdpnTransformationCssName(new JAXBElement(new QName("cdpnTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.cdpnTransformationCssName)));
+		params.setCallingPartyNationalTransformationCssName(new JAXBElement(new QName("callingPartyNationalTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyNationalTransformationCssName)));
+		params.setCallingPartyInternationalTransformationCssName(new JAXBElement(new QName("callingPartyInternationalTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyInternationalTransformationCssName)));
+		params.setCallingPartyUnknownTransformationCssName(new JAXBElement(new QName("callingPartyUnknownTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyUnknownTransformationCssName)));
+		params.setCallingPartySubscriberTransformationCssName(new JAXBElement(new QName("callingPartySubscriberTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartySubscriberTransformationCssName)));
+		params.setCntdPnTransformationCssName(new JAXBElement(new QName("cntdPnTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.cntdPnTransformationCssName)));
+		params.setRedirectingPartyTransformationCSS(new JAXBElement(new QName("redirectingPartyTransformationCSS"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.redirectingPartyTransformationCSS)));
+		params.setCallingPartyTransformationCSS(new JAXBElement(new QName("callingPartyTransformationCSS"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyTransformationCSS)));	
 		/************/
+		
+		/**
+		 * Localroutegroup
+		 */
+		for(String s : localroutegroup)
+			{
+			com.cisco.axl.api._10.XDevicePool.LocalRouteGroup myLRG = new com.cisco.axl.api._10.XDevicePool.LocalRouteGroup();
+			myLRG.setName(new JAXBElement(new QName("name"), String.class, s));
+			myLRG.setValue(s);
+			params.getLocalRouteGroup().add(myLRG);
+			}
+		/****/
 		
 		req.setDevicePool(params);//We add the parameters to the request
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().addDevicePool(req);//We send the request to the CUCM
@@ -188,7 +233,7 @@ public class DevicePoolLinker extends AXLItemLinker
 		 */
 		req.setName(this.getName());
 		req.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.mediaresourcegrouplist, this.mediaressourcegrouplist)));
-		req.setLocalRouteGroupName(new JAXBElement(new QName("localRouteGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.routegroup, this.localroutegroup)));
+		req.setLocalRouteGroupName(new JAXBElement(new QName("localRouteGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.routegroup, this.localroutegroup.get(0))));
 		req.setPhysicalLocationName(new JAXBElement(new QName("physicalLocationName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.physicallocation, this.physicallocation)));
 		req.setDeviceMobilityGroupName(new JAXBElement(new QName("deviceMobilityGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.devicemobilitygroup, this.devicemobilitygroup)));
 		req.setMobilityCssName(new JAXBElement(new QName("mobilityCssName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.callingsearchspace, this.devicemobilitycss)));
@@ -238,16 +283,7 @@ public class DevicePoolLinker extends AXLItemLinker
 		myDP.setUUID(resp.getReturn().getDevicePool().getUuid());
 		
 		/*
-		myDP.setRegionName(resp.getReturn().getDevicePool().getRegionName().getValue());
-		myDP.setLocationName(resp.getReturn().getDevicePool().getLocationName().getValue()); 
-		myDP.setNetworkLocale(resp.getReturn().getDevicePool().getNetworkLocale());
-		myDP.setDateTimeSettingName(resp.getReturn().getDevicePool().getDateTimeSettingName().getValue());
-		myDP.setSrstreference(resp.getReturn().getDevicePool().getSrstName().getValue());
-		myDP.setMediaressourcegrouplist(resp.getReturn().getDevicePool().getMediaResourceListName().getValue());
-		myDP.setLocalroutegroup(resp.getReturn().getDevicePool().getLocalRouteGroupName().getValue());
-		myDP.setPhysicallocation(resp.getReturn().getDevicePool().getPhysicalLocationName().getValue());
-		myDP.setDevicemobilitygroup(resp.getReturn().getDevicePool().getDeviceMobilityGroupName().getValue());
-		myDP.setDevicemobilitycss(resp.getReturn().getDevicePool().getMobilityCssName().getValue());
+		to be written
 		*/
 		
 		return myDP;//Return a Device Pool
@@ -324,16 +360,6 @@ public class DevicePoolLinker extends AXLItemLinker
 		this.mediaressourcegrouplist = mediaressourcegrouplist;
 		}
 
-	public ArrayList<String> getLocalroutegroup()
-		{
-		return localroutegroup;
-		}
-
-	public void setLocalroutegroup(ArrayList<String> localroutegroup)
-		{
-		this.localroutegroup = localroutegroup;
-		}
-
 	public String getPhysicallocation()
 		{
 		return physicallocation;
@@ -363,16 +389,109 @@ public class DevicePoolLinker extends AXLItemLinker
 		{
 		this.devicemobilitycss = devicemobilitycss;
 		}
-	
+
+	public String getCgpnTransformationCssName()
+		{
+		return cgpnTransformationCssName;
+		}
+
+	public void setCgpnTransformationCssName(String cgpnTransformationCssName)
+		{
+		this.cgpnTransformationCssName = cgpnTransformationCssName;
+		}
+
+	public String getCdpnTransformationCssName()
+		{
+		return cdpnTransformationCssName;
+		}
+
+	public void setCdpnTransformationCssName(String cdpnTransformationCssName)
+		{
+		this.cdpnTransformationCssName = cdpnTransformationCssName;
+		}
+
+	public String getCallingPartyNationalTransformationCssName()
+		{
+		return callingPartyNationalTransformationCssName;
+		}
+
+	public void setCallingPartyNationalTransformationCssName(String callingPartyNationalTransformationCssName)
+		{
+		this.callingPartyNationalTransformationCssName = callingPartyNationalTransformationCssName;
+		}
+
+	public String getCallingPartyInternationalTransformationCssName()
+		{
+		return callingPartyInternationalTransformationCssName;
+		}
+
+	public void setCallingPartyInternationalTransformationCssName(String callingPartyInternationalTransformationCssName)
+		{
+		this.callingPartyInternationalTransformationCssName = callingPartyInternationalTransformationCssName;
+		}
+
+	public String getCallingPartyUnknownTransformationCssName()
+		{
+		return callingPartyUnknownTransformationCssName;
+		}
+
+	public void setCallingPartyUnknownTransformationCssName(String callingPartyUnknownTransformationCssName)
+		{
+		this.callingPartyUnknownTransformationCssName = callingPartyUnknownTransformationCssName;
+		}
+
+	public String getCallingPartySubscriberTransformationCssName()
+		{
+		return callingPartySubscriberTransformationCssName;
+		}
+
+	public void setCallingPartySubscriberTransformationCssName(String callingPartySubscriberTransformationCssName)
+		{
+		this.callingPartySubscriberTransformationCssName = callingPartySubscriberTransformationCssName;
+		}
+
+	public String getCntdPnTransformationCssName()
+		{
+		return cntdPnTransformationCssName;
+		}
+
+	public void setCntdPnTransformationCssName(String cntdPnTransformationCssName)
+		{
+		this.cntdPnTransformationCssName = cntdPnTransformationCssName;
+		}
+
+	public String getRedirectingPartyTransformationCSS()
+		{
+		return redirectingPartyTransformationCSS;
+		}
+
+	public void setRedirectingPartyTransformationCSS(String redirectingPartyTransformationCSS)
+		{
+		this.redirectingPartyTransformationCSS = redirectingPartyTransformationCSS;
+		}
+
+	public String getCallingPartyTransformationCSS()
+		{
+		return callingPartyTransformationCSS;
+		}
+
+	public void setCallingPartyTransformationCSS(String callingPartyTransformationCSS)
+		{
+		this.callingPartyTransformationCSS = callingPartyTransformationCSS;
+		}
+
+	public ArrayList<String> getLocalroutegroup()
+		{
+		return localroutegroup;
+		}
+
+	public void setLocalroutegroup(ArrayList<String> localroutegroup)
+		{
+		this.localroutegroup = localroutegroup;
+		}
+
 
 	
-
-	
-	
-
-	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

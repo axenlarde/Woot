@@ -61,6 +61,7 @@ public class TranslationPattern extends ItemToInject
 	public TranslationPattern(String name, String routePartitionName) throws Exception
 		{
 		super(itemType.translationpattern, name);
+		this.routePartitionName = routePartitionName;
 		myTranslationPattern = new TranslationPatternLinker(name, routePartitionName);
 		}
 

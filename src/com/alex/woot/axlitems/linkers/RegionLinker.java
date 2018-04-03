@@ -1,19 +1,17 @@
 package com.alex.woot.axlitems.linkers;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.office.items.Region;
 import com.alex.woot.soap.items.RelatedRegionDetail;
+import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
 /**********************************
  * Is the AXLItem design to link the item "Device Pool"
@@ -27,7 +25,7 @@ public class RegionLinker extends AXLItemLinker
 	 * Variables
 	 */
 	private String defaultCodec;
-	private ArrayList<RelatedRegionDetail> g711RegionList;
+	private ArrayList<RelatedRegionDetail> relatedRegionList;
 	
 	public enum toUpdate implements ToUpdate
 		{
@@ -184,7 +182,7 @@ public class RegionLinker extends AXLItemLinker
 		
 		//Here we add new lines in the RegionMatrix table using SQL query
 		
-		for(RelatedRegionDetail r : g711RegionList)
+		for(RelatedRegionDetail r : relatedRegionList)
 			{
 			String regionA = SimpleRequest.getUUIDV105(itemType.region, this.name).getUuid().toLowerCase().replace("{", "").replace("}", "");
 			String regionB = SimpleRequest.getUUIDV105(itemType.region, r.getRegionName()).getUuid().toLowerCase().replace("{", "").replace("}", "");
@@ -236,7 +234,7 @@ public class RegionLinker extends AXLItemLinker
 		*/
 		
 		//Here we add new lines in the RegionMatrix table using SQL query
-		for(RelatedRegionDetail r : g711RegionList)
+		for(RelatedRegionDetail r : relatedRegionList)
 			{
 			String regionA = SimpleRequest.getUUIDV85(itemType.region, this.name).getUuid().toLowerCase().replace("{", "").replace("}", "");
 			String regionB = SimpleRequest.getUUIDV85(itemType.region, r.getRegionName()).getUuid().toLowerCase().replace("{", "").replace("}", "");
@@ -318,6 +316,7 @@ public class RegionLinker extends AXLItemLinker
 	 * I should instead set the default codec to G729 and put in
 	 * the request only the G711 region as "related regions"
 	 */
+	/*
 	public ArrayList<RelatedRegionDetail> getRegions() throws Exception
 		{
 		ArrayList<RelatedRegionDetail> myRRList = new ArrayList<RelatedRegionDetail>();
@@ -339,7 +338,7 @@ public class RegionLinker extends AXLItemLinker
 			}
 		
 		return myRRList;
-		}
+		}*/
 	
 	
 	
@@ -353,14 +352,14 @@ public class RegionLinker extends AXLItemLinker
 		this.defaultCodec = defaultCodec;
 		}
 
-	public ArrayList<RelatedRegionDetail> getG711RegionList()
+	public ArrayList<RelatedRegionDetail> getRelatedRegionList()
 		{
-		return g711RegionList;
+		return relatedRegionList;
 		}
 
-	public void setG711RegionList(ArrayList<RelatedRegionDetail> g711RegionList)
+	public void setRelatedRegionList(ArrayList<RelatedRegionDetail> relatedRegionList)
 		{
-		this.g711RegionList = g711RegionList;
+		this.relatedRegionList = relatedRegionList;
 		}
 
 	

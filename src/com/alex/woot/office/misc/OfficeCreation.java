@@ -60,14 +60,8 @@ public class OfficeCreation extends Thread
 			 */
 			myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding"));
 			
-			//We should ask here the offices to inject
-			//Temp
-			ArrayList<Office> officeList = new ArrayList<Office>();//Temp
-			officeList.add(Variables.getCurrentOffice());//Will trigger the office seleciton window. This window should return one or more offices
-			//Temp
-			
 			//We build the list of office items to inject
-			for(Office o : officeList)
+			for(Office o : Variables.getCurrentOffices())//Will trigger current offices selection window
 				{
 				//Here we add he items for each office
 				itemToInjectList.add(OfficeTools.setOfficeList(o, actionType.inject, myWW));
@@ -102,8 +96,6 @@ public class OfficeCreation extends Thread
 		catch (Exception e)
 			{
 			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
-			JOptionPane.showMessageDialog(null,LanguageManagement.getString("officecreationerror")+" : "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-			System.exit(0);
 			}
 
 		myWW.close();

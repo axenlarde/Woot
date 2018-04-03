@@ -11,7 +11,12 @@ import com.alex.woot.utils.Variables.itemType;
 import com.alex.woot.utils.xMLGear;
 import com.alex.woot.utils.xMLReader;
 import com.alex.woot.office.items.*;
+import com.alex.woot.soap.items.LocalRouteGroup;
+import com.alex.woot.soap.items.MRGLMember;
+import com.alex.woot.soap.items.PartitionMember;
 import com.alex.woot.soap.items.RelatedRegionDetail;
+import com.alex.woot.soap.items.RouteGroupMember;
+import com.alex.woot.soap.items.SipTrunkDestination;
 
 
 
@@ -108,25 +113,38 @@ public class TemplateOfficeReader
 			for(String[] s : itemDetails)
 				{
 				if(s[0].equals("g711"))myG711RR.add(new RelatedRegionDetail(
-						CollectionTools.getValueFromCollectionFile(s[1], myWorkbook),
-						CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("videobandwidth", itemDetails), myWorkbook),
-						"G.711"));
+						s[1],
+						UsefulMethod.getItemByName("videobandwidth", itemDetails),
+						UsefulMethod.getItemByName("G.711", itemDetails),
+						UsefulMethod.getItemByName("codecpreferencelist", itemDetails)));
 				}
 			
-			return new Region(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("defaultcodec", itemDetails), myWorkbook),
-					myG711RR,
-					myWorkbook);
+			Region myRegion = new Region(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("defaultcodec", itemDetails),
+					myG711RR);
+			
+			myRegion.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myRegion;
 			}
 		else if(type.equals(itemType.srstreference))
 			{
-			return new SRSTReference(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("ipaddress", itemDetails), myWorkbook),
-					myWorkbook);
+			return new SRSTReference(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("ipaddress", itemDetails));
 			}
 		else if(type.equals(itemType.devicepool))
 			{
-			return new DevicePool(UsefulMethod.getItemByName("name", itemDetails),
+			ArrayList<LocalRouteGroup> localRouteGroupList = new ArrayList<LocalRouteGroup>();
+			
+			for(String[] s : itemDetails)
+				{
+				if(s[0].equals("localroutegroup"))
+					{
+					String[] tab = s[1].split(":");
+					localRouteGroupList.add(new LocalRouteGroup(tab[0], tab[1]));
+					}
+				}
+			
+			DevicePool myDevicePool = new DevicePool(UsefulMethod.getItemByName("name", itemDetails),
 					UsefulMethod.getItemByName("callmanagergroup", itemDetails),
 					UsefulMethod.getItemByName("region", itemDetails),
 					UsefulMethod.getItemByName("location", itemDetails),
@@ -134,71 +152,74 @@ public class TemplateOfficeReader
 					UsefulMethod.getItemByName("datetimesetting", itemDetails),
 					UsefulMethod.getItemByName("srstreference", itemDetails),
 					UsefulMethod.getItemByName("mediaressourcegrouplist", itemDetails),
-					UsefulMethod.getItemByName("localroutegroup", itemDetails),
+					localRouteGroupList,
 					UsefulMethod.getItemByName("physicallocation", itemDetails),
 					UsefulMethod.getItemByName("devicemobilitygroup", itemDetails),
-					UsefulMethod.getItemByName("devicemobilitycss", itemDetails),
-					myWorkbook);
+					UsefulMethod.getItemByName("devicemobilitycss", itemDetails));
+			
+			myDevicePool.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myDevicePool;
 			}
 		else if(type.equals(itemType.conferencebridge))
 			{
-			return new ConferenceBridge(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("description", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("devicepoolname", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("locationname", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("commondeviceconfigname", itemDetails), myWorkbook),
-					myWorkbook);
+			ConferenceBridge myCFB = new ConferenceBridge(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("description", itemDetails),
+					UsefulMethod.getItemByName("devicepoolname", itemDetails),
+					UsefulMethod.getItemByName("locationname", itemDetails),
+					UsefulMethod.getItemByName("commondeviceconfigname", itemDetails));
+			
+			myCFB.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myCFB;
 			}
-		else if(type.equals(itemType.mediaressourcegroup))
+		else if(type.equals(itemType.mediaresourcegroup))
 			{
 			ArrayList<String> myMembers = new ArrayList<String>();
 			
 			for(String[] s : itemDetails)
 				{
-				if(s[0].equals("member"))myMembers.add(CollectionTools.getValueFromCollectionFile(s[1], myWorkbook));
+				if(s[0].equals("member"))myMembers.add(s[1]);
 				}
 			
-			return new MediaRessourceGroup(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("description", itemDetails), myWorkbook),
-					(((CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("multicast", itemDetails), myWorkbook)).equals("true"))?true:false),
-					myMembers,
-					myWorkbook);
+			MediaRessourceGroup myMRG = new MediaRessourceGroup(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("description", itemDetails),
+					UsefulMethod.getItemByName("multicast", itemDetails),
+					myMembers);
+			
+			myMRG.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myMRG;
 			}
-		else if(type.equals(itemType.mediaressourcegrouplist))
+		else if(type.equals(itemType.mediaresourcegrouplist))
 			{
 			ArrayList<MRGLMember> myMembers = new ArrayList<MRGLMember>();
 			
-			int i=1;
 			for(String[] s : itemDetails)
 				{
 				if(s[0].equals("member"))
 					{
-					myMembers.add(new MRGLMember(CollectionTools.getValueFromCollectionFile(s[1], myWorkbook), i));
-					i++;
+					myMembers.add(new MRGLMember(s[1]));
 					}
 				}
 			
-			return new MediaRessourceGroupList(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					myMembers,
-					myWorkbook);
+			MediaRessourceGroupList myMRGL = new MediaRessourceGroupList(UsefulMethod.getItemByName("name", itemDetails),
+					myMembers);
+			
+			myMRGL.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myMRGL;
 			}
 		else if(type.equals(itemType.trunksip))
 			{
 			ArrayList<SipTrunkDestination> myDestinations = new ArrayList<SipTrunkDestination>();
 			
-			int i=1;
 			for(String[] s : itemDetails)
 				{
 				if(s[0].equals("destination"))
 					{
 					String[] tab = s[1].split(":");
-					myDestinations.add(new SipTrunkDestination(tab[0], tab[1], i));
-					i++;
+					myDestinations.add(new SipTrunkDestination(tab[0], tab[1]));
 					}
 				}
 			
-			return new TrunkSip(UsefulMethod.getItemByName("name", itemDetails),
-					myWorkbook,
+			TrunkSip myTrunkSip = new TrunkSip(UsefulMethod.getItemByName("name", itemDetails),
 					UsefulMethod.getItemByName("description", itemDetails),
 					UsefulMethod.getItemByName("css", itemDetails),
 					UsefulMethod.getItemByName("devicepool", itemDetails),
@@ -218,25 +239,27 @@ public class TemplateOfficeReader
 					UsefulMethod.getItemByName("inboundusedevicepoolcallingptransformcss", itemDetails),
 					myDestinations);
 			
+			myTrunkSip.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myTrunkSip;
 			}
 		else if(type.equals(itemType.routegroup))
 			{
 			ArrayList<RouteGroupMember> myMembers = new ArrayList<RouteGroupMember>();
 			
-			int i=1;
 			for(String[] s : itemDetails)
 				{
 				if(s[0].equals("member"))
 					{
-					myMembers.add(new RouteGroupMember(CollectionTools.getValueFromCollectionFile(s[1], myWorkbook), i));
-					i++;
+					myMembers.add(new RouteGroupMember(s[1], "0"));
 					}
 				}
 			
-			return new RouteGroup(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("distributionalgorithm", itemDetails), myWorkbook),
-					myMembers,
-					myWorkbook);
+			RouteGroup myRG = new RouteGroup(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("distributionalgorithm", itemDetails),
+					myMembers);
+			
+			myRG.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myRG;
 			}
 		else if(type.equals(itemType.vg))
 			{
@@ -244,17 +267,19 @@ public class TemplateOfficeReader
 			boolean t38Enable = false;
 			if(s.contains("true"))t38Enable = true;
 			
-			return new VG2XX(UsefulMethod.getItemByName("name", itemDetails),
-					myWorkbook,
+			VG2XX myVG = new VG2XX(UsefulMethod.getItemByName("name", itemDetails),
 					UsefulMethod.getItemByName("description", itemDetails),
 					UsefulMethod.getItemByName("product", itemDetails),
 					UsefulMethod.getItemByName("protocol", itemDetails),
 					UsefulMethod.getItemByName("callmanagergroupname", itemDetails),
 					t38Enable);
+			
+			myVG.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myVG;
 			}
 		else if(type.equals(itemType.translationpattern))
 			{
-			return new TranslationPattern(UsefulMethod.getItemByName("pattern", itemDetails),
+			TranslationPattern myTP = new TranslationPattern(UsefulMethod.getItemByName("pattern", itemDetails),
 					UsefulMethod.getItemByName("description", itemDetails),
 					UsefulMethod.getItemByName("routepartition", itemDetails),
 					UsefulMethod.getItemByName("callingsearchspace", itemDetails),
@@ -262,39 +287,45 @@ public class TemplateOfficeReader
 					UsefulMethod.getItemByName("usecallingpartyphonemask", itemDetails),
 					UsefulMethod.getItemByName("calledpartytransformmask", itemDetails),
 					UsefulMethod.getItemByName("callingpartytransformmask", itemDetails),
-					UsefulMethod.getItemByName("discarddigits", itemDetails),
-					myWorkbook);
+					UsefulMethod.getItemByName("discarddigits", itemDetails));
+			
+			myTP.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myTP;
 			}
 		else if(type.equals(itemType.partition))
 			{
-			return new Partition(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("description", itemDetails), myWorkbook),
-					myWorkbook);
+			Partition myP = new Partition(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("description", itemDetails));
+			
+			myP.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myP;
 			}
 		else if(type.equals(itemType.callingsearchspace))
 			{
 			ArrayList<PartitionMember> myMembers = new ArrayList<PartitionMember>();
 			
-			int i=1;
 			for(String[] s : itemDetails)
 				{
 				if(s[0].equals("P"))
 					{
-					myMembers.add(new PartitionMember(CollectionTools.getValueFromCollectionFile(s[1], myWorkbook), i));
-					i++;
+					myMembers.add(new PartitionMember(s[1]));
 					}
 				}
 			
-			return new CallingSearchSpace(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("description", itemDetails), myWorkbook),
-					myMembers,
-					myWorkbook);
+			CallingSearchSpace myCSS = new CallingSearchSpace(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("description", itemDetails),
+					myMembers);
+			
+			myCSS.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myCSS;
 			}
 		else if(type.equals(itemType.physicallocation))
 			{
-			return new PhysicalLocation(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
-					CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("description", itemDetails), myWorkbook),
-					myWorkbook);
+			PhysicalLocation myPL = new PhysicalLocation(UsefulMethod.getItemByName("name", itemDetails),
+					UsefulMethod.getItemByName("description", itemDetails));
+			
+			myPL.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myPL;
 			}
 		else if(type.equals(itemType.devicemobilityinfo))
 			{
@@ -304,27 +335,57 @@ public class TemplateOfficeReader
 				{
 				if(s[0].equals("devicepool"))
 					{
-					myMembers.add(CollectionTools.getValueFromCollectionFile(s[1], myWorkbook));
+					myMembers.add(s[1]);
 					}
 				}
 			
-			String subnet = CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("subnet", itemDetails), myWorkbook).trim();
+			String subnet = UsefulMethod.getItemByName("subnet", itemDetails);
+			String subnetmask = UsefulMethod.getItemByName("subnetmask", itemDetails);
 			
-			//Convert 255.255.255.0 into 24
-			String subnetmask = UsefulMethod.convertStringMaskToIntMask(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("subnetmask", itemDetails), myWorkbook).trim());
-			
-			Variables.getLogger().debug("Device Mobility Info details : "+subnet+" "+subnetmask);
-			
-			return new MobilityInfo(CollectionTools.getValueFromCollectionFile(UsefulMethod.getItemByName("name", itemDetails), myWorkbook),
+			MobilityInfo myMI = new MobilityInfo(UsefulMethod.getItemByName("name", itemDetails),
 					subnet,
-					subnetmask,//Has to be a number of bit
-					myMembers,
-					myWorkbook);
+					subnetmask,
+					myMembers);
+			
+			myMI.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myMI;
+			}
+		else if(type.equals(itemType.callingpartytransformationpattern))
+			{
+			CallingPartyTransformationPattern myCPTP = new CallingPartyTransformationPattern(
+					UsefulMethod.getItemByName("pattern", itemDetails),
+					UsefulMethod.getItemByName("description", itemDetails),
+					UsefulMethod.getItemByName("routepartition", itemDetails),
+					UsefulMethod.getItemByName("callingpartytransformationmask", itemDetails),
+					UsefulMethod.getItemByName("usecallingpartyexternalphonenumbermask", itemDetails),
+					UsefulMethod.getItemByName("discarddigitinstruction", itemDetails),
+					UsefulMethod.getItemByName("prefixdigits", itemDetails),
+					UsefulMethod.getItemByName("callinglineidpresentation", itemDetails),
+					UsefulMethod.getItemByName("callingpartynumberingplan", itemDetails),
+					UsefulMethod.getItemByName("callingpartynumbertype", itemDetails));
+			
+			myCPTP.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myCPTP;
+			}
+		else if(type.equals(itemType.calledpartytransformationpattern))
+			{
+			CalledPartyTransformationPattern myCPTP = new CalledPartyTransformationPattern(
+					UsefulMethod.getItemByName("pattern", itemDetails),
+					UsefulMethod.getItemByName("description", itemDetails),
+					UsefulMethod.getItemByName("routepartition", itemDetails),
+					UsefulMethod.getItemByName("calledpartytransformationmask", itemDetails),
+					UsefulMethod.getItemByName("discarddigitinstruction", itemDetails),
+					UsefulMethod.getItemByName("prefixdigits", itemDetails),
+					UsefulMethod.getItemByName("calledpartynumberingplan", itemDetails),
+					UsefulMethod.getItemByName("calledpartynumbertype", itemDetails));
+			
+			myCPTP.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myCPTP;
 			}
 		//etc...
 		throw new Exception("ERROR : No item type found : "+type.name());
 		}
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

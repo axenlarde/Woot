@@ -1,6 +1,7 @@
 package com.alex.woot.office.items;
 
-import com.alex.woot.axlitems.linkers.TranslationPatternLinker;
+
+import com.alex.woot.axlitems.linkers.CallingPartyTransformationPatternLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.utils.UsefulMethod;
@@ -18,47 +19,46 @@ public class CallingPartyTransformationPattern extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private TranslationPatternLinker myTranslationPattern;
+	private CallingPartyTransformationPatternLinker myCallingPartyTransformationPattern;
 	private String description,
 	routePartitionName,
-	useCallingPartyPhoneMask,
 	callingPartyTransformationMask,
+	useCallingPartyPhoneMask,
+	digitDiscardInstructionName,
 	callingPartyPrefixDigits,
 	callingLinePresentationBit,
-	callingPartyNumberType,
-	callingPartyNumberingPlan;
+	callingPartyNumberingPlan,
+	callingPartyNumberType;
 
+	
 	
 	/***************
 	 * Constructor
 	 * @throws Exception
 	 ***************/
-	public CallingPartyTransformationPattern(String name,
-			String description,
-			String routePartitionName, String callingSearchSpaceName,
-			String patternUrgency, String useCallingPartyPhoneMask,
-			String calledPartyTransformationMask,
-			String callingPartyTransformationMask,
-			String digitDiscardInstructionName) throws Exception
+	public CallingPartyTransformationPattern(String name, String description, String routePartitionName,
+			String callingPartyTransformationMask, String useCallingPartyPhoneMask, String digitDiscardInstructionName,
+			String callingPartyPrefixDigits, String callingLinePresentationBit, String callingPartyNumberingPlan,
+			String callingPartyNumberType) throws Exception
 		{
-		super(itemType.translationpattern, name);
-		myTranslationPattern = new TranslationPatternLinker(name,routePartitionName);
-		this.usage = "Translation";
-		this.provideOutsideDialtone = "true";
+		super(itemType.callingpartytransformationpattern, name);
+		myCallingPartyTransformationPattern = new CallingPartyTransformationPatternLinker(name, routePartitionName);
 		this.description = description;
 		this.routePartitionName = routePartitionName;
-		this.callingSearchSpaceName = callingSearchSpaceName;
-		this.patternUrgency = patternUrgency;
-		this.useCallingPartyPhoneMask = useCallingPartyPhoneMask;
-		this.calledPartyTransformationMask = calledPartyTransformationMask;
 		this.callingPartyTransformationMask = callingPartyTransformationMask;
+		this.useCallingPartyPhoneMask = useCallingPartyPhoneMask;
 		this.digitDiscardInstructionName = digitDiscardInstructionName;
+		this.callingPartyPrefixDigits = callingPartyPrefixDigits;
+		this.callingLinePresentationBit = callingLinePresentationBit;
+		this.callingPartyNumberingPlan = callingPartyNumberingPlan;
+		this.callingPartyNumberType = callingPartyNumberType;
 		}
 
 	public CallingPartyTransformationPattern(String name, String routePartitionName) throws Exception
 		{
-		super(itemType.translationpattern, name);
-		myTranslationPattern = new TranslationPatternLinker(name, routePartitionName);
+		super(itemType.callingpartytransformationpattern, name);
+		this.routePartitionName = routePartitionName;
+		myCallingPartyTransformationPattern = new CallingPartyTransformationPatternLinker(name, routePartitionName);
 		}
 
 	/***********
@@ -67,7 +67,7 @@ public class CallingPartyTransformationPattern extends ItemToInject
 	 */
 	public void doBuild() throws Exception
 		{
-		this.errorList.addAll(myTranslationPattern.init());
+		this.errorList.addAll(myCallingPartyTransformationPattern.init());
 		}
 	
 	
@@ -79,7 +79,7 @@ public class CallingPartyTransformationPattern extends ItemToInject
 	 */
 	public String doInject() throws Exception
 		{
-		return myTranslationPattern.inject();//Return UUID
+		return myCallingPartyTransformationPattern.inject();//Return UUID
 		}
 
 	/**
@@ -88,7 +88,7 @@ public class CallingPartyTransformationPattern extends ItemToInject
 	 */
 	public void doDelete() throws Exception
 		{
-		myTranslationPattern.delete();
+		myCallingPartyTransformationPattern.delete();
 		}
 
 	/**
@@ -97,7 +97,7 @@ public class CallingPartyTransformationPattern extends ItemToInject
 	 */
 	public void doUpdate() throws Exception
 		{
-		myTranslationPattern.update(tuList);
+		myCallingPartyTransformationPattern.update(tuList);
 		}
 	
 	/**
@@ -107,8 +107,8 @@ public class CallingPartyTransformationPattern extends ItemToInject
 		{
 		try
 			{
-			CallingPartyTransformationPattern myTP = (CallingPartyTransformationPattern) myTranslationPattern.get();
-			this.UUID = myTP.getUUID();
+			CallingPartyTransformationPattern myCPTP = (CallingPartyTransformationPattern) myCallingPartyTransformationPattern.get();
+			this.UUID = myCPTP.getUUID();
 			
 			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
 			return true;
@@ -131,27 +131,27 @@ public class CallingPartyTransformationPattern extends ItemToInject
 		this.name = CollectionTools.getRawValue(this.name, this, true);
 		this.description = CollectionTools.getRawValue(this.description, this, true);
 		this.routePartitionName = CollectionTools.getRawValue(this.routePartitionName, this, true);
-		this.callingSearchSpaceName = CollectionTools.getRawValue(this.callingSearchSpaceName, this, true);
-		this.patternUrgency = CollectionTools.getRawValue(this.patternUrgency, this, true);
-		this.useCallingPartyPhoneMask = CollectionTools.getRawValue(this.useCallingPartyPhoneMask, this, true);
-		this.callingPartyTransformationMask = CollectionTools.getRawValue(this.callingPartyTransformationMask, this, true);
-		this.calledPartyTransformationMask = CollectionTools.getRawValue(this.calledPartyTransformationMask, this, true);
-		this.digitDiscardInstructionName = CollectionTools.getRawValue(this.digitDiscardInstructionName, this, true);
+		this.callingPartyTransformationMask = CollectionTools.getRawValue(this.callingPartyTransformationMask, this, false);
+		this.useCallingPartyPhoneMask = CollectionTools.getRawValue(this.useCallingPartyPhoneMask, this, false);
+		this.digitDiscardInstructionName = CollectionTools.getRawValue(this.digitDiscardInstructionName, this, false);
+		this.callingPartyPrefixDigits = CollectionTools.getRawValue(this.callingPartyPrefixDigits, this, false);
+		this.callingLinePresentationBit = CollectionTools.getRawValue(this.callingLinePresentationBit, this, false);
+		this.callingPartyNumberingPlan = CollectionTools.getRawValue(this.callingPartyNumberingPlan, this, false);
+		this.callingPartyNumberType = CollectionTools.getRawValue(this.callingPartyNumberType, this, false);
 		
 		/**
 		 * We set the item parameters
 		 */
-		myTranslationPattern.setName(this.getName());
-		myTranslationPattern.setRoutePartitionName(routePartitionName);
-		myTranslationPattern.setCalledPartyTransformationMask(calledPartyTransformationMask);
-		myTranslationPattern.setCallingSearchSpaceName(callingSearchSpaceName);
-		myTranslationPattern.setDescription(description);
-		myTranslationPattern.setDigitDiscardInstructionName(digitDiscardInstructionName);
-		myTranslationPattern.setPatternUrgency(patternUrgency);
-		myTranslationPattern.setProvideOutsideDialtone(provideOutsideDialtone);
-		myTranslationPattern.setUsage(usage);
-		myTranslationPattern.setUseCallingPartyPhoneMask(useCallingPartyPhoneMask);
-		myTranslationPattern.setCallingPartyTransformationMask(callingPartyTransformationMask);
+		myCallingPartyTransformationPattern.setName(this.getName());
+		myCallingPartyTransformationPattern.setDescription(description);
+		myCallingPartyTransformationPattern.setRoutePartitionName(routePartitionName);
+		myCallingPartyTransformationPattern.setCallingPartyTransformationMask(callingPartyTransformationMask);
+		myCallingPartyTransformationPattern.setUseCallingPartyPhoneMask(useCallingPartyPhoneMask);
+		myCallingPartyTransformationPattern.setDigitDiscardInstructionName(digitDiscardInstructionName);
+		myCallingPartyTransformationPattern.setCallingPartyPrefixDigits(callingPartyPrefixDigits);
+		myCallingPartyTransformationPattern.setCallingLinePresentationBit(callingLinePresentationBit);
+		myCallingPartyTransformationPattern.setCallingPartyNumberingPlan(callingPartyNumberingPlan);
+		myCallingPartyTransformationPattern.setCallingPartyNumberType(callingPartyNumberType);
 		/*********/
 		}
 	
@@ -160,35 +160,14 @@ public class CallingPartyTransformationPattern extends ItemToInject
 	 */
 	public void manageTuList() throws Exception
 		{
-		if(UsefulMethod.isNotEmpty(calledPartyTransformationMask))tuList.add(TranslationPatternLinker.toUpdate.calledPartyTransformationMask);
-		if(UsefulMethod.isNotEmpty(callingSearchSpaceName))tuList.add(TranslationPatternLinker.toUpdate.callingSearchSpaceName);
-		if(UsefulMethod.isNotEmpty(description))tuList.add(TranslationPatternLinker.toUpdate.description);
-		if(UsefulMethod.isNotEmpty(digitDiscardInstructionName))tuList.add(TranslationPatternLinker.toUpdate.digitDiscardInstructionName);
-		if(UsefulMethod.isNotEmpty(patternUrgency))tuList.add(TranslationPatternLinker.toUpdate.patternUrgency);
-		if(UsefulMethod.isNotEmpty(provideOutsideDialtone))tuList.add(TranslationPatternLinker.toUpdate.provideOutsideDialtone);
-		if(UsefulMethod.isNotEmpty(usage))tuList.add(TranslationPatternLinker.toUpdate.usage);
-		if(UsefulMethod.isNotEmpty(useCallingPartyPhoneMask))tuList.add(TranslationPatternLinker.toUpdate.useCallingPartyPhoneMask);
-		if(UsefulMethod.isNotEmpty(callingPartyTransformationMask))tuList.add(TranslationPatternLinker.toUpdate.callingPartyTransformationMask);
-		}
-
-	public String getUsage()
-		{
-		return usage;
-		}
-
-	public void setUsage(String usage)
-		{
-		this.usage = usage;
-		}
-
-	public String getProvideOutsideDialtone()
-		{
-		return provideOutsideDialtone;
-		}
-
-	public void setProvideOutsideDialtone(String provideOutsideDialtone)
-		{
-		this.provideOutsideDialtone = provideOutsideDialtone;
+		if(UsefulMethod.isNotEmpty(description))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.description);
+		if(UsefulMethod.isNotEmpty(callingPartyTransformationMask))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.callingPartyTransformationMask);
+		if(UsefulMethod.isNotEmpty(useCallingPartyPhoneMask))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.useCallingPartyPhoneMask);
+		if(UsefulMethod.isNotEmpty(digitDiscardInstructionName))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.digitDiscardInstructionName);
+		if(UsefulMethod.isNotEmpty(callingPartyPrefixDigits))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.callingPartyPrefixDigits);
+		if(UsefulMethod.isNotEmpty(callingLinePresentationBit))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.callingLinePresentationBit);
+		if(UsefulMethod.isNotEmpty(callingPartyNumberingPlan))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.callingPartyNumberingPlan);
+		if(UsefulMethod.isNotEmpty(callingPartyNumberType))tuList.add(CallingPartyTransformationPatternLinker.toUpdate.callingPartyNumberType);
 		}
 
 	public String getDescription()
@@ -211,24 +190,14 @@ public class CallingPartyTransformationPattern extends ItemToInject
 		this.routePartitionName = routePartitionName;
 		}
 
-	public String getCallingSearchSpaceName()
+	public String getCallingPartyTransformationMask()
 		{
-		return callingSearchSpaceName;
+		return callingPartyTransformationMask;
 		}
 
-	public void setCallingSearchSpaceName(String callingSearchSpaceName)
+	public void setCallingPartyTransformationMask(String callingPartyTransformationMask)
 		{
-		this.callingSearchSpaceName = callingSearchSpaceName;
-		}
-
-	public String getPatternUrgency()
-		{
-		return patternUrgency;
-		}
-
-	public void setPatternUrgency(String patternUrgency)
-		{
-		this.patternUrgency = patternUrgency;
+		this.callingPartyTransformationMask = callingPartyTransformationMask;
 		}
 
 	public String getUseCallingPartyPhoneMask()
@@ -241,17 +210,6 @@ public class CallingPartyTransformationPattern extends ItemToInject
 		this.useCallingPartyPhoneMask = useCallingPartyPhoneMask;
 		}
 
-	public String getCalledPartyTransformationMask()
-		{
-		return calledPartyTransformationMask;
-		}
-
-	public void setCalledPartyTransformationMask(
-			String calledPartyTransformationMask)
-		{
-		this.calledPartyTransformationMask = calledPartyTransformationMask;
-		}
-
 	public String getDigitDiscardInstructionName()
 		{
 		return digitDiscardInstructionName;
@@ -262,24 +220,47 @@ public class CallingPartyTransformationPattern extends ItemToInject
 		this.digitDiscardInstructionName = digitDiscardInstructionName;
 		}
 
-	public String getCallingPartyTransformationMask()
+	public String getCallingPartyPrefixDigits()
 		{
-		return callingPartyTransformationMask;
+		return callingPartyPrefixDigits;
 		}
 
-	public void setCallingPartyTransformationMask(
-			String callingPartyTransformationMask)
+	public void setCallingPartyPrefixDigits(String callingPartyPrefixDigits)
 		{
-		this.callingPartyTransformationMask = callingPartyTransformationMask;
+		this.callingPartyPrefixDigits = callingPartyPrefixDigits;
 		}
 
-	
+	public String getCallingLinePresentationBit()
+		{
+		return callingLinePresentationBit;
+		}
 
+	public void setCallingLinePresentationBit(String callingLinePresentationBit)
+		{
+		this.callingLinePresentationBit = callingLinePresentationBit;
+		}
+
+	public String getCallingPartyNumberingPlan()
+		{
+		return callingPartyNumberingPlan;
+		}
+
+	public void setCallingPartyNumberingPlan(String callingPartyNumberingPlan)
+		{
+		this.callingPartyNumberingPlan = callingPartyNumberingPlan;
+		}
+
+	public String getCallingPartyNumberType()
+		{
+		return callingPartyNumberType;
+		}
+
+	public void setCallingPartyNumberType(String callingPartyNumberType)
+		{
+		this.callingPartyNumberType = callingPartyNumberType;
+		}
 	
 	
-	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

@@ -4,21 +4,23 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-//import jxl.Workbook;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.woot.gui.ProgressUpdater;
+import com.alex.woot.gui.StatusWindow;
+import com.alex.woot.gui.WaitingWindow;
+import com.alex.woot.misc.CollectionFileChecker;
+import com.alex.woot.misc.Office;
+import com.alex.woot.misc.Task;
+import com.alex.woot.soap.misc.MainItem;
+import com.alex.woot.user.misc.UserTools;
+import com.alex.woot.utils.LanguageManagement;
+import com.alex.woot.utils.UsefulMethod;
+import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.actionType;
 
-import com.alex.yuza.misc.CollectionFileChecker;
-import com.alex.yuza.misc.DIDRange;
-import com.alex.yuza.misc.ItemToInject;
-import com.alex.yuza.misc.Task;
-import com.alex.yuza.ui.SiteManagementWindow;
-import com.alex.yuza.ui.WaitingWindow;
-import com.alex.yuza.utils.LanguageManagement;
-import com.alex.yuza.utils.UsefulMethod;
-import com.alex.yuza.utils.Variables;
+
 
 /**********************************
- * Class used to delete a site
+ * Class used to delete an office
  * 
  * @author RATEL Alexandre
  **********************************/
@@ -27,123 +29,76 @@ public class OfficeDeletion extends Thread
 	/**
 	 * Variables
 	 */
-	private Workbook myWorkbook;
-	private String siteName;
-	private int siteType;
-	private ArrayList<ItemToInject> CCMItemToDeleteList;
-	private ArrayList<ItemToInject> CCMTemplateList;
-	private boolean siteInjected;
-	private String collectionFileName;
+	private ArrayList<MainItem> itemToDeleteList;
 	
 	/****
 	 * Constructor
 	 */
-	public OfficeDeletion(String collectionFileName, Workbook myWorkbook, String siteName, int siteType)
+	public OfficeDeletion()
 		{
-		this.myWorkbook = myWorkbook;
-		this.siteName = siteName;
-		this.siteType = siteType;
-		CCMItemToDeleteList = new ArrayList<ItemToInject>();
-		CCMTemplateList = new ArrayList<ItemToInject>();
-		siteInjected = false;
-		this.collectionFileName = collectionFileName;
+		itemToDeleteList = new ArrayList<MainItem>();
 		
 		start();
 		}
 	
 	/******
-	 * Global Method used to delete the site
+	 * Global Method used to inject the site
 	 */
 	public void run()
 		{
 		/*******
 		 * Splash window
-		 * Used to make the user waiting
+		 * Used to make the user wait
 		 */
-		WaitingWindow mySplashWindow = new WaitingWindow(LanguageManagement.getString("pleasewait"));
+		WaitingWindow myWW = new WaitingWindow(LanguageManagement.getString("pleasewait"));
 		/**************/
 		
 		try
 			{
-			Object[] options = { LanguageManagement.getString("yes"), LanguageManagement.getString("no")};
-			int answer = 1;
-			
 			/***************
 			 * Init
 			 */
-			//We check the collection file content
-			CollectionFileChecker.checkForSiteCreation(myWorkbook);
+			myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding"));
 			
-			//templateCCM file reading
-			CCMTemplateList = TemplateOfficeReader.readCCMTemplate(myWorkbook, siteType);
-			
-			//We fill the CCMItemToInjectList
-			CCMItemToDeleteList = OfficeTools.builCCMList(CCMTemplateList, myWorkbook);
-			
-			/**********************
-			 * Initialization of the AXL connection
-			 */
-			UsefulMethod.initAXL();
-			/*********************/
-			
-			/********************
-			 * We check here if the site is already injected
-			 * 
-			 * To do so :
-			 * We are going to check if the device pool already exists in the CUCM
-			 */
-			siteInjected = OfficeTools.isSiteExisting(CCMItemToDeleteList);
-			/*********************/
+			//We build the list of office items to delete
+			for(Office o : Variables.getCurrentOffices())//Will trigger current offices selection window
+				{
+				//Here we add he items for each office
+				itemToDeleteList.add(OfficeTools.setOfficeList(o, actionType.inject, myWW));
+				}
 			
 			/**
 			 * End Init 
 			 ***************/
 			
 			/********************
-			 * Injection
+			 * Deletion
 			 */
-			if(siteInjected)
-				{
-				answer = JOptionPane.showOptionDialog(null,LanguageManagement.getString("deletionquestion"),"",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-				}
-			else
-				{
-				answer = JOptionPane.showOptionDialog(null,LanguageManagement.getString("sitealreadydeleted"),"",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-				}
+			myWW.getAvancement().setText(" "+LanguageManagement.getString("taskbuilding"));
+			Task myTask = OfficeTools.prepareOfficeProcess(itemToDeleteList, actionType.delete);
+			myTask.startBuildProcess();
+			myTask.start();
 			
-			if(answer == 0)//Deletion asked
-				{
-				Task myTask = OfficeTools.prepareSiteDeletion(CCMItemToDeleteList);
-				
-				Variables.getLogger().info("Site deletion starts");
-				myTask.proceed();//Injection;
-				Variables.getLogger().info("Site deletion ended with success");
-				JOptionPane.showMessageDialog(null,LanguageManagement.getString("sitedeletionsuccess"),"",JOptionPane.INFORMATION_MESSAGE);
-				
-				//We try to send an email
-				if(UsefulMethod.getTargetOption("smtpemailsendsite").equals("true"))
-					{
-					answer = 1;
-					answer = JOptionPane.showOptionDialog(null,LanguageManagement.getString("checkresultemailquestion"),"",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-					
-					if(answer == 0)//Email asked
-						{
-						UsefulMethod.sendEmailToTheAdminList("",
-								siteName,
-								LanguageManagement.getString("emailreportcontentsitedeletion")+siteName+
-								" : "+collectionFileName);
-						}
-					}
-				}
+			Variables.getLogger().info("Office deletion starts");
+			
+			//We launch the user interface panel
+			StatusWindow sw = new StatusWindow(itemToDeleteList, myTask);
+			Variables.getMyWindow().getContentPane().removeAll();
+			Variables.getMyWindow().getContentPane().add(sw);
+			Variables.getMyWindow().repaint();
+			Variables.getMyWindow().validate();
+			
+			//We launch the class in charge of monitoring and updating the gui
+			new ProgressUpdater(sw, myTask);
+			Variables.getLogger().debug("monitoring thread launched");
 			/*********************/
 			}
 		catch (Exception e)
 			{
-			Variables.getLogger().error("",e);
-			JOptionPane.showMessageDialog(null,LanguageManagement.getString("injectionerror")+" "+e.getMessage(),LanguageManagement.getString("error"),JOptionPane.ERROR_MESSAGE);
+			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
 			}
-		
-		mySplashWindow.close();
+
+		myWW.close();
 		}
 	
 	

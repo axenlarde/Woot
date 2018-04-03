@@ -12,7 +12,9 @@ import org.w3c.dom.NodeList;
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.office.items.TranslationPattern;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
 
@@ -132,7 +134,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 		params.setCalledPartyTransformationMask(new JAXBElement(new QName("calledPartyTransformationMask"), String.class, this.calledPartyTransformationMask));
 		
 		//We get the UUID of the digitDiscardInstructionName from the CUCM
-		String digitDiscardInstructionUUID = getDigitDiscardUUID(this.digitDiscardInstructionName);
+		String digitDiscardInstructionUUID = SimpleRequest.getDigitDiscardUUID(this.digitDiscardInstructionName);
 		if(digitDiscardInstructionUUID != null)
 			{
 			com.cisco.axl.api._10.XFkType xfkDigit = new com.cisco.axl.api._10.XFkType();
@@ -167,7 +169,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 		params.setCalledPartyTransformationMask(new JAXBElement(new QName("calledPartyTransformationMask"), String.class, this.calledPartyTransformationMask));
 		
 		//We get the UUID of the digitDiscardInstructionName from the CUCM
-		String digitDiscardInstructionUUID = getDigitDiscardUUID(this.digitDiscardInstructionName);
+		String digitDiscardInstructionUUID = SimpleRequest.getDigitDiscardUUID(this.digitDiscardInstructionName);
 		if(digitDiscardInstructionUUID != null)
 			{
 			com.cisco.axl.api._8.XFkType xfkDigit = new com.cisco.axl.api._8.XFkType();
@@ -259,52 +261,6 @@ public class TranslationPatternLinker extends AXLItemLinker
 		return myTP;//Return a Translation Pattern
 		}
 	/****************/
-	
-	/***********
-	 * Method used to find the UUID of the
-	 * set DigitDiscard pattern
-	 * 
-	 * For instance : "PreDot"
-	 */
-	private String getDigitDiscardUUID(String digitDiscardName)
-		{
-		if(!digitDiscardName.equals(""))
-			{
-			try
-				{
-				List<Object> SQLResp = SimpleRequest.doSQLQuery("select pkid from digitdiscardinstruction where name='"+digitDiscardName+"'");
-				
-				for(Object o : SQLResp)
-					{
-					Element rowElement = (Element) o;
-					NodeList list = rowElement.getChildNodes();
-					
-					for(int i = 0; i< list.getLength(); i++)
-						{
-						if(list.item(i).getNodeName().equals("pkid"))
-							{
-							Variables.getLogger().debug("Digitdiscardinstruction "+digitDiscardName+" UUID found : "+list.item(i).getTextContent());
-							return list.item(i).getTextContent();
-							}
-						}
-					
-					}
-				}
-			catch (Exception e)
-				{
-				e.printStackTrace();
-				Variables.getLogger().error("Digitdiscardinstruction \""+digitDiscardName+"\" has not been found. We return null instead : "+e.getMessage());
-				}
-			}
-		else
-			{
-			Variables.getLogger().debug("Digitdiscardinstruction was empty. We return null instead");
-			}
-		
-		
-		return null;
-		}
-	
 	
 
 	public String getUsage()

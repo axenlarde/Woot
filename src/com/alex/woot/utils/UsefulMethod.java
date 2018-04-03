@@ -959,6 +959,28 @@ public class UsefulMethod
 		return selectedOffice;
 		}
 	
+	/*********
+	 * Used to ask the user the offices to use (multiple)
+	 * @throws Exception 
+	 * @throws NumberFormatException 
+	 */
+	public static ArrayList<Office> askCurrentOffices() throws NumberFormatException, Exception
+		{
+		OfficeSelectionWindow OSW = new OfficeSelectionWindow(Variables.getOfficeList());//Temp
+		ArrayList<Office> selectedOffices = new ArrayList<Office>(); 
+		selectedOffices.add(OSW.getSelectedOffice());
+		OSW.dispose();
+		
+		StringBuffer sb = new StringBuffer("");
+		sb.append("Selected offices : ");
+		for(Office o : selectedOffices)
+			{
+			sb.append(o.getName()+" - "+o.getFullname());
+			}
+		Variables.getLogger().debug(sb.toString());
+		return selectedOffices;
+		}
+	
 	/*****
 	 * Method used to find the substitute corresponding to 
 	 * the provided value

@@ -15,18 +15,15 @@ public class RouteGroupMember extends BasicItem
 	 */
 	private String deviceName,
 	port;
-	
-	private int order;
 
 	/***************
 	 * Constructor
 	 ***************/
-	public RouteGroupMember(String deviceName, int order)
+	public RouteGroupMember(String deviceName, String port)
 		{
 		super();
 		this.deviceName = deviceName;
-		this.port = "0";
-		this.order = order;
+		this.port = port;
 		}
 	
 	@Override
@@ -54,19 +51,8 @@ public class RouteGroupMember extends BasicItem
 		{
 		this.port = port;
 		}
-
-	public int getOrder()
-		{
-		return order;
-		}
-
-	public void setOrder(int order)
-		{
-		this.order = order;
-		}
-
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

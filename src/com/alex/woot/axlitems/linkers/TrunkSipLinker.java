@@ -9,7 +9,9 @@ import javax.xml.namespace.QName;
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.office.items.TrunkSip;
 import com.alex.woot.soap.items.SipTrunkDestination;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
@@ -165,12 +167,12 @@ public class TrunkSipLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._10.XSipTrunk.Destinations myDest = new com.cisco.axl.api._10.XSipTrunk.Destinations();
 		
-		for(SipTrunkDestination sipDest : this.myDestinations)
+		for(int i=0; i<myDestinations.size(); i++)
 			{
 			com.cisco.axl.api._10.XSipTrunkDestination mySTD = new com.cisco.axl.api._10.XSipTrunkDestination();
-			mySTD.setAddressIpv4(sipDest.getAddressIpv4());
-			mySTD.setPort(sipDest.getPort());
-			mySTD.setSortOrder(Integer.toString(sipDest.getOrder()));
+			mySTD.setAddressIpv4(myDestinations.get(i).getAddressIpv4());
+			mySTD.setPort(myDestinations.get(i).getPort());
+			mySTD.setSortOrder(Integer.toString(i+1));
 			
 			myDest.getDestination().add(mySTD);
 			}
@@ -218,12 +220,12 @@ public class TrunkSipLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._8.XSipTrunk.Destinations myDest = new com.cisco.axl.api._8.XSipTrunk.Destinations();
 		
-		for(SipTrunkDestination sipDest : this.myDestinations)
+		for(int i=0; i<myDestinations.size(); i++)
 			{
 			com.cisco.axl.api._8.XSipTrunkDestination mySTD = new com.cisco.axl.api._8.XSipTrunkDestination();
-			mySTD.setAddressIpv4(sipDest.getAddressIpv4());
-			mySTD.setPort(sipDest.getPort());
-			mySTD.setSortOrder(Integer.toString(sipDest.getOrder()));
+			mySTD.setAddressIpv4(myDestinations.get(i).getAddressIpv4());
+			mySTD.setPort(myDestinations.get(i).getPort());
+			mySTD.setSortOrder(Integer.toString(i+1));
 			
 			myDest.getDestination().add(mySTD);
 			}

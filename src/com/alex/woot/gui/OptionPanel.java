@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import com.alex.woot.gui.BaseLaunchPanel;
 import com.alex.woot.gui.OptionLine;
 import com.alex.woot.office.misc.OfficeCreation;
+import com.alex.woot.office.misc.OfficeDeletion;
 import com.alex.woot.user.misc.UserCreation;
 import com.alex.woot.user.misc.UserDeletion;
 import com.alex.woot.utils.Variables;
@@ -72,7 +73,7 @@ public class OptionPanel extends BaseLaunchPanel
 					switch(pType)
 						{
 						case user:new UserDeletion();break;
-						case office://new OfficeDeletion();break;
+						case office:new OfficeDeletion();break;
 						}
 					break;
 				}

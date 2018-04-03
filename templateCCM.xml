@@ -23,15 +23,6 @@ utiliser des + pour séparer les éléments
 			<audiobandwidth>office.audiobandwidth</audiobandwidth>
 			<videobandwidth>office.videobandwidth</videobandwidth>
 		</location>
-		<region>
-			<action>inject</action>
-			<name>'R_'+office.name</name>
-			<defaultcodec>''</defaultcodec>
-			<videobandwidth>office.videobandwidth</videobandwidth>
-			<g711>'R_'+office.name</g711>
-			<g711>'CERTI_G711_Servers'</g711>
-			<g711>'VCS'</g711>
-		</region>
 	</template>
 	<template>
 		<misc>
@@ -48,6 +39,7 @@ utiliser des + pour séparer les éléments
 			<name>'R_'+office.name</name>
 			<defaultcodec>''</defaultcodec>
 			<videobandwidth>office.videobandwidth</videobandwidth>
+			<codecpreferencelist></codecpreferencelist>
 			<g711>'R_'+office.name</g711>
 			<g711>'CERTI_G711_Servers'</g711>
 			<g711>'VCS'</g711>

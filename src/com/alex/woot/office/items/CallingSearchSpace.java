@@ -10,7 +10,6 @@ import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
 
 
-
 /**********************************
  * Class used to define an item of type "Calling Search Space"
  * 
