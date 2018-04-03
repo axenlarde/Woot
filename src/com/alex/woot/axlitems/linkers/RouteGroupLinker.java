@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.office.items.RouteGroup;
 import com.alex.woot.soap.items.RouteGroupMember;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.Variables.itemType;
 
 
 
@@ -96,12 +99,12 @@ public class RouteGroupLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._10.XRouteGroup.Members myMembers = new com.cisco.axl.api._10.XRouteGroup.Members();
 		
-		for(RouteGroupMember r : members)
+		for(int i=0; i<members.size(); i++)
 			{
 			com.cisco.axl.api._10.XRouteGroupMember myRGM = new com.cisco.axl.api._10.XRouteGroupMember();
-			myRGM.setDeviceName(SimpleRequest.getUUIDV105(itemType.trunksip, r.getDeviceName()));
-			myRGM.setDeviceSelectionOrder(Integer.toString(r.getOrder()));
-			myRGM.setPort(r.getPort());
+			myRGM.setDeviceName(SimpleRequest.getUUIDV105(itemType.trunksip, members.get(i).getDeviceName()));
+			myRGM.setDeviceSelectionOrder(Integer.toString(i+1));
+			myRGM.setPort(Integer.toString(i+1));
 			
 			myMembers.getMember().add(myRGM);
 			}
@@ -128,12 +131,12 @@ public class RouteGroupLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._8.XRouteGroup.Members myMembers = new com.cisco.axl.api._8.XRouteGroup.Members();
 		
-		for(RouteGroupMember r : members)
+		for(int i=0; i<members.size(); i++)
 			{
 			com.cisco.axl.api._8.XRouteGroupMember myRGM = new com.cisco.axl.api._8.XRouteGroupMember();
-			myRGM.setDeviceName(SimpleRequest.getUUIDV85(itemType.trunksip, r.getDeviceName()));
-			myRGM.setDeviceSelectionOrder(Integer.toString(r.getOrder()));
-			myRGM.setPort(r.getPort());
+			myRGM.setDeviceName(SimpleRequest.getUUIDV85(itemType.trunksip, members.get(i).getDeviceName()));
+			myRGM.setDeviceSelectionOrder(Integer.toString(i+1));
+			myRGM.setPort(Integer.toString(i+1));
 			
 			myMembers.getMember().add(myRGM);
 			}

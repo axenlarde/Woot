@@ -30,7 +30,7 @@ public class DisplayInfoWindow extends JWindow implements MouseListener
 	
 	
 	/**
-	 * Constrcteurs
+	 * Constructeurs
 	 */
 	public DisplayInfoWindow(ArrayList<String> infos)
 		{

@@ -222,7 +222,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 			}
 		if(!exists)correctionList.add(correction);
 		}
-	
+
 	public itemType getType()
 		{
 		return type;

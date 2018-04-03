@@ -192,7 +192,6 @@ public class DevicePool extends ItemToInject
 		for(LocalRouteGroup lrg : localRouteGroupList)
 			{
 			lrg.resolve();
-			this.getErrorList().addAll(lrg.getErrorList());
 			}
 		
 		/**
@@ -203,7 +202,7 @@ public class DevicePool extends ItemToInject
 		myDevicePool.setDateTimeSettingName(this.dateTimeSettingName);
 		myDevicePool.setDevicemobilitycss(this.devicemobilitycss);
 		myDevicePool.setDevicemobilitygroup(this.devicemobilitygroup);
-		myDevicePool.setLocalroutegroup(this.localRouteGroupList);
+		myDevicePool.setLocalroutegroupList(this.localRouteGroupList);
 		myDevicePool.setLocationName(this.locationName);
 		myDevicePool.setMediaressourcegrouplist(this.mediaressourcegrouplist);
 		myDevicePool.setNetworkLocale(this.networkLocale);

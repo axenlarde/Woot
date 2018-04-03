@@ -38,7 +38,7 @@ public class StatusWindow extends JPanel implements ActionListener, AncestorList
 	private int totalItem;
 	private Task myTask;
 	
-	//Contrôles
+	//Contrï¿½les
 	private JLabel taskType;
 	private JLabel Info;
 	private JProgressBar progress;
@@ -76,7 +76,7 @@ public class StatusWindow extends JPanel implements ActionListener, AncestorList
 	
 	private void buildWindow() throws Exception
 		{
-		//Contrôles
+		//Controles
 		taskType = new JLabel(LanguageManagement.getString("tasktype")+" : "+myTask.getTodoList().get(0).getAction().toString());
 		Info = new JLabel(" 0/0");
 		progress = new JProgressBar(0,totalItem);

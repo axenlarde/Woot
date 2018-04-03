@@ -2,19 +2,20 @@ package com.alex.woot.office.misc;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import com.alex.woot.gui.WaitingWindow;
 import com.alex.woot.misc.DidRange;
+import com.alex.woot.misc.ErrorTemplate;
 import com.alex.woot.misc.Gateway;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.Task;
+import com.alex.woot.office.items.TranslationPattern;
+import com.alex.woot.office.items.VG2XX;
 import com.alex.woot.soap.misc.MainItem;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
-import com.alex.woot.utils.Variables.itemType;
+import com.alex.woot.utils.Variables.gwType;
 
 
 /**********************************
@@ -34,7 +35,7 @@ public class OfficeTools
 	 */
 	public static synchronized MainItem setOfficeList(Office o, actionType action, WaitingWindow myWW) throws Exception
 		{
-		Variables.getLogger().info("Office List building process begin");
+		Variables.getLogger().info("Office List building process begin for : "+o.getName()+" - "+o.getFullname());
 		
 		MItemOffice myOffice = new MItemOffice(o.getName(), o.getFullname());
 		
@@ -46,21 +47,7 @@ public class OfficeTools
 		
 		//We get the office template to use
 		ArrayList<ItemToInject> TemplateItemList = new ArrayList<ItemToInject>();
-		for(OfficeTemplate ot : Variables.getOfficeTemplateList())
-			{
-			if(ot.getName().equals(o.getTemplatename()))
-				{
-				TemplateItemList = ot.getTemplateItemList();
-				break;
-				}
-			else
-				{
-				TemplateItemList = null;
-				}
-			}
-		
-		//In case we didn't find a matching template
-		if(TemplateItemList == null)throw new Exception("ERROR : The office template name didn't find any exiting tamplate");
+		TemplateItemList = TemplateOfficeReader.readOfficeTemplate(o.getTemplatename());
 		
 		for(int i=0; i<TemplateItemList.size(); i++)
 			{
@@ -69,105 +56,93 @@ public class OfficeTools
 			
 			ItemToInject item = TemplateItemList.get(i);
 			
-			/**
-			 * In case of deletion we exclude update items and transform inject actions into delete ones 
-			 */
-			if(action.equals(actionType.delete))
+			if(Variables.getAllowedItemsToProcess().contains(item.getType()))
 				{
-				if(item.getAction().equals(actionType.update))
+				/**
+				 * In case of deletion we exclude update items and transform inject actions into delete ones 
+				 */
+				if(action.equals(actionType.delete))
 					{
-					Variables.getLogger().debug("We do not add this to the user because it is an update item and this is a deletion task");
+					if(item.getAction().equals(actionType.update))
+						{
+						Variables.getLogger().debug("We do not add this to the user because it is an update item and this is a deletion task");
+						}
+					else
+						{
+						item.setAction(actionType.delete);
+						}
 					}
-				else
+				try
 					{
-					item.setAction(actionType.delete);
-					
 					item.resolve();
 					Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
 					myOffice.getAssociatedItems().add(item);
 					}
-				}
-			
-			
-			
-			
-			//Temp : We will manage the particular cases later
-			/*
-			if(item.getType().equals(itemType.translationpattern))
-				{
-				if(DIDRanges == null)
+				catch (Exception e)
 					{
-					DIDRanges = DIDRangeManager.getDIDRanges(true, myWorkbook);
+					Variables.getLogger().error("ERROR : The following item throw an exception during the resolution process : "+item.getName()+" "+item.getType().name(), e);
+					item.addNewError(new ErrorTemplate(item.getName(), "", "Failed to resolve", item.getType(), item.getType(), ErrorTemplate.errorType.other));
 					}
 				
-				//We treat here the particular case of a translation pattern depending of the DID ranges
-				ArrayList<TranslationPattern> TP = addDIDTranslationPatern(DIDRanges, item, myWorkbook);
-				
-				if(TP != null)
+				//Temp : We will manage the particular cases later
+				/*
+				if(item.getType().equals(itemType.translationpattern))
 					{
-					for(TranslationPattern tp : TP)
+					if(DIDRanges == null)
 						{
-						tp.resolve();
-						Variables.getLogger().info("Adding the "+item.getType().name()+" "+tp.getName()+" to the injection list");
-						CCMItemToInjectList.add(tp);
+						DIDRanges = DIDRangeManager.getDIDRanges(true, myWorkbook);
+						}
+					
+					//We treat here the particular case of a translation pattern depending of the DID ranges
+					ArrayList<TranslationPattern> TP = addDIDTranslationPatern(DIDRanges, item, myWorkbook);
+					
+					if(TP != null)
+						{
+						for(TranslationPattern tp : TP)
+							{
+							tp.resolve();
+							Variables.getLogger().info("Adding the "+item.getType().name()+" "+tp.getName()+" to the injection list");
+							CCMItemToInjectList.add(tp);
+							}
 						}
 					}
-				}
-			else if(item.getType().equals(itemType.vg))
-				{
-				//We treat here the particular case of the vgs
-				if(myGatewayList == null)
+				else if(item.getType().equals(itemType.vg))
 					{
-					myGatewayList = CollectionTools.findGatewaysFromCollectionFile(myWorkbook);
-					}
-				
-				ArrayList<VG2XX> vgs = addVGs(item, myGatewayList, myWorkbook);
-				
-				if(vgs != null)
-					{
-					for(VG2XX vg : vgs)
+					//We treat here the particular case of the vgs
+					if(myGatewayList == null)
 						{
-						vg.resolve();
-						Variables.getLogger().info("Adding the "+item.getType().name()+" "+vg.getName()+" to the injection list");
-						CCMItemToInjectList.add(vg);
+						myGatewayList = CollectionTools.findGatewaysFromCollectionFile(myWorkbook);
+						}
+					
+					ArrayList<VG2XX> vgs = addVGs(item, myGatewayList, myWorkbook);
+					
+					if(vgs != null)
+						{
+						for(VG2XX vg : vgs)
+							{
+							vg.resolve();
+							Variables.getLogger().info("Adding the "+item.getType().name()+" "+vg.getName()+" to the injection list");
+							CCMItemToInjectList.add(vg);
+							}
 						}
 					}
+				else
+					{
+					//This is a normal item
+					item.resolve();
+					Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
+					CCMItemToInjectList.add(item);
+					}*/
 				}
-			else
-				{
-				//This is a normal item
-				item.resolve();
-				Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
-				CCMItemToInjectList.add(item);
-				}*/
 			}
-		
-		Variables.getLogger().info("Item List building process end for the office :"+o.getName());
+		Variables.getLogger().info("Item List building process end for the office : "+o.getName()+" - "+o.getFullname());
 		
 		return myOffice;
 		}
 	
 	
 	/************
-	 * Method used to prepare a site injection
-	 * 
-	 * We want to inject following this order :
-	 * - Location
-	 * - Region
-	 * - SRST
-	 * - Device Pool
-	 * - Conference Bridge
-	 * - Media Ressource Group
-	 * - Media Ressource Group List
-	 * - Partition
-	 * - Css
-	 * - Trunk
-	 * - VG
-	 * - Routegroup
-	 * - Translation Pattern
-	 * - physicallocation
-	 * - devicemobilitygroup
-	 * - Update Device Pool
+	 * Method used to prepare an office injection
 	 */
 	public static synchronized Task prepareOfficeProcess(ArrayList<MainItem> itemToInjectList, actionType type) throws Exception
 		{
@@ -175,12 +150,27 @@ public class OfficeTools
 		
 		ArrayList<ItemToInject> myList = new ArrayList<ItemToInject>();
 		
-		for(MainItem mi : itemToInjectList)
+		if(type.equals(actionType.delete))
 			{
-			for(ItemToInject item : mi.getAssociatedItems())
+			for(MainItem mi : itemToInjectList)
 				{
-				Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the list as an "+item.getAction().name()+" todo");
-				myList.add(item);
+				for(int i=mi.getAssociatedItems().size()-1; i>=0; i--)
+					{
+					ItemToInject item = mi.getAssociatedItems().get(i);
+					Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the list as an "+item.getAction().name()+" todo");
+					myList.add(item);
+					}
+				}
+			}
+		else //Inject or update
+			{
+			for(MainItem mi : itemToInjectList)
+				{
+				for(ItemToInject item : mi.getAssociatedItems())
+					{
+					Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the list as an "+item.getAction().name()+" todo");
+					myList.add(item);
+					}
 				}
 			}
 		
@@ -190,96 +180,14 @@ public class OfficeTools
 		return new Task(myList);
 		}
 	
-	/************
-	 * Method used to prepare a site deletion
-	 * 
-	 * We want to delete following this reversed order :
-	 * - Location
-	 * - Region
-	 * - SRST
-	 * - Device Pool
-	 * - Conference Bridge
-	 * - Media Ressource Group
-	 * - Media Ressource Group List
-	 * - Partition
-	 * - Css
-	 * - Trunk
-	 * - VG
-	 * - Routegroup
-	 * - Translation Pattern
-	 * - physicallocation
-	 * - devicemobilitygroup
-	 */
-	public static synchronized Task prepareSiteDeletion(ArrayList<ItemToInject> CCMItemToInjectList) throws Exception
-		{
-		Variables.getLogger().info("Site deletion process begin");
-		
-		ArrayList<ToDo> myList = new ArrayList<ToDo>();
-		
-		/**
-		 * This is important for sorting the deletion list
-		 */
-		/*location,
-		region,
-		srstreference,
-		devicepool,
-		commondeviceconfig,
-		conferencebridge,
-		mediaressourcegroup,
-		mediaressourcegrouplist,
-		partition,
-		callingsearchspace,
-		trunksip,
-		vg,
-		routegroup,
-		translationpattern,
-		physicallocation,
-		devicemobilityinfo,
-		devicemobilitygroup,*/
-		
-		String[] direction = new String[]{
-				"translationpattern",
-				"vg",
-				"trunksip",
-				"conferencebridge",
-				"commondeviceconfig",
-				"devicepool",
-				"mediaressourcegrouplist",
-				"mediaressourcegroup",
-				"callingsearchspace",
-				"partition",
-				"routegroup",
-				"devicemobilitygroup",
-				"devicemobilityinfo",
-				"physicallocation",
-				"srstreference",
-				"region",
-				"location"};
-		
-		for(String s : direction)
-			{
-			for(ItemToInject item : CCMItemToInjectList)
-				{
-				if(item.getType().name().equals(s))
-					{
-					Variables.getLogger().info("Adding the "+s+" "+item.getName()+" to the deletion list");
-					myList.add(new ToDo(actionType.delete, item));
-					}
-				}
-			}
-		
-		Variables.getLogger().info("Site deletion preparation process end");
-		
-		//The deletion task is ready
-		return new Task(myList);
-		}
+	
 	
 	
 	/*****************
 	 * Method used to process the particular case of 
 	 * a translation Pattern depending of the DID range
 	 */
-	private static synchronized ArrayList<TranslationPattern> addDIDTranslationPatern(ArrayList<DIDRange> DIDRanges, ItemToInject item, Workbook myWorkbook)
+	private static synchronized ArrayList<TranslationPattern> addDIDTranslationPatern(ArrayList<DidRange> DIDRanges, ItemToInject item)
 		{
 		try
 			{
@@ -295,12 +203,12 @@ public class OfficeTools
 				 * 
 				 * For each range we add a Translation pattern
 				 */
-				for(DIDRange d : DIDRanges)
+				for(DidRange d : DIDRanges)
 					{
 					/**
 					 * We need to resolve the pattern
 					 */
-					String sPattern = modelTP.getName().replace("cnaf.sdarange", d.getFirstDID().substring(0, d.getFirstDID().length()-4)+d.getPattern());
+					String sPattern = modelTP.getName().replace("cnaf.sdarange", d.getFirst().substring(0, d.getFirst().length()-4)+d.getPattern());
 					/*******/
 					
 					TPList.add(new TranslationPattern(sPattern,
@@ -311,8 +219,7 @@ public class OfficeTools
 							modelTP.getUseCallingPartyPhoneMask(),
 							modelTP.getCalledPartyTransformationMask(),
 							modelTP.getCallingPartyTransformationMask(),
-							modelTP.getDigitDiscardInstructionName(),
-							myWorkbook));
+							modelTP.getDigitDiscardInstructionName()));
 					}
 				return TPList;
 				}
@@ -338,7 +245,7 @@ public class OfficeTools
 	 * Method used to find the list of VGs to create
 	 * @throws Exception 
 	 */
-	private static ArrayList<VG2XX> addVGs(ItemToInject item, ArrayList<Gateway> myGatewayList, Workbook myWorkbook) throws Exception
+	private static ArrayList<VG2XX> addVGs(ItemToInject item, ArrayList<Gateway> myGatewayList) throws Exception
 		{
 		ArrayList<VG2XX> myList = new ArrayList<VG2XX>();
 		
@@ -351,7 +258,6 @@ public class OfficeTools
 				if(g.getType().equals(gwType.vg))
 					{
 					VG2XX myVG = new VG2XX(modelVG.getName(),
-							myWorkbook,
 							modelVG.getDescription(),
 							g.getProduct(),
 							modelVG.getProtocol(),
@@ -385,6 +291,6 @@ public class OfficeTools
 		}
 	
 	
-	/*2017*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

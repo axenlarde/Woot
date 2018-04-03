@@ -34,7 +34,7 @@ public class RelatedRegionDetail extends BasicItem
 		this.regionName = regionName;
 		this.bandwidth = "G.729";
 		this.videoBandwidth = "384";
-		this.codecPreference = ";
+		this.codecPreference = "";
 		}
 	
 	@Override

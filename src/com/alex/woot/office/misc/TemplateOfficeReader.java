@@ -35,7 +35,7 @@ public class TemplateOfficeReader
 	 * Static method used to read the CUCM Template 
 	 * @throws Exception 
 	 */
-	public static ArrayList<OfficeTemplate> readOfficeTemplate() throws Exception
+	public static ArrayList<ItemToInject> readOfficeTemplate(String templateName) throws Exception
 		{
 		try
 			{
@@ -51,8 +51,8 @@ public class TemplateOfficeReader
 			//And here we get the detail
 			ArrayList<ArrayList<String[][]>> templateCCMContentDetail = xMLGear.getResultListTabExt(fileContent, listParams);
 			
-			//We initialize the Office template List
-			ArrayList<OfficeTemplate> officeTemplateList = new ArrayList<OfficeTemplate>();
+			//The list to return
+			ArrayList<ItemToInject> CCMTemplateList = new ArrayList<ItemToInject>();
 			
 			/******
 			 * For each item we check if we have to process it.
@@ -63,30 +63,28 @@ public class TemplateOfficeReader
 				{
 				String[][] tab = templateCCMContent.get(a);
 				ArrayList<String[][]> detail = templateCCMContentDetail.get(a);
-				ArrayList<ItemToInject> CCMTemplateList = new ArrayList<ItemToInject>();
 				
-				//We get the name of the template
-				
-				OfficeTemplate myOfficeT = new OfficeTemplate(detail.get(0)[0][0]);//Should be the template name ;)
-				
-				for(int i=0; i<tab.length; i++)
+				if(templateName.equals(detail.get(0)[0][1]))//detail.get(0)[0][1] Should be the template name ;)
 					{
-					for(itemType item : itemType.values())
+					for(int i=0; i<tab.length; i++)
 						{
-						if(tab[i][0].equals(item.name()))
+						for(itemType item : itemType.values())
 							{
-							ItemToInject myItem = createItem(item, detail.get(i));
-							if(myItem != null)CCMTemplateList.add(myItem);
+							if(tab[i][0].equals(item.name()))
+								{
+								ItemToInject myItem = createItem(item, detail.get(i));
+								if(myItem != null)CCMTemplateList.add(myItem);
+								}
 							}
 						}
+					return CCMTemplateList;
 					}
-				myOfficeT.setTemplateItemList(CCMTemplateList);
-				officeTemplateList.add(myOfficeT);
 				}
-			return officeTemplateList;
+			throw new Exception("ERROR : The office template name didn't find any existing template");
 			}
 		catch(Exception e)
 			{
+			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
 			throw new Exception("Error while reading the CCM Template file : "+e.getMessage());
 			}
 		}
@@ -115,7 +113,7 @@ public class TemplateOfficeReader
 				if(s[0].equals("g711"))myG711RR.add(new RelatedRegionDetail(
 						s[1],
 						UsefulMethod.getItemByName("videobandwidth", itemDetails),
-						UsefulMethod.getItemByName("G.711", itemDetails),
+						"G.711",
 						UsefulMethod.getItemByName("codecpreferencelist", itemDetails)));
 				}
 			
@@ -140,7 +138,14 @@ public class TemplateOfficeReader
 				if(s[0].equals("localroutegroup"))
 					{
 					String[] tab = s[1].split(":");
-					localRouteGroupList.add(new LocalRouteGroup(tab[0], tab[1]));
+					if(tab.length > 1)
+						{
+						localRouteGroupList.add(new LocalRouteGroup(tab[0], tab[1]));
+						}
+					else
+						{
+						localRouteGroupList.add(new LocalRouteGroup(tab[0], "Standard Local Route Group"));
+						}
 					}
 				}
 			
@@ -152,10 +157,19 @@ public class TemplateOfficeReader
 					UsefulMethod.getItemByName("datetimesetting", itemDetails),
 					UsefulMethod.getItemByName("srstreference", itemDetails),
 					UsefulMethod.getItemByName("mediaressourcegrouplist", itemDetails),
-					localRouteGroupList,
 					UsefulMethod.getItemByName("physicallocation", itemDetails),
 					UsefulMethod.getItemByName("devicemobilitygroup", itemDetails),
-					UsefulMethod.getItemByName("devicemobilitycss", itemDetails));
+					UsefulMethod.getItemByName("devicemobilitycss", itemDetails),
+					UsefulMethod.getItemByName("cgpntransformationcss", itemDetails),
+					UsefulMethod.getItemByName("cdpntransformationcss", itemDetails),
+					UsefulMethod.getItemByName("callingpartynationaltransformationcss", itemDetails),
+					UsefulMethod.getItemByName("callingpartyinternationaltransformationcss", itemDetails),
+					UsefulMethod.getItemByName("callingpartyunknowntransformationcss", itemDetails),
+					UsefulMethod.getItemByName("callingpartysubscribertransformationcss", itemDetails),
+					UsefulMethod.getItemByName("cntdpntransformationcss", itemDetails),
+					UsefulMethod.getItemByName("redirectingpartytransformationcss", itemDetails),
+					UsefulMethod.getItemByName("callingpartytransformationcss", itemDetails),
+					localRouteGroupList);
 			
 			myDevicePool.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
 			return myDevicePool;

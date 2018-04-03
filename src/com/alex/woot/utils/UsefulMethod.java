@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alex.woot.gui.OfficeSelectionWindow;
+import com.alex.woot.gui.OfficesSelectionWindow;
 import com.alex.woot.misc.Correction;
 import com.alex.woot.misc.DidRange;
 import com.alex.woot.misc.Office;
@@ -966,16 +967,16 @@ public class UsefulMethod
 	 */
 	public static ArrayList<Office> askCurrentOffices() throws NumberFormatException, Exception
 		{
-		OfficeSelectionWindow OSW = new OfficeSelectionWindow(Variables.getOfficeList());//Temp
+		OfficesSelectionWindow OSW = new OfficesSelectionWindow(Variables.getOfficeList());//Temp
 		ArrayList<Office> selectedOffices = new ArrayList<Office>(); 
-		selectedOffices.add(OSW.getSelectedOffice());
+		selectedOffices = OSW.getSelectedOffices();
 		OSW.dispose();
 		
 		StringBuffer sb = new StringBuffer("");
-		sb.append("Selected offices : ");
+		sb.append("Selected offices :");
 		for(Office o : selectedOffices)
 			{
-			sb.append(o.getName()+" - "+o.getFullname());
+			sb.append(" "+o.getName()+" - "+o.getFullname());
 			}
 		Variables.getLogger().debug(sb.toString());
 		return selectedOffices;

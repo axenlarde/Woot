@@ -1,6 +1,6 @@
 package com.alex.woot.misc;
 
-import com.alex.yuza.utils.Variables.gwType;
+import com.alex.woot.utils.Variables.gwType;
 
 /**********************************
  * Class used to store a gateway configuration

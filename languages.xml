@@ -86,6 +86,7 @@ Language configuration file
 			<tasktype>Task type</tasktype>
 			<elapsedtime>Elapsed time</elapsedtime>
 			<totalitem>Total item</totalitem>
+			<treateditem>Treated item</treateditem>
 			<disableditem>Disabled item</disableditem>
 			<erroritem>Errors</erroritem>
 		</values>

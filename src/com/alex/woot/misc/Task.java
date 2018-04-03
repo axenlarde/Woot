@@ -150,9 +150,7 @@ public class Task extends Thread
 			Variables.getLogger().info("Task ends");
 			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
 			Variables.getLogger().info("UUID list cleared");
-			Variables.getMyWorkbook().close();
-			Variables.setMyWorkbook(null);//We reset the workbook
-			Variables.getLogger().info("Workbook closed");
+			Variables.closeWorkbook();
 			}
 		catch (Exception e)
 			{

@@ -13,8 +13,8 @@ import com.alex.woot.utils.Variables.statusType;
 
 
 /****************************************************
- * Classe qui gère la mise à jour de la fenêtre pour
- * afficher graphiquement l'état d'avancement
+ * Classe qui gï¿½re la mise ï¿½ jour de la fenï¿½tre pour
+ * afficher graphiquement l'ï¿½tat d'avancement
  ****************************************************/
 public class ProgressUpdater extends Thread
 	{
@@ -83,14 +83,17 @@ public class ProgressUpdater extends Thread
 					infos.add(LanguageManagement.getString("totalitem")+" : "+myTask.getTodoList().size());
 					
 					//We gather the required informations
+					int treatedItem = 0;
 					int disabledItem = 0;
 					int errorItem = 0;
 					for(ItemToInject iti : myTask.getTodoList())
 						{
+						if((iti.getStatus().equals(statusType.injected)) || (iti.getStatus().equals(statusType.deleted)))treatedItem++;
 						if(iti.getStatus().equals(statusType.disabled))disabledItem++;
 						if(iti.getStatus().equals(statusType.error))errorItem++;
 						}
 					
+					infos.add(LanguageManagement.getString("treateditem")+" : "+treatedItem);
 					infos.add(LanguageManagement.getString("disableditem")+" : "+disabledItem);
 					infos.add(LanguageManagement.getString("erroritem")+" : "+errorItem);
 					infos.add(LanguageManagement.getString("elapsedtime")+" : "+timeFormat.format(myDate));

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
+import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.misc.SimpleRequest;
+import com.alex.woot.office.items.CallingSearchSpace;
 import com.alex.woot.soap.items.PartitionMember;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
@@ -95,11 +98,11 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._10.XCss.Members myMembers = new com.cisco.axl.api._10.XCss.Members();
 		
-		for(PartitionMember p : members)
+		for(int i=0; i<members.size(); i++)
 			{
 			com.cisco.axl.api._10.XCallingSearchSpaceMember myCSSM = new com.cisco.axl.api._10.XCallingSearchSpaceMember();
-			myCSSM.setRoutePartitionName(SimpleRequest.getUUIDV105(itemType.partition, p.getName()));
-			myCSSM.setIndex(Integer.toString(p.getOrder()));
+			myCSSM.setRoutePartitionName(SimpleRequest.getUUIDV105(itemType.partition, members.get(i).getName()));
+			myCSSM.setIndex(Integer.toString(i+1));
 			
 			myMembers.getMember().add(myCSSM);
 			}
@@ -126,11 +129,11 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 		
 		com.cisco.axl.api._8.XCss.Members myMembers = new com.cisco.axl.api._8.XCss.Members();
 		
-		for(PartitionMember p : members)
+		for(int i=0; i<members.size(); i++)
 			{
 			com.cisco.axl.api._8.XCallingSearchSpaceMember myCSSM = new com.cisco.axl.api._8.XCallingSearchSpaceMember();
-			myCSSM.setRoutePartitionName(SimpleRequest.getUUIDV85(itemType.partition, p.getName()));
-			myCSSM.setIndex(Integer.toString(p.getOrder()));
+			myCSSM.setRoutePartitionName(SimpleRequest.getUUIDV85(itemType.partition, members.get(i).getName()));
+			myCSSM.setIndex(Integer.toString(i+1));
 			
 			myMembers.getMember().add(myCSSM);
 			}

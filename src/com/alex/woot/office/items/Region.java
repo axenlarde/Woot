@@ -126,7 +126,7 @@ public class Region extends ItemToInject
 		 */
 		myRegion.setName(this.getName());
 		myRegion.setDefaultCodec(defaultCodec);
-		myRegion.setG711RegionList(relatedRegionList);
+		myRegion.setRelatedRegionList(relatedRegionList);
 		/*********/
 		}
 	

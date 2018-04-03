@@ -12,6 +12,7 @@ import com.alex.woot.misc.ErrorTemplate;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.SimpleRequest;
 import com.alex.woot.office.items.DevicePool;
+import com.alex.woot.soap.items.LocalRouteGroup;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
 
@@ -47,7 +48,7 @@ public class DevicePoolLinker extends AXLItemLinker
 	redirectingPartyTransformationCSS,
 	callingPartyTransformationCSS;
 	
-	private ArrayList<String> localroutegroup;
+	private ArrayList<LocalRouteGroup> localRouteGroupList;
 	
 	public enum toUpdate implements ToUpdate
 		{
@@ -158,11 +159,11 @@ public class DevicePoolLinker extends AXLItemLinker
 		/**
 		 * Localroutegroup
 		 */
-		for(String s : localroutegroup)
+		for(LocalRouteGroup lrg : localRouteGroupList)
 			{
 			com.cisco.axl.api._10.XDevicePool.LocalRouteGroup myLRG = new com.cisco.axl.api._10.XDevicePool.LocalRouteGroup();
-			myLRG.setName(new JAXBElement(new QName("name"), String.class, s));
-			myLRG.setValue(s);
+			myLRG.setName(new JAXBElement(new QName("name"), String.class, lrg.getName()));
+			myLRG.setValue(lrg.getValue());
 			params.getLocalRouteGroup().add(myLRG);
 			}
 		/****/
@@ -210,15 +211,36 @@ public class DevicePoolLinker extends AXLItemLinker
 		 */
 		req.setName(this.getName());
 		
+		if(tuList.contains(toUpdate.mediaressourcegrouplist))req.setRegionName(SimpleRequest.getUUIDV105(itemType.region, this.regionName));
+		if(tuList.contains(toUpdate.dateTimeSettingName))req.setDateTimeSettingName(SimpleRequest.getUUIDV105(itemType.datetimesetting, this.dateTimeSettingName));
+		if(tuList.contains(toUpdate.callManagerGroupName))req.setCallManagerGroupName(SimpleRequest.getUUIDV105(itemType.callmanagergroup, this.callManagerGroupName));
+		if(tuList.contains(toUpdate.srstreference))req.setSrstName(SimpleRequest.getUUIDV105(itemType.srstreference, this.srstreference));
+		if(tuList.contains(toUpdate.networkLocale))req.setNetworkLocale(new JAXBElement(new QName("networkLocale"), String.class,this.networkLocale));
+		if(tuList.contains(toUpdate.locationName))req.setLocationName(new JAXBElement(new QName("locationName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.location, this.locationName)));
 		if(tuList.contains(toUpdate.mediaressourcegrouplist))req.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.mediaresourcegrouplist, this.mediaressourcegrouplist)));
 		if(tuList.contains(toUpdate.physicallocation))req.setPhysicalLocationName(new JAXBElement(new QName("physicalLocationName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.physicallocation, this.physicallocation)));
 		if(tuList.contains(toUpdate.devicemobilitygroup))req.setDeviceMobilityGroupName(new JAXBElement(new QName("deviceMobilityGroupName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.devicemobilitygroup, this.devicemobilitygroup)));
 		if(tuList.contains(toUpdate.devicemobilitycss))req.setMobilityCssName(new JAXBElement(new QName("mobilityCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.devicemobilitycss)));
+		if(tuList.contains(toUpdate.cgpnTransformationCssName))req.setCgpnTransformationCssName(new JAXBElement(new QName("cgpnTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.cgpnTransformationCssName)));
+		if(tuList.contains(toUpdate.cdpnTransformationCssName))req.setCdpnTransformationCssName(new JAXBElement(new QName("cdpnTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.cdpnTransformationCssName)));
+		if(tuList.contains(toUpdate.callingPartyNationalTransformationCssName))req.setCallingPartyNationalTransformationCssName(new JAXBElement(new QName("callingPartyNationalTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyNationalTransformationCssName)));
+		if(tuList.contains(toUpdate.callingPartyInternationalTransformationCssName))req.setCallingPartyInternationalTransformationCssName(new JAXBElement(new QName("callingPartyInternationalTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyInternationalTransformationCssName)));
+		if(tuList.contains(toUpdate.callingPartyUnknownTransformationCssName))req.setCallingPartyUnknownTransformationCssName(new JAXBElement(new QName("callingPartyUnknownTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyUnknownTransformationCssName)));
+		if(tuList.contains(toUpdate.callingPartySubscriberTransformationCssName))req.setCallingPartySubscriberTransformationCssName(new JAXBElement(new QName("callingPartySubscriberTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartySubscriberTransformationCssName)));
+		if(tuList.contains(toUpdate.cntdPnTransformationCssName))req.setCntdPnTransformationCssName(new JAXBElement(new QName("cntdPnTransformationCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.cntdPnTransformationCssName)));
+		if(tuList.contains(toUpdate.redirectingPartyTransformationCSS))req.setRedirectingPartyTransformationCSS(new JAXBElement(new QName("redirectingPartyTransformationCSS"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.redirectingPartyTransformationCSS)));
+		if(tuList.contains(toUpdate.callingPartyTransformationCSS))req.setCallingPartyTransformationCSS(new JAXBElement(new QName("callingPartyTransformationCSS"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(itemType.callingsearchspace, this.callingPartyTransformationCSS)));
 		
 		//Local Route Group
-		myLRG.setName(new JAXBElement(new QName("name"), String.class,"Standard Local Route Group"));//To improve with a variables
-		myLRG.setValue(this.localroutegroup.get(0));
-		if(tuList.contains(toUpdate.localroutegroup))req.getLocalRouteGroup().add(myLRG);
+		if(tuList.contains(toUpdate.localroutegroup))
+			{
+			for(LocalRouteGroup lrg : localRouteGroupList)
+				{
+				myLRG.setName(new JAXBElement(new QName("name"), String.class, lrg.getName()));//To improve with a variables
+				myLRG.setValue(lrg.getValue());
+				req.getLocalRouteGroup().add(myLRG);
+				}
+			}
 		/************/
 		
 		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateDevicePool(req);//We send the request to the CUCM
@@ -233,7 +255,7 @@ public class DevicePoolLinker extends AXLItemLinker
 		 */
 		req.setName(this.getName());
 		req.setMediaResourceListName(new JAXBElement(new QName("mediaResourceListName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.mediaresourcegrouplist, this.mediaressourcegrouplist)));
-		req.setLocalRouteGroupName(new JAXBElement(new QName("localRouteGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.routegroup, this.localroutegroup.get(0))));
+		req.setLocalRouteGroupName(new JAXBElement(new QName("localRouteGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.routegroup, this.localRouteGroupList.get(0).getValue())));
 		req.setPhysicalLocationName(new JAXBElement(new QName("physicalLocationName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.physicallocation, this.physicallocation)));
 		req.setDeviceMobilityGroupName(new JAXBElement(new QName("deviceMobilityGroupName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.devicemobilitygroup, this.devicemobilitygroup)));
 		req.setMobilityCssName(new JAXBElement(new QName("mobilityCssName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(itemType.callingsearchspace, this.devicemobilitycss)));
@@ -480,15 +502,17 @@ public class DevicePoolLinker extends AXLItemLinker
 		this.callingPartyTransformationCSS = callingPartyTransformationCSS;
 		}
 
-	public ArrayList<String> getLocalroutegroup()
+	public ArrayList<LocalRouteGroup> getLocalroutegroupList()
 		{
-		return localroutegroup;
+		return localRouteGroupList;
 		}
 
-	public void setLocalroutegroup(ArrayList<String> localroutegroup)
+	public void setLocalroutegroupList(ArrayList<LocalRouteGroup> localroutegroupList)
 		{
-		this.localroutegroup = localroutegroup;
+		this.localRouteGroupList = localroutegroupList;
 		}
+
+
 
 
 	

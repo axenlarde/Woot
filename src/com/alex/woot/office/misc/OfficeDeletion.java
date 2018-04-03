@@ -63,8 +63,10 @@ public class OfficeDeletion extends Thread
 			//We build the list of office items to delete
 			for(Office o : Variables.getCurrentOffices())//Will trigger current offices selection window
 				{
+				//First we set the current office
+				Variables.setCurrentOffice(o);
 				//Here we add he items for each office
-				itemToDeleteList.add(OfficeTools.setOfficeList(o, actionType.inject, myWW));
+				itemToDeleteList.add(OfficeTools.setOfficeList(o, actionType.delete, myWW));
 				}
 			
 			/**

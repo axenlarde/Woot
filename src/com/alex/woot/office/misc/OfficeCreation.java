@@ -8,6 +8,7 @@ import com.alex.woot.gui.ProgressUpdater;
 import com.alex.woot.gui.StatusWindow;
 import com.alex.woot.gui.WaitingWindow;
 import com.alex.woot.misc.CollectionFileChecker;
+import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.Task;
 import com.alex.woot.soap.misc.MainItem;
@@ -63,10 +64,11 @@ public class OfficeCreation extends Thread
 			//We build the list of office items to inject
 			for(Office o : Variables.getCurrentOffices())//Will trigger current offices selection window
 				{
-				//Here we add he items for each office
+				//First we set the current office
+				Variables.setCurrentOffice(o);
+				//Here we add the items for each office
 				itemToInjectList.add(OfficeTools.setOfficeList(o, actionType.inject, myWW));
 				}
-			
 			/**
 			 * End Init 
 			 ***************/

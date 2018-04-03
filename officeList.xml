@@ -14,11 +14,11 @@ To access one of this setting, use the following syntax : office.name, office.mo
 			<videobandwidth>384</videobandwidth><!--(Kbps)-->
 			<userlocal>English United States</userlocal><!--French France, Italian Italy, English United States, etc.-->
 			<softkeytemplate>Standard User Plus</softkeytemplate><!--Softkey template name-->
-			<callmanagergroup>CCM-Group1</callmanagergroup><!--Call Manager group name-->
+			<callmanagergroup>MAIN_CMG</callmanagergroup><!--Call Manager group name-->
 			<datetimegroup>France</datetimegroup><!--Date time group name-->
 			<mohnumber>1</mohnumber><!--Moh number-->
-			<country>United States</country><!--France, Italy, United Kingdom, etc.-->
-			<internalprefix>001</internalprefix><!--Office internal prefix-->
+			<country>France</country><!--France, Italy, United Kingdom, etc.-->
+			<internalprefix>331</internalprefix><!--Office internal prefix-->
 			<didranges>
 				<did>01414641XX</did><!--one or more--><!--CUCM like pattern for one did range-->
 				<did>01414741XX</did><!--one or more--><!--CUCM like pattern for one did range-->
@@ -40,13 +40,13 @@ To access one of this setting, use the following syntax : office.name, office.mo
 		</office>
 		<office>
 			<name>073</name><!--Office name-->
-			<templatename>template1</templatename><!--CCM Template to use-->
+			<templatename>template2</templatename><!--CCM Template to use-->
 			<fullname>RIDDERKERK</fullname><!--Office full name-->
 			<audiobandwidth>1000</audiobandwidth><!--(Kbps)-->
 			<videobandwidth>384</videobandwidth><!--(Kbps)-->
 			<userlocal>English United States</userlocal><!--French France, Italian Italy, English United States, etc.-->
 			<softkeytemplate>Standard User Plus</softkeytemplate><!--Softkey template name-->
-			<callmanagergroup>CCM-Group1</callmanagergroup><!--Call Manager group name-->
+			<callmanagergroup>MAIN_CMG</callmanagergroup><!--Call Manager group name-->
 			<datetimegroup>France</datetimegroup><!--Date time group name-->
 			<mohnumber>2</mohnumber><!--Moh number-->
 			<country>United States</country><!--France, Italy, United Kingdom, etc.-->
@@ -78,7 +78,7 @@ To access one of this setting, use the following syntax : office.name, office.mo
 			<videobandwidth>384</videobandwidth><!--(Kbps)-->
 			<userlocal>French France</userlocal><!--French France, Italian Italy, English United States, etc.-->
 			<softkeytemplate>Standard User Plus</softkeytemplate><!--Softkey template name-->
-			<callmanagergroup>CCM-Group1</callmanagergroup><!--Call Manager group name-->
+			<callmanagergroup>MAIN_CMG</callmanagergroup><!--Call Manager group name-->
 			<datetimegroup>Belgique</datetimegroup><!--Date time group name-->
 			<mohnumber>1</mohnumber><!--Moh number-->
 			<country>Belgium</country><!--France, Italy, United Kingdom, etc.-->

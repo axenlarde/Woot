@@ -1,25 +1,20 @@
 package com.alex.woot.utils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.alex.woot.gui.MainWindow;
-import com.alex.woot.misc.Correction;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.ValueMatcher;
 import com.alex.woot.misc.storedUUID;
-import com.alex.woot.office.misc.OfficeTemplate;
-import com.alex.woot.office.misc.TemplateOfficeReader;
 import com.alex.woot.user.misc.TemplateUserReader;
 import com.alex.woot.user.misc.UserCreationProfile;
 import com.alex.woot.utils.UsefulMethod;
@@ -274,7 +269,6 @@ public class Variables
 	
 	//Templates
 	private static ArrayList<ItemToInject> userTemplateList;//User
-	private static ArrayList<OfficeTemplate> officeTemplateList;//List
 	
 	//Langage management
 	public enum language{english,french};
@@ -312,6 +306,20 @@ public class Variables
 		LGAlgorithm.add("Circular");
 		LGAlgorithm.add("Longest Idle Time");
 		LGAlgorithm.add("Broadcast");
+		}
+	
+	/**
+	 * Used to close the workbook properly
+	 * @throws IOException 
+	 */
+	public static void closeWorkbook() throws IOException
+		{
+		if(myWorkbook != null)
+			{
+			myWorkbook.close();
+			setMyWorkbook(null);//We reset the workbook
+			Variables.getLogger().info("Workbook closed");
+			}
 		}
 
 	public static String getSoftwareName()
@@ -683,22 +691,6 @@ public class Variables
 	public static void setCustomerConfigFileName(String customerConfigFileName)
 		{
 		Variables.customerConfigFileName = customerConfigFileName;
-		}
-
-	public static ArrayList<OfficeTemplate> getOfficeTemplateList() throws Exception
-		{
-		if(officeTemplateList == null)
-			{
-			Variables.getLogger().debug("Initialisation of officeTemplateList");
-			Variables.setOfficeTemplateList(TemplateOfficeReader.readOfficeTemplate());
-			}
-		
-		return officeTemplateList;
-		}
-
-	public static void setOfficeTemplateList(ArrayList<OfficeTemplate> officeTemplateList)
-		{
-		Variables.officeTemplateList = officeTemplateList;
 		}
 
 	public static String getSubstitutesFileName()

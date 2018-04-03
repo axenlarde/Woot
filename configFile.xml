@@ -6,14 +6,9 @@ Overal configuration file
 	<config>
 		<!--Misc-->
 		<log4j>DEBUG</log4j><!--Logging level : ERROR,INFO,DEBUG-->
-		<checkfreq>10000</checkfreq><!--user connection loging frequency. In milliseconds-->
 		<language>french</language><!--french,english-->
-		<maxdataprocessed>1000</maxdataprocessed><!--Integer-->
 		<automaticreport>enable</automaticreport><!--enable,disable-->
-		<threadMode>enable</threadMode><!--enable,disable-->
-		<threadLevel>20</threadLevel><!--integer : number of simultaneous thread-->
 		<storerequest>enable</storerequest><!--Keep in memory the already asked UUID-->
-		<autoanswer>enable</autoanswer><!--enable, disable : If enable, do not ask the user what to do-->
 		<javaversiondetection>enable</javaversiondetection><!--enable, disable-->
 		<minjavaversion>1.6:16</minjavaversion><!--Minimum java version allowed-->
 		<maxvgport>24</maxvgport><!--Max vg port handled by the system-->
