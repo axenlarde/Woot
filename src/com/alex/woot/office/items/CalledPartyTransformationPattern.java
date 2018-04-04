@@ -96,20 +96,11 @@ public class CalledPartyTransformationPattern extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			CalledPartyTransformationPattern myCPTP = (CalledPartyTransformationPattern) myCalledPartyTransformationPattern.get();
-			this.UUID = myCPTP.getUUID();
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		CalledPartyTransformationPattern myCPTP = (CalledPartyTransformationPattern) myCalledPartyTransformationPattern.get();
+		this.UUID = myCPTP.getUUID();
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	

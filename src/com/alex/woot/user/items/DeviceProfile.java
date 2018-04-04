@@ -121,22 +121,13 @@ public class DeviceProfile extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			DeviceProfile myPh = (DeviceProfile) myUDP.get();
-			this.UUID = myPh.getUUID();
-			//Etc...
-			//Has to be written
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		DeviceProfile myPh = (DeviceProfile) myUDP.get();
+		this.UUID = myPh.getUUID();
+		//Etc...
+		//Has to be written
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	public String getInfo()

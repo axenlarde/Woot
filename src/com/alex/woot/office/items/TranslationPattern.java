@@ -2,6 +2,7 @@ package com.alex.woot.office.items;
 
 import com.alex.woot.axlitems.linkers.PhoneLinker;
 import com.alex.woot.axlitems.linkers.TranslationPatternLinker;
+import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.utils.UsefulMethod;
@@ -109,20 +110,11 @@ public class TranslationPattern extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			TranslationPattern myTP = (TranslationPattern) myTranslationPattern.get();
-			this.UUID = myTP.getUUID();
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		TranslationPattern myTP = (TranslationPattern) myTranslationPattern.get();
+		this.UUID = myTP.getUUID();
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	

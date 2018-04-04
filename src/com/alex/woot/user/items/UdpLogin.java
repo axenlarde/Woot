@@ -85,17 +85,7 @@ public class UdpLogin extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			UdpLogin myUDP = (UdpLogin) myUDPLogin.get();
-			//this.UUID = myUDP.getUUID();
-			
-			return false;
-			}
-		catch (Exception e)
-			{
-			Variables.getLogger().error(e.getMessage(), e);
-			}
+		UdpLogin myUDP = (UdpLogin) myUDPLogin.get();
 		return false;
 		}
 	

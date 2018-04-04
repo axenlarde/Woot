@@ -90,10 +90,20 @@ public class Office
 					}
 				}
 			}
-		else
+		else if(tab.length == 3)
 			{
-			//Here we treat the particular case of the "settings"
-			
+			//Here we treat the particular cases
+			if(tab[1].equals("setting"))
+				{
+				for(OfficeSetting os : settings)
+					{
+					if(os.getTargetname().equals(tab[2]))return os.getValue();
+					}
+				}
+			else if(tab[1].equals("did"))
+				{
+				return didRanges.get(Integer.parseInt(tab[2])).getPattern();
+				}
 			}
 		
 		throw new Exception("ERROR : No value found");

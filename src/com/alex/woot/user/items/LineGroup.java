@@ -109,21 +109,12 @@ public class LineGroup extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			LineGroup myLG = (LineGroup) myLineGroup.get();
-			this.UUID = myLG.getUUID();
-			//Has to be enhanced
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		LineGroup myLG = (LineGroup) myLineGroup.get();
+		this.UUID = myLG.getUUID();
+		//Has to be enhanced
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	public String getInfo()

@@ -147,21 +147,12 @@ public class TrunkSip extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			TrunkSip myT = (TrunkSip) myTrunkSip.get();
-			this.UUID = myT.getUUID();
-			//Has to be written
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		TrunkSip myT = (TrunkSip) myTrunkSip.get();
+		this.UUID = myT.getUUID();
+		//Has to be written
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	public String getInfo()

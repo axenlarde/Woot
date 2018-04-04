@@ -91,20 +91,11 @@ public class RouteGroup extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			RouteGroup myR = (RouteGroup) myRouteGroup.get();
-			this.UUID = myR.getUUID();
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		RouteGroup myR = (RouteGroup) myRouteGroup.get();
+		this.UUID = myR.getUUID();
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	/**

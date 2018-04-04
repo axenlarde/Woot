@@ -84,21 +84,12 @@ public class Partition extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			Partition myP = (Partition) myPartition.get();
-			this.UUID = myP.getUUID();
-			this.description = myP.getDescription();
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		Partition myP = (Partition) myPartition.get();
+		this.UUID = myP.getUUID();
+		this.description = myP.getDescription();
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	/**

@@ -3,6 +3,7 @@ package com.alex.woot.misc;
 import java.util.ArrayList;
 
 import com.alex.woot.axlitems.misc.ToUpdate;
+import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.itemType;
@@ -52,7 +53,28 @@ public abstract class ItemToInject implements ItemToInjectImpl
 		try
 			{
 			//We check that the item doesn't already exist
-			if(isExisting())
+			boolean exists = false;
+			
+			try
+				{
+				exists = isExisting();//Will throw an exception if not
+				}
+			catch (Exception e)
+				{
+				if(UsefulMethod.itemNotFoundInTheCUCM(e.getMessage()))
+					{
+					Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
+					exists = false;
+					}
+				else
+					{
+					//Another error happened
+					throw e;
+					}
+				}
+			
+			
+			if(exists)
 				{
 				if((action.equals(actionType.delete))||(action.equals(actionType.update)))
 					{

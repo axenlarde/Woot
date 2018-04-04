@@ -89,20 +89,11 @@ public class MediaRessourceGroupList extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			MediaRessourceGroupList myM = (MediaRessourceGroupList) myMRG.get();
-			this.UUID = myM.getUUID();
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		MediaRessourceGroupList myM = (MediaRessourceGroupList) myMRG.get();
+		this.UUID = myM.getUUID();
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	/**

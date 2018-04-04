@@ -168,18 +168,9 @@
 			<distributionalgorithm>'Top Down'</distributionalgorithm>
 			<member>'toto'</member><!--One or more member-->
 		</routegroup>
-		<vg>
-			<action>inject</action>
-			<name>'SKIGW'+file.mac*10*</name>
-			<description>'VG_'+office.name+'_'+office.fullname</description>
-			<product>cnaf.voicegatewaytype</product>
-			<protocol>'SCCP'</protocol>
-			<callmanagergroupname>office.callmanagergroup</callmanagergroupname>
-			<t38enable>true</t38enable>
-		</vg>
 		<translationpattern>
 			<action>inject</action>
-			<pattern>'XXXX'</pattern>
+			<pattern>office.did.1</pattern>
 			<description>'Short dialing for '+office.fullname</description>
 			<routepartition>office.name+'_TP'</routepartition>
 			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
@@ -189,24 +180,12 @@
 			<discarddigits>''</discarddigits>
 			<calledpartytransformmask>''</calledpartytransformmask>
 		</translationpattern>
-		<physicallocation>
-			<action>inject</action>
-			<name>'PL_'+office.name</name>
-			<description>office.name+' '+office.fullname</description>
-		</physicallocation>
-		<devicemobilityinfo>
-			<action>inject</action>
-			<name>'Net_'+office.name+'-Phone'</name>
-			<subnet>*1S/*office.voicenetwork</subnet>
-			<subnetmask>*2S/*office.voicenetwork</subnetmask><!--Has to be a number of bit-->
-			<devicepool>'DP_'+office.name</devicepool><!--One or more device pool-->
-		</devicemobilityinfo>
 		<calledpartytransformationpattern>
 			<action>inject</action>
 			<pattern>'33.!'</pattern>
-			<description>''</description>
+			<description>office.country+' called out transformation'</description>
 			<routepartition>office.name+'_CALLED_OUT_P'</routepartition>
-			<discarddigitinstructions>PreDot</discarddigitinstructions>
+			<discarddigitinstruction>PreDot</discarddigitinstruction>
 			<calledpartytransformationmask>''</calledpartytransformationmask>
 			<prefixdigits>'0'</prefixdigits>
 			<calledPartyNumberingPlan>''</calledPartyNumberingPlan>
@@ -214,12 +193,12 @@
 		</calledpartytransformationpattern>
 		<callingpartytransformationpattern>
 			<action>inject</action>
-			<pattern>office.internalprefix+'XXXX'</pattern>
+			<pattern>office.internalprefix+'.XXXX'</pattern>
 			<description>'Outgoing calls for '+office.fullname</description>
 			<routepartition>office.name+'_CALLING_OUT_P'</routepartition>
 			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
 			<callingpartytransformationmask>office.setting.1</callingpartytransformationmask>
-			<discarddigitinstructions>PreDot</discarddigitinstructions>
+			<discarddigitinstruction>PreDot</discarddigitinstruction>
 			<prefixdigits>''</prefixdigits>
 			<callinglineidpresentation>Allowed</callinglineidpresentation>
 			<callingpartynumbertype>National</callingpartynumbertype>

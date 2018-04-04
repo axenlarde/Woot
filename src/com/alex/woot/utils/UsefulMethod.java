@@ -485,7 +485,7 @@ public class UsefulMethod
 			{
 			Variables.getLogger().error("Error while initializing CUCM connection : "+e.getMessage(),e);
 			Variables.setCUCMReachable(false);
-			throw new Exception(e);
+			throw e;
 			}
 		}
 	
@@ -1116,7 +1116,26 @@ public class UsefulMethod
 			}
 		}
 	
+	/******
+	 * Method used to determine if the fault description means
+	 * that the item was not found or something else
+	 * If it is not found we return true
+	 * For any other reason we return false
+	 * @param faultDesc
+	 * @return
+	 */
+	public static boolean itemNotFoundInTheCUCM(String faultDesc)
+		{
+		ArrayList<String> faultDescList = new ArrayList<String>();
+		faultDescList.add("was not found");
+		for(String s : faultDescList)
+			{
+			if(faultDesc.contains(s))return true;
+			}
+		
+		return false;
+		}
 	
-	/*2017*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

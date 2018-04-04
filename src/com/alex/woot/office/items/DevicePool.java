@@ -128,23 +128,14 @@ public class DevicePool extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			DevicePool myDP = (DevicePool) myDevicePool.get();
-			this.UUID = myDP.getUUID();
-			
-			/*
-			to be written
-			*/
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		DevicePool myDP = (DevicePool) myDevicePool.get();
+		this.UUID = myDP.getUUID();
+		
+		/*
+		to be written
+		*/
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	public String getInfo()

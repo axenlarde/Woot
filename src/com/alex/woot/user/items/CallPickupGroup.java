@@ -115,21 +115,12 @@ public class CallPickupGroup extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			CallPickupGroup myCPG = (CallPickupGroup) myCallPickupGroup.get();
-			this.UUID = myCPG.getUUID();
-			//Has to be enhanced
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		CallPickupGroup myCPG = (CallPickupGroup) myCallPickupGroup.get();
+		this.UUID = myCPG.getUUID();
+		//Has to be enhanced
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	public String getInfo()

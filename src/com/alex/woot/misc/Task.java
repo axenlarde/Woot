@@ -39,34 +39,28 @@ public class Task extends Thread
 	
 	/******
 	 * Used to start the build process
+	 * @throws Exception 
 	 */
-	public void startBuildProcess()
+	public void startBuildProcess() throws Exception
 		{
-		try
+		//Build
+		Variables.getLogger().info("Beginning of the build process");
+		for(ItemToInject myToDo : todoList)
 			{
-			//Build
-			Variables.getLogger().info("Beginning of the build process");
-			for(ItemToInject myToDo : todoList)
+			myToDo.build();
+			
+			if(myToDo.getErrorList().size() != 0)
 				{
-				myToDo.build();
-				
-				if(myToDo.getErrorList().size() != 0)
+				//Something happened during the building process so we disable the item
+				Variables.getLogger().info("The following item has been disabled because some errors occurs during its preparation process : "+myToDo.getType().name()+" "+myToDo.getName());
+				for(ErrorTemplate e : myToDo.getErrorList())
 					{
-					//Something happened during the building process so we disable the item
-					Variables.getLogger().info("The following item has been disabled because some errors occurs during its preparation process : "+myToDo.getType().name()+" "+myToDo.getName());
-					for(ErrorTemplate e : myToDo.getErrorList())
-						{
-						Variables.getLogger().debug("- "+e.getTargetName()+" "+e.getIssueName()+" "+e.getErrorDesc()+" "+e.getError().name()+" "+e.getIssueType().name());
-						}
-					myToDo.setStatus(statusType.disabled);
+					Variables.getLogger().debug("- "+e.getTargetName()+" "+e.getIssueName()+" "+e.getErrorDesc()+" "+e.getError().name()+" "+e.getIssueType().name());
 					}
+				myToDo.setStatus(statusType.disabled);
 				}
-			Variables.getLogger().info("End of the build process");
 			}
-		catch (Exception e)
-			{
-			Variables.getLogger().debug("ERROR in the build process : "+e.getMessage(),e);
-			}
+		Variables.getLogger().info("End of the build process");
 		}
 	
 	public void run()

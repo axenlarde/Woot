@@ -130,22 +130,13 @@ public class Line extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			Line myL = (Line) myLine.get();
-			this.UUID = myL.getUUID();
-			//Etc...
-			//Has to be written
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		Line myL = (Line) myLine.get();
+		this.UUID = myL.getUUID();
+		//Etc...
+		//Has to be written
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	public String getInfo()

@@ -100,21 +100,12 @@ public class VG2XX extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			VG2XX myT = (VG2XX) myVg.get();
-			this.UUID = myT.getUUID();
-			//Has to be written
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		VG2XX myT = (VG2XX) myVg.get();
+		this.UUID = myT.getUUID();
+		//Has to be written
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	public String getInfo()

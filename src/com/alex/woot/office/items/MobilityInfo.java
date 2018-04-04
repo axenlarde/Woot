@@ -92,21 +92,12 @@ public class MobilityInfo extends ItemToInject
 	 */
 	public boolean isExisting() throws Exception
 		{
-		try
-			{
-			MobilityInfo myP = (MobilityInfo) myMobilityInfo.get();
-			this.UUID = myP.getUUID();
-			//Has to be written
-			
-			Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
-			return true;
-			}
-		catch (Exception e)
-			{
-			//If we reach this point, it means that the item doesn't already exist
-			Variables.getLogger().debug("Item "+this.name+" doesn't already exist in the CUCM");
-			}
-		return false;
+		MobilityInfo myP = (MobilityInfo) myMobilityInfo.get();
+		this.UUID = myP.getUUID();
+		//Has to be written
+		
+		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		return true;
 		}
 	
 	/**

@@ -98,6 +98,7 @@ public class OfficeCreation extends Thread
 		catch (Exception e)
 			{
 			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
+			JOptionPane.showMessageDialog(null,LanguageManagement.getString("officecreationerror")+" "+e.getMessage(),LanguageManagement.getString("error"),JOptionPane.ERROR_MESSAGE);
 			}
 
 		myWW.close();
