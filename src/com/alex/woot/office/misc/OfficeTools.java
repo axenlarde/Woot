@@ -65,7 +65,8 @@ public class OfficeTools
 					{
 					if(item.getAction().equals(actionType.update))
 						{
-						Variables.getLogger().debug("We do not add this to the user because it is an update item and this is a deletion task");
+						Variables.getLogger().debug("We do not add this because it is an update item and this is a deletion task");
+						continue;
 						}
 					else
 						{

@@ -126,8 +126,11 @@ public class TemplateOfficeReader
 			}
 		else if(type.equals(itemType.srstreference))
 			{
-			return new SRSTReference(UsefulMethod.getItemByName("name", itemDetails),
+			SRSTReference mySRST = new SRSTReference(UsefulMethod.getItemByName("name", itemDetails),
 					UsefulMethod.getItemByName("ipaddress", itemDetails));
+			
+			mySRST.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return mySRST;
 			}
 		else if(type.equals(itemType.devicepool))
 			{
@@ -144,7 +147,7 @@ public class TemplateOfficeReader
 						}
 					else
 						{
-						localRouteGroupList.add(new LocalRouteGroup(tab[0], "Standard Local Route Group"));
+						localRouteGroupList.add(new LocalRouteGroup("Standard Local Route Group", tab[0]));
 						}
 					}
 				}

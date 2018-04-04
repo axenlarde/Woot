@@ -40,7 +40,7 @@ To access one of this setting, use the following syntax : office.name, office.mo
 		</office>
 		<office>
 			<name>073</name><!--Office name-->
-			<templatename>template2</templatename><!--CCM Template to use-->
+			<templatename>template1</templatename><!--CCM Template to use-->
 			<fullname>RIDDERKERK</fullname><!--Office full name-->
 			<audiobandwidth>1000</audiobandwidth><!--(Kbps)-->
 			<videobandwidth>384</videobandwidth><!--(Kbps)-->

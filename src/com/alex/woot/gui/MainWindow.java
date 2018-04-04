@@ -167,6 +167,13 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			{
 			Variables.getLogger().info("User injection button pressed");
 			
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
+			
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
 			myOptionList.add(new OptionLine(itemType.phone));
@@ -185,6 +192,14 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		else if(evt.getSource() == this.updateUser)
 			{
 			Variables.getLogger().info("User update button pressed");
+			
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
+			
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
 			myOptionList.add(new OptionLine(itemType.phone));
@@ -202,6 +217,14 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		else if(evt.getSource() == this.deleteUser)
 			{
 			Variables.getLogger().info("User deletion button pressed");
+			
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
+			
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
 			myOptionList.add(new OptionLine(itemType.phone));
@@ -219,6 +242,13 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		else if(evt.getSource() == this.injectOffice)
 			{
 			Variables.getLogger().info("Office injection button pressed");
+			 
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
 			
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
@@ -249,6 +279,13 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			{
 			Variables.getLogger().info("Office update button pressed");
 			
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
+			
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
 			myOptionList.add(new OptionLine(itemType.location));
@@ -263,6 +300,13 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		else if(evt.getSource() == this.deleteOffice)
 			{
 			Variables.getLogger().info("Office deletion button pressed");
+			
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
 			
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();

@@ -210,14 +210,10 @@ public class CollectionTools
 			 */
 			if(Pattern.matches(".*office\\..*", param[i]))
 				{
-				String[] tab = param[i].split("\\.");
-				
 				String result = "";
 				
 				if(Variables.getCurrentOffice() == null)
 					{
-					//If Current Office is null it means that 
-					//String lineOfficeName = getValueFromCollectionFile(currentRow, UsefulMethod.getTargetOption("officenametemplate"), false);
 					String lineOfficeName = dodoRegex(UsefulMethod.getTargetOption("officenametemplate"), currentRow, false);
 					
 					if(!lineOfficeName.equals(""))
@@ -227,7 +223,7 @@ public class CollectionTools
 							if(office.getName().equals(lineOfficeName))
 								{
 								//We found the office in the office list so we get the searched value
-								result = office.getString(tab[1]);
+								result = office.getString(param[i]);
 								}
 							}
 						}
@@ -240,12 +236,12 @@ public class CollectionTools
 						 ************/
 						Variables.getLogger().debug("The office was not found so we ask for it");
 						UsefulMethod.initCurrentOffice();
-						result = Variables.getCurrentOffice().getString(tab[1]);
+						result = Variables.getCurrentOffice().getString(param[i]);
 						}
 					}
 				else
 					{
-					result = Variables.getCurrentOffice().getString(tab[1]);
+					result = Variables.getCurrentOffice().getString(param[i]);
 					}
 				
 				regex.append(applyRegex(result, param[i]));

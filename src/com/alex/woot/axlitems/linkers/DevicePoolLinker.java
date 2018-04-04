@@ -211,7 +211,7 @@ public class DevicePoolLinker extends AXLItemLinker
 		 */
 		req.setName(this.getName());
 		
-		if(tuList.contains(toUpdate.mediaressourcegrouplist))req.setRegionName(SimpleRequest.getUUIDV105(itemType.region, this.regionName));
+		if(tuList.contains(toUpdate.regionName))req.setRegionName(SimpleRequest.getUUIDV105(itemType.region, this.regionName));
 		if(tuList.contains(toUpdate.dateTimeSettingName))req.setDateTimeSettingName(SimpleRequest.getUUIDV105(itemType.datetimesetting, this.dateTimeSettingName));
 		if(tuList.contains(toUpdate.callManagerGroupName))req.setCallManagerGroupName(SimpleRequest.getUUIDV105(itemType.callmanagergroup, this.callManagerGroupName));
 		if(tuList.contains(toUpdate.srstreference))req.setSrstName(SimpleRequest.getUUIDV105(itemType.srstreference, this.srstreference));

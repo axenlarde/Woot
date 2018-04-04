@@ -78,12 +78,22 @@ public class Office
 	 */
 	public String getString(String s) throws Exception
 		{
-		for(Field f : this.getClass().getDeclaredFields())
+		String tab[] = s.split("\\.");
+		
+		if(tab.length == 2)
 			{
-			if(f.getName().equals(s))
+			for(Field f : this.getClass().getDeclaredFields())
 				{
-				return (String) f.get(this);
+				if(f.getName().equals(tab[1]))
+					{
+					return (String) f.get(this);
+					}
 				}
+			}
+		else
+			{
+			//Here we treat the particular case of the "settings"
+			
 			}
 		
 		throw new Exception("ERROR : No value found");

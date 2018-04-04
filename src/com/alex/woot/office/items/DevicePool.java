@@ -209,6 +209,15 @@ public class DevicePool extends ItemToInject
 		myDevicePool.setPhysicallocation(this.physicallocation);
 		myDevicePool.setRegionName(this.regionName);
 		myDevicePool.setSrstreference(this.srstreference);
+		myDevicePool.setCgpnTransformationCssName(cgpnTransformationCssName);
+		myDevicePool.setCdpnTransformationCssName(cdpnTransformationCssName);
+		myDevicePool.setCallingPartyNationalTransformationCssName(callingPartyNationalTransformationCssName);
+		myDevicePool.setCallingPartyInternationalTransformationCssName(callingPartyInternationalTransformationCssName);
+		myDevicePool.setCallingPartyUnknownTransformationCssName(callingPartyUnknownTransformationCssName);
+		myDevicePool.setCallingPartySubscriberTransformationCssName(callingPartySubscriberTransformationCssName);
+		myDevicePool.setCntdPnTransformationCssName(cntdPnTransformationCssName);
+		myDevicePool.setRedirectingPartyTransformationCSS(redirectingPartyTransformationCSS);
+		myDevicePool.setCallingPartyTransformationCSS(callingPartyTransformationCSS);
 		/*********/
 		}
 	
@@ -227,6 +236,17 @@ public class DevicePool extends ItemToInject
 		if(UsefulMethod.isNotEmpty(physicallocation))tuList.add(DevicePoolLinker.toUpdate.physicallocation);
 		if(UsefulMethod.isNotEmpty(devicemobilitygroup))tuList.add(DevicePoolLinker.toUpdate.devicemobilitygroup);
 		if(UsefulMethod.isNotEmpty(devicemobilitycss))tuList.add(DevicePoolLinker.toUpdate.devicemobilitycss);
+		if(UsefulMethod.isNotEmpty(cgpnTransformationCssName))tuList.add(DevicePoolLinker.toUpdate.cgpnTransformationCssName);
+		if(UsefulMethod.isNotEmpty(cdpnTransformationCssName))tuList.add(DevicePoolLinker.toUpdate.cdpnTransformationCssName);
+		if(UsefulMethod.isNotEmpty(callingPartyNationalTransformationCssName))tuList.add(DevicePoolLinker.toUpdate.callingPartyNationalTransformationCssName);
+		if(UsefulMethod.isNotEmpty(callingPartyInternationalTransformationCssName))tuList.add(DevicePoolLinker.toUpdate.callingPartyInternationalTransformationCssName);
+		if(UsefulMethod.isNotEmpty(callingPartyUnknownTransformationCssName))tuList.add(DevicePoolLinker.toUpdate.callingPartyUnknownTransformationCssName);
+		if(UsefulMethod.isNotEmpty(callingPartySubscriberTransformationCssName))tuList.add(DevicePoolLinker.toUpdate.callingPartySubscriberTransformationCssName);
+		if(UsefulMethod.isNotEmpty(cntdPnTransformationCssName))tuList.add(DevicePoolLinker.toUpdate.cntdPnTransformationCssName);
+		if(UsefulMethod.isNotEmpty(redirectingPartyTransformationCSS))tuList.add(DevicePoolLinker.toUpdate.redirectingPartyTransformationCSS);
+		if(UsefulMethod.isNotEmpty(callingPartyTransformationCSS))tuList.add(DevicePoolLinker.toUpdate.callingPartyTransformationCSS);
+		
+		
 		if((localRouteGroupList == null) || (localRouteGroupList.size() == 0))
 			{
 			//Nothing to do
