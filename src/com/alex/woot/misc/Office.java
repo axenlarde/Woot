@@ -102,7 +102,7 @@ public class Office
 				}
 			else if(tab[1].equals("did"))
 				{
-				return didRanges.get(Integer.parseInt(tab[2])).getPattern();
+				return didRanges.get(Integer.parseInt(tab[2])-1).getPattern();
 				}
 			}
 		

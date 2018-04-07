@@ -529,9 +529,9 @@ public class CollectionTools
 			/*********
 			 * Number before
 			 **/
-			if(Pattern.matches("\\*\\d+\\*.*", param))
+			if(Pattern.matches("\\*\\d+_\\*.*", param))
 				{
-				int number = howMany("\\*\\d+\\*", param);
+				int number = howMany("\\*\\d+_\\*", param);
 				if(newValue.length() >= number)
 					{
 					newValue = newValue.substring(0, number);
@@ -544,9 +544,9 @@ public class CollectionTools
 			/*********
 			 * Number after
 			 **/
-			if(Pattern.matches(".*\\*\\d+\\*", param))
+			if(Pattern.matches("\\*_\\d+\\*.*", param))
 				{
-				int number = howMany("\\*\\d+\\*", param);
+				int number = howMany("\\*_\\d+\\*", param);
 				if(newValue.length() >= number)
 					{
 					newValue = newValue.substring(newValue.length()-number, newValue.length());

@@ -4,37 +4,17 @@
 		<misc>
 			<name>template1</name>
 		</misc>
-		<location>
-			<action>inject</action>
-			<name>office.name+'_LOC'</name>
-			<audiobandwidth>office.audiobandwidth</audiobandwidth>
-			<videobandwidth>office.videobandwidth</videobandwidth>
-		</location>
-		<region>
-			<action>inject</action>
-			<name>office.name+'_REG'</name>
-			<defaultcodec>''</defaultcodec>
-			<videobandwidth>office.videobandwidth</videobandwidth>
-			<g711>office.name+'_REG'</g711>
-			<g711>'CERTI_G711_Servers'</g711>
-			<g711>'VCS'</g711>
-		</region>
-		<srstreference>
-			<action>inject</action>
-			<name>office.name+'_SRST'</name>
-			<ipaddress>'192.168.0.1'</ipaddress>
-		</srstreference>
 		<devicepool>
 			<action>inject</action>
 			<name>office.name+'_DP'</name>
-			<region>office.name+'_REG'</region>
-			<location>office.name+'_LOC'</location>
+			<region>office.name</region>
+			<location>office.name</location>
 			<datetimesetting>office.datetimegroup</datetimesetting>
 			<mediaressourcegrouplist>''</mediaressourcegrouplist>
 			<networklocale>office.country</networklocale>
-			<srstreference>office.name+'_SRST'</srstreference>
+			<srstreference>'Disable'</srstreference>
 			<callmanagergroup>office.callmanagergroup</callmanagergroup>
-			<localroutegroup>''</localroutegroup>
+			<localroutegroup>MainRoute:'BTIP_RG'</localroutegroup>
 			<physicallocation>''</physicallocation>
 			<devicemobilitygroup>''</devicemobilitygroup>
 			<devicemobilitycss>''</devicemobilitycss>		
@@ -48,159 +28,310 @@
 			<redirectingpartytransformationcss>''</redirectingpartytransformationcss>
 			<callingpartytransformationcss>''</callingpartytransformationcss>
 		</devicepool>
-		<conferencebridge>
+		<devicepool>
 			<action>inject</action>
-			<name>office.name+'_CFB'</name>
-			<description>office.name+'_CFB'</description>
-			<devicepoolname>office.name+'_DP'</devicepoolname>
-			<locationname>office.name+'_LOC'</locationname>
-			<commondeviceconfigname>office.name+'_CDC'</commondeviceconfigname>
-		</conferencebridge>
+			<name>office.name+'_NoBTIP_DP'</name>
+			<region>office.name</region>
+			<location>office.name</location>
+			<datetimesetting>office.datetimegroup</datetimesetting>
+			<mediaressourcegrouplist>''</mediaressourcegrouplist>
+			<networklocale>office.country</networklocale>
+			<srstreference>'Disable'</srstreference>
+			<callmanagergroup>office.callmanagergroup</callmanagergroup>
+			<localroutegroup>MainRoute:'office.name+'RG_No_BTIP'</localroutegroup>
+			<physicallocation>''</physicallocation>
+			<devicemobilitygroup>''</devicemobilitygroup>
+			<devicemobilitycss>''</devicemobilitycss>		
+			<cgpntransformationcss>''</cgpntransformationcss>
+			<cdpntransformationcss>''</cdpntransformationcss>
+			<callingpartynationaltransformationcss>''</callingpartynationaltransformationcss>
+			<callingpartyinternationaltransformationcss>''</callingpartyinternationaltransformationcss>
+			<callingpartyunknowntransformationcss>''</callingpartyunknowntransformationcss>
+			<callingpartysubscribertransformationcss>''</callingpartysubscribertransformationcss>
+			<cntdpntransformationcss>''</cntdpntransformationcss>
+			<redirectingpartytransformationcss>''</redirectingpartytransformationcss>
+			<callingpartytransformationcss>''</callingpartytransformationcss>
+		</devicepool>
+		<devicepool>
+			<action>inject</action>
+			<name>office.name+'_SRST_DP'</name>
+			<region>office.name</region>
+			<location>office.name</location>
+			<datetimesetting>office.datetimegroup</datetimesetting>
+			<mediaressourcegrouplist>''</mediaressourcegrouplist>
+			<networklocale>office.country</networklocale>
+			<srstreference>'SRST'+office.name</srstreference>
+			<callmanagergroup>office.callmanagergroup</callmanagergroup>
+			<localroutegroup>MainRoute:'BTIP_RG'</localroutegroup>
+			<physicallocation>''</physicallocation>
+			<devicemobilitygroup>''</devicemobilitygroup>
+			<devicemobilitycss>''</devicemobilitycss>		
+			<cgpntransformationcss>''</cgpntransformationcss>
+			<cdpntransformationcss>''</cdpntransformationcss>
+			<callingpartynationaltransformationcss>''</callingpartynationaltransformationcss>
+			<callingpartyinternationaltransformationcss>''</callingpartyinternationaltransformationcss>
+			<callingpartyunknowntransformationcss>''</callingpartyunknowntransformationcss>
+			<callingpartysubscribertransformationcss>''</callingpartysubscribertransformationcss>
+			<cntdpntransformationcss>''</cntdpntransformationcss>
+			<redirectingpartytransformationcss>''</redirectingpartytransformationcss>
+			<callingpartytransformationcss>''</callingpartytransformationcss>
+		</devicepool>
 		<mediaresourcegroup>
 			<action>inject</action>
 			<name>office.name+'_CFB_MRG'</name>
-			<description>'CFB for '+office.fullname</description>
+			<description>'CFB for '+office.name+' - '+office.name</description>
 			<multicast>false</multicast><!--true,false-->
-			<member>office.name+'_CFB'</member><!--One or more members-->
 		</mediaresourcegroup>
 		<mediaresourcegrouplist>
 			<action>inject</action>
 			<name>office.name+'_MRGL'</name>
 			<member>office.name+'_CFB_MRG'</member><!--One or more members-->
-			<member>'MRG_CFB_CentralSite'</member><!--One or more members-->
-			<member>'MRG_MOH-ANN_CentralSite1'</member><!--One or more members-->
+			<member>'UNICAST_MOH_MRG'</member><!--One or more members-->
+			<member>'MULTICAST_MOH_MRG'</member><!--One or more members-->
+			<member>'MAIN_SOFT_MRG'</member><!--One or more members-->
+			<member>'BACKUP_SOFT_MRG'</member><!--One or more members-->
 		</mediaresourcegrouplist>
 		<partition>
 			<action>inject</action>
-			<name>office.name+'_TP'</name>
-			<description>'Transformation for '+office.fullname</description>
+			<name>office.name+'_T_P'</name>
+			<description>'Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLING_OUT_P'</name>
-			<description>'Outbound Calling Transformation for '+office.fullname</description>
+			<description>'Outbound Calling Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLED_OUT_P'</name>
-			<description>'Outbound Called Transformation for '+office.fullname</description>
+			<description>'Outbound Called Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLING_IN_P'</name>
-			<description>'Inbound Calling Transformation for '+office.fullname</description>
+			<description>'Inbound Calling Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLED_IN_P'</name>
-			<description>'Inbound Called Transformation for '+office.fullname</description>
+			<description>'Inbound Called Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CONNECTED_P'</name>
-			<description>'Connected Transformation for '+office.fullname</description>
-		</partition>
-		<partition>
-			<action>inject</action>
-			<name>*M*office.country+'_CALLING_OUT_P'</name>
-			<description>'Outbound Calling Transformation for '+office.country</description>
-		</partition>
-		<partition>
-			<action>inject</action>
-			<name>*M*office.country+'_CALLED_OUT_P'</name>
-			<description>'Outbound Called Transformation for '+office.country</description>
-		</partition>
-		<partition>
-			<action>inject</action>
-			<name>*M*office.country+'_CALLING_IN_P'</name>
-			<description>'Inbound Calling Transformation for '+office.country</description>
-		</partition>
-		<partition>
-			<action>inject</action>
-			<name>*M*office.country+'_CALLED_IN_P'</name>
-			<description>'Inbound Called Transformation for '+office.country</description>
+			<description>'Connected Transformation for '+office.name</description>
 		</partition>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_DEVICE_CSS'</name>
-			<description>'Device CSS for '+office.fullname</description>
-			<P>'DID_P'</P>
-			<P>'NODID_P'</P>
-			<P>office.name+'_TP'</P>
+			<description>'Device CSS for '+office.name</description>
+			<P>'DEFAULT_P'</P>
+			<P>'defaut'</P>
+			<P>'TECH_P'</P>
+			<P>'VM_P'</P>
+			<P>'CPG_P'</P>
+			<P>'Telisca_P'</P>
+			<P>office.name+'_T_P'</P>
+			<P>*M*office.country+'_T_P'</P>
+			<P>'GLOBAL_T_P'</P>
+			<P>*M*office.country+'_P'</P>
+			<P>'GLOBAL_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLING_OUT_CSS'</name>
-			<description>'Outbound Calling Transformation for '+office.fullname</description>
+			<description>'Outbound Calling Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLED_OUT_CSS'</name>
-			<description>'Outbound Called Transformation for '+office.fullname</description>
+			<description>'Outbound Called Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLING_IN_CSS'</name>
-			<description>'Inbound Calling Transformation for '+office.fullname</description>
+			<description>'Inbound Calling Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLED_IN_CSS'</name>
-			<description>'Inbound Called Transformation for '+office.fullname</description>
+			<description>'Inbound Called Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CONNECTED_CSS'</name>
-			<description>'Connected Transformation for '+office.fullname</description>
+			<description>'Connected Transformation for '+office.name</description>
 			<P>office.name+'_CONNECTED_P'</P>
+			<P>*M*office.country+'_CONNECTED_P'</P>
+			<P>'GLOBAL_CONNECTED_P'</P>
 		</callingsearchspace>
-		<routegroup>
-			<action>inject</action>
-			<name>office.name+'_RG'</name>
-			<distributionalgorithm>'Top Down'</distributionalgorithm>
-			<member>'toto'</member><!--One or more member-->
-		</routegroup>
 		<translationpattern>
 			<action>inject</action>
-			<pattern>office.did.1</pattern>
-			<description>'Short dialing for '+office.fullname</description>
-			<routepartition>office.name+'_TP'</routepartition>
+			<pattern>'\+'+office.e164+office.did.1</pattern>
+			<description>'Internal rerouting for '+office.name</description>
+			<routepartition>'GLOBAL_T_P'</routepartition>
 			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
-			<urgentpriority>'true'</urgentpriority><!--true,false-->
-			<usecallingpartyphonemask>Off</usecallingpartyphonemask><!--Off,On-->
-			<callingpartytransformmask>office.setting.1</callingpartytransformmask>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
 			<discarddigits>''</discarddigits>
-			<calledpartytransformmask>''</calledpartytransformmask>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
 		</translationpattern>
-		<calledpartytransformationpattern>
+		<translationpattern>
 			<action>inject</action>
-			<pattern>'33.!'</pattern>
-			<description>office.country+' called out transformation'</description>
-			<routepartition>office.name+'_CALLED_OUT_P'</routepartition>
-			<discarddigitinstruction>PreDot</discarddigitinstruction>
-			<calledpartytransformationmask>''</calledpartytransformationmask>
-			<prefixdigits>'0'</prefixdigits>
-			<calledPartyNumberingPlan>''</calledPartyNumberingPlan>
-			<calledPartyNumberType>''</calledPartyNumberType>
-		</calledpartytransformationpattern>
+			<pattern>'000'+office.e164+office.did.1</pattern>
+			<description>'Internal rerouting for '+office.name</description>
+			<routepartition>'GLOBAL_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>'00'+office.did.1</pattern>
+			<description>'Internal rerouting for '+office.name</description>
+			<routepartition>*M*office.country+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>office.e164+office.did.1</pattern>
+			<description>'Internal rerouting for E164 on 79XX for '+office.name</description>
+			<routepartition>*M*office.country+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>office.setting.2+'XXXX'</pattern>
+			<description>'BTIP incoming calls for '+office.name</description>
+			<routepartition>'GLOBAL_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>'999'</pattern>
+			<description>'Reception for '+office.name</description>
+			<routepartition>office.name+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.receptionnumber</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>*1_*office.did.1+'XXXX'</pattern>
+			<description>'Short dialing for '+office.name</description>
+			<routepartition>office.name+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
 		<callingpartytransformationpattern>
 			<action>inject</action>
-			<pattern>office.internalprefix+'.XXXX'</pattern>
-			<description>'Outgoing calls for '+office.fullname</description>
+			<pattern>office.internalprefix+'XXXX'</pattern>
+			<description>'Internal calling transformation for '+office.name</description>
+			<routepartition>office.name+'_CONNECTED_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.e164+office.did.1</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'777XXXX'</pattern>
+			<description>'Internal calling transformation for '+office.name</description>
+			<routepartition>office.name+'_CONNECTED_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.e164+office.setting.1</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'888XXXX'</pattern>
+			<description>'Internal calling transformation for '+office.name</description>
+			<routepartition>office.name+'_CONNECTED_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.e164+office.setting.1</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'\+'+office.e164+'.'+office.did.1</pattern>
+			<description>'Outbound calling transformation for '+office.name</description>
 			<routepartition>office.name+'_CALLING_OUT_P'</routepartition>
 			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
-			<callingpartytransformationmask>office.setting.1</callingpartytransformationmask>
+			<callingpartytransformationmask>''</callingpartytransformationmask>
 			<discarddigitinstruction>PreDot</discarddigitinstruction>
+			<prefixdigits>'0'</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>Unknown</callingpartynumbertype>
+			<callingpartynumberingplan>Unknown</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'\+'+office.e164+office.did.1</pattern>
+			<description>'Outbound calling transformation for '+office.name</description>
+			<routepartition>'BTIP_CALLING_OUT_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.setting.2+'XXXX'</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
 			<prefixdigits>''</prefixdigits>
-			<callinglineidpresentation>Allowed</callinglineidpresentation>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'\+'+office.e164+office.did.1</pattern>
+			<description>'Voicemail calls for '+office.name</description>
+			<routepartition>'VM_CALLING_OUT_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.internalprefix+'XXXX'</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
 			<callingpartynumbertype>National</callingpartynumbertype>
 			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
 		</callingpartytransformationpattern>
@@ -208,7 +339,330 @@
 			<action>update</action>
 			<name>office.name+'_DP'</name>
 			<mediaressourcegrouplist>office.name+'_MRGL'</mediaressourcegrouplist>
-			<localroutegroup>office.name+'_RG'</localroutegroup>
+			<callingpartynationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartynationaltransformationcss>
+			<callingpartyinternationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyinternationaltransformationcss>
+			<callingpartyunknowntransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyunknowntransformationcss>
+			<callingpartysubscribertransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartysubscribertransformationcss>
+			<cntdpntransformationcss>office.name+'_CONNECTED_CSS'</cntdpntransformationcss>
+			<redirectingpartytransformationcss>office.name+'_CONNECTED_CSS'</redirectingpartytransformationcss>
+			<callingpartytransformationcss>office.name+'_CONNECTED_CSS'</callingpartytransformationcss>
+		</devicepool>
+		<devicepool>
+			<action>update</action>
+			<name>office.name+'_NoBTIP_DP'</name>
+			<mediaressourcegrouplist>office.name+'_MRGL'</mediaressourcegrouplist>
+			<callingpartynationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartynationaltransformationcss>
+			<callingpartyinternationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyinternationaltransformationcss>
+			<callingpartyunknowntransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyunknowntransformationcss>
+			<callingpartysubscribertransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartysubscribertransformationcss>
+			<cntdpntransformationcss>office.name+'_CONNECTED_CSS'</cntdpntransformationcss>
+			<redirectingpartytransformationcss>office.name+'_CONNECTED_CSS'</redirectingpartytransformationcss>
+			<callingpartytransformationcss>office.name+'_CONNECTED_CSS'</callingpartytransformationcss>
+		</devicepool>
+		<devicepool>
+			<action>update</action>
+			<name>office.name+'_SRST_DP'</name>
+			<mediaressourcegrouplist>office.name+'_MRGL'</mediaressourcegrouplist>
+			<callingpartynationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartynationaltransformationcss>
+			<callingpartyinternationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyinternationaltransformationcss>
+			<callingpartyunknowntransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyunknowntransformationcss>
+			<callingpartysubscribertransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartysubscribertransformationcss>
+			<cntdpntransformationcss>office.name+'_CONNECTED_CSS'</cntdpntransformationcss>
+			<redirectingpartytransformationcss>office.name+'_CONNECTED_CSS'</redirectingpartytransformationcss>
+			<callingpartytransformationcss>office.name+'_CONNECTED_CSS'</callingpartytransformationcss>
+		</devicepool>
+	</template>
+	<template>
+		<misc>
+			<name>template2</name>
+		</misc>
+		<devicepool>
+			<action>inject</action>
+			<name>office.name+'_DP'</name>
+			<region>office.name</region>
+			<location>office.name</location>
+			<datetimesetting>office.datetimegroup</datetimesetting>
+			<mediaressourcegrouplist>''</mediaressourcegrouplist>
+			<networklocale>office.country</networklocale>
+			<srstreference>'Disable'</srstreference>
+			<callmanagergroup>office.callmanagergroup</callmanagergroup>
+			<localroutegroup>MainRoute:'BTIP_RG'</localroutegroup>
+			<physicallocation>''</physicallocation>
+			<devicemobilitygroup>''</devicemobilitygroup>
+			<devicemobilitycss>''</devicemobilitycss>		
+			<cgpntransformationcss>''</cgpntransformationcss>
+			<cdpntransformationcss>''</cdpntransformationcss>
+			<callingpartynationaltransformationcss>''</callingpartynationaltransformationcss>
+			<callingpartyinternationaltransformationcss>''</callingpartyinternationaltransformationcss>
+			<callingpartyunknowntransformationcss>''</callingpartyunknowntransformationcss>
+			<callingpartysubscribertransformationcss>''</callingpartysubscribertransformationcss>
+			<cntdpntransformationcss>''</cntdpntransformationcss>
+			<redirectingpartytransformationcss>''</redirectingpartytransformationcss>
+			<callingpartytransformationcss>''</callingpartytransformationcss>
+		</devicepool>
+		<mediaresourcegroup>
+			<action>inject</action>
+			<name>office.name+'_CFB_MRG'</name>
+			<description>'CFB for '+office.name+' - '+office.name</description>
+			<multicast>false</multicast><!--true,false-->
+		</mediaresourcegroup>
+		<mediaresourcegrouplist>
+			<action>inject</action>
+			<name>office.name+'_MRGL'</name>
+			<member>office.name+'_CFB_MRG'</member><!--One or more members-->
+			<member>'UNICAST_MOH_MRG'</member><!--One or more members-->
+			<member>'MULTICAST_MOH_MRG'</member><!--One or more members-->
+			<member>'MAIN_SOFT_MRG'</member><!--One or more members-->
+			<member>'BACKUP_SOFT_MRG'</member><!--One or more members-->
+		</mediaresourcegrouplist>
+		<partition>
+			<action>inject</action>
+			<name>office.name+'_T_P'</name>
+			<description>'Transformation for '+office.name</description>
+		</partition>
+		<partition>
+			<action>inject</action>
+			<name>office.name+'_CALLING_OUT_P'</name>
+			<description>'Outbound Calling Transformation for '+office.name</description>
+		</partition>
+		<partition>
+			<action>inject</action>
+			<name>office.name+'_CALLED_OUT_P'</name>
+			<description>'Outbound Called Transformation for '+office.name</description>
+		</partition>
+		<partition>
+			<action>inject</action>
+			<name>office.name+'_CALLING_IN_P'</name>
+			<description>'Inbound Calling Transformation for '+office.name</description>
+		</partition>
+		<partition>
+			<action>inject</action>
+			<name>office.name+'_CALLED_IN_P'</name>
+			<description>'Inbound Called Transformation for '+office.name</description>
+		</partition>
+		<partition>
+			<action>inject</action>
+			<name>office.name+'_CONNECTED_P'</name>
+			<description>'Connected Transformation for '+office.name</description>
+		</partition>
+		<callingsearchspace>
+			<action>inject</action>
+			<name>office.name+'_DEVICE_CSS'</name>
+			<description>'Device CSS for '+office.name</description>
+			<P>'DEFAULT_P'</P>
+			<P>'defaut'</P>
+			<P>'TECH_P'</P>
+			<P>'VM_P'</P>
+			<P>'CPG_P'</P>
+			<P>'Telisca_P'</P>
+			<P>office.name+'_T_P'</P>
+			<P>*M*office.country+'_T_P'</P>
+			<P>'GLOBAL_T_P'</P>
+			<P>*M*office.country+'_P'</P>
+			<P>'GLOBAL_P'</P>
+		</callingsearchspace>
+		<callingsearchspace>
+			<action>inject</action>
+			<name>office.name+'_CALLING_OUT_CSS'</name>
+			<description>'Outbound Calling Transformation for '+office.name</description>
+			<P>office.name+'_CALLING_OUT_P'</P>
+			<P>*M*office.country+'_CALLING_OUT_P'</P>
+		</callingsearchspace>
+		<callingsearchspace>
+			<action>inject</action>
+			<name>office.name+'_CALLED_OUT_CSS'</name>
+			<description>'Outbound Called Transformation for '+office.name</description>
+			<P>office.name+'_CALLING_OUT_P'</P>
+			<P>*M*office.country+'_CALLING_OUT_P'</P>
+		</callingsearchspace>
+		<callingsearchspace>
+			<action>inject</action>
+			<name>office.name+'_CALLING_IN_CSS'</name>
+			<description>'Inbound Calling Transformation for '+office.name</description>
+			<P>office.name+'_CALLING_OUT_P'</P>
+			<P>*M*office.country+'_CALLING_OUT_P'</P>
+		</callingsearchspace>
+		<callingsearchspace>
+			<action>inject</action>
+			<name>office.name+'_CALLED_IN_CSS'</name>
+			<description>'Inbound Called Transformation for '+office.name</description>
+			<P>office.name+'_CALLING_OUT_P'</P>
+			<P>*M*office.country+'_CALLING_OUT_P'</P>
+		</callingsearchspace>
+		<callingsearchspace>
+			<action>inject</action>
+			<name>office.name+'_CONNECTED_CSS'</name>
+			<description>'Connected Transformation for '+office.name</description>
+			<P>office.name+'_CONNECTED_P'</P>
+			<P>*M*office.country+'_CONNECTED_P'</P>
+			<P>'GLOBAL_CONNECTED_P'</P>
+		</callingsearchspace>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>'\+'+office.e164+office.did.1</pattern>
+			<description>'Internal rerouting for '+office.name</description>
+			<routepartition>'GLOBAL_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>'000'+office.e164+office.did.1</pattern>
+			<description>'Internal rerouting for '+office.name</description>
+			<routepartition>'GLOBAL_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>'00'+office.did.1</pattern>
+			<description>'Internal rerouting for '+office.name</description>
+			<routepartition>*M*office.country+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>office.e164+office.did.1</pattern>
+			<description>'Internal rerouting for E164 on 79XX for '+office.name</description>
+			<routepartition>*M*office.country+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>office.setting.2+'XXXX'</pattern>
+			<description>'BTIP incoming calls for '+office.name</description>
+			<routepartition>'GLOBAL_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>'999'</pattern>
+			<description>'Reception for '+office.name</description>
+			<routepartition>office.name+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.receptionnumber</calledpartytransformmask>
+		</translationpattern>
+		<translationpattern>
+			<action>inject</action>
+			<pattern>*1_*office.did.1+'XXXX'</pattern>
+			<description>'Short dialing for '+office.name</description>
+			<routepartition>office.name+'_T_P'</routepartition>
+			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
+			<urgentpriority>'false'</urgentpriority><!--true,false-->
+			<usecallingpartyphonemask>'Off'</usecallingpartyphonemask><!--Off,On-->
+			<callingpartytransformmask>''</callingpartytransformmask>
+			<discarddigits>''</discarddigits>
+			<calledpartytransformmask>office.internalprefix+'XXXX'</calledpartytransformmask>
+		</translationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>office.internalprefix+'XXXX'</pattern>
+			<description>'Internal calling transformation for '+office.name</description>
+			<routepartition>office.name+'_CONNECTED_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.e164+office.did.1</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'777XXXX'</pattern>
+			<description>'Internal calling transformation for '+office.name</description>
+			<routepartition>office.name+'_CONNECTED_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.e164+office.setting.1</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'888XXXX'</pattern>
+			<description>'Internal calling transformation for '+office.name</description>
+			<routepartition>office.name+'_CONNECTED_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.e164+office.setting.1</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'\+'+office.e164+'.'+office.did.1</pattern>
+			<description>'Outbound calling transformation for '+office.name</description>
+			<routepartition>office.name+'_CALLING_OUT_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>''</callingpartytransformationmask>
+			<discarddigitinstruction>PreDot</discarddigitinstruction>
+			<prefixdigits>'0'</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>Unknown</callingpartynumbertype>
+			<callingpartynumberingplan>Unknown</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'\+'+office.e164+office.did.1</pattern>
+			<description>'Outbound calling transformation for '+office.name</description>
+			<routepartition>'BTIP_CALLING_OUT_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.setting.2+'XXXX'</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<callingpartytransformationpattern>
+			<action>inject</action>
+			<pattern>'\+'+office.e164+office.did.1</pattern>
+			<description>'Voicemail calls for '+office.name</description>
+			<routepartition>'VM_CALLING_OUT_P'</routepartition>
+			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
+			<callingpartytransformationmask>office.internalprefix+'XXXX'</callingpartytransformationmask>
+			<discarddigitinstruction>''</discarddigitinstruction>
+			<prefixdigits>''</prefixdigits>
+			<callinglineidpresentation>Default</callinglineidpresentation>
+			<callingpartynumbertype>National</callingpartynumbertype>
+			<callingpartynumberingplan>ISDN</callingpartynumberingplan>
+		</callingpartytransformationpattern>
+		<devicepool>
+			<action>update</action>
+			<name>office.name+'_DP'</name>
+			<mediaressourcegrouplist>office.name+'_MRGL'</mediaressourcegrouplist>
 			<callingpartynationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartynationaltransformationcss>
 			<callingpartyinternationaltransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyinternationaltransformationcss>
 			<callingpartyunknowntransformationcss>office.name+'_CALLING_OUT_CSS'</callingpartyunknowntransformationcss>
@@ -286,7 +740,7 @@
 		<mediaresourcegroup>
 			<action>inject</action>
 			<name>office.name+'_CFB_MRG'</name>
-			<description>'CFB for '+office.fullname</description>
+			<description>'CFB for '+office.name</description>
 			<multicast>false</multicast><!--true,false-->
 			<member>office.name+'_CFB'</member><!--One or more members-->
 		</mediaresourcegroup>
@@ -300,37 +754,37 @@
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_TP'</name>
-			<description>'Transformation for '+office.fullname</description>
+			<description>'Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLING_OUT_P'</name>
-			<description>'Outbound Calling Transformation for '+office.fullname</description>
+			<description>'Outbound Calling Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLED_OUT_P'</name>
-			<description>'Outbound Called Transformation for '+office.fullname</description>
+			<description>'Outbound Called Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLING_IN_P'</name>
-			<description>'Inbound Calling Transformation for '+office.fullname</description>
+			<description>'Inbound Calling Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CALLED_IN_P'</name>
-			<description>'Inbound Called Transformation for '+office.fullname</description>
+			<description>'Inbound Called Transformation for '+office.name</description>
 		</partition>
 		<partition>
 			<action>inject</action>
 			<name>office.name+'_CONNECTED_P'</name>
-			<description>'Connected Transformation for '+office.fullname</description>
+			<description>'Connected Transformation for '+office.name</description>
 		</partition>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_DEVICE_CSS'</name>
-			<description>'Device CSS for '+office.fullname</description>
+			<description>'Device CSS for '+office.name</description>
 			<P>'DID_P'</P>
 			<P>'NODID_P'</P>
 			<P>office.name+'_TP'</P>
@@ -338,28 +792,28 @@
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLING_OUT_CSS'</name>
-			<description>'Outbound Calling Transformation for '+office.fullname</description>
+			<description>'Outbound Calling Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLED_OUT_CSS'</name>
-			<description>'Outbound Called Transformation for '+office.fullname</description>
+			<description>'Outbound Called Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLING_IN_CSS'</name>
-			<description>'Inbound Calling Transformation for '+office.fullname</description>
+			<description>'Inbound Calling Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
 		<callingsearchspace>
 			<action>inject</action>
 			<name>office.name+'_CALLED_IN_CSS'</name>
-			<description>'Inbound Called Transformation for '+office.fullname</description>
+			<description>'Inbound Called Transformation for '+office.name</description>
 			<P>office.name+'_CALLING_OUT_P'</P>
 			<P>*M*office.country+'_CALLING_OUT_P'</P>
 		</callingsearchspace>
@@ -372,7 +826,7 @@
 		<vg>
 			<action>inject</action>
 			<name>'SKIGW'+file.mac*10*</name>
-			<description>'VG_'+office.name+'_'+office.fullname</description>
+			<description>'VG_'+office.name+'_'+office.name</description>
 			<product>cnaf.voicegatewaytype</product>
 			<protocol>'SCCP'</protocol>
 			<callmanagergroupname>office.callmanagergroup</callmanagergroupname>
@@ -381,7 +835,7 @@
 		<translationpattern>
 			<action>inject</action>
 			<pattern>'XXXX'</pattern>
-			<description>'Short dialing for '+office.fullname</description>
+			<description>'Short dialing for '+office.name</description>
 			<routepartition>office.name+'_TP'</routepartition>
 			<callingsearchspace>'INTERNAL_CSS'</callingsearchspace>
 			<urgentpriority>'true'</urgentpriority><!--true,false-->
@@ -393,7 +847,7 @@
 		<physicallocation>
 			<action>inject</action>
 			<name>'PL_'+office.name</name>
-			<description>office.name+' '+office.fullname</description>
+			<description>office.name+' '+office.name</description>
 		</physicallocation>
 		<devicemobilityinfo>
 			<action>inject</action>
@@ -416,7 +870,7 @@
 		<callingpartytransformationpattern>
 			<action>inject</action>
 			<pattern>office.internalprefix+'XXXX'</pattern>
-			<description>'Outgoing calls for '+office.fullname</description>
+			<description>'Outgoing calls for '+office.name</description>
 			<routepartition>office.name+'_CALLING_OUT_P'</routepartition>
 			<usecallingpartyexternalphonenumbermask>Off</usecallingpartyexternalphonenumbermask>
 			<callingpartytransformationmask>office.setting.1</callingpartytransformationmask>

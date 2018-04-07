@@ -1071,6 +1071,8 @@ public class UsefulMethod
 			case vg:return "Voice Gateway";
 			case routegroup:return "Route Group";
 			case translationpattern:return "Translation Pattern";
+			case callingpartytransformationpattern:return "Calling Party Transformation Pattern";
+			case calledpartytransformationpattern:return "Called Party Transformation Pattern";
 			case physicallocation:return "Physical Location";
 			case devicemobilityinfo:return "Device Mobility Info";
 			case devicemobilitygroup:return "Device Mobility group";
@@ -1093,6 +1095,7 @@ public class UsefulMethod
 			case aargroup:return "AAR Group";
 			case usercontrolgroup:return "Access Control Group";
 			case analog:return "Analog Port";
+			case gateway:return "Gateway";
 			default:return type.name();
 			}
 		}

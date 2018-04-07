@@ -6,18 +6,13 @@ Overal configuration file
 	<config>
 		<!--Misc-->
 		<log4j>DEBUG</log4j><!--Logging level : ERROR,INFO,DEBUG-->
-		<checkfreq>10000</checkfreq><!--user connection loging frequency. In milliseconds-->
 		<language>french</language><!--french,english-->
-		<maxdataprocessed>1000</maxdataprocessed><!--Integer-->
 		<automaticreport>enable</automaticreport><!--enable,disable-->
-		<threadMode>enable</threadMode><!--enable,disable-->
-		<threadLevel>20</threadLevel><!--integer : number of simultaneous thread-->
 		<storerequest>enable</storerequest><!--Keep in memory the already asked UUID-->
-		<autoanswer>enable</autoanswer><!--enable, disable : If enable, do not ask the user what to do-->
 		<javaversiondetection>enable</javaversiondetection><!--enable, disable-->
 		<minjavaversion>1.6:16</minjavaversion><!--Minimum java version allowed-->
 		<maxvgport>24</maxvgport><!--Max vg port handled by the system-->
-		<officenametemplate>file.officename</officenametemplate><!--office name template to use to find the office name-->
+		<splitter>+</splitter>
 		<!--Smtp parameters-->
 		<smtpemailport>25</smtpemailport>
 		<smtpemailprotocol>smtp</smtpemailprotocol>
@@ -67,5 +62,14 @@ Overal configuration file
 		<maxnumchar>30</maxnumchar><!--Integer-->
 		<csvseparator>;</csvseparator>
 		<!--Provisioning Misc end-->
+		<!--Mandatory variables template-->
+		<officenametemplate>file.officename</officenametemplate><!--use to find the office name-->
+		<usercreationprofiletemplate>*LFprofile*file.usercreationprofile</usercreationprofiletemplate><!--use to find the creation profile name-->
+		<userlastnametemplate>file.lastname</userlastnametemplate><!--use to find the user lastname-->
+		<userfirstnametemplate>file.firstname</userfirstnametemplate><!--use to find the user first name-->
+		<useridtemplate>file.userid</useridtemplate><!--use to find the user id-->
+		<phonemactemplate>file.phonemac</phonemactemplate><!--use to find the phone mac address-->
+		<phonetypetemplate>file.phonetype</phonetypetemplate><!--use to find the phone mac address-->
+		<!--Variables template end-->
 	</config>
 </xml>

@@ -36,6 +36,7 @@ public class OfficeTools
 	public static synchronized MainItem setOfficeList(Office o, actionType action, WaitingWindow myWW) throws Exception
 		{
 		Variables.getLogger().info("Office List building process begin for : "+o.getName()+" - "+o.getFullname());
+		myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding")+" : "+o.getFullname());
 		
 		MItemOffice myOffice = new MItemOffice(o.getName(), o.getFullname());
 		
