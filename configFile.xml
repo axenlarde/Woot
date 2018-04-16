@@ -22,11 +22,11 @@ Overal configuration file
 		<smtpemailreceiver>alexandre.ratel@spie.com</smtpemailreceiver><!--One or more destinations separated by a ;-->
 		<!--Smtp parameters end-->
 		<!--AXL parameters-->
-		<axlhost>10.1.1.1</axlhost><!--IP of the CUCM server-->
+		<axlhost>X.X.X.X</axlhost><!--IP of the CUCM server-->
 		<axlport>8443</axlport><!--Port to contact the CUCM server using AXL-->
 		<axlversion>105</axlversion><!--85 or 105--><!--AXL version of the CUCM-->
 		<axlusername>AXL_Woot</axlusername><!--AXL user name to contact the CUCM server-->
-		<axlpassword>CCMCisco92</axlpassword><!--Password of the AXL user in clear !!!!Warning : keep it secret!!!!-->
+		<axlpassword>xxxxxx</axlpassword><!--Password of the AXL user in clear !!!!Warning : keep it secret!!!!-->
 		<!--AXL parameters end-->
 		<!--Call Pickup Group-->
 		<cpgname>file.cpgname+'_'+office.name+'_CPG'</cpgname>
