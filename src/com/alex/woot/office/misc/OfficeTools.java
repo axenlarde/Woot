@@ -328,6 +328,7 @@ public class OfficeTools
 				//With this request we inject the item as much as the office's did ranges
 				for(int i=0; i<o.getDidRanges().size(); i++)
 					{
+					//We make a copy of the item to inject
 					TranslationPattern myTP = new TranslationPattern(templateTP.getName(),
 							templateTP.getDescription(),
 							templateTP.getRoutePartitionName(),
