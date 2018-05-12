@@ -1,8 +1,6 @@
 package com.alex.woot.office.items;
 
-import com.alex.woot.axlitems.linkers.PhoneLinker;
 import com.alex.woot.axlitems.linkers.TranslationPatternLinker;
-import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.utils.UsefulMethod;

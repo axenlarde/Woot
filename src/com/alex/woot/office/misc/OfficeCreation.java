@@ -7,14 +7,10 @@ import javax.swing.JOptionPane;
 import com.alex.woot.gui.ProgressUpdater;
 import com.alex.woot.gui.StatusWindow;
 import com.alex.woot.gui.WaitingWindow;
-import com.alex.woot.misc.CollectionFileChecker;
-import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.Task;
 import com.alex.woot.soap.misc.MainItem;
-import com.alex.woot.user.misc.UserTools;
 import com.alex.woot.utils.LanguageManagement;
-import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
 

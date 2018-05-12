@@ -3,6 +3,8 @@ package com.alex.woot.misc;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import com.alex.woot.utils.Variables.multipleRequestType;
+
 
 /**********************************
  * Class used to store an Office
@@ -102,7 +104,14 @@ public class Office
 				}
 			else if(tab[1].equals("did"))
 				{
-				return didRanges.get(Integer.parseInt(tab[2])-1).getPattern();
+				if(tab[2].equals("all"))
+					{
+					throw new MultipleValueRequiredException(multipleRequestType.officedidall);
+					}
+				else
+					{
+					return didRanges.get(Integer.parseInt(tab[2])-1).getPattern();
+					}
 				}
 			}
 		

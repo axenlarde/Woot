@@ -20,7 +20,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>14185XXXX</did>
+				<did>14185[0-3]XXX</did>
+				<did>14185[5-9]XXX</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>

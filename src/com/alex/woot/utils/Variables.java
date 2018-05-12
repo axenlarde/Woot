@@ -60,7 +60,6 @@ public class Variables
 		translationpattern,
 		callingpartytransformationpattern,
 		calledpartytransformationpattern,
-		commondeviceconfiguration,
 		physicallocation,
 		devicemobilityinfo,
 		devicemobilitygroup,
@@ -87,6 +86,7 @@ public class Variables
 		sqlRequest,
 		associateanalog,
 		userlocal,
+		softkeytemplate,
 		unknown
 		};
 	
@@ -223,6 +223,15 @@ public class Variables
 		{
 		update,//LDAP for instance
 		query//CUCM Internal user
+		};
+		
+	/********************************************
+	 * multipleRequestType :
+	 * Used to specify the multiple request type
+	 ***************************************/
+	public enum multipleRequestType
+		{
+		officedidall
 		};
 		
 	//Misc

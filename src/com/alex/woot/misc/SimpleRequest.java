@@ -676,6 +676,16 @@ public class SimpleRequest
 			com.cisco.axl.api._10.GetPhoneSecurityProfileRes resp = Variables.getAXLConnectionToCUCMV105().getPhoneSecurityProfile(req);//We send the request to the CUCM
 			return getXFKV105(resp.getReturn().getPhoneSecurityProfile().getUuid(), itemName, type);
 			}
+		else if(type.equals(itemType.softkeytemplate))
+			{
+			com.cisco.axl.api._10.GetSoftKeyTemplateReq req = new com.cisco.axl.api._10.GetSoftKeyTemplateReq();
+			com.cisco.axl.api._10.RSoftKeyTemplate returnedTags = new com.cisco.axl.api._10.RSoftKeyTemplate();
+			req.setName(itemName);
+			returnedTags.setUuid("");
+			req.setReturnedTags(returnedTags);
+			com.cisco.axl.api._10.GetSoftKeyTemplateRes resp = Variables.getAXLConnectionToCUCMV105().getSoftKeyTemplate(req);//We send the request to the CUCM
+			return getXFKV105(resp.getReturn().getSoftKeyTemplate().getUuid(), itemName, type);
+			}
 		
 		throw new Exception("ItemType \""+type+"\" not found");
 		}

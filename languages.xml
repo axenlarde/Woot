@@ -20,7 +20,8 @@ Language configuration file
 			<databasefilefetch>Please select the database file</databasefilefetch>
 			<collectionfilefetch>Please select the collection file</collectionfilefetch>
 			<errordirectory>A directory need to be choosen</errordirectory>
-			<invitofficeselection>Please select the current office</invitofficeselection>
+			<invitofficeselection>Select the offices</invitofficeselection>
+			<atleastoneoption>Please select at least one option !</atleastoneoption>
 			<injectionquestion>Would you like to proceed with injection ?</injectionquestion>
 			<deletionquestion>Would you like to proceed with the deletion ?</deletionquestion>
 			<!--GUI-->

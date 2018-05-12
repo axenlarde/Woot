@@ -1,5 +1,6 @@
 package com.alex.woot.office.misc;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import com.alex.woot.gui.WaitingWindow;
@@ -7,6 +8,7 @@ import com.alex.woot.misc.DidRange;
 import com.alex.woot.misc.ErrorTemplate;
 import com.alex.woot.misc.Gateway;
 import com.alex.woot.misc.ItemToInject;
+import com.alex.woot.misc.MultipleValueRequiredException;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.Task;
 import com.alex.woot.office.items.TranslationPattern;
@@ -16,6 +18,8 @@ import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.gwType;
+import com.alex.woot.utils.Variables.itemType;
+import com.alex.woot.utils.Variables.multipleRequestType;
 
 
 /**********************************
@@ -76,9 +80,19 @@ public class OfficeTools
 					}
 				try
 					{
-					item.resolve();
-					Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
-					myOffice.getAssociatedItems().add(item);
+					ArrayList<ItemToInject> list = new ArrayList<ItemToInject>();
+					try
+						{
+						item.resolve();
+						list.add(item);
+						Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
+						}
+					catch (MultipleValueRequiredException mvre)
+						{
+						Variables.getLogger().debug("A multiple value request of type "+mvre.getRequestType().name()+" has been caught for the item : "+item.getType()+" - "+item.getName());
+						list.addAll(manageMultipleValue(o,item, mvre.getRequestType()));
+						}
+					myOffice.getAssociatedItems().addAll(list);
 					}
 				catch (Exception e)
 					{
@@ -138,6 +152,7 @@ public class OfficeTools
 				}
 			}
 		Variables.getLogger().info("Item List building process end for the office : "+o.getName()+" - "+o.getFullname());
+		Variables.getLogger().debug(myOffice.getAssociatedItems().size()+" items associated");
 		
 		return myOffice;
 		}
@@ -292,6 +307,96 @@ public class OfficeTools
 		return suffixePattern;
 		}
 	
+	/**
+	 * Method used to return multiple copy of the main item according to the multipleRequestType
+	 * For instance : we can be asked to copy several time the same translation pattern, according to the
+	 * number of DID range of an particular office
+	 * @param type
+	 * @return
+	 * @throws Exception 
+	 */
+	private static ArrayList<ItemToInject> manageMultipleValue(Office o, ItemToInject item, multipleRequestType requestT) throws Exception
+		{
+		ArrayList<ItemToInject> list = new ArrayList<ItemToInject>();
+		
+		if(requestT.equals(multipleRequestType.officedidall))
+			{
+			if(item.getType().equals(itemType.translationpattern))
+				{
+				TranslationPattern templateTP = (TranslationPattern) item;
+				
+				//With this request we inject the item as much as the office's did ranges
+				for(int i=0; i<o.getDidRanges().size(); i++)
+					{
+					TranslationPattern myTP = new TranslationPattern(templateTP.getName(),
+							templateTP.getDescription(),
+							templateTP.getRoutePartitionName(),
+							templateTP.getCallingSearchSpaceName(),
+							templateTP.getPatternUrgency(),
+							templateTP.getUseCallingPartyPhoneMask(),
+							templateTP.getCalledPartyTransformationMask(),
+							templateTP.getCallingPartyTransformationMask(),
+							templateTP.getDigitDiscardInstructionName());
+					
+					myTP.setAction(templateTP.getAction());
+					
+					//We will replace all the occurrence of office.did.all by the did value
+					//First in the superclass
+					for(Field f : myTP.getClass().getSuperclass().getDeclaredFields())
+						{
+						if(f.getType() == String.class)
+							{
+							f = getNewFieldValue(f, myTP, "office.did.all", "office.did."+(i+1));
+							}
+						}
+					
+					//Then in the class itself
+					for(Field f : myTP.getClass().getDeclaredFields())
+						{
+						if(f.getType() == String.class)
+							{
+							f = getNewFieldValue(f, myTP, "office.did.all", "office.did."+(i+1));
+							}
+						}
+					
+					myTP.resolve();
+					Variables.getLogger().info("Adding the "+myTP.getType().name()+" "+myTP.getName()+" to the injection list");
+					list.add(myTP);
+					}
+				}
+			else if(item.getType().equals(itemType.callingpartytransformationpattern))
+				{
+				//to be written
+				}
+			else if(item.getType().equals(itemType.calledpartytransformationpattern))
+				{
+				//to be written
+				}
+			else
+				{
+				throw new Exception("The multiple value request "+requestT.name()+" has been asked for a "+item.getType()+". This kind of item is not managed");
+				}
+			}
+		
+		return list;
+		}
+	
+	/**
+	 * Method used to apply modification to a given field
+	 * @param f
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 */
+	private static Field getNewFieldValue(Field f, Object o, String lookFor, String newValue) throws IllegalArgumentException, IllegalAccessException
+		{
+		f.setAccessible(true);
+		String content = (String) f.get(o);
+		content = content.replaceAll(lookFor, newValue);
+		f.set(o, content);
+		
+		return f;
+		}
 	
 	/*2018*//*RATEL Alexandre 8)*/
 	}

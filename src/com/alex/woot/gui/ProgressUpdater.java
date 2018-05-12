@@ -13,8 +13,7 @@ import com.alex.woot.utils.Variables.statusType;
 
 
 /****************************************************
- * Classe qui g�re la mise � jour de la fen�tre pour
- * afficher graphiquement l'�tat d'avancement
+ * Manage and update the main window
  ****************************************************/
 public class ProgressUpdater extends Thread
 	{

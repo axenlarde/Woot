@@ -1,5 +1,6 @@
 package com.alex.woot.gui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -32,6 +33,7 @@ public class OfficesSelectionWindow extends JDialog implements ActionListener,Wi
 	
 	//Panel
 	private JPanel selection;
+	private JPanel footer;
 	private JPanel global;
 	private JScrollPane myScroll;
 	
@@ -60,17 +62,20 @@ public class OfficesSelectionWindow extends JDialog implements ActionListener,Wi
 		
 		//Panel
 		selection = new JPanel();
+		footer = new JPanel();
 		global = new JPanel();
 		
 		//Disposition
 		selection.setLayout(new BoxLayout(selection, BoxLayout.Y_AXIS));
+		footer.setLayout(new BoxLayout(footer, BoxLayout.X_AXIS));
 		global.setLayout(new BoxLayout(global, BoxLayout.Y_AXIS));
 		
 		//Association
 		selection.add(selectionList);
-		selection.add(validate);
 		myScroll = new JScrollPane(selection);
+		footer.add(validate);
 		global.add(myScroll);
+		global.add(footer);
 		this.getContentPane().add(global);
 		
 		//Events
@@ -78,6 +83,7 @@ public class OfficesSelectionWindow extends JDialog implements ActionListener,Wi
 		this.addWindowListener(this);
 		
 		this.pack();
+		if(this.getHeight()>400)this.setSize(new Dimension(this.getWidth()+15, 400));
 		Position.center(this);
 		this.setVisible(true);
 		}

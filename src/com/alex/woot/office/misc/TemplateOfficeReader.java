@@ -399,6 +399,18 @@ public class TemplateOfficeReader
 			myCPTP.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
 			return myCPTP;
 			}
+		else if(type.equals(itemType.commondeviceconfig))
+			{
+			CommonDeviceConfig myCDC = new CommonDeviceConfig(UsefulMethod.getItemByName("name",itemDetails),
+					UsefulMethod.getItemByName("softkeytemplatename",itemDetails),
+					UsefulMethod.getItemByName("userlocale",itemDetails),
+					UsefulMethod.getItemByName("networkholdmohaudiosourceid",itemDetails),
+					UsefulMethod.getItemByName("userholdmohaudiosourceid",itemDetails),
+					CommonDeviceConfig.AddressingMode.valueOf(UsefulMethod.getItemByName("ipaddressingmode",itemDetails)));
+			
+			myCDC.setAction(actionType.valueOf(UsefulMethod.getItemByName("action", itemDetails)));
+			return myCDC;
+			}
 		//etc...
 		throw new Exception("ERROR : No item type found : "+type.name());
 		}
