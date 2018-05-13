@@ -11,6 +11,7 @@ import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.MultipleValueRequiredException;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.Task;
+import com.alex.woot.office.items.CallingPartyTransformationPattern;
 import com.alex.woot.office.items.TranslationPattern;
 import com.alex.woot.office.items.VG2XX;
 import com.alex.woot.soap.misc.MainItem;
@@ -198,66 +199,6 @@ public class OfficeTools
 		}
 	
 	
-	
-	
-	/*****************
-	 * Method used to process the particular case of 
-	 * a translation Pattern depending of the DID range
-	 */
-	private static synchronized ArrayList<TranslationPattern> addDIDTranslationPatern(ArrayList<DidRange> DIDRanges, ItemToInject item)
-		{
-		try
-			{
-			//We look for a special DID range translation pattern
-			TranslationPattern modelTP = (TranslationPattern) item;
-			
-			ArrayList<TranslationPattern> TPList = new ArrayList<TranslationPattern>();
-			
-			if(modelTP.getName().contains("sdarange"))
-				{
-				/*********************************************
-				 * This is a DID special Translation Pattern
-				 * 
-				 * For each range we add a Translation pattern
-				 */
-				for(DidRange d : DIDRanges)
-					{
-					/**
-					 * We need to resolve the pattern
-					 */
-					String sPattern = modelTP.getName().replace("cnaf.sdarange", d.getFirst().substring(0, d.getFirst().length()-4)+d.getPattern());
-					/*******/
-					
-					TPList.add(new TranslationPattern(sPattern,
-							modelTP.getDescription(),
-							modelTP.getRoutePartitionName(),
-							modelTP.getCallingSearchSpaceName(),
-							modelTP.getPatternUrgency(),
-							modelTP.getUseCallingPartyPhoneMask(),
-							modelTP.getCalledPartyTransformationMask(),
-							modelTP.getCallingPartyTransformationMask(),
-							modelTP.getDigitDiscardInstructionName()));
-					}
-				return TPList;
-				}
-			else
-				{
-				/**
-				 * This is a normal Translation Pattern
-				 * 
-				 * We return the ArrayList just filled we one Translation Pattern
-				 */
-				TPList.add((TranslationPattern)item);
-				return TPList;
-				}
-			}
-		catch (Exception e)
-			{
-			Variables.getLogger().error("Problem with the item "+item.getName()+" we skip it");
-			}
-		return null;
-		}
-	
 	/**********
 	 * Method used to find the list of VGs to create
 	 * @throws Exception 
@@ -342,24 +283,9 @@ public class OfficeTools
 					myTP.setAction(templateTP.getAction());
 					
 					//We will replace all the occurrence of office.did.all by the did value
-					//First in the superclass
-					for(Field f : myTP.getClass().getSuperclass().getDeclaredFields())
-						{
-						if(f.getType() == String.class)
-							{
-							f = getNewFieldValue(f, myTP, "office.did.all", "office.did."+(i+1));
-							}
-						}
+					myTP = (TranslationPattern) getNewFieldValue(myTP, "office.did.all", "office.did."+(i+1));
 					
-					//Then in the class itself
-					for(Field f : myTP.getClass().getDeclaredFields())
-						{
-						if(f.getType() == String.class)
-							{
-							f = getNewFieldValue(f, myTP, "office.did.all", "office.did."+(i+1));
-							}
-						}
-					
+					//We resolve it
 					myTP.resolve();
 					Variables.getLogger().info("Adding the "+myTP.getType().name()+" "+myTP.getName()+" to the injection list");
 					list.add(myTP);
@@ -367,11 +293,33 @@ public class OfficeTools
 				}
 			else if(item.getType().equals(itemType.callingpartytransformationpattern))
 				{
-				//to be written
-				}
-			else if(item.getType().equals(itemType.calledpartytransformationpattern))
-				{
-				//to be written
+				CallingPartyTransformationPattern templateCPTP = (CallingPartyTransformationPattern) item;
+				
+				//With this request we inject the item as much as the office's did ranges
+				for(int i=0; i<o.getDidRanges().size(); i++)
+					{
+					//We make a copy of the item
+					CallingPartyTransformationPattern myCPTP = new CallingPartyTransformationPattern(
+							templateCPTP.getName(),
+							templateCPTP.getDescription(),
+							templateCPTP.getRoutePartitionName(),
+							templateCPTP.getCallingPartyTransformationMask(),
+							templateCPTP.getUseCallingPartyPhoneMask(),
+							templateCPTP.getDigitDiscardInstructionName(),
+							templateCPTP.getCallingPartyPrefixDigits(),
+							templateCPTP.getCallingLinePresentationBit(),
+							templateCPTP.getCallingPartyNumberingPlan(),
+							templateCPTP.getCallingPartyNumberType());
+					
+					myCPTP.setAction(templateCPTP.getAction());
+					
+					//We will replace all the occurrence of office.did.all by the did value
+					myCPTP = (CallingPartyTransformationPattern) getNewFieldValue(myCPTP, "office.did.all", "office.did."+(i+1));
+					
+					myCPTP.resolve();
+					Variables.getLogger().info("Adding the "+myCPTP.getType().name()+" "+myCPTP.getName()+" to the injection list");
+					list.add(myCPTP);
+					}
 				}
 			else
 				{
@@ -389,14 +337,33 @@ public class OfficeTools
 	 * @throws IllegalAccessException 
 	 * @throws IllegalArgumentException 
 	 */
-	private static Field getNewFieldValue(Field f, Object o, String lookFor, String newValue) throws IllegalArgumentException, IllegalAccessException
+	private static Object getNewFieldValue(Object o, String lookFor, String newValue) throws IllegalArgumentException, IllegalAccessException
 		{
-		f.setAccessible(true);
-		String content = (String) f.get(o);
-		content = content.replaceAll(lookFor, newValue);
-		f.set(o, content);
+		//First in the superclass
+		for(Field f : o.getClass().getSuperclass().getDeclaredFields())
+			{
+			if(f.getType() == String.class)
+				{
+				f.setAccessible(true);
+				String content = (String) f.get(o);
+				content = content.replaceAll(lookFor, newValue);
+				f.set(o, content);
+				}
+			}
 		
-		return f;
+		//Then in the class itself
+		for(Field f : o.getClass().getDeclaredFields())
+			{
+			if(f.getType() == String.class)
+				{
+				f.setAccessible(true);
+				String content = (String) f.get(o);
+				content = content.replaceAll(lookFor, newValue);
+				f.set(o, content);
+				}
+			}
+		
+		return o;
 		}
 	
 	/*2018*//*RATEL Alexandre 8)*/

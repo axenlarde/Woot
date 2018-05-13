@@ -948,7 +948,22 @@ public class CollectionTools
 		pat = pat.replace("'", "");
 		String splitRegex = "(?<!\\\\)" + Pattern.quote(splitter);//To activate "\" as an escape character
 		
-		return pat.split(splitRegex);
+		String[] tab = pat.split(splitRegex);
+		//We now remove the remaining \
+		for(int i=0; i<tab.length; i++)
+			{
+			if(tab[i].contains("\\\\"))
+				{
+				//to keep one \ when it has been escaped \\
+				tab[i] = tab[i].replace("\\\\", "\\");
+				}
+			else if(tab[i].contains("\\"))
+				{
+				tab[i] = tab[i].replace("\\", "");
+				}
+			}
+		
+		return tab;
 		}
 	
 	/**
