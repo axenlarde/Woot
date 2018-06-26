@@ -34,26 +34,28 @@ public class OfficeTools
 
 	
 	/**********
-	 * Method used to build the
-	 * CCMItemToInjectList
+	 * Method used to build the item list for Office operation
+	 * 
 	 * @throws Exception 
 	 */
-	public static synchronized MainItem setOfficeList(Office o, actionType action, WaitingWindow myWW) throws Exception
+	public static synchronized MainItem setOfficeList(Office o, actionType action, WaitingWindow myWW, boolean quickTask, String pattern) throws Exception
 		{
 		Variables.getLogger().info("Office List building process begin for : "+o.getName()+" - "+o.getFullname());
 		myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding")+" : "+o.getFullname());
 		
 		MItemOffice myOffice = new MItemOffice(o.getName(), o.getFullname());
 		
-		//We initialize the DID ranges list
-		//ArrayList<DidRange> DIDRanges = null;
-		
-		//We initialize the gateway list
-		//ArrayList<Gateway> myGatewayList = null;
-		
 		//We get the office template to use
 		ArrayList<ItemToInject> TemplateItemList = new ArrayList<ItemToInject>();
-		TemplateItemList = TemplateOfficeReader.readOfficeTemplate(o.getTemplatename());
+		
+		if(quickTask)
+			{
+			TemplateItemList = TemplateOfficeReader.readOfficeQuickTaskTemplate(pattern);
+			}
+		else
+			{
+			TemplateItemList = TemplateOfficeReader.readOfficeTemplate(o.getTemplatename(), pattern);
+			}
 		
 		for(int i=0; i<TemplateItemList.size(); i++)
 			{
@@ -79,6 +81,10 @@ public class OfficeTools
 						item.setAction(actionType.delete);
 						}
 					}
+				else if(action.equals(actionType.update))
+					{
+					item.setAction(actionType.update);
+					}
 				try
 					{
 					ArrayList<ItemToInject> list = new ArrayList<ItemToInject>();
@@ -100,56 +106,6 @@ public class OfficeTools
 					Variables.getLogger().error("ERROR : The following item throw an exception during the resolution process : "+item.getName()+" "+item.getType().name(), e);
 					item.addNewError(new ErrorTemplate(item.getName(), "", "Failed to resolve", item.getType(), item.getType(), ErrorTemplate.errorType.other));
 					}
-				
-				//Temp : We will manage the particular cases later
-				/*
-				if(item.getType().equals(itemType.translationpattern))
-					{
-					if(DIDRanges == null)
-						{
-						DIDRanges = DIDRangeManager.getDIDRanges(true, myWorkbook);
-						}
-					
-					//We treat here the particular case of a translation pattern depending of the DID ranges
-					ArrayList<TranslationPattern> TP = addDIDTranslationPatern(DIDRanges, item, myWorkbook);
-					
-					if(TP != null)
-						{
-						for(TranslationPattern tp : TP)
-							{
-							tp.resolve();
-							Variables.getLogger().info("Adding the "+item.getType().name()+" "+tp.getName()+" to the injection list");
-							CCMItemToInjectList.add(tp);
-							}
-						}
-					}
-				else if(item.getType().equals(itemType.vg))
-					{
-					//We treat here the particular case of the vgs
-					if(myGatewayList == null)
-						{
-						myGatewayList = CollectionTools.findGatewaysFromCollectionFile(myWorkbook);
-						}
-					
-					ArrayList<VG2XX> vgs = addVGs(item, myGatewayList, myWorkbook);
-					
-					if(vgs != null)
-						{
-						for(VG2XX vg : vgs)
-							{
-							vg.resolve();
-							Variables.getLogger().info("Adding the "+item.getType().name()+" "+vg.getName()+" to the injection list");
-							CCMItemToInjectList.add(vg);
-							}
-						}
-					}
-				else
-					{
-					//This is a normal item
-					item.resolve();
-					Variables.getLogger().info("Adding the "+item.getType().name()+" "+item.getName()+" to the injection list");
-					CCMItemToInjectList.add(item);
-					}*/
 				}
 			}
 		Variables.getLogger().info("Item List building process end for the office : "+o.getName()+" - "+o.getFullname());

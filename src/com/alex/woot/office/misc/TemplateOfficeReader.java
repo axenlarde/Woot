@@ -32,16 +32,13 @@ public class TemplateOfficeReader
 	 */
 	
 	/*********************
-	 * Static method used to read the CUCM Template 
-	 * @throws Exception 
+	 * Static method used to read the CUCM Template
+	 * @throws Exception
 	 */
-	public static ArrayList<ItemToInject> readOfficeTemplate(String templateName) throws Exception
+	public static ArrayList<ItemToInject> readOfficeTemplate(String templateName, String fileContent) throws Exception
 		{
 		try
 			{
-			Variables.getLogger().info("Reading the CCM Template file : "+Variables.getCcmTemplateFileName());
-			String fileContent = xMLReader.fileRead(Variables.getCcmTemplateFileName());
-			
 			ArrayList<String> listParams = new ArrayList<String>();
 			listParams.add("template");
 			
@@ -86,6 +83,59 @@ public class TemplateOfficeReader
 			{
 			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
 			throw new Exception("Error while reading the CCM Template file : "+e.getMessage());
+			}
+		}
+	
+	/*********************
+	 * Static method used to read the CUCM Template 
+	 * @throws Exception 
+	 */
+	public static ArrayList<ItemToInject> readOfficeQuickTaskTemplate(String pattern) throws Exception
+		{
+		try
+			{
+			Variables.getLogger().info("Reading the following CCM pattern : \r\n"+pattern);
+			pattern = pattern.replace("\r", "").replace("\n", "");
+			pattern = "<xml><pattern>"+pattern+"</pattern></xml>";
+			
+			ArrayList<String> listParams = new ArrayList<String>();
+			listParams.add("pattern");
+			
+			//We get here the list of the items we want to inject
+			ArrayList<String[][]> templateCCMContent = xMLGear.getResultListTab(pattern, listParams);
+			
+			//And here we get the detail
+			ArrayList<ArrayList<String[][]>> templateCCMContentDetail = xMLGear.getResultListTabExt(pattern, listParams);
+			
+			//The list to return
+			ArrayList<ItemToInject> CCMTemplateList = new ArrayList<ItemToInject>();
+			
+			/******
+			 * For each item we check if we have to process it.
+			 * If yes we create the suitable item object and 
+			 * we add it to the list of items to inject
+			 */		
+			String[][] tab = templateCCMContent.get(0);
+			ArrayList<String[][]> detail = templateCCMContentDetail.get(0);
+			
+			for(int i=0; i<tab.length; i++)
+				{
+				for(itemType item : itemType.values())
+					{
+					if(tab[i][0].equals(item.name()))
+						{
+						ItemToInject myItem = createItem(item, detail.get(i));
+						if(myItem != null)CCMTemplateList.add(myItem);
+						Variables.getAllowedItemsToProcess().add(item);
+						}
+					}
+				}
+			return CCMTemplateList;
+			}
+		catch(Exception e)
+			{
+			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
+			throw new Exception("Error while reading the CCM pattern : "+e.getMessage());
 			}
 		}
 	

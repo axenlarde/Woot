@@ -2,6 +2,7 @@ package com.alex.woot.axlitems.linkers;
 
 import java.util.ArrayList;
 
+import com.alex.woot.axlitems.linkers.DevicePoolLinker.toUpdate;
 import com.alex.woot.axlitems.misc.AXLItemLinker;
 import com.alex.woot.axlitems.misc.ToUpdate;
 import com.alex.woot.misc.ErrorTemplate;
@@ -30,6 +31,7 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 	
 	public enum toUpdate implements ToUpdate
 		{
+		description,
 		members
 		}
 	
@@ -153,12 +155,62 @@ public class CallingSearchSpaceLinker extends AXLItemLinker
 	 */
 	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
 		{
-		//Has to be written
+		com.cisco.axl.api._10.UpdateCssReq req = new com.cisco.axl.api._10.UpdateCssReq();
+		
+		/**
+		 * We set the item parameters
+		 */
+		req.setName(this.getName());//Name
+		
+		if(tuList.contains(toUpdate.description))req.setDescription(description);
+		if(tuList.contains(toUpdate.members))
+			{
+			com.cisco.axl.api._10.UpdateCssReq.Members myMembers = new com.cisco.axl.api._10.UpdateCssReq.Members();
+			
+			for(int i=0; i<members.size(); i++)
+				{
+				com.cisco.axl.api._10.XCallingSearchSpaceMember myCSSM = new com.cisco.axl.api._10.XCallingSearchSpaceMember();
+				myCSSM.setRoutePartitionName(SimpleRequest.getUUIDV105(itemType.partition, members.get(i).getName()));
+				myCSSM.setIndex(Integer.toString(i+1));
+				
+				myMembers.getMember().add(myCSSM);
+				}
+			
+			req.setMembers(myMembers);
+			}
+		/************/
+		
+		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateCss(req);//We send the request to the CUCM
 		}
 
 	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
 		{
-		//Has to be written
+		com.cisco.axl.api._8.UpdateCssReq req = new com.cisco.axl.api._8.UpdateCssReq();
+		
+		/**
+		 * We set the item parameters
+		 */
+		req.setName(this.getName());//Name
+		
+		if(tuList.contains(toUpdate.description))req.setDescription(description);
+		if(tuList.contains(toUpdate.members))
+			{
+			com.cisco.axl.api._8.UpdateCssReq.Members myMembers = new com.cisco.axl.api._8.UpdateCssReq.Members();
+			
+			for(int i=0; i<members.size(); i++)
+				{
+				com.cisco.axl.api._8.XCallingSearchSpaceMember myCSSM = new com.cisco.axl.api._8.XCallingSearchSpaceMember();
+				myCSSM.setRoutePartitionName(SimpleRequest.getUUIDV85(itemType.partition, members.get(i).getName()));
+				myCSSM.setIndex(Integer.toString(i+1));
+				
+				myMembers.getMember().add(myCSSM);
+				}
+			
+			req.setMembers(myMembers);
+			}
+		/************/
+		
+		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateCss(req);//We send the request to the CUCM
 		}
 	/**************/
 	

@@ -8,12 +8,11 @@ import javax.swing.JOptionPane;
 
 import com.alex.woot.gui.BaseLaunchPanel;
 import com.alex.woot.gui.OptionLine;
-import com.alex.woot.office.misc.OfficeCreation;
-import com.alex.woot.office.misc.OfficeDeletion;
-import com.alex.woot.user.misc.UserCreation;
-import com.alex.woot.user.misc.UserDeletion;
+import com.alex.woot.office.misc.OfficeTask;
+import com.alex.woot.user.misc.UserTask;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
+import com.alex.woot.utils.xMLReader;
 import com.alex.woot.utils.Variables.actionType;
 import com.alex.woot.utils.Variables.provisioningType;
 
@@ -61,29 +60,20 @@ public class OptionPanel extends BaseLaunchPanel
 				{
 				this.disableButton();
 				
-				switch(action)
+				try
 					{
-					case inject:
-						switch(pType)
-							{
-							case user:new UserCreation();break;
-							case office:new OfficeCreation();break;
-							}
-						break;
-					case update:
-						switch(pType)
-							{
-							case user://new UserCreation();break;
-							case office://new OfficeCreation();break;
-							}
-						break;
-					case delete:
-						switch(pType)
-							{
-							case user:new UserDeletion();break;
-							case office:new OfficeDeletion();break;
-							}
-						break;
+					Variables.getLogger().info("Reading the CCM Template file : "+Variables.getCcmTemplateFileName());
+					String fileContent = xMLReader.fileRead(Variables.getCcmTemplateFileName());
+					
+					switch(pType)
+						{
+						case user:new UserTask(action);break;
+						case office:new OfficeTask(action, false, fileContent);break;
+						}
+					}
+				catch(Exception exc)
+					{
+					Variables.getLogger().error("Error : "+exc.getMessage(), exc);
 					}
 				}
 			}

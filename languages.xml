@@ -15,8 +15,6 @@ Language configuration file
 			<yes>Yes</yes>
 			<no>No</no>
 			<error>Error</error>
-			<selectButton>Select</selectButton>
-			<invitMainDirectoryPhrase>Please select the main directory</invitMainDirectoryPhrase>
 			<databasefilefetch>Please select the database file</databasefilefetch>
 			<collectionfilefetch>Please select the collection file</collectionfilefetch>
 			<errordirectory>A directory need to be choosen</errordirectory>
@@ -34,6 +32,7 @@ Language configuration file
 			<injectoffice>Inject</injectoffice>
 			<updateoffice>Update</updateoffice>
 			<deleteoffice>Delete</deleteoffice>
+			<quicktaskoffice>Quick task</quicktaskoffice>
 			<exit>Exit</exit>
 			<tools>Tools</tools>
 			<option>Options</option>
@@ -51,6 +50,7 @@ Language configuration file
 			<officeinjectiontitle>Office injection</officeinjectiontitle>
 			<officeupdatetitle>Office update</officeupdatetitle>
 			<officedeletiontitle>Office deletion</officedeletiontitle>
+			<officequicktasktitle>Quick task for office</officequicktasktitle>
 			<start>Start</start>
 			<stop>Stop</stop>
 			<pause>Pause</pause>
@@ -63,7 +63,6 @@ Language configuration file
 			<taskbuilding>Almost there : Task building in progress</taskbuilding>
 			<!--Status-->
 			<injected>Injected</injected>
-			<error>Error</error>
 			<processing>Processing</processing>
 			<waiting>Waiting</waiting>
 			<disabled>Disabled</disabled>
@@ -74,8 +73,8 @@ Language configuration file
 			<errorlist>Error list</errorlist>
 			<noerror>No error to report</noerror>
 			<!--Errors-->
-			<usercreationerror>The following error occurs, we will now exit</usercreationerror>
-			<officecreationerror>The following error occurs, we will now exit</officecreationerror>
+			<usertaskerror>The following error occurs, we will now exit</usertaskerror>
+			<userofficeerror>The following error occurs, we will now exit</userofficeerror>
 			<!--Correction window-->
 			<correctionlist>Correction list</correctionlist>
 			<correctionwarning>Some correction needed to be done</correctionwarning>

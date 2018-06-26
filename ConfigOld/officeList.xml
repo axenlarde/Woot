@@ -1,42 +1,873 @@
-<!--
-XML file containing all the offices and their settings
-
-To access one of this setting, use the following syntax : office.name, office.mohnumber, etc.
--->
-
 <xml>
 	<offices>
 		<office>
-			<name>LYON</name><!--Office name-->
-			<fullname>Lyon</fullname><!--Office full name-->
-			<audiobandwidth>100</audiobandwidth><!--(Kbps)-->
-			<videobandwidth>384</videobandwidth><!--(Kbps)-->
-			<userlocal>English United States</userlocal><!--French France, Italian Italy, English United States, etc.-->
-			<softkeytemplate>Standard User</softkeytemplate><!--Softkey template name-->
-			<callmanagergroup>MAIN_CMG</callmanagergroup><!--Call Manager group name-->
-			<datetimegroup>Paris</datetimegroup><!--Date time group name-->
-			<mohnumber>1</mohnumber><!--Moh number-->
-			<country>France</country><!--France, Italy, United Kingdom, etc.-->
-			<internalprefix>21</internalprefix><!--Office internal prefix-->
+			<name>001</name>
+			<templatename>template1</templatename>
+			<fullname>Ivry-sur-seine</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>331</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3317500</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>01414641XX</did><!--one or more--><!--CUCM like pattern for one did range-->
-				<did>01414741XX</did><!--one or more--><!--CUCM like pattern for one did range-->
+				<did>149591XXX</did>
+				<did>149592052:149592132</did>
 			</didranges>
-			<e164>33</e164><!--Country E.164 prefix-->
-			<receptionnumber>21345</receptionnumber><!--Reception number-->
-			<aargroup>GLOBAL_AAR</aargroup><!--AAR Group name-->
-			<voicemailtemplate>voicemailusertemplate</voicemailtemplate><!--Voice mail template name-->
-			<voicemailprofile>UnityConnection1</voicemailprofile><!--CUCM Voice mail profile name-->
-			<voicenetwork>192.168.1.0/24</voicenetwork><!--VoIP network-->
-			<setting><!--One or more-->
-				<targetname>1</targetname><!--Name to target this setting-->
-				<value>0141464146</value><!--Value of this setting-->
+			<setting>
+				<targetname>1</targetname>
+				<value>149597500</value>
 			</setting>
-			<setting><!--One or more-->
-				<targetname>2</targetname><!--Name to target this setting-->
-				<value>Setting 2</value><!--Value of this setting-->
+			<setting>
+				<targetname>2</targetname>
+				<value>1001</value>
+			</setting>
+		</office>
+		<office>
+			<name>002</name>
+			<templatename>template1</templatename>
+			<fullname>Gennevilliers</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>331</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3312000</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>14185XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>141852000</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>1002</value>
+			</setting>
+		</office>
+		<office>
+			<name>004</name>
+			<templatename>template1</templatename>
+			<fullname>Bordeaux</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>335</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3359100</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>55780XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>557809100</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>5004</value>
+			</setting>
+		</office>
+		<office>
+			<name>005</name>
+			<templatename>template1</templatename>
+			<fullname>Nancy</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>333</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3339797</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>38317XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>383179797</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>3005</value>
+			</setting>
+		</office>
+		<office>
+			<name>062</name>
+			<templatename>template1</templatename>
+			<fullname>Verneuil lEtang</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>331</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3315610</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>16442XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>164425610</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>1062</value>
+			</setting>
+		</office>
+		<office>
+			<name>149</name>
+			<templatename>template1</templatename>
+			<fullname>Mur-de-Bretagne</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>332</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3321060</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>29667XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>296671060</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>2149</value>
+			</setting>
+		</office>
+		<office>
+			<name>152</name>
+			<templatename>template1</templatename>
+			<fullname>Le Pontet</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3347200</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>49003XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>490037200</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4152</value>
+			</setting>
+		</office>
+		<office>
+			<name>153</name>
+			<templatename>template1</templatename>
+			<fullname>Golfe-Juan</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3343500</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>49363XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>493633500</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4153</value>
+			</setting>
+		</office>
+		<office>
+			<name>154</name>
+			<templatename>template1</templatename>
+			<fullname>Notre-Dame-dOe</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>332</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3328020</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>24729XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>247298020</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>2154</value>
+			</setting>
+		</office>
+		<office>
+			<name>159</name>
+			<templatename>template2</templatename>
+			<fullname>Cuers</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3345053</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>49499XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>494995053</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4159</value>
+			</setting>
+		</office>
+		<office>
+			<name>163</name>
+			<templatename>template2</templatename>
+			<fullname>Vitry-sur-Seine</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>331</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3311036</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>14718XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>147181036</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>1163</value>
+			</setting>
+		</office>
+		<office>
+			<name>164</name>
+			<templatename>template1</templatename>
+			<fullname>Entraigues-sur-la-Sorgue</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3341505</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>49022XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>490221505</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4164</value>
+			</setting>
+		</office>
+		<office>
+			<name>167</name>
+			<templatename>template2</templatename>
+			<fullname>Marseille</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3345816</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>49181XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>491815816</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4167</value>
+			</setting>
+		</office>
+		<office>
+			<name>200</name>
+			<templatename>template1</templatename>
+			<fullname>Reims</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>333</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3337575</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>32686XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>326867575</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>3200</value>
+			</setting>
+		</office>
+		<office>
+			<name>252</name>
+			<templatename>template1</templatename>
+			<fullname>Brienne-le-Chateau</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>333</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3333740</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>32592XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>325923740</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>3252</value>
+			</setting>
+		</office>
+		<office>
+			<name>406</name>
+			<templatename>template1</templatename>
+			<fullname>Marseille</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3343131</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>49613XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>496133131</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4406</value>
+			</setting>
+		</office>
+		<office>
+			<name>605</name>
+			<templatename>template1</templatename>
+			<fullname>Avignon</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3344480</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>49080XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>490804480</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4605</value>
+			</setting>
+		</office>
+		<office>
+			<name>620</name>
+			<templatename>template1</templatename>
+			<fullname>Labeuvriere</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>333</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3337030</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>32101XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>321017030</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>3620</value>
+			</setting>
+		</office>
+		<office>
+			<name>625</name>
+			<templatename>template1</templatename>
+			<fullname>Landevant</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>332</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3324750</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>29724XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>297244750</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>2625</value>
+			</setting>
+		</office>
+		<office>
+			<name>635</name>
+			<templatename>template1</templatename>
+			<fullname>Martainville</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>332</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3320710</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>23298XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>232980710</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>2635</value>
+			</setting>
+		</office>
+		<office>
+			<name>645</name>
+			<templatename>template1</templatename>
+			<fullname>Theix</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>332</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3320360</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>29743XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>297430360</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>2645</value>
+			</setting>
+		</office>
+		<office>
+			<name>650</name>
+			<templatename>template2</templatename>
+			<fullname>Vendin-le-Vieil</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>333</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3337730</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>32114XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>321147730</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>3650</value>
+			</setting>
+		</office>
+		<office>
+			<name>655</name>
+			<templatename>template2</templatename>
+			<fullname>Corbas</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3340500</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>47209XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>472090500</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4655</value>
+			</setting>
+		</office>
+		<office>
+			<name>680</name>
+			<templatename>template2</templatename>
+			<fullname>Fort-de-France</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>331</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3358936</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>59654XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>596548936</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>5680</value>
+			</setting>
+		</office>
+		<office>
+			<name>700</name>
+			<templatename>template1</templatename>
+			<fullname>Romans</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>334</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3348400</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>47572XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>475728400</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>4700</value>
+			</setting>
+		</office>
+		<office>
+			<name>771</name>
+			<templatename>template1</templatename>
+			<fullname>Dunkerque</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>333</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3332777</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>32829XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>328292777</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>3771</value>
+			</setting>
+		</office>
+		<office>
+			<name>772</name>
+			<templatename>template1</templatename>
+			<fullname>Annezin</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>333</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3331615</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>32102XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>321021615</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>3772</value>
+			</setting>
+		</office>
+		<office>
+			<name>776</name>
+			<templatename>template1</templatename>
+			<fullname>Heudebouville</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>332</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3329920</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>23240XXXX</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>232409920</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>2776</value>
 			</setting>
 		</office>
 	</offices>
 </xml>
-			

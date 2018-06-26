@@ -3,6 +3,8 @@ package com.alex.woot.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.alex.woot.gui.OfficeSelectionWindow;
@@ -11,6 +13,7 @@ import com.alex.woot.misc.Correction;
 import com.alex.woot.misc.DidRange;
 import com.alex.woot.misc.Office;
 import com.alex.woot.misc.OfficeSetting;
+import com.alex.woot.misc.Range;
 import com.alex.woot.misc.SimpleRequest;
 import com.alex.woot.misc.ValueMatcher;
 import com.alex.woot.misc.databaseAccess;
@@ -370,8 +373,8 @@ public class UsefulMethod
 				ArrayList<String[][]> tabE = extendedList.get(i);
 				
 				ArrayList<DidRange> didRanges = new ArrayList<DidRange>();
-				ArrayList<PhoneService> serviceList = new ArrayList<PhoneService>();
-				ArrayList<SpeedDial> sdList = new ArrayList<SpeedDial>();
+				//ArrayList<PhoneService> serviceList = new ArrayList<PhoneService>();
+				//ArrayList<SpeedDial> sdList = new ArrayList<SpeedDial>();
 				ArrayList<OfficeSetting> settings = new ArrayList<OfficeSetting>();
 				
 				for(int j=0; j<tab.length; j++)
@@ -380,7 +383,24 @@ public class UsefulMethod
 						{
 						for(String[] s : tabE.get(j))
 							{
-							didRanges.add(new DidRange(s[1]));
+							//Here we process the multiple did ranges and regex cases
+							DidRange myRange = new DidRange(s[1]);
+							ArrayList<DidRange> myLR = new ArrayList<DidRange>();
+							if(myRange.getPattern() == null)
+								{
+								//So we have to process a regex based on a range
+								for(String str : getRegexFromRange(myRange.getFirst(), myRange.getLast()))
+									{
+									Variables.getLogger().debug("Resulting regex for the range "+myRange.getFirst()+" > "+myRange.getLast()+" : "+str);
+									myLR.add(new DidRange(str));
+									}
+								}
+							else
+								{
+								myLR.add(myRange);
+								}
+								
+							didRanges.addAll(myLR);
 							}
 						}
 					else if(tab[j][0].equals("setting"))
@@ -1137,6 +1157,84 @@ public class UsefulMethod
 			}
 		
 		return false;
+		}
+	
+	/**
+	 * Method used to convert a range of DID number into
+	 * An arraylist of regex
+	 * @param first
+	 * @param end
+	 * @return
+	 */
+	public static ArrayList<String> getRegexFromRange(String firstNumber, String lastNumber)
+		{
+		int start = Integer.parseInt(firstNumber);
+		int end = Integer.parseInt(lastNumber);
+		
+		final LinkedList<Range> left = leftBounds(start, end);
+		final Range lastLeft = left.removeLast();
+		final LinkedList<Range> right = rightBounds(lastLeft.getStart(), end);
+		final Range firstRight = right.removeFirst();
+
+		LinkedList<Range> merged = new LinkedList<>();
+		merged.addAll(left);
+		if (!lastLeft.overlaps(firstRight))
+			{
+			merged.add(lastLeft);
+			merged.add(firstRight);
+			}
+		else
+			{
+			merged.add(Range.join(lastLeft, firstRight));
+			}
+		merged.addAll(right);
+
+		//merged.stream().map(Range::toRegex).forEach(System.out::println);
+		
+		ArrayList<String> list = new ArrayList<String>();
+		for(Range r : merged)
+			{
+			list.add(r.toRegex());
+			}
+		
+		return list;
+		}
+	
+	/**
+	 * Used to by getRegexFromRange
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private static LinkedList<Range> leftBounds(int start, int end)
+		{
+	    final LinkedList<Range> result = new LinkedList<>();
+	    while (start < end)
+	    	{
+	        final Range range = Range.fromStart(start);
+	        result.add(range);
+	        start = range.getEnd()+1;
+	    	}
+	    return result;
+		}
+
+	/**
+	 * Used to by getRegexFromRange
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private static LinkedList<Range> rightBounds(int start, int end)
+		{
+	    final LinkedList<Range> result = new LinkedList<>();
+	    while (start < end)
+	    	{
+	        final Range range = Range.fromEnd(end);
+	        result.add(range);
+	        end = range.getStart()-1;
+	    	}
+	    Collections.reverse(result);
+	    return result;
 		}
 	
 	/*2018*//*RATEL Alexandre 8)*/

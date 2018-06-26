@@ -44,6 +44,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 	public JMenuItem injectOffice;
 	public JMenuItem updateOffice;
 	public JMenuItem deleteOffice;
+	public JMenuItem quickTaskOffice;
 	public JMenuItem exit;
 	public JMenu tools;
 	public JMenuItem option;
@@ -73,6 +74,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		injectOffice = new JMenuItem(LanguageManagement.getString("injectoffice"));
 		updateOffice = new JMenuItem(LanguageManagement.getString("updateoffice"));
 		deleteOffice = new JMenuItem(LanguageManagement.getString("deleteoffice"));
+		quickTaskOffice = new JMenuItem(LanguageManagement.getString("quicktaskoffice"));
 		exit = new JMenuItem(LanguageManagement.getString("exit"));
 		tools = new JMenu(LanguageManagement.getString("tools"));
 		option = new JMenuItem(LanguageManagement.getString("option"));
@@ -118,6 +120,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		officeProvisioning.add(injectOffice);
 		officeProvisioning.add(updateOffice);
 		officeProvisioning.add(deleteOffice);
+		officeProvisioning.add(quickTaskOffice);
 		menu.add(officeProvisioning);
 		menu.add(exit);
 		tools.add(option);
@@ -143,6 +146,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		injectOffice.addActionListener(this);
 		updateOffice.addActionListener(this);
 		deleteOffice.addActionListener(this);
+		quickTaskOffice.addActionListener(this);
 		exit.addActionListener(this);
 		option.addActionListener(this);
 		genCollectionFile.addActionListener(this);
@@ -290,7 +294,21 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			ArrayList<OptionLine> myOptionList = new ArrayList<OptionLine>();
 			myOptionList.add(new OptionLine(itemType.location));
 			myOptionList.add(new OptionLine(itemType.region));
-			//To be completed
+			myOptionList.add(new OptionLine(itemType.srstreference));
+			myOptionList.add(new OptionLine(itemType.devicepool));
+			myOptionList.add(new OptionLine(itemType.commondeviceconfig));
+			myOptionList.add(new OptionLine(itemType.conferencebridge));
+			myOptionList.add(new OptionLine(itemType.mediaresourcegroup));
+			myOptionList.add(new OptionLine(itemType.mediaresourcegrouplist));
+			myOptionList.add(new OptionLine(itemType.partition));
+			myOptionList.add(new OptionLine(itemType.callingsearchspace));
+			myOptionList.add(new OptionLine(itemType.routegroup));
+			myOptionList.add(new OptionLine(itemType.translationpattern));
+			myOptionList.add(new OptionLine(itemType.callingpartytransformationpattern));
+			myOptionList.add(new OptionLine(itemType.calledpartytransformationpattern));
+			myOptionList.add(new OptionLine(itemType.trunksip));
+			myOptionList.add(new OptionLine(itemType.vg));
+			myOptionList.add(new OptionLine(itemType.gateway));
 			
 			this.getContentPane().removeAll();
 			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("officeupdatetitle"), myOptionList, actionType.update, provisioningType.office));
@@ -330,6 +348,24 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			
 			this.getContentPane().removeAll();
 			this.getContentPane().add(new OptionPanel(this, LanguageManagement.getString("officedeletiontiontitle"), myOptionList, actionType.delete, provisioningType.office));
+			this.repaint();
+			this.validate();
+			}
+		else if(evt.getSource() == this.quickTaskOffice)
+			{
+			Variables.getLogger().info("Office deletion button pressed");
+			
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
+			
+			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
+			
+			this.getContentPane().removeAll();
+			this.getContentPane().add(new QuickTaskPanel(this, LanguageManagement.getString("officequicktasktitle")));
 			this.repaint();
 			this.validate();
 			}

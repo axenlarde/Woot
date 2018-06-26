@@ -54,7 +54,7 @@ public class OfficesSelectionWindow extends JDialog implements ActionListener,Wi
 		this.officeList = officeList;
 		
 		//Controle
-		validate = new JButton(LanguageManagement.getString("selectButton"));
+		validate = new JButton(LanguageManagement.getString("selectbutton"));
 		fillListO();
 		selectionList = new JList(listO);
 		selectionList.setVisibleRowCount(5);
@@ -116,7 +116,7 @@ public class OfficesSelectionWindow extends JDialog implements ActionListener,Wi
 		
 		for(int i=0; i<a; i++)
 			{
-			list[i]=officeList.get(i).getName()+" - "+officeList.get(i).getFullname();
+			list[i]=officeList.get(i).getName()+" - "+officeList.get(i).getFullname()+" - "+officeList.get(i).getCountry();
 			}
 		listO = list;
 		}

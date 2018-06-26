@@ -87,7 +87,10 @@ public class ProgressUpdater extends Thread
 					int errorItem = 0;
 					for(ItemToInject iti : myTask.getTodoList())
 						{
-						if((iti.getStatus().equals(statusType.injected)) || (iti.getStatus().equals(statusType.deleted)))treatedItem++;
+						if((iti.getStatus().equals(statusType.injected))
+							|| (iti.getStatus().equals(statusType.deleted))
+							|| (iti.getStatus().equals(statusType.updated)))
+							treatedItem++;
 						if(iti.getStatus().equals(statusType.disabled))disabledItem++;
 						if(iti.getStatus().equals(statusType.error))errorItem++;
 						}

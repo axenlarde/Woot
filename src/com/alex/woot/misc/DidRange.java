@@ -18,20 +18,17 @@ public class DidRange
 	public DidRange(String pattern)
 		{
 		super();
-		this.pattern = pattern;
-		this.first = new String("");
-		this.last = new String("");
-		}
-	
-	/***************
-	 * Constructor
-	 ***************/
-	public DidRange(String first, String last)
-		{
-		super();
-		this.pattern = new String("");
-		this.first = first;
-		this.last = last;
+		
+		if(pattern.contains(":"))
+			{
+			String[] tab = pattern.split(":");
+			this.first = tab[0];
+			this.last = tab[1];
+			}
+		else
+			{
+			this.pattern = pattern;
+			}
 		}
 
 	public String getPattern()
@@ -64,11 +61,6 @@ public class DidRange
 		this.last = last;
 		}
 	
-	
-	
-	
-	
-	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*2018*//*RATEL Alexandre 8)*/
 	}
 

@@ -6,6 +6,7 @@ import com.alex.woot.axlitems.linkers.CallingSearchSpaceLinker;
 import com.alex.woot.misc.CollectionTools;
 import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.soap.items.PartitionMember;
+import com.alex.woot.utils.UsefulMethod;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.itemType;
 
@@ -103,6 +104,7 @@ public class CallingSearchSpace extends ItemToInject
 	public void resolve() throws Exception
 		{
 		name = CollectionTools.getRawValue(name, this, true);
+		description = CollectionTools.getRawValue(description, this, false);
 		
 		for(PartitionMember p : members)
 			{
@@ -110,6 +112,7 @@ public class CallingSearchSpace extends ItemToInject
 			}
 		
 		myCSS.setName(name);
+		myCSS.setDescription(description);
 		myCSS.setMembers(members);
 		}
 	
@@ -118,6 +121,7 @@ public class CallingSearchSpace extends ItemToInject
 	 */
 	public void manageTuList() throws Exception
 		{
+		if(UsefulMethod.isNotEmpty(description))tuList.add(CallingSearchSpaceLinker.toUpdate.description);
 		if((members != null) && (members.size() != 0))tuList.add(CallingSearchSpaceLinker.toUpdate.members);
 		}
 	

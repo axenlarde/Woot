@@ -1,6 +1,43 @@
 <xml>
 	<offices>
 		<office>
+			<name>001</name>
+			<templatename>template1</templatename>
+			<fullname>Ivry-sur-seine</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>France</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>France</country>
+			<internalprefix>331</internalprefix>
+			<e164>33</e164>
+			<receptionnumber>3317500</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>1495914XX</did>
+				<did>1495922XX</did>
+				<did>14959279X</did>
+				<did>1495929XX</did>
+				<did>1495951XX</did>
+				<did>1495975XX</did>
+				<did>1495928[0-8]X</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>149597500</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>1001</value>
+			</setting>
+		</office>
+		<office>
 			<name>002</name>
 			<templatename>template1</templatename>
 			<fullname>Gennevilliers</fullname>
@@ -20,8 +57,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>14185[0-3]XXX</did>
-				<did>14185[5-9]XXX</did>
+				<did>141852[01]XX</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -52,7 +88,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>55780XXXX</did>
+				<did>5578091[0-6]X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -83,7 +119,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>38317XXXX</did>
+				<did>3831797[4-9]X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -114,7 +150,11 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>16442XXXX</did>
+				<did>16442561X</did>
+				<did>16442734X</did>
+				<did>16442791X</did>
+				<did>16442842X</did>
+				<did>16442509X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -145,7 +185,12 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>29667XXXX</did>
+				<did>296671049</did>
+				<did>29667106[0-4]</did>
+				<did>29667114[7-9]</did>
+				<did>29667199[0-4]</did>
+				<did>29667105[0-3]</did>
+				<did>29667115[01]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -176,7 +221,9 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>49003XXXX</did>
+				<did>49003029X</did>
+				<did>4900372[0-2]X</did>
+				<did>49003723[0-4]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -207,7 +254,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>49363XXXX</did>
+				<did>4936335[01]X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -238,7 +285,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>24729XXXX</did>
+				<did>24729802X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -269,7 +316,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>49499XXXX</did>
+				<did>494995172</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -300,7 +347,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>14718XXXX</did>
+				<did>14718103[67]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -331,7 +378,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>49022XXXX</did>
+				<did>490222239</did>
+				<did>49022224[0-8]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -362,7 +410,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>49181XXXX</did>
+				<did>49181581[6-9]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -393,7 +441,13 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>32686XXXX</did>
+				<did>32686684[89]</did>
+				<did>32686685[0-7]</did>
+				<did>32686697X</did>
+				<did>3268675[2-5]X</did>
+				<did>32686756[0-8]</did>
+				<did>32686757X</did>
+				<did>326867583</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -424,7 +478,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>32592XXXX</did>
+				<did>32592356X</did>
+				<did>32592374X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -455,7 +510,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>49613XXXX</did>
+				<did>4961331XX</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -486,7 +541,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>49080XXXX</did>
+				<did>4908044[89]X</did>
+				<did>49004748X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -517,7 +573,13 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>32101XXXX</did>
+				<did>321620604</did>
+				<did>321533000</did>
+				<did>32101703X</did>
+				<did>32101708X</did>
+				<did>32101749X</did>
+				<did>32101759X</did>
+				<did>32114773X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -548,7 +610,9 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>29724XXXX</did>
+				<did>2975992[78]X</did>
+				<did>29759929X</did>
+				<did>2975944[89]X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -579,7 +643,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>23298XXXX</did>
+				<did>23298932X</did>
+				<did>23298931[5-9]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -610,7 +675,15 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>29743XXXX</did>
+				<did>297430360</did>
+				<did>297432192</did>
+				<did>297432252</did>
+				<did>297432342</did>
+				<did>297432371</did>
+				<did>297432373</did>
+				<did>29743246[3-9]</did>
+				<did>297432470</did>
+				<did>29743623[1-6]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -641,7 +714,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>32114XXXX</did>
+				<did>32114773X</did>
+				<did>32114723[5-9]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -672,7 +746,7 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>47209XXXX</did>
+				<did>47209050[0-3]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -703,7 +777,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>59654XXXX</did>
+				<did>59654893[7-9]</did>
+				<did>596548940</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -734,7 +809,11 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>47572XXXX</did>
+				<did>475727[0-2]XX</did>
+				<did>47572840X</did>
+				<did>47572842X</did>
+				<did>47572849X</did>
+				<did>4757287[1-4]X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -765,7 +844,11 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>32829XXXX</did>
+				<did>32829212[2-9]</did>
+				<did>32829275[0-6]</did>
+				<did>32829275[7-9]</did>
+				<did>3282927[6-7]X</did>
+				<did>32829401[89]</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -796,7 +879,8 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>32102XXXX</did>
+				<did>321021615</did>
+				<did>3216358[89]X</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -827,7 +911,16 @@
 			<voicemailprofile></voicemailprofile>
 			<voicenetwork></voicenetwork>
 			<didranges>
-				<did>23240XXXX</did>
+				<did>232409369</did>
+				<did>232409370</did>
+				<did>23240962[89]</did>
+				<did>232409900</did>
+				<did>232409915</did>
+				<did>23240992X</did>
+				<did>232409959</did>
+				<did>232409977</did>
+				<did>232409979</did>
+				<did>232409980</did>
 			</didranges>
 			<setting>
 				<targetname>1</targetname>
@@ -836,6 +929,365 @@
 			<setting>
 				<targetname>2</targetname>
 				<value>2776</value>
+			</setting>
+		</office>
+		<office>
+			<name>067</name>
+			<templatename>template3</templatename>
+			<fullname>Budapest</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>Hungarian Hungary</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Hongrie</datetimegroup>
+			<mohnumber>2</mohnumber>
+			<country>Hungary</country>
+			<internalprefix>360</internalprefix>
+			<e164>36</e164>
+			<receptionnumber>3600180</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>1802018X</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>18020180</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>0</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>999</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>1802XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>068</name>
+			<templatename>template3</templatename>
+			<fullname>Varsovie</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>Polish Poland</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Pologne</datetimegroup>
+			<mohnumber>2</mohnumber>
+			<country>Poland</country>
+			<internalprefix>480</internalprefix>
+			<e164>48</e164>
+			<receptionnumber>4800050</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>22398005[0-3]</did>
+				<did>22398005[5-8]</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>223980050</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>0</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>999</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>22398XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>071</name>
+			<templatename>template3</templatename>
+			<fullname>Vernier</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Suisse</datetimegroup>
+			<mohnumber>2</mohnumber>
+			<country>Switzerland</country>
+			<internalprefix>410</internalprefix>
+			<e164>41</e164>
+			<receptionnumber>4101030</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>05821810XX</did>
+				<did>022306087X</did>
+				<did>02293910[34]X</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>582181030</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>0</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>999</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>58218XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>073</name>
+			<templatename>template3</templatename>
+			<fullname>Ridderkerk</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>Dutch Netherlands</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Paysbas</datetimegroup>
+			<mohnumber>2</mohnumber>
+			<country>Netherland</country>
+			<internalprefix>310</internalprefix>
+			<e164>31</e164>
+			<receptionnumber>3105111</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>18048510[2-9]</did>
+				<did>1804851[1-4]X</did>
+				<did>18048515[0-8]</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>180485111</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>0</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>999</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>18048XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>078</name>
+			<templatename>template3</templatename>
+			<fullname>Wigston</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>English United States</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Angleterre</datetimegroup>
+			<mohnumber>5</mohnumber>
+			<country>UK</country>
+			<internalprefix>440</internalprefix>
+			<e164>44</e164>
+			<receptionnumber>4408200</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>11625782[0-5]X</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>1162571871</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>9</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>000</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>116257XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>079</name>
+			<templatename>template3</templatename>
+			<fullname>Mulheim</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>German Germany</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Allemagne</datetimegroup>
+			<mohnumber>2</mohnumber>
+			<country>Germany</country>
+			<internalprefix>490</internalprefix>
+			<e164>49</e164>
+			<receptionnumber>4908914</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>20899789[1-4]X</did>
+				<did>208997895[0-8]</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>2089978914</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>0</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>999</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>208997XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>080</name>
+			<templatename>template3</templatename>
+			<fullname>Barcelona</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>Spanish Spain</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Espagne</datetimegroup>
+			<mohnumber>2</mohnumber>
+			<country>Spain</country>
+			<internalprefix>340</internalprefix>
+			<e164>34</e164>
+			<receptionnumber>3409550</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>93323957X</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>933239550</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>0</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>999</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>93323XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>082</name>
+			<templatename>template3</templatename>
+			<fullname>Nivelles</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>French France</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Belgique</datetimegroup>
+			<mohnumber>3</mohnumber>
+			<country>Belgium</country>
+			<internalprefix>320</internalprefix>
+			<e164>32</e164>
+			<receptionnumber>3205660</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>6789560X</did>
+				<did>678956[6-9]X</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>67895660</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>0</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>999</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>6789XXXX</value>
+			</setting>
+		</office>
+		<office>
+			<name>098</name>
+			<templatename>template3</templatename>
+			<fullname>Southall</fullname>
+			<audiobandwidth>UNLIMITED</audiobandwidth>
+			<videobandwidth>384</videobandwidth>
+			<userlocal>English United States</userlocal>
+			<softkeytemplate>Standard User SNR</softkeytemplate>
+			<callmanagergroup>MAIN_CMG</callmanagergroup>
+			<datetimegroup>Angleterre</datetimegroup>
+			<mohnumber>5</mohnumber>
+			<country>UK</country>
+			<internalprefix>440</internalprefix>
+			<e164>44</e164>
+			<receptionnumber>4408030</receptionnumber>
+			<aargroup></aargroup>
+			<voicemailtemplate></voicemailtemplate>
+			<voicemailprofile></voicemailprofile>
+			<voicenetwork></voicenetwork>
+			<didranges>
+				<did>20857180[3-9]X</did>
+				<did>20857187[0-7]X</did>
+			</didranges>
+			<setting>
+				<targetname>1</targetname>
+				<value>2085718030</value>
+			</setting>
+			<setting>
+				<targetname>2</targetname>
+				<value>9</value>
+			</setting>
+			<setting>
+				<targetname>3</targetname>
+				<value>000</value>
+			</setting>
+			<setting>
+				<targetname>4</targetname>
+				<value>208571XXXX</value>
 			</setting>
 		</office>
 	</offices>
