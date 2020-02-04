@@ -3,7 +3,6 @@ package com.alex.woot.user.misc;
 import java.util.ArrayList;
 
 import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.Voicemail;
 import com.alex.woot.soap.items.PhoneLine;
 import com.alex.woot.soap.items.PhoneService;
 import com.alex.woot.soap.items.SpeedDial;
@@ -50,6 +49,60 @@ public class TemplateUserReader
 			
 			//And here we get the detail
 			ArrayList<ArrayList<String[][]>> templateUserContentDetail = xMLGear.getResultListTabExt(fileContent, listParams);
+			
+			String[][] tab = templateUserContent.get(0);
+			ArrayList<String[][]> detail = templateUserContentDetail.get(0);
+			
+			/******
+			 * For each item we check if we have to process it.
+			 * If yes we create the suitable item object and 
+			 * we add it to the list of items to inject
+			 */
+			for(int i=0; i<tab.length; i++)
+				{
+				for(itemType item : itemType.values())
+					{
+					if(tab[i][0].equals(item.name()))
+						{
+						ItemToInject myItem = createItem(item, detail.get(i));
+						if(myItem != null)UserTemplateList.add(myItem);
+						break;
+						}
+					}
+				}
+			
+			return UserTemplateList;
+			}
+		catch(Exception e)
+			{
+			e.printStackTrace();
+			throw new Exception("ERROR while reading the User Template file : "+e.getMessage());
+			}
+		}
+	
+	/*********************
+	 * Static method used to read the User Template 
+	 * @throws Exception 
+	 */
+	public static ArrayList<ItemToInject> readUserQuickTaskTemplate(String pattern) throws Exception
+		{
+		try
+			{
+			Variables.getLogger().info("Reading the following CCM pattern : \r\n"+pattern);
+			pattern = pattern.replace("\r", "").replace("\n", "");
+			pattern = "<xml><items>"+pattern+"</items></xml>";
+			
+			//We initialize the Item to Inject List
+			ArrayList<ItemToInject> UserTemplateList = new ArrayList<ItemToInject>();
+			
+			ArrayList<String> listParams = new ArrayList<String>();
+			listParams.add("items");
+			
+			//We get here the list of the items we want to process
+			ArrayList<String[][]> templateUserContent = xMLGear.getResultListTab(pattern, listParams);
+			
+			//And here we get the detail
+			ArrayList<ArrayList<String[][]>> templateUserContentDetail = xMLGear.getResultListTabExt(pattern, listParams);
 			
 			String[][] tab = templateUserContent.get(0);
 			ArrayList<String[][]> detail = templateUserContentDetail.get(0);
@@ -202,11 +255,14 @@ public class TemplateUserReader
 			}
 		else if(type.equals(itemType.voicemail))
 			{
+			//To be written
+			/*
 			return new Voicemail(UsefulMethod.getItemByName("alias", itemDetails),
 					UsefulMethod.getItemByName("firstname", itemDetails),
 					UsefulMethod.getItemByName("lastname", itemDetails),
 					UsefulMethod.getItemByName("displayname", itemDetails),
 					UsefulMethod.getItemByName("voicemailtemplate", itemDetails));
+				*/
 			}
 		
 		//etc...

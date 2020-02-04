@@ -16,7 +16,6 @@ import com.alex.woot.misc.OfficeSetting;
 import com.alex.woot.misc.Range;
 import com.alex.woot.misc.SimpleRequest;
 import com.alex.woot.misc.ValueMatcher;
-import com.alex.woot.misc.databaseAccess;
 import com.alex.woot.soap.items.PhoneService;
 import com.alex.woot.soap.items.SpeedDial;
 import com.alex.woot.user.misc.UserCreationProfile;
@@ -328,11 +327,7 @@ public class UsefulMethod
 	 */
 	public static String getFlatFileContent(String fileName) throws Exception
 		{
-		if(Variables.getDataSource().equals(DataSource.databaseFile))
-			{
-			return databaseAccess.extractContentFile(Variables.getDatabasePath(), fileName);
-			}
-		else if(Variables.getDataSource().equals(DataSource.xmlFile))
+		if(Variables.getDataSource().equals(DataSource.xmlFile))
 			{
 			return xMLReader.fileRead(Variables.getMainConfigFileDirectory()+"\\"+fileName);
 			}

@@ -365,7 +365,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			
 			this.getContentPane().removeAll();
-			this.getContentPane().add(new QuickTaskPanel(this, LanguageManagement.getString("officequicktasktitle")));
+			this.getContentPane().add(new OfficeQuickTaskPanel(this, LanguageManagement.getString("officequicktasktitle")));
 			this.repaint();
 			this.validate();
 			}

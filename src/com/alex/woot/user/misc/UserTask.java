@@ -3,20 +3,15 @@ package com.alex.woot.user.misc;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
 import com.alex.woot.gui.ProgressUpdater;
 import com.alex.woot.gui.StatusWindow;
 import com.alex.woot.gui.WaitingWindow;
 import com.alex.woot.misc.CollectionFileChecker;
-import com.alex.woot.misc.ItemToInject;
 import com.alex.woot.misc.Task;
 import com.alex.woot.soap.misc.MainItem;
-import com.alex.woot.user.items.DeviceProfile;
-import com.alex.woot.user.items.Phone;
 import com.alex.woot.utils.LanguageManagement;
 import com.alex.woot.utils.Variables;
 import com.alex.woot.utils.Variables.actionType;
-import com.alex.woot.utils.Variables.itemType;
 
 
 /**********************************
@@ -24,19 +19,33 @@ import com.alex.woot.utils.Variables.itemType;
  * 
  * @author RATEL Alexandre
  **********************************/
-public class UserDeletion extends Thread
+public class UserTask extends Thread
 	{
 	/**
 	 * Variables
 	 */
-	private ArrayList<MainItem> itemToDeleteList;
+	private ArrayList<MainItem> itemToInjectList;
+	private actionType action;
+	private String pattern;
+	private boolean quickTask;
 	
 	/****
 	 * Constructor
 	 */
-	public UserDeletion()
+	public UserTask(actionType action, boolean quickTask, String pattern)
 		{
-		itemToDeleteList = new ArrayList<MainItem>();
+		this.action = action;
+		this.quickTask = quickTask;
+		this.pattern = pattern;
+		itemToInjectList = new ArrayList<MainItem>();
+		
+		start();
+		}
+	
+	public UserTask(actionType action)
+		{
+		this.action = action;
+		itemToInjectList = new ArrayList<MainItem>();
 		
 		start();
 		}
@@ -48,7 +57,7 @@ public class UserDeletion extends Thread
 		{
 		/*******
 		 * Splash window
-		 * Used to make the user waiting
+		 * Used to make the user wait
 		 */
 		WaitingWindow myWW = new WaitingWindow(LanguageManagement.getString("pleasewait"));
 		/**************/
@@ -59,18 +68,25 @@ public class UserDeletion extends Thread
 			 * Init
 			 */
 			//Collection file checking
-			CollectionFileChecker.checkForUserCreation();//Has to be improved
+			CollectionFileChecker.checkForUserCreation();
 			
 			myWW.getAvancement().setText(" "+LanguageManagement.getString("itemlistbuilding"));
 			
 			//We build the list of users and their phones which is a list of main items
-			itemToDeleteList = UserTools.setUserList(actionType.delete, myWW);
+			if(quickTask)
+				{
+				itemToInjectList = UserTools.setUserList(action, myWW, quickTask, pattern);
+				}
+			else
+				{
+				itemToInjectList = UserTools.setUserList(action, myWW);
+				}
 			
 			//Temp
 			/*
-			Variables.getLogger().debug("We display here the content of the deletion list : ");
+			Variables.getLogger().debug("We display here the content of the injection list : ");
 			
-			for(MainItem mi : itemToDeleteList)
+			for(MainItem mi : itemToInjectList)
 				{
 				Variables.getLogger().debug("Item : "+mi.getDescription());
 				for(ItemToInject iti : mi.getAssociatedItems())
@@ -80,11 +96,17 @@ public class UserDeletion extends Thread
 						{
 						Variables.getLogger().debug("Services count : "+((DeviceProfile)iti).getServiceList().size());
 						Variables.getLogger().debug("Sd count : "+((DeviceProfile)iti).getSdList().size());
+						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
 						}
 					else if(iti.getType().equals(itemType.phone))
 						{
 						Variables.getLogger().debug("Services count : "+((Phone)iti).getServiceList().size());
 						Variables.getLogger().debug("Sd count : "+((Phone)iti).getSdList().size());
+						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
+						}
+					else if(iti.getType().equals(itemType.line))
+						{
+						Variables.getLogger().debug("Error count : "+iti.getErrorList().size());
 						}
 					}
 				}*/
@@ -98,14 +120,14 @@ public class UserDeletion extends Thread
 			 * Injection
 			 */
 			myWW.getAvancement().setText(" "+LanguageManagement.getString("taskbuilding"));
-			Task myTask = UserTools.prepareUserProcess(itemToDeleteList, actionType.delete);		
+			Task myTask = UserTools.prepareUserProcess(itemToInjectList, action);		
 			myTask.startBuildProcess();
 			myTask.start();
 			
-			Variables.getLogger().info("User deletion starts");
+			Variables.getLogger().info("User task of type "+action.name()+" starts");
 			
 			//We launch the user interface panel
-			StatusWindow sw = new StatusWindow(itemToDeleteList, myTask);
+			StatusWindow sw = new StatusWindow(itemToInjectList, myTask);
 			Variables.getMyWindow().getContentPane().removeAll();
 			Variables.getMyWindow().getContentPane().add(sw);
 			Variables.getMyWindow().repaint();
@@ -119,15 +141,13 @@ public class UserDeletion extends Thread
 		catch (Exception e)
 			{
 			Variables.getLogger().error("ERROR : "+e.getMessage(),e);
+			JOptionPane.showMessageDialog(null,LanguageManagement.getString("usertaskerror")+" : "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 			}
-		
+
 		myWW.close();
 		}
 	
-	
-	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2017*//*RATEL Alexandre 8)*/
 	}
 

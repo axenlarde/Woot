@@ -476,7 +476,7 @@ public class TrunkSip extends ItemToInject
 
 	public void setUnknownPrefix(String unknownPrefix)
 		{
-		unknownPrefix = unknownPrefix;
+		this.unknownPrefix = unknownPrefix;
 		}
 
 	public String getUnknownStripDigits()
@@ -486,7 +486,7 @@ public class TrunkSip extends ItemToInject
 
 	public void setUnknownStripDigits(String unknownStripDigits)
 		{
-		unknownStripDigits = unknownStripDigits;
+		this.unknownStripDigits = unknownStripDigits;
 		}
 
 	public String getCgpnTransformationUnknownCssName()
@@ -497,7 +497,7 @@ public class TrunkSip extends ItemToInject
 	public void setCgpnTransformationUnknownCssName(
 			String cgpnTransformationUnknownCssName)
 		{
-		cgpnTransformationUnknownCssName = cgpnTransformationUnknownCssName;
+		this.cgpnTransformationUnknownCssName = cgpnTransformationUnknownCssName;
 		}
 
 	public String getUseDevicePoolCgpnTransformCssUnkn()
@@ -508,7 +508,7 @@ public class TrunkSip extends ItemToInject
 	public void setUseDevicePoolCgpnTransformCssUnkn(
 			String useDevicePoolCgpnTransformCssUnkn)
 		{
-		useDevicePoolCgpnTransformCssUnkn = useDevicePoolCgpnTransformCssUnkn;
+		this.useDevicePoolCgpnTransformCssUnkn = useDevicePoolCgpnTransformCssUnkn;
 		}
 
 	
