@@ -75,7 +75,7 @@ public class UserTask extends Thread
 			//We build the list of users and their phones which is a list of main items
 			if(quickTask)
 				{
-				itemToInjectList = UserTools.setUserList(action, myWW, quickTask, pattern);
+				itemToInjectList = UserTools.setUserList(action, myWW, pattern);
 				}
 			else
 				{

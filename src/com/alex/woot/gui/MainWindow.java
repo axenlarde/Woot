@@ -40,6 +40,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 	public JMenuItem injectUser;
 	public JMenuItem updateUser;
 	public JMenuItem deleteUser;
+	public JMenuItem quickTaskUser;
 	public JMenu officeProvisioning;
 	public JMenuItem injectOffice;
 	public JMenuItem updateOffice;
@@ -74,6 +75,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		injectOffice = new JMenuItem(LanguageManagement.getString("injectoffice"));
 		updateOffice = new JMenuItem(LanguageManagement.getString("updateoffice"));
 		deleteOffice = new JMenuItem(LanguageManagement.getString("deleteoffice"));
+		quickTaskUser = new JMenuItem(LanguageManagement.getString("quicktaskuser"));
 		quickTaskOffice = new JMenuItem(LanguageManagement.getString("quicktaskoffice"));
 		exit = new JMenuItem(LanguageManagement.getString("exit"));
 		tools = new JMenu(LanguageManagement.getString("tools"));
@@ -116,6 +118,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		userProvisioning.add(injectUser);
 		userProvisioning.add(updateUser);
 		userProvisioning.add(deleteUser);
+		userProvisioning.add(quickTaskUser);
 		menu.add(userProvisioning);
 		officeProvisioning.add(injectOffice);
 		officeProvisioning.add(updateOffice);
@@ -146,6 +149,7 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 		injectOffice.addActionListener(this);
 		updateOffice.addActionListener(this);
 		deleteOffice.addActionListener(this);
+		quickTaskUser.addActionListener(this);
 		quickTaskOffice.addActionListener(this);
 		exit.addActionListener(this);
 		option.addActionListener(this);
@@ -362,10 +366,55 @@ public class MainWindow extends JFrame implements ActionListener, WindowListener
 			Variables.setCurrentOffices(null);
 			/**************/
 			
+			ArrayList<itemType> AllowedList = new ArrayList<itemType>();
+			AllowedList.add(itemType.location);
+			AllowedList.add(itemType.region);
+			AllowedList.add(itemType.srstreference);
+			AllowedList.add(itemType.devicepool);
+			AllowedList.add(itemType.commondeviceconfig);
+			AllowedList.add(itemType.conferencebridge);
+			AllowedList.add(itemType.mediaresourcegroup);
+			AllowedList.add(itemType.mediaresourcegrouplist);
+			AllowedList.add(itemType.partition);
+			AllowedList.add(itemType.callingsearchspace);
+			AllowedList.add(itemType.routegroup);
+			AllowedList.add(itemType.translationpattern);
+			AllowedList.add(itemType.callingpartytransformationpattern);
+			AllowedList.add(itemType.calledpartytransformationpattern);
+			AllowedList.add(itemType.trunksip);
+			AllowedList.add(itemType.vg);
+			AllowedList.add(itemType.gateway);
+			
 			Variables.setAllowedItemsToProcess(new ArrayList<itemType>());
 			
 			this.getContentPane().removeAll();
 			this.getContentPane().add(new OfficeQuickTaskPanel(this, LanguageManagement.getString("officequicktasktitle")));
+			this.repaint();
+			this.validate();
+			}
+		else if(evt.getSource() == this.quickTaskUser)
+			{
+			Variables.getLogger().info("User deletion button pressed");
+			
+			/**
+			 * First we clear what is necessary for a new injection
+			 */
+			Variables.setCurrentOffice(null);
+			Variables.setCurrentOffices(null);
+			/**************/
+			
+			ArrayList<itemType> AllowedList = new ArrayList<itemType>();
+			AllowedList.add(itemType.user);
+			AllowedList.add(itemType.udp);
+			AllowedList.add(itemType.phone);
+			AllowedList.add(itemType.callpickupgroup);
+			AllowedList.add(itemType.linegroup);
+			AllowedList.add(itemType.udplogin);
+			AllowedList.add(itemType.analog);
+			Variables.setAllowedItemsToProcess(AllowedList);
+			
+			this.getContentPane().removeAll();
+			this.getContentPane().add(new UserQuickTaskPanel(this, LanguageManagement.getString("userquicktasktitle")));
 			this.repaint();
 			this.validate();
 			}

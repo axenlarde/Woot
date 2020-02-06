@@ -234,14 +234,14 @@ public class TemplateUserReader
 			//device list
 			ArrayList<String> deviceList = readUserList(itemDetails, "device");
 			ArrayList<String> UDPList = readUserList(itemDetails, "udp");
+			ArrayList<String> ctiUDPList = readUserList(itemDetails, "ctiudp");
 			ArrayList<String> groupList = readUserList(itemDetails, "group");
-			
-			
 			
 			return new User(UsefulMethod.getItemByName("targetname", itemDetails),
 					UsefulMethod.getItemByName("userid", itemDetails),
 					deviceList,
 					UDPList,
+					ctiUDPList,
 					groupList,
 					UsefulMethod.getItemByName("lastname", itemDetails),
 					UsefulMethod.getItemByName("firstname", itemDetails),
@@ -249,6 +249,7 @@ public class TemplateUserReader
 					UsefulMethod.getItemByName("userlocal", itemDetails),
 					UsefulMethod.getItemByName("subscribecss", itemDetails),
 					UsefulMethod.getItemByName("primaryextension", itemDetails),
+					UsefulMethod.getItemByName("ipccextension", itemDetails),
 					UsefulMethod.getItemByName("partition", itemDetails),
 					UsefulMethod.getItemByName("pin", itemDetails),
 					UsefulMethod.getItemByName("password", itemDetails));

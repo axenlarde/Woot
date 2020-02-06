@@ -3,6 +3,9 @@ package com.alex.woot.misc;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -12,6 +15,7 @@ import com.alex.woot.utils.Variables.itemType;
 import com.cisco.axl.api._8.GetCCMVersionReq;
 import com.cisco.axl.api._8.GetCCMVersionRes;
 import com.cisco.axl.api._8.XFkType;
+import com.cisco.axlapiservice10.AXLError;
 
 /**********************************
  * Class used to contain static method for
@@ -70,7 +74,7 @@ public class SimpleRequest
 			}
 		else
 			{
-			return getUUIDV85(type, itemName).getUuid();
+			return getUUIDV105(type, itemName).getUuid();
 			}
 		}
 	
@@ -889,7 +893,59 @@ public class SimpleRequest
 		return null;
 		}
 	
+	/*********************************************
+	 * Dedicated method to get the UUID of a line
+	 * @throws Exception 
+	 */
+	public static String getLineUUID(String lineNumber, String partitionName) throws Exception
+		{
+		if(Variables.getCUCMVersion().equals(cucmAXLVersion.version85))
+			{
+			throw new Exception("Unsupported AXL version");
+			//return getLineUUIDV85(type, itemName).getUuid();
+			}
+		else if(Variables.getCUCMVersion().equals(cucmAXLVersion.version105))
+			{
+			return getLineUUIDV105(lineNumber, partitionName).getUuid();
+			}
+		else
+			{
+			return getLineUUIDV105(lineNumber, partitionName).getUuid();
+			}
+		}
 	
-	/*2018*//*RATEL Alexandre 8)*/
+	public static com.cisco.axl.api._10.XFkType getLineUUIDV105(String lineNumber, String partitionName) throws Exception
+		{
+		Variables.getLogger().debug("Get Line UUID from CUCM : "+lineNumber+" "+partitionName);
+		
+		if((lineNumber == null) || (lineNumber.equals("")) || (partitionName == null) || (partitionName.equals("")))
+			{
+			return getXFKV105("", lineNumber, itemType.line);
+			}
+		
+		String id = itemType.line.name()+lineNumber;
+		
+		for(storedUUID s : Variables.getUuidList())
+			{
+			if(s.getComparison().equals(id))
+				{
+				Variables.getLogger().debug("UUID known");
+				return getXFKWithoutStoringItV105(s.getUUID(), lineNumber, itemType.line);
+				}
+			}
+		
+		com.cisco.axl.api._10.GetLineReq req = new com.cisco.axl.api._10.GetLineReq();
+		com.cisco.axl.api._10.RLine returnedTags = new com.cisco.axl.api._10.RLine();
+		
+		req.setPattern(lineNumber);
+		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(itemType.partition, partitionName)));
+		returnedTags.setUuid("");
+		req.setReturnedTags(returnedTags);
+		com.cisco.axl.api._10.GetLineRes resp = Variables.getAXLConnectionToCUCMV105().getLine(req);//We send the request to the CUCM
+		return getXFKV105(resp.getReturn().getLine().getUuid(), lineNumber, itemType.line);
+		}
+	
+	
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

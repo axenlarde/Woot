@@ -507,7 +507,7 @@ public class UserTools
 	 * !!!! Very important and complex algorithm !!!!
 	 * !!!! Modify with care !!!!!
 	 */
-	public static ArrayList<MainItem> setUserList(actionType action, WaitingWindow myWW, boolean quickTask, String pattern) throws Exception
+	public static ArrayList<MainItem> setUserList(actionType action, WaitingWindow myWW, String pattern) throws Exception
 		{
 		ArrayList<MainItem> userList = new ArrayList<MainItem>();
 		
@@ -563,7 +563,9 @@ public class UserTools
 				 */
 				UdpLoginItem uli = new UdpLoginItem();
 				
-				for(ItemToInject item : Variables.getUserTemplateList())
+				
+				
+				for(ItemToInject item : TemplateUserReader.readUserQuickTaskTemplate(pattern))
 					{
 					if(item.getType().equals(itemType.udp))
 						{
@@ -1296,6 +1298,7 @@ public class UserTools
 					template.getName(),
 					template.getDeviceList(),
 					template.getUDPList(),
+					template.getCtiUDPList(),
 					template.getUserControlGroupList(),
 					template.getLastname(),
 					template.getFirstname(),
@@ -1303,6 +1306,7 @@ public class UserTools
 					template.getUserLocale(),
 					template.getSubscribeCallingSearchSpaceName(),
 					template.getPrimaryExtension(),
+					template.getIpccExtension(),
 					template.getRoutePartition(),
 					template.getPin(),
 					template.getPassword());

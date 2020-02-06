@@ -32,6 +32,7 @@ public class User extends ItemToInject
 	userLocale,
 	subscribeCallingSearchSpaceName,
 	primaryExtension,
+	ipccExtension,
 	routePartition,
 	pin,
 	password;
@@ -39,6 +40,7 @@ public class User extends ItemToInject
 	private ArrayList<String> userControlGroupList;
 	private ArrayList<String> deviceList;
 	private ArrayList<String> UDPList;
+	private ArrayList<String> ctiUDPList;
 	
 	private int index;
 	
@@ -51,6 +53,7 @@ public class User extends ItemToInject
 			String name,
 			ArrayList<String> deviceList,
 			ArrayList<String> UDPList,
+			ArrayList<String> ctiUDPList,
 			ArrayList<String> userControlGroupList,
 			String lastname,
 			String firstname,
@@ -58,6 +61,7 @@ public class User extends ItemToInject
 			String userLocale,
 			String subscribeCallingSearchSpaceName,
 			String primaryExtension,
+			String ipccExtension,
 			String routePartition,
 			String pin,
 			String password) throws Exception
@@ -67,12 +71,14 @@ public class User extends ItemToInject
 		myUser = new UserLinker(name);
 		this.deviceList = deviceList;
 		this.UDPList = UDPList;
+		this.ctiUDPList = ctiUDPList;
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.telephoneNumber = telephoneNumber;
 		this.userLocale = userLocale;
 		this.subscribeCallingSearchSpaceName = subscribeCallingSearchSpaceName;
 		this.primaryExtension = primaryExtension;
+		this.ipccExtension = ipccExtension;
 		this.routePartition = routePartition;
 		this.userControlGroupList = userControlGroupList;
 		this.pin = pin;
@@ -82,6 +88,7 @@ public class User extends ItemToInject
 	public User(String name,
 			String deviceName,
 			String UDPName,
+			String ctiUDPName,
 			String userControlGroupName,
 			String lastname,
 			String firstname,
@@ -89,6 +96,7 @@ public class User extends ItemToInject
 			String userLocale,
 			String subscribeCallingSearchSpaceName,
 			String primaryExtension,
+			String ipccExtension,
 			String routePartition,
 			String pin,
 			String password) throws Exception
@@ -99,12 +107,18 @@ public class User extends ItemToInject
 		if(!((deviceName == null) || (deviceName.equals(""))))deviceList.add(deviceName);
 		UDPList = new ArrayList<String>();
 		if(!((UDPName == null) || (UDPName.equals(""))))UDPList.add(UDPName);
+		ctiUDPList = new ArrayList<String>();
+		if(!((ctiUDPName == null) || (ctiUDPName.equals(""))))ctiUDPList.add(ctiUDPName);
 		userControlGroupList = new ArrayList<String>();
 		if(!((userControlGroupName == null) || (userControlGroupName.equals(""))))userControlGroupList.add(userControlGroupName);
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.telephoneNumber = telephoneNumber;
 		this.userLocale = userLocale;
+		this.subscribeCallingSearchSpaceName = subscribeCallingSearchSpaceName;
+		this.primaryExtension = primaryExtension;
+		this.ipccExtension = ipccExtension;
+		this.routePartition = routePartition;
 		this.pin = pin;
 		this.password = password;
 		}
@@ -197,6 +211,7 @@ public class User extends ItemToInject
 		userLocale = CollectionTools.getValueFromCollectionFile(index, userLocale, this, false);
 		subscribeCallingSearchSpaceName = CollectionTools.getValueFromCollectionFile(index, subscribeCallingSearchSpaceName, this, false);
 		primaryExtension = CollectionTools.getValueFromCollectionFile(index, primaryExtension, this, false);
+		ipccExtension = CollectionTools.getValueFromCollectionFile(index, ipccExtension, this, false);
 		routePartition = CollectionTools.getValueFromCollectionFile(index, routePartition, this, false);
 		pin = CollectionTools.getValueFromCollectionFile(index, pin, this, false);
 		password = CollectionTools.getValueFromCollectionFile(index, password, this, false);
@@ -228,6 +243,7 @@ public class User extends ItemToInject
 		myUser.setUserLocale(userLocale);
 		myUser.setSubscribeCallingSearchSpaceName(subscribeCallingSearchSpaceName);
 		myUser.setPrimaryExtension(primaryExtension);
+		myUser.setIpccExtension(ipccExtension);
 		myUser.setRoutePartition(routePartition);
 		myUser.setUserControlGroupList(userControlGroupList);
 		myUser.setPassword(password);
@@ -271,10 +287,27 @@ public class User extends ItemToInject
 				}
 			}
 		
+		//ctiUDP
+		ArrayList<String> ctiudpList = new ArrayList<String>();
+		for(int i=0; i<ctiUDPList.size(); i++)
+			{
+			try
+				{
+				ctiudpList.add(CollectionTools.getValueFromCollectionFile(j, ctiUDPList.get(i), this, true));
+				}
+			catch(EmptyValueException eve)
+				{
+				Variables.getLogger().debug("User "+name+" the ctiUDP "+i+" "+ctiUDPList.get(i)+
+						" has not been added because it returned an empty value : "+eve.getMessage());
+				}
+			}
+		
 		deviceList = dList;
 		UDPList = udpList;
-		myUser.setDeviceList(dList);
-		myUser.setUDPList(udpList);
+		ctiUDPList = ctiudpList;
+		myUser.setDeviceList(deviceList);
+		myUser.setUDPList(UDPList);
+		myUser.setCtiUDPList(ctiUDPList);
 		}
 	
 	/**
@@ -288,11 +321,13 @@ public class User extends ItemToInject
 		if(UsefulMethod.isNotEmpty(userLocale))tuList.add(UserLinker.toUpdate.userLocale);
 		if(UsefulMethod.isNotEmpty(subscribeCallingSearchSpaceName))tuList.add(UserLinker.toUpdate.subscribeCallingSearchSpaceName);
 		if(UsefulMethod.isNotEmpty(primaryExtension))tuList.add(UserLinker.toUpdate.primaryExtension);
+		if(UsefulMethod.isNotEmpty(ipccExtension))tuList.add(UserLinker.toUpdate.ipccExtension);
 		if(UsefulMethod.isNotEmpty(pin))tuList.add(UserLinker.toUpdate.pin);
 		if(UsefulMethod.isNotEmpty(password))tuList.add(UserLinker.toUpdate.password);
 		if((userControlGroupList != null) && (userControlGroupList.size() != 0))tuList.add(UserLinker.toUpdate.userControlGroup);
 		if((deviceList != null) && (deviceList.size() != 0))tuList.add(UserLinker.toUpdate.devices);
 		if((UDPList != null) && (UDPList.size() != 0))tuList.add(UserLinker.toUpdate.udps);
+		if((ctiUDPList != null) && (ctiUDPList.size() != 0))tuList.add(UserLinker.toUpdate.ctiudps);
 		}
 
 	public String getLastname()
@@ -446,9 +481,29 @@ public class User extends ItemToInject
 		this.userLocale = userLocale;
 		}
 
+	public String getIpccExtension()
+		{
+		return ipccExtension;
+		}
+
+	public void setIpccExtension(String ipccExtension)
+		{
+		this.ipccExtension = ipccExtension;
+		}
+
+	public ArrayList<String> getCtiUDPList()
+		{
+		return ctiUDPList;
+		}
+
+	public void setCtiUDPList(ArrayList<String> ctiUDPList)
+		{
+		this.ctiUDPList = ctiUDPList;
+		}
+
 	
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

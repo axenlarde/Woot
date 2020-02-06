@@ -39,6 +39,7 @@ public class UserLinker extends AXLItemLinker
 	userLocale,
 	subscribeCallingSearchSpaceName,
 	primaryExtension,
+	ipccExtension,
 	routePartition,
 	password,
 	pin;
@@ -46,6 +47,7 @@ public class UserLinker extends AXLItemLinker
 	private ArrayList<String> userControlGroupList;
 	private ArrayList<String> deviceList;
 	private ArrayList<String> UDPList;
+	private ArrayList<String> ctiUDPList;
 	
 	public enum toUpdate implements ToUpdate
 		{
@@ -57,9 +59,11 @@ public class UserLinker extends AXLItemLinker
 		pin,
 		subscribeCallingSearchSpaceName,
 		primaryExtension,
+		ipccExtension,
 		userControlGroup,
 		devices,
-		udps
+		udps,
+		ctiudps
 		}
 	
 	/***************
@@ -200,6 +204,16 @@ public class UserLinker extends AXLItemLinker
 			params.setPrimaryExtension(myP);
 			}
 		
+		//IPCC extension
+		if(UsefulMethod.isNotEmpty(ipccExtension))
+			{
+			//params.setIpccExtension(new JAXBElement(new QName("ipccExtension"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getLineUUIDV105(this.ipccExtension, this.routePartition)));
+			com.cisco.axl.api._10.XFkType extension = SimpleRequest.getLineUUIDV105(this.ipccExtension, this.routePartition);
+			extension.setValue(this.ipccExtension);
+			params.setIpccExtension(new JAXBElement(new QName("ipccExtension"), com.cisco.axl.api._10.XFkType.class, extension));//To test
+			//params.setIpccExtension(new JAXBElement(new QName("ipccExtension"), String.class, this.ipccExtension));//To test
+			}
+		
 		//User groups
 		if(userControlGroupList.size() > 0)
 			{
@@ -235,10 +249,23 @@ public class UserLinker extends AXLItemLinker
 			
 			for(String udp : UDPList)
 				{
-				//myUDPs.getProfileName().add(SimpleRequest.getUUIDV105(itemType.udp, udp));
+				myUDPs.getProfileName().add(SimpleRequest.getUUIDV105(itemType.udp, udp));
 				}
 			
 			params.setPhoneProfiles(myUDPs);
+			}
+		
+		//ctiUDP
+		if(ctiUDPList.size() > 0)
+			{
+			com.cisco.axl.api._10.XUser.CtiControlledDeviceProfiles myCtiUDPs = new com.cisco.axl.api._10.XUser.CtiControlledDeviceProfiles();
+			
+			for(String udp : ctiUDPList)
+				{
+				myCtiUDPs.getProfileName().add(SimpleRequest.getUUIDV105(itemType.udp, udp));
+				}
+			
+			params.setCtiControlledDeviceProfiles(myCtiUDPs);
 			}
 		/************/
 		
@@ -322,6 +349,15 @@ public class UserLinker extends AXLItemLinker
 			req.setPrimaryExtension(myP);
 			}
 		
+		if(tuList.contains(toUpdate.ipccExtension))
+			{
+			//req.setIpccExtension(new JAXBElement(new QName("ipccExtension"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getLineUUIDV105(this.ipccExtension, this.routePartition)));
+			com.cisco.axl.api._10.XFkType extension = SimpleRequest.getLineUUIDV105(this.ipccExtension, this.routePartition);
+			extension.setValue(this.ipccExtension);
+			req.setIpccExtension(new JAXBElement(new QName("ipccExtension"), com.cisco.axl.api._10.XFkType.class, extension));//To test
+			//req.setIpccExtension(new JAXBElement(new QName("ipccExtension"), String.class, this.ipccExtension));//To test
+			}
+		
 		if(tuList.contains(toUpdate.userControlGroup))
 			{
 			if(userControlGroupList.size() > 0)
@@ -366,6 +402,20 @@ public class UserLinker extends AXLItemLinker
 					}
 				
 				req.setPhoneProfiles(myUDPs);
+				}
+			}
+		if(tuList.contains(toUpdate.ctiudps))
+			{
+			if(ctiUDPList.size() > 0)
+				{
+				com.cisco.axl.api._10.UpdateUserReq.CtiControlledDeviceProfiles myCtiUDPs = new com.cisco.axl.api._10.UpdateUserReq.CtiControlledDeviceProfiles();
+				
+				for(String udp : ctiUDPList)
+					{
+					myCtiUDPs.getProfileName().add(SimpleRequest.getUUIDV105(itemType.udp, udp));
+					}
+				
+				req.setCtiControlledDeviceProfiles(myCtiUDPs);
 				}
 			}
 		/************/
@@ -576,6 +626,26 @@ public class UserLinker extends AXLItemLinker
 		this.userLocale = userLocale;
 		}
 
+	public String getIpccExtension()
+		{
+		return ipccExtension;
+		}
+
+	public void setIpccExtension(String ipccExtension)
+		{
+		this.ipccExtension = ipccExtension;
+		}
+
+	public ArrayList<String> getCtiUDPList()
+		{
+		return ctiUDPList;
+		}
+
+	public void setCtiUDPList(ArrayList<String> ctiUDPList)
+		{
+		this.ctiUDPList = ctiUDPList;
+		}
+
 	
 	
 	
@@ -583,6 +653,6 @@ public class UserLinker extends AXLItemLinker
 	
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

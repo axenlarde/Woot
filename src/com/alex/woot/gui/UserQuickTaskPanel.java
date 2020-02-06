@@ -48,15 +48,17 @@ public class UserQuickTaskPanel extends JPanel implements ActionListener
 		
 		StringBuffer str = new StringBuffer();//Just to make an example
 		str.append("<user>\r\n");
-		str.append("	<userid>file.userid</userid>\r\n");
-		str.append("	<lastname>*M**C*file.lastname</lastname>\r\n");
-		str.append("	<firstname>(*1M**C*file.firstname)IfLongerThan30(*1_**M**C*file.firstname+'.')</firstname>\r\n");
+		str.append("	<userid>*m*file.userid</userid>\r\n");
+		str.append("	<lastname>*M*file.lastname</lastname>\r\n");
+		str.append("	<firstname>*1M*file.firstname</firstname>\r\n");
 		str.append("	<telephonenumber>file.linenumber1</telephonenumber>\r\n");
-		str.append("	<userlocal>office.userlocal</userlocal>\r\n");
-		str.append("	<subscribecss>'SUBSCRIBE_CSS'</subscribecss>\r\n");
+		str.append("	<userlocal>'French France'</userlocal>\r\n");
+		str.append("	<subscribecss>'INTERNAL_CSS'</subscribecss>\r\n");
 		str.append("	<password>file.userpassword</password>\r\n");
 		str.append("	<pin>file.userpin</pin>\r\n");
-		str.append("	<group>'Standard CCM End Users'</group><!--One or more-->\r\n");
+		str.append("	<group>'SICS_Default_ACGC'</group>\r\n");
+		str.append("	<udp>*M*file.userid</udp>\r\n");
+		str.append("	<ctiudp>*M*file.userid</ctiudp>\r\n");
 		str.append("</user>\r\n");
 		
 		pattern = new JTextArea(str.toString());
