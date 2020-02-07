@@ -210,7 +210,7 @@ public class UserLinker extends AXLItemLinker
 			//params.setIpccExtension(new JAXBElement(new QName("ipccExtension"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getLineUUIDV105(this.ipccExtension, this.routePartition)));
 			com.cisco.axl.api._10.XFkType extension = SimpleRequest.getLineUUIDV105(this.ipccExtension, this.routePartition);
 			extension.setValue(this.ipccExtension);
-			params.setIpccExtension(new JAXBElement(new QName("ipccExtension"), com.cisco.axl.api._10.XFkType.class, extension));//To test
+			params.setIpccExtension(new JAXBElement(new QName("ipccExtension"), com.cisco.axl.api._10.XFkType.class, extension));//To test again
 			//params.setIpccExtension(new JAXBElement(new QName("ipccExtension"), String.class, this.ipccExtension));//To test
 			}
 		
