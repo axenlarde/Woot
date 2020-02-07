@@ -6,6 +6,21 @@ the collection file
 <xml>
 	<profiles>
 		<profile>
+			<name>AgentUCCX</name>
+			<user>
+				<target>newlocaluser</target>
+				<action>inject</action>
+			</user>
+			<user>
+				<target>updateudp</target>
+				<action>update</action>
+			</user>
+			<user>
+				<target>updatepe</target>
+				<action>update</action>
+			</user>
+		</profile>
+		<profile>
 			<name>emobility</name>
 			<user>
 				<target>newuser</target>

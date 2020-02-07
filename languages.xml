@@ -33,6 +33,7 @@ Language configuration file
 			<updateoffice>Update</updateoffice>
 			<deleteoffice>Delete</deleteoffice>
 			<quicktaskoffice>Quick task</quicktaskoffice>
+			<quicktaskuser>Quick task</quicktaskuser>
 			<exit>Exit</exit>
 			<tools>Tools</tools>
 			<option>Options</option>
@@ -51,6 +52,7 @@ Language configuration file
 			<officeupdatetitle>Office update</officeupdatetitle>
 			<officedeletiontitle>Office deletion</officedeletiontitle>
 			<officequicktasktitle>Quick task for office</officequicktasktitle>
+			<userquicktasktitle>Quick task for user</userquicktasktitle>
 			<start>Start</start>
 			<stop>Stop</stop>
 			<pause>Pause</pause>

@@ -13,6 +13,7 @@ Overal configuration file
 		<minjavaversion>1.6:16</minjavaversion><!--Minimum java version allowed-->
 		<maxvgport>24</maxvgport><!--Max vg port handled by the system-->
 		<splitter>+</splitter>
+		<maxdataprocessed>500</maxdataprocessed>
 		<!--Smtp parameters-->
 		<smtpemailport>25</smtpemailport>
 		<smtpemailprotocol>smtp</smtpemailprotocol>
@@ -22,7 +23,7 @@ Overal configuration file
 		<smtpemailreceiver>alexandre.ratel@spie.com</smtpemailreceiver><!--One or more destinations separated by a ;-->
 		<!--Smtp parameters end-->
 		<!--AXL parameters-->
-		<axlhost>10.1.1.1</axlhost><!--IP of the CUCM server-->
+		<axlhost>10.20.147.201</axlhost><!--IP of the CUCM server-->
 		<axlport>8443</axlport><!--Port to contact the CUCM server using AXL-->
 		<axlversion>105</axlversion><!--85 or 105--><!--AXL version of the CUCM-->
 		<axlusername>AXL_Woot</axlusername><!--AXL user name to contact the CUCM server-->

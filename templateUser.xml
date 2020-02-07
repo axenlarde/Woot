@@ -162,40 +162,41 @@ Les combinaisons sont possibles, par exemple : *4**M*file.lastname affichera les
 			<group>'Standard CCM End Users'</group><!--One or more-->
 		</user>
 		<user>
-			<targetname>newuser</targetname>
-			<userid>file.userid</userid>
-			<lastname>*M**C*file.lastname</lastname>
-			<firstname>(*1M**C*file.firstname)IfLongerThan30(*1_**M**C*file.firstname+'.')</firstname>
+			<targetname>newlocaluser</targetname>
+			<userid>*m*file.userid</userid>
+			<lastname>*M*file.lastname</lastname>
+			<firstname>*1M*file.firstname</firstname>
 			<telephonenumber>file.linenumber1</telephonenumber>
-			<userlocal>office.userlocal</userlocal>
-			<subscribecss>'SUBSCRIBE_CSS'</subscribecss>
+			<userlocal>'French France'</userlocal>
+			<subscribecss>'INTERNAL_CSS'</subscribecss>
 			<password>file.userpassword</password>
 			<pin>file.userpin</pin>
-			<group>'Standard CCM End Users'</group><!--One or more-->
+			<group>'SICS_Default_ACGC'</group>
 		</user>
 		<user>
 			<targetname>updateudp</targetname>
-			<userid>file.userid</userid>
-			<udp>*m*file.userid</udp>
+			<userid>*m*file.userid</userid>
+			<udp>*M*file.userid</udp>
+			<ctiudp>*M*file.userid</ctiudp>
 		</user>
 		<user>
 			<targetname>updatepe</targetname>
-			<userid>file.userid</userid>
+			<userid>*m*file.userid</userid>
 			<primaryextension>file.linenumber1</primaryextension>
-			<partition>config.didpartition</partition>
+			<partition>config.nodidpartition</partition>
 		</user>
 		<user>
 			<targetname>updatephone</targetname>
 			<userid>file.userid</userid>
 			<device>'SEP'+file.phonemac</device>
 		</user>
-		<voicemail>
+		<!--<voicemail>
 			<targetname>voicemail</targetname>
 			<alias>userid</alias>
 			<firstname>prenom</firstname>
 			<lastname>*M*nom</lastname>
 			<displayname></displayname>
 			<voicemailtemplate>office.voicemailtemplate</voicemailtemplate>
-		</voicemail>
+		</voicemail>-->
 	</items>
 </xml>
